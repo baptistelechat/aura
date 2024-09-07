@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Clapperboard, House } from "lucide-react";
+import { Clapperboard, House, Image } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement } from "react";
 
@@ -13,6 +13,11 @@ const Menu = () => {
       name: "Home",
       path: "/",
       icon: <House className="mr-2 size-4" />,
+    },
+    {
+      name: "Image Generator",
+      path: "/image-generator",
+      icon: <Image className="mr-2 size-4" />,
     },
     {
       name: "Screen Recorder",

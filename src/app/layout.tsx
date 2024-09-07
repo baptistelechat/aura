@@ -20,10 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
         className={cn(
-          "bg-background font-sans antialiased overflow-hidden",
+          "bg-background font-sans antialiased h-full flex flex-col",
           inter.className
         )}
       >
@@ -36,8 +36,8 @@ export default function RootLayout({
           <div className="fixed bottom-4 right-4 z-50">
             <ThemeToggle />
           </div>
-          <Menu/>
-          {children}
+          <Menu />
+          <main className="flex-grow overflow-hidden">{children}</main>
           <Toaster />
         </ThemeProvider>
       </body>
