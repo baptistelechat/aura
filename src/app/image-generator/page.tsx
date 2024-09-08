@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 import { Download } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -63,54 +63,18 @@ const ImageGenerator = () => {
 
   const generateImage = async () => {
     if (previewRef.current) {
-      // Sauvegarder les dimensions originales
-      const originalWidth = previewRef.current.style.width;
-      const originalHeight = previewRef.current.style.height;
+      try {
+        const dataUrl = await toPng(previewRef.current, {
+          canvasWidth: width,
+          canvasHeight: height,
+        });
 
-      // Appliquer les dimensions exactes pour la capture
-      previewRef.current.style.width = `${width}px`;
-      previewRef.current.style.height = `${height}px`;
-
-      const canvas = await html2canvas(previewRef.current, {
-        scale: 1, // S'assurer que l'échelle soit correcte
-      });
-
-      // Créer un nouveau canevas avec les dimensions finales
-      const finalCanvas = document.createElement("canvas");
-      finalCanvas.width = width;
-      finalCanvas.height = height;
-      const ctx = finalCanvas.getContext("2d");
-
-      if (ctx) {
-        // Remplir le fond du canevas avec la couleur de fond
-        ctx.fillStyle = bgColor;
-        ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
-
-        // Calculer les dimensions d'affichage pour centrer l'image
-        const aspectRatio = canvas.width / canvas.height;
-        let drawWidth = finalCanvas.width;
-        let drawHeight = finalCanvas.width / aspectRatio;
-
-        if (drawHeight > finalCanvas.height) {
-          drawHeight = finalCanvas.height;
-          drawWidth = finalCanvas.height * aspectRatio;
-        }
-
-        const offsetX = (finalCanvas.width - drawWidth) / 2;
-        const offsetY = (finalCanvas.height - drawHeight) / 2;
-
-        // Dessiner l'image capturée centrée dans le canevas
-        ctx.drawImage(canvas, offsetX, offsetY, drawWidth, drawHeight);
-
-        const imgData = finalCanvas.toDataURL("image/png");
         const link = document.createElement("a");
-        link.href = imgData;
+        link.href = dataUrl;
         link.download = "social-image.png";
         link.click();
-
-        // Restaurer les dimensions originales pour l'affichage
-        previewRef.current.style.width = originalWidth;
-        previewRef.current.style.height = originalHeight;
+      } catch (error) {
+        console.error("Erreur lors de la génération de l'image:", error);
       }
     }
   };
@@ -172,7 +136,7 @@ const ImageGenerator = () => {
           style={{
             backgroundColor: bgColor,
             transition: "all 0.3s ease",
-            position: "relative", // Ajout pour positionner les repères
+            position: "relative",
           }}
           className="relative border border-red-500 overflow-hidden flex items-center justify-center"
         >
@@ -194,7 +158,7 @@ const ImageGenerator = () => {
               {text}
             </span>
           )}
-          {/* Ajout des repères visuels */}
+          {/* Ajout des repères visuels pour tester le rendu */}
           <div className="absolute top-0 left-0 p-2 text-xs text-red-500">
             Top Left
           </div>
