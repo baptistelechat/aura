@@ -30,6 +30,7 @@ const Menu = () => {
     <nav className="flex w-full justify-center p-4 gap-4">
       {links.map((link) => (
         <Button
+          key={link.name}
           variant={pathname === link.path ? "default" : "link"}
           onClick={() => router.push(link.path)}
         >
