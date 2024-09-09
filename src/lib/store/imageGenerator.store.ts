@@ -49,7 +49,7 @@ const defaultSettings: ImageGeneratorSettings = {
   },
   image: {
     src: null,
-    borderRadius: 12,
+    borderRadius: 24,
   },
 };
 

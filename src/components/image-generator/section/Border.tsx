@@ -43,18 +43,18 @@ const Border = () => {
           <Square className="size-5" />
         </Button>
         <Button
-          disabled={image.borderRadius === 12}
-          variant="outline"
-          size="icon"
-          onClick={() => setBorderRadius(12)}
-        >
-          <Squircle className="size-5" />
-        </Button>
-        <Button
           disabled={image.borderRadius === 24}
           variant="outline"
           size="icon"
           onClick={() => setBorderRadius(24)}
+        >
+          <Squircle className="size-5" />
+        </Button>
+        <Button
+          disabled={image.borderRadius === 48}
+          variant="outline"
+          size="icon"
+          onClick={() => setBorderRadius(48)}
         >
           <Circle className="size-5" />
         </Button>
