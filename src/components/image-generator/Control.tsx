@@ -1,0 +1,72 @@
+import { Circle, Square, Squircle } from "lucide-react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Slider } from "../ui/slider";
+
+interface IControlProps {
+  title: string;
+  value: number;
+  setValue: (value: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
+const Control = ({ title, value, setValue, min, max, step }: IControlProps) => {
+  return (
+    <div className="flex gap-2">
+      <div className="grid w-full items-center gap-3">
+        <div className="w-full flex justify-between items-center">
+          <Label htmlFor="slider" className="text-primary/40">
+            {title}
+          </Label>
+          <Input
+            type="number"
+            value={value}
+            onChange={(e) => setValue(Number(e.target.value))}
+            className="w-16 h-8 "
+            min={min ?? 0}
+            max={max ?? 100}
+            step={step ?? 1}
+          />
+        </div>
+        <Slider
+          value={[value]}
+          onValueChange={(newValue) => setValue(newValue[0])}
+          min={min ?? 0}
+          max={max ?? 100}
+          step={step ?? 1}
+        />
+        <div className="flex justify-between">
+          <Button
+            disabled={value === min ?? 0}
+            variant="outline"
+            size="icon"
+            onClick={() => setValue(min ?? 0)}
+          >
+            <Square className="size-5" />
+          </Button>
+          <Button
+            disabled={value === ((min ?? 0) + (max ?? 100)) / 2}
+            variant="outline"
+            size="icon"
+            onClick={() => setValue(((min ?? 0) + (max ?? 100)) / 2)}
+          >
+            <Squircle className="size-5" />
+          </Button>
+          <Button
+            disabled={value === max ?? 100}
+            variant="outline"
+            size="icon"
+            onClick={() => setValue(max ?? 100)}
+          >
+            <Circle className="size-5" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Control;

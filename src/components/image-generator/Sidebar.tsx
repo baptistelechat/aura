@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import Border from "./section/Border";
+import Shadow from "./section/Shadow";
 
 interface ISidebarProps {
   generateImage: () => void;
@@ -40,6 +41,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
         🎨 Image Generator
       </h1>
       <Border />
+      <Shadow />
       <Input
         type="text"
         value={settings.text}

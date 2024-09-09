@@ -8,6 +8,7 @@ type DimensionUpdate = {
 type ImageUpdate = {
   src?: string | null;
   borderRadius?: number;
+  shadow?: number;
 };
 
 type ImageGeneratorSettings = {
@@ -20,6 +21,7 @@ type ImageGeneratorSettings = {
   image: {
     src: string | null;
     borderRadius: number;
+    shadow: number;
   };
 };
 
@@ -35,12 +37,14 @@ type ImageGeneratorStoreType = {
   setImage: (update: ImageUpdate) => void;
   setImageSrc: (src: string) => void;
   setImageBorderRadius: (borderRadius: number) => void;
+  setImageShadow: (shadow: number) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
+  resetImageShadow: () => void;
 };
 
-const defaultSettings: ImageGeneratorSettings = {
+export const defaultSettings: ImageGeneratorSettings = {
   text: "Your Text Here",
   bgColor: "#ffffff",
   dimension: {
@@ -50,6 +54,7 @@ const defaultSettings: ImageGeneratorSettings = {
   image: {
     src: null,
     borderRadius: 24,
+    shadow: 0.5,
   },
 };
 
@@ -148,6 +153,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
+  setImageShadow: (shadow: number) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        image: {
+          ...state.settings.image,
+          shadow,
+        },
+      },
+    }));
+  },
+
   // Reset
   resetSettings: () => {
     set({
@@ -159,10 +176,22 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     set((state) => ({
       settings: {
         ...state.settings,
-        image:{
+        image: {
           ...state.settings.image,
-          borderRadius: defaultSettings.image.borderRadius
-        }
+          borderRadius: defaultSettings.image.borderRadius,
+        },
+      },
+    }));
+  },
+
+  resetImageShadow: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        image: {
+          ...state.settings.image,
+          shadow: defaultSettings.image.shadow,
+        },
       },
     }));
   },

@@ -23,7 +23,7 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
           transition: "all 0.3s ease",
           position: "relative",
         }}
-        className="relative border border-red-500 overflow-hidden flex items-center justify-center transition-all duration-300"
+        className="relative border border-slate-200 overflow-hidden flex items-center justify-center transition-all duration-300 rounded-xl"
       >
         {image.src && (
           <img
@@ -33,6 +33,8 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
               maxWidth: "75%",
               maxHeight: "75%",
               borderRadius: `${image.borderRadius}px`,
+              // boxShadow: `0 25px 50px -12px rgb(0 0 0 /${image.shadow})`,
+              filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`
             }}
             className="transition-all duration-300"
           />
@@ -51,7 +53,7 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
             {text}
           </span>
         )}
-        <div className="absolute top-0 left-0 p-2 text-xs text-red-500">
+        {/* <div className="absolute top-0 left-0 p-2 text-xs text-red-500">
           Top Left
         </div>
         <div className="absolute top-0 right-0 p-2 text-xs text-red-500">
@@ -62,7 +64,7 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
         </div>
         <div className="absolute bottom-0 right-0 p-2 text-xs text-red-500">
           Bottom Right
-        </div>
+        </div> */}
       </div>
     </div>
   );
