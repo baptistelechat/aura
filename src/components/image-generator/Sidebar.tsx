@@ -36,7 +36,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   };
 
   return (
-    <div className="flex flex-col w-64 space-y-4">
+    <div className="flex flex-col w-72 space-y-4">
       <h1 className="text-2xl font-bold mb-4 text-center">
         🎨 Image Generator
       </h1>

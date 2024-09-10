@@ -1,15 +1,15 @@
 "use client";
 import Preview from "@/components/image-generator/Preview";
 import Sidebar from "@/components/image-generator/Sidebar";
+import generateImage from "@/lib/image-generator/generateImage";
 import updatePreviewSize from "@/lib/image-generator/updatePreviewSize";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import * as htmlToImage from "html-to-image";
 import { useEffect, useRef } from "react";
 
 const ImageGenerator = () => {
   const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const { width, height } = dimension;
-  
+
   const previewRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,23 +24,9 @@ const ImageGenerator = () => {
       );
   }, [width, height]);
 
-  const generateImage = async () => {
-    if (previewRef.current) {
-      try {
-        const dataUrl = await htmlToImage.toPng(previewRef.current);
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = "social-image.png";
-        link.click();
-      } catch (error) {
-        console.error("Error generating image:", error);
-      }
-    }
-  };
-
   return (
     <div className="flex h-full p-8">
-      <Sidebar generateImage={generateImage} />
+      <Sidebar generateImage={() => generateImage(previewRef)} />
       <Preview containerRef={containerRef} previewRef={previewRef} />
     </div>
   );
