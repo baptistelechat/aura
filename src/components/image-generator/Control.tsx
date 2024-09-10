@@ -1,4 +1,5 @@
-import { Circle, Square, Squircle } from "lucide-react";
+import { Circle, Minus, Plus, Scale, Squircle } from "lucide-react";
+import { ReactElement } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -11,9 +12,12 @@ interface IControlProps {
   min?: number;
   max?: number;
   step?: number;
+  minIcon?: ReactElement;
+  middleIcon?: ReactElement;
+  maxIcon?: ReactElement;
 }
 
-const Control = ({ title, value, setValue, min, max, step }: IControlProps) => {
+const Control = ({ title, value, setValue, min, max, step, minIcon, middleIcon, maxIcon }: IControlProps) => {
   return (
     <div className="flex gap-2">
       <div className="grid w-full items-center gap-3">
@@ -45,7 +49,7 @@ const Control = ({ title, value, setValue, min, max, step }: IControlProps) => {
             size="icon"
             onClick={() => setValue(min ?? 0)}
           >
-            <Square className="size-5" />
+            {minIcon ?? <Minus className="size-5" />}
           </Button>
           <Button
             disabled={value === ((min ?? 0) + (max ?? 100)) / 2}
@@ -53,7 +57,7 @@ const Control = ({ title, value, setValue, min, max, step }: IControlProps) => {
             size="icon"
             onClick={() => setValue(((min ?? 0) + (max ?? 100)) / 2)}
           >
-            <Squircle className="size-5" />
+            {middleIcon ?? <Scale className="size-5" />}
           </Button>
           <Button
             disabled={value === max ?? 100}
@@ -61,7 +65,7 @@ const Control = ({ title, value, setValue, min, max, step }: IControlProps) => {
             size="icon"
             onClick={() => setValue(max ?? 100)}
           >
-            <Circle className="size-5" />
+            {maxIcon ?? <Plus className="size-5" />}
           </Button>
         </div>
       </div>

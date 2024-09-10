@@ -9,6 +9,7 @@ type ImageUpdate = {
   src?: string | null;
   borderRadius?: number;
   shadow?: number;
+  scale?: number;
 };
 
 type ImageGeneratorSettings = {
@@ -22,6 +23,7 @@ type ImageGeneratorSettings = {
     src: string | null;
     borderRadius: number;
     shadow: number;
+    scale: number;
   };
 };
 
@@ -38,10 +40,12 @@ type ImageGeneratorStoreType = {
   setImageSrc: (src: string) => void;
   setImageBorderRadius: (borderRadius: number) => void;
   setImageShadow: (shadow: number) => void;
+  setImageScale: (scale: number) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
   resetImageShadow: () => void;
+  resetImageScale: () => void;
 };
 
 export const defaultSettings: ImageGeneratorSettings = {
@@ -55,6 +59,7 @@ export const defaultSettings: ImageGeneratorSettings = {
     src: null,
     borderRadius: 24,
     shadow: 0.5,
+    scale: 0.5,
   },
 };
 
@@ -165,6 +170,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
+  setImageScale: (scale: number) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        image: {
+          ...state.settings.image,
+          scale,
+        },
+      },
+    }));
+  },
+
   // Reset
   resetSettings: () => {
     set({
@@ -191,6 +208,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
         image: {
           ...state.settings.image,
           shadow: defaultSettings.image.shadow,
+        },
+      },
+    }));
+  },
+
+  resetImageScale: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        image: {
+          ...state.settings.image,
+          scale: defaultSettings.image.scale,
         },
       },
     }));

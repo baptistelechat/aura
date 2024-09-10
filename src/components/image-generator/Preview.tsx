@@ -30,11 +30,10 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
             src={image.src}
             alt="Selected"
             style={{
-              maxWidth: "75%",
-              maxHeight: "75%",
               borderRadius: `${image.borderRadius}px`,
               // boxShadow: `0 25px 50px -12px rgb(0 0 0 /${image.shadow})`,
-              filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`
+              filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
+              transform: `scale(${image.scale})`,
             }}
             className="transition-all duration-300"
           />

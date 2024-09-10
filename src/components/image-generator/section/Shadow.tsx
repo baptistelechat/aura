@@ -8,14 +8,14 @@ import SidebarSection from "../SidebarSection";
 const Shadow = () => {
   const image = useImageGeneratorStore((s) => s.settings.image);
   const setShadow = useImageGeneratorStore((s) => s.setImageShadow);
-  const resetImageShadow = useImageGeneratorStore((s) => s.resetImageShadow);
+  const resetShadow = useImageGeneratorStore((s) => s.resetImageShadow);
 
   return (
     <SidebarSection
       title={"Shadow"}
       icon={<LampDesk className="size-4" />}
       disabled={image.shadow === defaultSettings.image.shadow}
-      reset={resetImageShadow}
+      reset={resetShadow}
     >
       <Control
         title={"opacity"}

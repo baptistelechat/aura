@@ -33,7 +33,7 @@ const SidebarSection = ({
         </Button>
       </p>
       {children}
-      <Separator className="mt-2"/>
+      <Separator className="mt-2" />
     </div>
   );
 };
