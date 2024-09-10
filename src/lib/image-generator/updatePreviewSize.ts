@@ -1,18 +1,11 @@
-import { RefObject } from "react";
-
-interface IUpdatePreviewSizeProps {
-  containerRef: RefObject<HTMLDivElement>;
-  previewRef: RefObject<HTMLDivElement>;
-  width: number;
-  height: number;
-}
+import IUpdatePreview from "../interface/IUpdatePreview";
 
 const updatePreviewSize = ({
   containerRef,
   previewRef,
   width,
   height,
-}: IUpdatePreviewSizeProps) => {
+}: IUpdatePreview) => {
   if (containerRef.current && previewRef.current) {
     const containerWidth = containerRef.current.offsetWidth;
     const containerHeight = containerRef.current.offsetHeight;

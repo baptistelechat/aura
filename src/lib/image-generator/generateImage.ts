@@ -1,18 +1,15 @@
 import * as htmlToImage from "html-to-image";
-import { RefObject } from "react";
-
-interface IGenerateImageProps {
-  previewRef: RefObject<HTMLDivElement>;
-  width: number;
-  height: number;
-}
+import IUpdatePreview from "../interface/IUpdatePreview";
 
 const updatePreviewStyle = ({
+  containerRef,
   previewRef,
   width,
   height,
-}: IGenerateImageProps) => {
-  if (previewRef.current) {
+}: IUpdatePreview) => {
+  if (previewRef.current && containerRef.current) {
+    containerRef.current.classList.toggle("blur-xl");
+
     previewRef.current.classList.toggle("border");
     previewRef.current.classList.toggle("border-slate-200");
     previewRef.current.classList.toggle("transition-all");
@@ -24,10 +21,11 @@ const updatePreviewStyle = ({
 };
 
 const generateImage = async ({
+  containerRef,
   previewRef,
   width,
   height,
-}: IGenerateImageProps) => {
+}: IUpdatePreview) => {
   if (previewRef.current) {
     const previousWidth = Number(
       previewRef.current.style.width.replace("px", "")
@@ -36,7 +34,7 @@ const generateImage = async ({
       previewRef.current.style.height.replace("px", "")
     );
 
-    updatePreviewStyle({ previewRef, width, height });
+    updatePreviewStyle({ containerRef, previewRef, width, height });
 
     try {
       const dataUrl = await new Promise<string>(async (resolve) => {
@@ -54,6 +52,7 @@ const generateImage = async ({
       console.error("Error generating image:", error);
     } finally {
       updatePreviewStyle({
+        containerRef,
         previewRef,
         width: previousWidth,
         height: previousHeight,
