@@ -26,7 +26,9 @@ const ImageGenerator = () => {
 
   return (
     <div className="flex h-full p-8">
-      <Sidebar generateImage={() => generateImage(previewRef)} />
+      <Sidebar
+        generateImage={() => generateImage({ previewRef, width, height })}
+      />
       <Preview containerRef={containerRef} previewRef={previewRef} />
     </div>
   );

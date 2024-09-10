@@ -14,7 +14,7 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
   return (
     <div
       ref={containerRef}
-      className="flex-grow overflow-hidden flex items-center justify-center p-4 ml-4"
+      className="flex-grow flex items-center justify-center p-4 ml-4"
     >
       <div
         ref={previewRef}
