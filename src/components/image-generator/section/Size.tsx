@@ -1,7 +1,7 @@
 import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
-import { Proportions } from "lucide-react";
+import { Image, ImageDown, ImageUp, Proportions } from "lucide-react";
 import Control from "../Control";
 import SidebarSection from "../SidebarSection";
 
@@ -24,6 +24,9 @@ const Size = () => {
         min={0}
         max={1}
         step={0.05}
+        minIcon={<ImageDown className="size-5" />}
+        middleIcon={<Image className="size-5" />}
+        maxIcon={<ImageUp className="size-5" />}
       />
     </SidebarSection>
   );

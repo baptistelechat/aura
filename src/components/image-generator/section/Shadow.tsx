@@ -1,7 +1,7 @@
 import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
-import { LampDesk } from "lucide-react";
+import { LampDesk, Moon, Sun, SunMoon } from "lucide-react";
 import Control from "../Control";
 import SidebarSection from "../SidebarSection";
 
@@ -24,6 +24,9 @@ const Shadow = () => {
         min={0}
         max={1}
         step={0.05}
+        minIcon={<Moon className="size-5" />}
+        middleIcon={<SunMoon className="size-5" />}
+        maxIcon={<Sun className="size-5" />}
       />
     </SidebarSection>
   );
