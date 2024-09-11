@@ -10,23 +10,17 @@ import { useEffect, useRef } from "react";
 const ImageGenerator = () => {
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
-  const imageVisibility = useImageGeneratorStore(
-    (s) => s.settings.image.visibility
-  );
-  const setImageVisibility = useImageGeneratorStore(
-    (s) => s.setImageVisibility
-  );
+  const imageGeneratorStore = useImageGeneratorStore();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const updatePreviewObject: IUpdatePreview = {
     containerRef,
     previewRef,
-    width,
-    height,
-    imageVisibility,
-    setImageVisibility,
+    imageRef,
+    imageGeneratorStore,
   };
 
   useEffect(() => {
@@ -43,7 +37,11 @@ const ImageGenerator = () => {
   return (
     <div className="flex h-full p-8">
       <Sidebar generateImage={() => generateImage(updatePreviewObject)} />
-      <Preview containerRef={containerRef} previewRef={previewRef} />
+      <Preview
+        containerRef={containerRef}
+        previewRef={previewRef}
+        imageRef={imageRef}
+      />
     </div>
   );
 };

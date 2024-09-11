@@ -29,7 +29,7 @@ type ImageGeneratorSettings = {
   };
 };
 
-type ImageGeneratorStoreType = {
+export type ImageGeneratorStoreType = {
   settings: ImageGeneratorSettings;
   setText: (text: string) => void;
   setBgColor: (bgColor: string) => void;

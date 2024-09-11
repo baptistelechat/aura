@@ -3,14 +3,18 @@ import IUpdatePreview from "../interface/IUpdatePreview";
 const updatePreviewStyle = ({
   containerRef,
   previewRef,
-  width,
-  height,
-  imageVisibility,
-  setImageVisibility,
+  imageRef,
+  imageGeneratorStore,
 }: IUpdatePreview) => {
-  if (previewRef.current && containerRef.current) {
+  if (previewRef.current && containerRef.current && imageRef.current) {
+    const width = imageGeneratorStore.settings.dimension.width;
+    const height = imageGeneratorStore.settings.dimension.height;
+
+    const imageVisibility = imageGeneratorStore.settings.image.visibility;
+    const imageScale = imageGeneratorStore.settings.image.scale;
+
     if (!imageVisibility) {
-      setImageVisibility(true);
+      imageGeneratorStore.setImageVisibility(true);
     }
 
     containerRef.current.classList.toggle("overflow-hidden");
@@ -23,6 +27,9 @@ const updatePreviewStyle = ({
 
     previewRef.current.style.width = `${width}px`;
     previewRef.current.style.height = `${height}px`;
+
+    imageRef.current.style.width = `${width * imageScale}px`;
+    imageRef.current.style.height = `${height * imageScale}px`;
   }
 };
 

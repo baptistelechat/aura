@@ -2,10 +2,11 @@ import IUpdatePreview from "../interface/IUpdatePreview";
 
 const updatePreviewSize = ({
   containerRef,
-  previewRef,
-  width,
-  height,
+  previewRef,imageGeneratorStore
 }: IUpdatePreview) => {
+  const width = imageGeneratorStore.settings.dimension.width;
+  const height = imageGeneratorStore.settings.dimension.height;
+
   if (containerRef.current && previewRef.current) {
     const containerWidth = containerRef.current.offsetWidth;
     const containerHeight = containerRef.current.offsetHeight;

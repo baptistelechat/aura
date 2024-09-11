@@ -4,9 +4,10 @@ import { RefObject } from "react";
 interface IPreviewProps {
   containerRef: RefObject<HTMLDivElement>;
   previewRef: RefObject<HTMLDivElement>;
+  imageRef: RefObject<HTMLImageElement>;
 }
 
-const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
+const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
   const { text, bgColor, dimension, image } = useImageGeneratorStore(
     (s) => s.settings
   );
@@ -27,13 +28,22 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
       >
         {image.src && (
           <img
+            ref={imageRef}
             src={image.src}
             alt="Selected"
             style={{
               borderRadius: `${image.borderRadius}px`,
               // boxShadow: `0 25px 50px -12px rgb(0 0 0 /${image.shadow})`,
               filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
-              transform: `scale(${image.scale})`,
+              // transform: `scale(${image.scale})`,
+              height: `${
+                Number(previewRef.current?.style.height.replace("px", "")) *
+                image.scale
+              }px`,
+              width: `${
+                Number(previewRef.current?.style.width.replace("px", "")) *
+                image.scale
+              }px`,
             }}
             className={`${
               !image.visibility ? "hidden" : ""

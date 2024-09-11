@@ -4,12 +4,13 @@ import updatePreviewStyle from "./updatePreviewStyle";
 const generateImage = async ({
   containerRef,
   previewRef,
-  width,
-  height,
-  imageVisibility,
-  setImageVisibility,
+  imageRef,
+  imageGeneratorStore,
 }: IUpdatePreview) => {
   if (previewRef.current) {
+    const previewWidth = imageGeneratorStore.settings.dimension.width;
+    const previewHeight = imageGeneratorStore.settings.dimension.height;
+
     const previousWidth = Number(
       previewRef.current.style.width.replace("px", "")
     );
@@ -20,10 +21,8 @@ const generateImage = async ({
     updatePreviewStyle({
       containerRef,
       previewRef,
-      width,
-      height,
-      imageVisibility,
-      setImageVisibility,
+      imageRef,
+      imageGeneratorStore,
     });
 
     try {
@@ -41,13 +40,21 @@ const generateImage = async ({
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
+      imageGeneratorStore.setDimensions({
+        width: previousWidth,
+        height: previousHeight,
+      });
+
       updatePreviewStyle({
         containerRef,
         previewRef,
-        width: previousWidth,
-        height: previousHeight,
-        imageVisibility,
-        setImageVisibility,
+        imageRef,
+        imageGeneratorStore,
+      });
+
+      imageGeneratorStore.setDimensions({
+        width:previewWidth,
+        height:previewWidth,
       });
     }
   }
