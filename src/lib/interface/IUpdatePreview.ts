@@ -5,6 +5,8 @@ interface IUpdatePreview {
   previewRef: RefObject<HTMLDivElement>;
   width: number;
   height: number;
+  imageVisibility: boolean;
+  setImageVisibility: (visibility: boolean) => void;
 }
 
 export default IUpdatePreview;

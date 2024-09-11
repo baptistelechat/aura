@@ -14,7 +14,7 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
   return (
     <div
       ref={containerRef}
-      className="flex-grow flex items-center justify-center p-4 ml-4"
+      className="flex-grow flex items-center justify-center p-4 ml-4 overflow-hidden"
     >
       <div
         ref={previewRef}
@@ -35,7 +35,9 @@ const Preview = ({ containerRef, previewRef }: IPreviewProps) => {
               filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
               transform: `scale(${image.scale})`,
             }}
-            className="transition-all duration-300"
+            className={`${
+              !image.visibility ? "hidden" : ""
+            } transition-all duration-300`}
           />
         )}
         {!image.src && (

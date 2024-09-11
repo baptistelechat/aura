@@ -1,30 +1,13 @@
 import * as htmlToImage from "html-to-image";
 import IUpdatePreview from "../interface/IUpdatePreview";
-
-const updatePreviewStyle = ({
-  containerRef,
-  previewRef,
-  width,
-  height,
-}: IUpdatePreview) => {
-  if (previewRef.current && containerRef.current) {
-    containerRef.current.classList.toggle("blur-xl");
-
-    previewRef.current.classList.toggle("border");
-    previewRef.current.classList.toggle("border-slate-200");
-    previewRef.current.classList.toggle("transition-all");
-    previewRef.current.classList.toggle("rounded-xl");
-
-    previewRef.current.style.width = `${width}px`;
-    previewRef.current.style.height = `${height}px`;
-  }
-};
-
+import updatePreviewStyle from "./updatePreviewStyle";
 const generateImage = async ({
   containerRef,
   previewRef,
   width,
   height,
+  imageVisibility,
+  setImageVisibility,
 }: IUpdatePreview) => {
   if (previewRef.current) {
     const previousWidth = Number(
@@ -34,7 +17,14 @@ const generateImage = async ({
       previewRef.current.style.height.replace("px", "")
     );
 
-    updatePreviewStyle({ containerRef, previewRef, width, height });
+    updatePreviewStyle({
+      containerRef,
+      previewRef,
+      width,
+      height,
+      imageVisibility,
+      setImageVisibility,
+    });
 
     try {
       const dataUrl = await new Promise<string>(async (resolve) => {
@@ -56,6 +46,8 @@ const generateImage = async ({
         previewRef,
         width: previousWidth,
         height: previousHeight,
+        imageVisibility,
+        setImageVisibility,
       });
     }
   }

@@ -6,7 +6,7 @@ import Control from "../Control";
 import SidebarSection from "../SidebarSection";
 
 const Border = () => {
-  const image = useImageGeneratorStore((s) => s.settings.image);
+  const borderRadius = useImageGeneratorStore((s) => s.settings.image.borderRadius);
   const setBorderRadius = useImageGeneratorStore((s) => s.setImageBorderRadius);
   const resetBorderRadius = useImageGeneratorStore(
     (s) => s.resetImageBorderRadius
@@ -16,12 +16,12 @@ const Border = () => {
     <SidebarSection
       title={"Border"}
       icon={<BoxSelect className="size-4" />}
-      disabled={image.borderRadius === defaultSettings.image.borderRadius}
+      disabled={borderRadius === defaultSettings.image.borderRadius}
       reset={resetBorderRadius}
     >
       <Control
         title={"border-radius"}
-        value={image.borderRadius}
+        value={borderRadius}
         setValue={setBorderRadius}
         min={0}
         max={48}

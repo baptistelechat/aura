@@ -10,6 +10,7 @@ type ImageUpdate = {
   borderRadius?: number;
   shadow?: number;
   scale?: number;
+  visibility?:boolean;
 };
 
 type ImageGeneratorSettings = {
@@ -24,6 +25,7 @@ type ImageGeneratorSettings = {
     borderRadius: number;
     shadow: number;
     scale: number;
+    visibility:boolean;
   };
 };
 
@@ -41,6 +43,7 @@ type ImageGeneratorStoreType = {
   setImageBorderRadius: (borderRadius: number) => void;
   setImageShadow: (shadow: number) => void;
   setImageScale: (scale: number) => void;
+  setImageVisibility: (visibility:boolean)=>void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -60,6 +63,7 @@ export const defaultSettings: ImageGeneratorSettings = {
     borderRadius: 24,
     shadow: 0.5,
     scale: 0.5,
+    visibility:false,
   },
 };
 
@@ -177,6 +181,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
         image: {
           ...state.settings.image,
           scale,
+        },
+      },
+    }));
+  },
+
+  setImageVisibility: (visibility: boolean) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        image: {
+          ...state.settings.image,
+          visibility,
         },
       },
     }));

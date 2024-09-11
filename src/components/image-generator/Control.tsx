@@ -19,8 +19,8 @@ interface IControlProps {
 
 const Control = ({ title, value, setValue, min, max, step, minIcon, middleIcon, maxIcon }: IControlProps) => {
   return (
-    <div className="flex gap-2">
-      <div className="grid w-full items-center gap-3">
+    <div className="flex gap-2 px-1">
+      <div className="flex flex-col w-full items-center gap-3">
         <div className="w-full flex justify-between items-center">
           <Label htmlFor="slider" className="text-primary/40">
             {title}
@@ -42,7 +42,7 @@ const Control = ({ title, value, setValue, min, max, step, minIcon, middleIcon, 
           max={max ?? 100}
           step={step ?? 1}
         />
-        <div className="flex justify-between">
+        <div className="flex w-full justify-between">
           <Button
             disabled={value === min ?? 0}
             variant="outline"

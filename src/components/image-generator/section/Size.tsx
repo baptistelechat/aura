@@ -6,7 +6,7 @@ import Control from "../Control";
 import SidebarSection from "../SidebarSection";
 
 const Size = () => {
-  const image = useImageGeneratorStore((s) => s.settings.image);
+  const scale = useImageGeneratorStore((s) => s.settings.image.scale);
   const setScale = useImageGeneratorStore((s) => s.setImageScale);
   const resetScale = useImageGeneratorStore((s) => s.resetImageScale);
 
@@ -14,12 +14,12 @@ const Size = () => {
     <SidebarSection
       title={"Size"}
       icon={<Proportions className="size-4" />}
-      disabled={image.scale === defaultSettings.image.scale}
+      disabled={scale === defaultSettings.image.scale}
       reset={resetScale}
     >
       <Control
         title={"scale"}
-        value={image.scale}
+        value={scale}
         setValue={setScale}
         min={0}
         max={1}

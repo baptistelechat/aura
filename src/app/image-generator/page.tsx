@@ -8,8 +8,14 @@ import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { useEffect, useRef } from "react";
 
 const ImageGenerator = () => {
-  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
-  const { width, height } = dimension;
+  const width = useImageGeneratorStore((s) => s.settings.dimension.width);
+  const height = useImageGeneratorStore((s) => s.settings.dimension.height);
+  const imageVisibility = useImageGeneratorStore(
+    (s) => s.settings.image.visibility
+  );
+  const setImageVisibility = useImageGeneratorStore(
+    (s) => s.setImageVisibility
+  );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -19,6 +25,8 @@ const ImageGenerator = () => {
     previewRef,
     width,
     height,
+    imageVisibility,
+    setImageVisibility,
   };
 
   useEffect(() => {

@@ -14,17 +14,28 @@ import {
 import Border from "./section/Border";
 import Shadow from "./section/Shadow";
 import Size from "./section/Size";
+import Visibility from "./section/Visibility";
 
 interface ISidebarProps {
   generateImage: () => void;
 }
 
 const Sidebar = ({ generateImage }: ISidebarProps) => {
-  const settings = useImageGeneratorStore((s) => s.settings);
+  const text = useImageGeneratorStore((s) => s.settings.text);
+  const bgColor = useImageGeneratorStore((s) => s.settings.bgColor);
+  const width = useImageGeneratorStore((s) => s.settings.dimension.width);
+  const height = useImageGeneratorStore((s) => s.settings.dimension.height);
+  const imageVisibility = useImageGeneratorStore(
+    (s) => s.settings.image.visibility
+  );
+
   const setText = useImageGeneratorStore((s) => s.setText);
   const setBgColor = useImageGeneratorStore((s) => s.setBgColor);
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
   const setImageSrc = useImageGeneratorStore((s) => s.setImageSrc);
+  const setImageVisibility = useImageGeneratorStore(
+    (s) => s.setImageVisibility
+  );
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -34,6 +45,10 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
         setImageSrc(e.target?.result as string);
       };
       reader.readAsDataURL(file);
+
+      if (!imageVisibility) {
+        setImageVisibility(true);
+      }
     }
   };
 
@@ -44,22 +59,23 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
       </h1>
       <ScrollArea className="pr-4 size-full">
         <div className="flex flex-col gap-4 size-full">
-          <Border />
-          <Shadow />
-          <Size />
           <Input
             type="text"
-            value={settings.text}
+            value={text}
             onChange={(e) => setText(e.target.value)}
             className="max-w-xs"
             placeholder="Enter your text"
           />
           <Input
             type="color"
-            value={settings.bgColor}
+            value={bgColor}
             onChange={(e) => setBgColor(e.target.value)}
             className="w-full"
           />
+          <Border />
+          <Shadow />
+          <Size />
+          <Visibility />
         </div>
       </ScrollArea>
       <Input
@@ -71,7 +87,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
         className="w-full"
       />
       <Select
-        value={`${settings.dimension.width}x${settings.dimension.height}`}
+        value={`${width}x${height}`}
         onValueChange={(value) => {
           const [width, height] = value.split("x").map(Number);
           setDimensions({ width, height });

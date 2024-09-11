@@ -9,6 +9,7 @@ const updatePreviewSize = ({
   if (containerRef.current && previewRef.current) {
     const containerWidth = containerRef.current.offsetWidth;
     const containerHeight = containerRef.current.offsetHeight;
+    
     const imageAspectRatio = width / height;
     const containerAspectRatio = containerWidth / containerHeight;
 
