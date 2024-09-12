@@ -28,8 +28,8 @@ const updatePreviewStyle = ({
     previewRef.current.style.width = `${width}px`;
     previewRef.current.style.height = `${height}px`;
 
-    imageRef.current.style.width = `${width * imageScale}px`;
-    imageRef.current.style.height = `${height * imageScale}px`;
+    imageRef.current.style.maxWidth = `${width * imageScale}px`;
+    imageRef.current.style.maxHeight = `${height * imageScale}px`;
   }
 };
 

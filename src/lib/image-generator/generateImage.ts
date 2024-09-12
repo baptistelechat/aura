@@ -53,8 +53,8 @@ const generateImage = async ({
       });
 
       imageGeneratorStore.setDimensions({
-        width:previewWidth,
-        height:previewWidth,
+        width: previewWidth,
+        height: previewHeight,
       });
     }
   }

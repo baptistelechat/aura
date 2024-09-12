@@ -36,11 +36,11 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
               // boxShadow: `0 25px 50px -12px rgb(0 0 0 /${image.shadow})`,
               filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
               // transform: `scale(${image.scale})`,
-              height: `${
+              maxHeight: `${
                 Number(previewRef.current?.style.height.replace("px", "")) *
                 image.scale
               }px`,
-              width: `${
+              maxWidth: `${
                 Number(previewRef.current?.style.width.replace("px", "")) *
                 image.scale
               }px`,
