@@ -53,17 +53,16 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   };
 
   return (
-    <div className="flex flex-col w-72 space-y-4">
+    <div className="flex flex-col w-full lg:w-72 space-y-4">
       <h1 className="text-2xl font-bold mb-4 text-center">
         🎨 Image Generator
       </h1>
-      <ScrollArea className="pr-4 size-full">
+      <ScrollArea className="pr-4 h-96 lg:size-full">
         <div className="flex flex-col gap-4 size-full">
           <Input
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="max-w-xs"
             placeholder="Enter your text"
           />
           <Input

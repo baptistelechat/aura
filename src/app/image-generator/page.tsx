@@ -35,7 +35,7 @@ const ImageGenerator = () => {
   }, [width, height]);
 
   return (
-    <div className="flex h-full p-8">
+    <div className="flex flex-col gap-8 h-full p-8 lg:flex-row">
       <Sidebar generateImage={() => generateImage(updatePreviewObject)} />
       <Preview
         containerRef={containerRef}
