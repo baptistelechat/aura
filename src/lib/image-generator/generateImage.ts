@@ -1,5 +1,6 @@
 import * as htmlToImage from "html-to-image";
 import IUpdatePreview from "../interface/IUpdatePreview";
+import updatePreviewSize from "./updatePreviewSize";
 import updatePreviewStyle from "./updatePreviewStyle";
 const generateImage = async ({
   containerRef,
@@ -55,6 +56,13 @@ const generateImage = async ({
       imageGeneratorStore.setDimensions({
         width: previewWidth,
         height: previewHeight,
+      });
+
+      updatePreviewSize({
+        containerRef,
+        previewRef,
+        imageRef,
+        imageGeneratorStore,
       });
     }
   }

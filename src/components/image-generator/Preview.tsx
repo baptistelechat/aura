@@ -14,10 +14,12 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
 
   return (
     <div
+    id="preview-container"
       ref={containerRef}
-      className="flex-grow flex items-center justify-center p-4 ml-4 overflow-hidden"
+      className="flex-grow flex items-center justify-center size-full overflow-hidden"
     >
       <div
+        id="preview"
         ref={previewRef}
         style={{
           backgroundColor: bgColor,

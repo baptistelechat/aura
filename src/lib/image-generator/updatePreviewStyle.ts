@@ -17,6 +17,7 @@ const updatePreviewStyle = ({
       imageGeneratorStore.setImageVisibility(true);
     }
 
+    containerRef.current.classList.toggle("size-full");
     containerRef.current.classList.toggle("overflow-hidden");
     containerRef.current.classList.toggle("blur-xl");
 

@@ -1,7 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import DownloadButton from "@/lib/image-generator/DownloadButton";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import { Download } from "lucide-react";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
   Select,
@@ -53,11 +52,11 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   };
 
   return (
-    <div className="flex flex-col w-full lg:w-72 space-y-4">
+    <div className="flex flex-col w-full md:w-96 space-y-4 pb-4">
       <h1 className="text-2xl font-bold mb-4 text-center">
         🎨 Image Generator
       </h1>
-      <ScrollArea className="pr-4 h-96 lg:size-full">
+      <ScrollArea className="pr-4 size-full">
         <div className="flex flex-col gap-4 size-full">
           <Input
             type="text"
@@ -103,11 +102,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
           </SelectGroup>
         </SelectContent>
       </Select>
-
-      <Button onClick={generateImage} className="w-full">
-        <Download className="mr-2 h-4 w-4" />
-        Download Image
-      </Button>
+      <DownloadButton generateImage={generateImage} extraStyle="hidden md:flex"/>
     </div>
   );
 };
