@@ -21,9 +21,9 @@ const Control = ({
   title,
   value,
   setValue,
-  min,
-  max,
-  step,
+  min = 0,
+  max = 100,
+  step = 1,
   minIcon,
   middleIcon,
   maxIcon,
@@ -39,41 +39,41 @@ const Control = ({
             type="number"
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
-            className="h-8 w-16 "
-            min={min ?? 0}
-            max={max ?? 100}
-            step={step ?? 1}
+            className="h-8 w-16"
+            min={min}
+            max={max}
+            step={step}
           />
         </div>
         <Slider
           value={[value]}
           onValueChange={(newValue) => setValue(newValue[0])}
-          min={min ?? 0}
-          max={max ?? 100}
-          step={step ?? 1}
+          min={min}
+          max={max}
+          step={step}
         />
         <div className="flex w-full justify-between">
           <Button
-            disabled={value === min ?? 0}
+            disabled={value === min}
             variant="outline"
             size="icon"
-            onClick={() => setValue(min ?? 0)}
+            onClick={() => setValue(min)}
           >
             {minIcon ?? <Minus className="size-5" />}
           </Button>
           <Button
-            disabled={value === ((min ?? 0) + (max ?? 100)) / 2}
+            disabled={value === (min + max) / 2}
             variant="outline"
             size="icon"
-            onClick={() => setValue(((min ?? 0) + (max ?? 100)) / 2)}
+            onClick={() => setValue((min + max) / 2)}
           >
             {middleIcon ?? <Scale className="size-5" />}
           </Button>
           <Button
-            disabled={value === max ?? 100}
+            disabled={value === max}
             variant="outline"
             size="icon"
-            onClick={() => setValue(max ?? 100)}
+            onClick={() => setValue(max)}
           >
             {maxIcon ?? <Plus className="size-5" />}
           </Button>
