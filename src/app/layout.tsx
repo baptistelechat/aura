@@ -1,10 +1,11 @@
+import Menu from "@/components/Menu";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
         className={cn(
-          "bg-background font-sans antialiased overflow-hidden",
+          "bg-background font-sans antialiased h-full flex flex-col",
           inter.className
         )}
       >
@@ -35,7 +36,10 @@ export default function RootLayout({
           <div className="fixed bottom-4 right-4 z-50">
             <ThemeToggle />
           </div>
-          {children}
+          <Menu />
+          <main className="flex-grow md:overflow-hidden">
+            {children}
+          </main>
           <Toaster />
         </ThemeProvider>
       </body>
