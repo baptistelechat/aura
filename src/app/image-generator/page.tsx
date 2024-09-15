@@ -5,10 +5,8 @@ import generateImage from "@/lib/image-generator/generateImage";
 import updatePreviewSize from "@/lib/image-generator/updatePreviewSize";
 import IUpdatePreview from "@/lib/interface/IUpdatePreview";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { MonitorSmartphone } from "lucide-react";
 import { useEffect, useRef } from "react";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DownloadButton from "@/lib/image-generator/DownloadButton";
 
 const ImageGenerator = () => {
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
@@ -31,10 +29,6 @@ const ImageGenerator = () => {
     window.addEventListener("resize", () =>
       updatePreviewSize(updatePreviewObject)
     );
-    return () =>
-      window.removeEventListener("resize", () =>
-        updatePreviewSize(updatePreviewObject)
-      );
   }, [width, height]);
 
   return (
@@ -47,33 +41,13 @@ const ImageGenerator = () => {
           imageRef={imageRef}
         />
       </div>
-      <Tabs
-        defaultValue="settings"
-        className="h-full flex flex-col w-full md:hidden"
-      >
-        <TabsList className="grid w-full grid-cols-2 mb-4">
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-          <TabsTrigger
-            value="preview"
-            onClick={() => updatePreviewSize(updatePreviewObject)}
-          >
-            Preview
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="settings" className="h-full">
-          <Sidebar generateImage={() => generateImage(updatePreviewObject)} />
-        </TabsContent>
-        <TabsContent value="preview" className="h-full relative">
-          <DownloadButton
-            generateImage={() => generateImage(updatePreviewObject)}
-          />
-          <Preview
-            containerRef={containerRef}
-            previewRef={previewRef}
-            imageRef={imageRef}
-          />
-        </TabsContent>
-      </Tabs>
+      <div className="size-full flex flex-col gap-8 items-center justify-center md:hidden">
+        <MonitorSmartphone className="size-40" />
+        <p className="text-3xl font-bold text-center">
+          This tool is not available on mobile or small devices. Try using it on
+          a desktop browser
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
+import DownloadButton from "@/components/image-generator/DownloadButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import DownloadButton from "@/lib/image-generator/DownloadButton";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Input } from "../ui/input";
 import {
@@ -102,7 +102,10 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <DownloadButton generateImage={generateImage} extraStyle="hidden md:flex"/>
+      <DownloadButton
+        generateImage={generateImage}
+        extraStyle="hidden md:flex"
+      />
     </div>
   );
 };
