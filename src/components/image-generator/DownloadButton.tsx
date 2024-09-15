@@ -9,7 +9,7 @@ interface IDownloadButtonProps {
 const DownloadButton = ({ generateImage, extraStyle }: IDownloadButtonProps) => {
   return (
     <Button onClick={generateImage} className={`${extraStyle} w-full`}>
-      <Download className="mr-2 h-4 w-4" />
+      <Download className="mr-2 size-4" />
       Download Image
     </Button>
   );

@@ -1,4 +1,4 @@
-import { Circle, Minus, Plus, Scale, Squircle } from "lucide-react";
+import { Minus, Plus, Scale } from "lucide-react";
 import { ReactElement } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -17,11 +17,21 @@ interface IControlProps {
   maxIcon?: ReactElement;
 }
 
-const Control = ({ title, value, setValue, min, max, step, minIcon, middleIcon, maxIcon }: IControlProps) => {
+const Control = ({
+  title,
+  value,
+  setValue,
+  min,
+  max,
+  step,
+  minIcon,
+  middleIcon,
+  maxIcon,
+}: IControlProps) => {
   return (
     <div className="flex gap-2 px-1">
-      <div className="flex flex-col w-full items-center gap-3">
-        <div className="w-full flex justify-between items-center">
+      <div className="flex w-full flex-col items-center gap-3">
+        <div className="flex w-full items-center justify-between">
           <Label htmlFor="slider" className="text-primary/40">
             {title}
           </Label>
@@ -29,7 +39,7 @@ const Control = ({ title, value, setValue, min, max, step, minIcon, middleIcon, 
             type="number"
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
-            className="w-16 h-8 "
+            className="h-8 w-16 "
             min={min ?? 0}
             max={max ?? 100}
             step={step ?? 1}

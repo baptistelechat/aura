@@ -19,8 +19,8 @@ const SidebarSection = ({
   children,
 }: ISidebarSectionProps) => {
   return (
-    <div className="flex flex-col w-full gap-2">
-      <p className="font-medium text-sm text-left flex items-center text-primary/60 uppercase gap-2">
+    <div className="flex w-full flex-col gap-2">
+      <p className="flex items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
         {icon}
         {title}
         {reset ? (

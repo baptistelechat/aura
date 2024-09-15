@@ -52,12 +52,12 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   };
 
   return (
-    <div className="flex flex-col w-full md:w-96 space-y-4 pb-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">
+    <div className="flex w-full flex-col space-y-4 pb-4 md:w-96">
+      <h1 className="mb-4 text-center text-2xl font-bold">
         🎨 Image Generator
       </h1>
-      <ScrollArea className="pr-4 size-full">
-        <div className="flex flex-col gap-4 size-full">
+      <ScrollArea className="size-full pr-4">
+        <div className="flex size-full flex-col gap-4">
           <Input
             type="text"
             value={text}

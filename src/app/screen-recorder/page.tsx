@@ -95,23 +95,23 @@ const ScreenRecorder = () => {
 
   return (
     <div className="flex flex-col items-center p-8">
-      <h1 className="text-2xl font-bold mb-4">🎥 Screen Recorder</h1>
+      <h1 className="mb-4 text-2xl font-bold">🎥 Screen Recorder</h1>
       {/* Video element to display the screen or the recorded video */}
       <video
         ref={videoRef}
         controls
         autoPlay
-        className="w-full max-w-2xl mb-4"
+        className="mb-4 w-full max-w-2xl"
       ></video>
       {/* Buttons to start/stop recording */}
       <div>
         {!isRecording ? (
           <Button onClick={startRecording}>
-            <Play className="mr-2 h-4 w-4" /> Start Recording
+            <Play className="mr-2 size-4" /> Start Recording
           </Button>
         ) : (
           <Button onClick={stopRecording}>
-            <Square className="mr-2 h-4 w-4" /> Stop Recording
+            <Square className="mr-2 size-4" /> Stop Recording
           </Button>
         )}
       </div>
@@ -119,7 +119,7 @@ const ScreenRecorder = () => {
       {videoURL && (
         <>
           <Button variant="link" onClick={handleDownload}>
-            <Download className="mr-2 h-4 w-4" />
+            <Download className="mr-2 size-4" />
             Download Recording
           </Button>
           <a

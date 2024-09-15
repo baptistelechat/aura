@@ -32,7 +32,7 @@ const ImageGenerator = () => {
   }, [width, height]);
 
   return (
-    <div className="flex gap-8 size-full p-8">
+    <div className="flex size-full gap-8 p-8">
       <div className="hidden w-full gap-4 md:flex">
         <Sidebar generateImage={() => generateImage(updatePreviewObject)} />
         <Preview
@@ -41,9 +41,9 @@ const ImageGenerator = () => {
           imageRef={imageRef}
         />
       </div>
-      <div className="size-full flex flex-col gap-8 items-center justify-center md:hidden">
+      <div className="flex size-full flex-col items-center justify-center gap-8 md:hidden">
         <MonitorSmartphone className="size-40" />
-        <p className="text-3xl font-bold text-center">
+        <p className="text-center text-3xl font-bold">
           This tool is not available on mobile or small devices. Try using it on
           a desktop browser
         </p>

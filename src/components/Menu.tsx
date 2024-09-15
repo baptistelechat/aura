@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Clapperboard, House, Image } from "lucide-react";
+import { Clapperboard, House, ImageIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement } from "react";
 
@@ -17,7 +17,7 @@ const Menu = () => {
     {
       name: "Image Generator",
       path: "/image-generator",
-      icon: <Image className="mr-2 size-4" />,
+      icon: <ImageIcon className="mr-2 size-4" />,
     },
     {
       name: "Screen Recorder",
@@ -27,7 +27,7 @@ const Menu = () => {
   ];
 
   return (
-    <nav className="flex w-full justify-center p-4 gap-4">
+    <nav className="flex w-full justify-center gap-4 p-4">
       {links.map((link) => (
         <Button
           key={link.name}

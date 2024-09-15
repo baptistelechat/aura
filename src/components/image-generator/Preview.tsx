@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { RefObject } from "react";
 
@@ -16,7 +17,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
     <div
     id="preview-container"
       ref={containerRef}
-      className="flex-grow flex items-center justify-center size-full overflow-hidden"
+      className="flex size-full grow items-center justify-center overflow-hidden"
     >
       <div
         id="preview"
@@ -26,7 +27,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
           transition: "all 0.3s ease",
           position: "relative",
         }}
-        className="relative border border-slate-200 overflow-hidden flex items-center justify-center transition-all duration-300 rounded-xl"
+        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300"
       >
         {image.src && (
           <img
@@ -54,7 +55,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
         )}
         {!image.src && (
           <span
-            className="text-black font-bold text-center break-words p-4"
+            className="break-words p-4 text-center font-bold text-black"
             style={{
               fontSize: `${Math.max(
                 16,

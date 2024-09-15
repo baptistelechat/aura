@@ -37,7 +37,7 @@ export default function RootLayout({
             <ThemeToggle />
           </div>
           <Menu />
-          <main className="flex-grow md:overflow-hidden">
+          <main className="grow md:overflow-hidden">
             {children}
           </main>
           <Toaster />
