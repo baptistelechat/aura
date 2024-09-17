@@ -13,9 +13,13 @@ type ImageUpdate = {
   visibility?: boolean;
 };
 
+type BackgroundUpdate = {
+  backgroundColor?: string;
+  tailwindColor?: string;
+};
+
 type ImageGeneratorSettings = {
   text: string;
-  backgroundColor: string;
   dimension: {
     width: number;
     height: number;
@@ -27,12 +31,15 @@ type ImageGeneratorSettings = {
     scale: number;
     visibility: boolean;
   };
+  background: {
+    backgroundColor: string;
+    tailwindColor: string;
+  };
 };
 
 export type ImageGeneratorStoreType = {
   settings: ImageGeneratorSettings;
   setText: (text: string) => void;
-  setBackgroundColor: (backgroundColor: string) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
   setWidth: (width: number) => void;
@@ -44,17 +51,22 @@ export type ImageGeneratorStoreType = {
   setImageShadow: (shadow: number) => void;
   setImageScale: (scale: number) => void;
   setImageVisibility: (visibility: boolean) => void;
+  // Background
+  setBackground: (update: BackgroundUpdate) => void;
+  setBackgroundColor: (backgroundColor: string) => void;
+  setTailwindColor: (tailwindColor: string) => void;
   // Reset
   resetSettings: () => void;
-  resetBackgroundColor: () => void;
   resetImageBorderRadius: () => void;
   resetImageShadow: () => void;
   resetImageScale: () => void;
+  resetBackground: () => void;
+  resetBackgroundColor: () => void;
+  resetTailwindColor: () => void;
 };
 
 export const defaultSettings: ImageGeneratorSettings = {
   text: "Your Text Here",
-  backgroundColor: "#ffffff",
   dimension: {
     width: 1920,
     height: 1080,
@@ -66,6 +78,10 @@ export const defaultSettings: ImageGeneratorSettings = {
     scale: 0.5,
     visibility: false,
   },
+  background: {
+    backgroundColor: "#ffffff",
+    tailwindColor: "",
+  },
 };
 
 const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
@@ -76,15 +92,6 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
       settings: {
         ...state.settings,
         text,
-      },
-    }));
-  },
-
-  setBackgroundColor: (backgroundColor: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        backgroundColor,
       },
     }));
   },
@@ -199,20 +206,48 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
+  // Background
+  setBackground: (update: BackgroundUpdate) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          ...update,
+        },
+      },
+    }));
+  },
+
+  setBackgroundColor: (backgroundColor: string) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          backgroundColor,
+        },
+      },
+    }));
+  },
+
+  setTailwindColor: (tailwindColor: string) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          tailwindColor,
+        },
+      },
+    }));
+  },
+
   // Reset
   resetSettings: () => {
     set({
       settings: defaultSettings,
     });
-  },
-
-  resetBackgroundColor: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        backgroundColor: defaultSettings.backgroundColor
-      },
-    }));
   },
 
   resetImageBorderRadius: () => {
@@ -247,6 +282,33 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
           ...state.settings.image,
           scale: defaultSettings.image.scale,
         },
+      },
+    }));
+  },
+
+  resetBackground: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: defaultSettings.background,
+      },
+    }));
+  },
+
+  resetBackgroundColor: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        backgroundColor: defaultSettings.background.backgroundColor,
+      },
+    }));
+  },
+
+  resetTailwindColor: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        tailwindColor: defaultSettings.background.tailwindColor,
       },
     }));
   },

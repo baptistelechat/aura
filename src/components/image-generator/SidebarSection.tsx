@@ -19,7 +19,7 @@ const SidebarSection = ({
   children,
 }: ISidebarSectionProps) => {
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-2 px-1">
       <p className="flex items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
         {icon}
         {title}

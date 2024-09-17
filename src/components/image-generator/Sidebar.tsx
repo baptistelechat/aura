@@ -11,11 +11,12 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Input } from "../ui/input";
-import BackgroundColor from "./section/background/BackgroundColor";
 import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
+import CustomColor from "./section/background/CustomColor";
+import TailwindColor from "./section/background/TailwindColor";
 
 interface ISidebarProps {
   generateImage: () => void;
@@ -77,7 +78,8 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
         <TabsContent value="background" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
             <div className="flex flex-col gap-4 pr-4">
-              <BackgroundColor />
+              <CustomColor />
+              <TailwindColor />
             </div>
           </ScrollArea>
         </TabsContent>

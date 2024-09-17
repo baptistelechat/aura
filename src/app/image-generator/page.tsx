@@ -1,10 +1,10 @@
 "use client";
 import Preview from "@/components/image-generator/Preview";
 import Sidebar from "@/components/image-generator/Sidebar";
-import generateImage from "@/lib/image-generator/generateImage";
-import updatePreviewSize from "@/lib/image-generator/updatePreviewSize";
 import IUpdatePreview from "@/lib/interface/IUpdatePreview";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import generateImage from "@/lib/utils/image-generator/generateImage";
+import updatePreviewSize from "@/lib/utils/image-generator/updatePreviewSize";
 import { MonitorSmartphone } from "lucide-react";
 import { useEffect, useRef } from "react";
 
