@@ -10,12 +10,12 @@ type ImageUpdate = {
   borderRadius?: number;
   shadow?: number;
   scale?: number;
-  visibility?:boolean;
+  visibility?: boolean;
 };
 
 type ImageGeneratorSettings = {
   text: string;
-  bgColor: string;
+  backgroundColor: string;
   dimension: {
     width: number;
     height: number;
@@ -25,14 +25,14 @@ type ImageGeneratorSettings = {
     borderRadius: number;
     shadow: number;
     scale: number;
-    visibility:boolean;
+    visibility: boolean;
   };
 };
 
 export type ImageGeneratorStoreType = {
   settings: ImageGeneratorSettings;
   setText: (text: string) => void;
-  setBgColor: (bgColor: string) => void;
+  setBackgroundColor: (backgroundColor: string) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
   setWidth: (width: number) => void;
@@ -43,9 +43,10 @@ export type ImageGeneratorStoreType = {
   setImageBorderRadius: (borderRadius: number) => void;
   setImageShadow: (shadow: number) => void;
   setImageScale: (scale: number) => void;
-  setImageVisibility: (visibility:boolean)=>void;
+  setImageVisibility: (visibility: boolean) => void;
   // Reset
   resetSettings: () => void;
+  resetBackgroundColor: () => void;
   resetImageBorderRadius: () => void;
   resetImageShadow: () => void;
   resetImageScale: () => void;
@@ -53,7 +54,7 @@ export type ImageGeneratorStoreType = {
 
 export const defaultSettings: ImageGeneratorSettings = {
   text: "Your Text Here",
-  bgColor: "#ffffff",
+  backgroundColor: "#ffffff",
   dimension: {
     width: 1920,
     height: 1080,
@@ -63,7 +64,7 @@ export const defaultSettings: ImageGeneratorSettings = {
     borderRadius: 24,
     shadow: 0.5,
     scale: 0.5,
-    visibility:false,
+    visibility: false,
   },
 };
 
@@ -79,11 +80,11 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
-  setBgColor: (bgColor: string) => {
+  setBackgroundColor: (backgroundColor: string) => {
     set((state) => ({
       settings: {
         ...state.settings,
-        bgColor,
+        backgroundColor,
       },
     }));
   },
@@ -203,6 +204,15 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     set({
       settings: defaultSettings,
     });
+  },
+
+  resetBackgroundColor: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        backgroundColor: defaultSettings.backgroundColor
+      },
+    }));
   },
 
   resetImageBorderRadius: () => {

@@ -1,11 +1,11 @@
 import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
-import { ImageIcon, ImageDown, ImageUp, Proportions } from "lucide-react";
-import Control from "../Control";
-import SidebarSection from "../SidebarSection";
+import { ImageDown, ImageIcon, ImageUp, Proportions } from "lucide-react";
+import Control from "../../Control";
+import SidebarSection from "../../SidebarSection";
 
-const Size = () => {
+const ImageSize = () => {
   const scale = useImageGeneratorStore((s) => s.settings.image.scale);
   const setScale = useImageGeneratorStore((s) => s.setImageScale);
   const resetScale = useImageGeneratorStore((s) => s.resetImageScale);
@@ -32,4 +32,4 @@ const Size = () => {
   );
 };
 
-export default Size;
+export default ImageSize;

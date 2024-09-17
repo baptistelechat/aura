@@ -2,9 +2,9 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Eye } from "lucide-react";
-import SidebarSection from "../SidebarSection";
+import SidebarSection from "../../SidebarSection";
 
-const Visibility = () => {
+const ImageVisibility = () => {
   const visibility = useImageGeneratorStore((s) => s.settings.image.visibility);
   const setVisibility = useImageGeneratorStore((s) => s.setImageVisibility);
 
@@ -24,4 +24,4 @@ const Visibility = () => {
   );
 };
 
-export default Visibility;
+export default ImageVisibility;

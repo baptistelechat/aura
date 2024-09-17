@@ -11,10 +11,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Input } from "../ui/input";
-import Border from "./section/Border";
-import Shadow from "./section/Shadow";
-import Size from "./section/Size";
-import Visibility from "./section/Visibility";
+import BackgroundColor from "./section/background/BackgroundColor";
+import ImageBorder from "./section/image/ImageBorder";
+import ImageShadow from "./section/image/ImageShadow";
+import ImageSize from "./section/image/ImageSize";
+import ImageVisibility from "./section/image/ImageVisibility";
 
 interface ISidebarProps {
   generateImage: () => void;
@@ -22,7 +23,6 @@ interface ISidebarProps {
 
 const Sidebar = ({ generateImage }: ISidebarProps) => {
   const text = useImageGeneratorStore((s) => s.settings.text);
-  const bgColor = useImageGeneratorStore((s) => s.settings.bgColor);
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const imageVisibility = useImageGeneratorStore(
@@ -30,7 +30,6 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   );
 
   const setText = useImageGeneratorStore((s) => s.setText);
-  const setBgColor = useImageGeneratorStore((s) => s.setBgColor);
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
   const setImageSrc = useImageGeneratorStore((s) => s.setImageSrc);
   const setImageVisibility = useImageGeneratorStore(
@@ -59,37 +58,29 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
           <TabsTrigger value="image">Image</TabsTrigger>
           <TabsTrigger value="background">Background</TabsTrigger>
         </TabsList>
-        <div className="flex min-h-0 grow flex-col">
-          <TabsContent value="image" className="flex min-h-0 grow flex-col">
-            <ScrollArea className="max-h-[calc(100vh-375px)] grow">
-              <div className="flex flex-col gap-4 pr-4">
-                <Border />
-                <Shadow />
-                <Size />
-                <Visibility />
-                <Input
-                  type="text"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Enter your text"
-                />
-              </div>
-            </ScrollArea>
-          </TabsContent>
-          <TabsContent
-            value="background"
-            className="flex min-h-0 grow flex-col"
-          >
-            <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+        <TabsContent value="image" className="flex flex-col">
+          <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+            <div className="flex flex-col gap-4 pr-4">
+              <ImageBorder />
+              <ImageShadow />
+              <ImageSize />
+              <ImageVisibility />
               <Input
-                type="color"
-                value={bgColor}
-                onChange={(e) => setBgColor(e.target.value)}
-                className="w-full"
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Enter your text"
               />
-            </ScrollArea>
-          </TabsContent>
-        </div>
+            </div>
+          </ScrollArea>
+        </TabsContent>
+        <TabsContent value="background" className="flex flex-col">
+          <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+            <div className="flex flex-col gap-4 pr-4">
+              <BackgroundColor />
+            </div>
+          </ScrollArea>
+        </TabsContent>
       </Tabs>
       <div className="space-y-2">
         <Input

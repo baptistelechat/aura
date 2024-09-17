@@ -9,13 +9,13 @@ interface IPreviewProps {
 }
 
 const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
-  const { text, bgColor, dimension, image } = useImageGeneratorStore(
+  const { text, backgroundColor, dimension, image } = useImageGeneratorStore(
     (s) => s.settings
   );
 
   return (
     <div
-    id="preview-container"
+      id="preview-container"
       ref={containerRef}
       className="flex size-full grow items-center justify-center overflow-hidden"
     >
@@ -23,7 +23,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
         id="preview"
         ref={previewRef}
         style={{
-          backgroundColor: bgColor,
+          backgroundColor: backgroundColor,
           transition: "all 0.3s ease",
           position: "relative",
         }}
