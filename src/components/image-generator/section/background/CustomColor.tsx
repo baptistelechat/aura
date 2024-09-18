@@ -12,20 +12,13 @@ const CustomColor = () => {
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
-  const tailwindColor = useImageGeneratorStore(
-    (s) => s.settings.background.tailwindColor
-  );
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
-  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBackgroundColor(e.target.value);
-    if (tailwindColor !== "") {
-      setTailwindColor("");
-    }
   };
 
   return (
@@ -50,11 +43,7 @@ const CustomColor = () => {
         </div>
         <div className="flex w-full flex-col items-center justify-center gap-2">
           <Label className="text-primary/40">
-            {backgroundColor
-              ? `${backgroundColor} ${
-                  tailwindColor.includes("-") ? `(${tailwindColor})` : ""
-                }`
-              : "-"}
+            {backgroundColor}
           </Label>
           <Input
             type="color"

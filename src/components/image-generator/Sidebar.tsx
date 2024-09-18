@@ -16,7 +16,7 @@ import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
 import CustomColor from "./section/background/CustomColor";
-import TailwindColor from "./section/background/TailwindColor";
+import TailwindColor from "./section/background/TailwindColor/TailwindColor";
 
 interface ISidebarProps {
   generateImage: () => void;
