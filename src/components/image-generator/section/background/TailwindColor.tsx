@@ -1,10 +1,4 @@
 import SidebarSection from "@/components/image-generator/SidebarSection";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Label } from "@/components/ui/label";
 import {
   Tooltip,
@@ -16,20 +10,14 @@ import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
-import { useState } from "react";
 
 const TailwindColor = () => {
-  const [currentAccordionItem, setCurrentAccordionItem] =
-    useState("solidColor");
-  const accordionItems = ["solidColor"];
-
-  const colorMode = useImageGeneratorStore(
-    (s) => s.settings.background.colorMode
-  );
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
-  const setColorMode = useImageGeneratorStore((s) => s.setColorMode);
+  const tailwindColor = useImageGeneratorStore(
+    (s) => s.settings.background.tailwindColor
+  );
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
@@ -44,11 +32,6 @@ const TailwindColor = () => {
     setTailwindColor(tailwindColor);
   };
 
-  const handleAccordionItemClick = (newValue: string) => {
-    setColorMode("tailwind");
-    setCurrentAccordionItem(newValue);
-  };
-
   return (
     <SidebarSection
       title={"Tailwind Color"}
@@ -56,50 +39,69 @@ const TailwindColor = () => {
       disabled={backgroundColor === defaultSettings.background.backgroundColor}
       reset={resetBackground}
     >
-      <Accordion
-        type="single"
-        collapsible
-        className="w-full"
-        value={colorMode === "tailwind" ? currentAccordionItem : ""}
-        onValueChange={(value) =>
-          accordionItems.includes(value)
-            ? setColorMode("tailwind")
-            : setColorMode("custom")
-        }
-      >
-        <AccordionItem value="solidColor">
-          <AccordionTrigger
-            onClick={() => handleAccordionItemClick("solidColor")}
-          >
-            <Label className="mt-2 text-primary/40">Solid color</Label>
-          </AccordionTrigger>
-          <AccordionContent>
+      <div className="flex flex-col gap-4">
+        <Label className="text-primary/40">Solid color</Label>
+        <div className="grid grid-cols-11 gap-1">
+          {Object.entries(tailwindColors).map(([colorName, shades]) => {
+            if (typeof shades === "object" && shades !== null) {
+              return (
+                <Tooltip key={`${colorName}`}>
+                  <TooltipTrigger>
+                    <div
+                      className="size-4 cursor-pointer rounded"
+                      style={{ backgroundColor: shades[500] }}
+                      onClick={() => setTailwindColor(colorName)}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{colorName}</p>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            }
+            return null;
+          })}
+        </div>
+        {tailwindColor !== "" ? (
+          <div className="flex flex-col gap-2">
+            <Label className="italic text-primary/40">
+              {tailwindColor.split("-")[0]}
+            </Label>
             <div className="grid grid-cols-11 gap-1">
-              {Object.entries(tailwindColors).map(([colorName, shades]) => {
-                if (typeof shades === "object" && shades !== null) {
-                  return Object.entries(shades).map(([shade, hex]) => (
-                    <Tooltip key={`${colorName}-${shade}`}>
-                      <TooltipTrigger>
-                        <div
-                          className="size-4 cursor-pointer rounded"
-                          style={{ backgroundColor: hex }}
-                          onClick={() =>
-                            handleColorChange(hex, `${colorName}-${shade}`)
-                          }
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{`${colorName}-${shade}`}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  ));
-                }
-                return null;
-              })}
+              {Object.entries(tailwindColors)
+                .filter(([name, shades]) => {
+                  if (typeof shades === "object" && shades !== null) {
+                    return name === tailwindColor.split("-")[0];
+                  }
+                  return false;
+                })
+                .map(([colorName, shades]) => {
+                  if (typeof shades === "object" && shades !== null) {
+                    return Object.entries(shades).map(([shade, hex]) => (
+                      <Tooltip key={`${colorName}-${shade}`}>
+                        <TooltipTrigger>
+                          <div
+                            className="size-4 cursor-pointer rounded"
+                            style={{ backgroundColor: hex }}
+                            onClick={() =>
+                              handleColorChange(hex, `${colorName}-${shade}`)
+                            }
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{`${colorName}-${shade}`}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    ));
+                  }
+                  return null;
+                })}
             </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </SidebarSection>
   );
 };

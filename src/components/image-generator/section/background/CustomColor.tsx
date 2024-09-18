@@ -15,7 +15,6 @@ const CustomColor = () => {
   const tailwindColor = useImageGeneratorStore(
     (s) => s.settings.background.tailwindColor
   );
-  const setColorMode = useImageGeneratorStore((s) => s.setColorMode);
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
@@ -24,7 +23,9 @@ const CustomColor = () => {
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBackgroundColor(e.target.value);
-    setTailwindColor("");
+    if (tailwindColor !== "") {
+      setTailwindColor("");
+    }
   };
 
   return (
@@ -41,7 +42,6 @@ const CustomColor = () => {
             variant="outline"
             size="icon"
             onClick={() => {
-              setColorMode("custom");
               setBackgroundColor("");
             }}
           >
@@ -52,7 +52,7 @@ const CustomColor = () => {
           <Label className="text-primary/40">
             {backgroundColor
               ? `${backgroundColor} ${
-                  tailwindColor !== "" ? `(${tailwindColor})` : ""
+                  tailwindColor.includes("-") ? `(${tailwindColor})` : ""
                 }`
               : "-"}
           </Label>
@@ -60,7 +60,6 @@ const CustomColor = () => {
             type="color"
             value={backgroundColor}
             onChange={(e) => handleColorChange(e)}
-            onClick={() => setColorMode("custom")}
             className="w-full"
           />
         </div>
