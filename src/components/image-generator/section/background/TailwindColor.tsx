@@ -16,11 +16,20 @@ import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
+import { useState } from "react";
 
 const TailwindColor = () => {
+  const [currentAccordionItem, setCurrentAccordionItem] =
+    useState("solidColor");
+  const accordionItems = ["solidColor"];
+
+  const colorMode = useImageGeneratorStore(
+    (s) => s.settings.background.colorMode
+  );
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
+  const setColorMode = useImageGeneratorStore((s) => s.setColorMode);
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
@@ -35,6 +44,11 @@ const TailwindColor = () => {
     setTailwindColor(tailwindColor);
   };
 
+  const handleAccordionItemClick = (newValue: string) => {
+    setColorMode("tailwind");
+    setCurrentAccordionItem(newValue);
+  };
+
   return (
     <SidebarSection
       title={"Tailwind Color"}
@@ -42,10 +56,21 @@ const TailwindColor = () => {
       disabled={backgroundColor === defaultSettings.background.backgroundColor}
       reset={resetBackground}
     >
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>
-            {" "}
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full"
+        value={colorMode === "tailwind" ? currentAccordionItem : ""}
+        onValueChange={(value) =>
+          accordionItems.includes(value)
+            ? setColorMode("tailwind")
+            : setColorMode("custom")
+        }
+      >
+        <AccordionItem value="solidColor">
+          <AccordionTrigger
+            onClick={() => handleAccordionItemClick("solidColor")}
+          >
             <Label className="mt-2 text-primary/40">Solid color</Label>
           </AccordionTrigger>
           <AccordionContent>

@@ -18,6 +18,8 @@ type BackgroundUpdate = {
   tailwindColor?: string;
 };
 
+type ColorMode = "custom" | "tailwind";
+
 type ImageGeneratorSettings = {
   text: string;
   dimension: {
@@ -32,6 +34,7 @@ type ImageGeneratorSettings = {
     visibility: boolean;
   };
   background: {
+    colorMode: ColorMode;
     backgroundColor: string;
     tailwindColor: string;
   };
@@ -53,6 +56,7 @@ export type ImageGeneratorStoreType = {
   setImageVisibility: (visibility: boolean) => void;
   // Background
   setBackground: (update: BackgroundUpdate) => void;
+  setColorMode: (colorMode: ColorMode) => void;
   setBackgroundColor: (backgroundColor: string) => void;
   setTailwindColor: (tailwindColor: string) => void;
   // Reset
@@ -79,6 +83,7 @@ export const defaultSettings: ImageGeneratorSettings = {
     visibility: false,
   },
   background: {
+    colorMode: "custom",
     backgroundColor: "#ffffff",
     tailwindColor: "",
   },
@@ -214,6 +219,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
         background: {
           ...state.settings.background,
           ...update,
+        },
+      },
+    }));
+  },
+
+  setColorMode: (colorMode: ColorMode) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          colorMode,
         },
       },
     }));
