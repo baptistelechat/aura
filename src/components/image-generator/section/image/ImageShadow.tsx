@@ -2,10 +2,10 @@ import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
 import { LampDesk, Moon, Sun, SunMoon } from "lucide-react";
-import Control from "../Control";
-import SidebarSection from "../SidebarSection";
+import Control from "../../Control";
+import SidebarSection from "../../SidebarSection";
 
-const Shadow = () => {
+const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
   const setShadow = useImageGeneratorStore((s) => s.setImageShadow);
   const resetShadow = useImageGeneratorStore((s) => s.resetImageShadow);
@@ -32,4 +32,4 @@ const Shadow = () => {
   );
 };
 
-export default Shadow;
+export default ImageShadow;

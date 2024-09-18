@@ -2,11 +2,13 @@ import useImageGeneratorStore, {
   defaultSettings,
 } from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";
-import Control from "../Control";
-import SidebarSection from "../SidebarSection";
+import Control from "../../Control";
+import SidebarSection from "../../SidebarSection";
 
-const Border = () => {
-  const borderRadius = useImageGeneratorStore((s) => s.settings.image.borderRadius);
+const ImageBorder = () => {
+  const borderRadius = useImageGeneratorStore(
+    (s) => s.settings.image.borderRadius
+  );
   const setBorderRadius = useImageGeneratorStore((s) => s.setImageBorderRadius);
   const resetBorderRadius = useImageGeneratorStore(
     (s) => s.resetImageBorderRadius
@@ -34,4 +36,4 @@ const Border = () => {
   );
 };
 
-export default Border;
+export default ImageBorder;

@@ -10,12 +10,16 @@ type ImageUpdate = {
   borderRadius?: number;
   shadow?: number;
   scale?: number;
-  visibility?:boolean;
+  visibility?: boolean;
+};
+
+type BackgroundUpdate = {
+  backgroundColor?: string;
+  tailwindColor?: string;
 };
 
 type ImageGeneratorSettings = {
   text: string;
-  bgColor: string;
   dimension: {
     width: number;
     height: number;
@@ -25,14 +29,17 @@ type ImageGeneratorSettings = {
     borderRadius: number;
     shadow: number;
     scale: number;
-    visibility:boolean;
+    visibility: boolean;
+  };
+  background: {
+    backgroundColor: string;
+    tailwindColor: string;
   };
 };
 
 export type ImageGeneratorStoreType = {
   settings: ImageGeneratorSettings;
   setText: (text: string) => void;
-  setBgColor: (bgColor: string) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
   setWidth: (width: number) => void;
@@ -43,17 +50,23 @@ export type ImageGeneratorStoreType = {
   setImageBorderRadius: (borderRadius: number) => void;
   setImageShadow: (shadow: number) => void;
   setImageScale: (scale: number) => void;
-  setImageVisibility: (visibility:boolean)=>void;
+  setImageVisibility: (visibility: boolean) => void;
+  // Background
+  setBackground: (update: BackgroundUpdate) => void;
+  setBackgroundColor: (backgroundColor: string) => void;
+  setTailwindColor: (tailwindColor: string) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
   resetImageShadow: () => void;
   resetImageScale: () => void;
+  resetBackground: () => void;
+  resetBackgroundColor: () => void;
+  resetTailwindColor: () => void;
 };
 
 export const defaultSettings: ImageGeneratorSettings = {
   text: "Your Text Here",
-  bgColor: "#ffffff",
   dimension: {
     width: 1920,
     height: 1080,
@@ -63,7 +76,11 @@ export const defaultSettings: ImageGeneratorSettings = {
     borderRadius: 24,
     shadow: 0.5,
     scale: 0.5,
-    visibility:false,
+    visibility: false,
+  },
+  background: {
+    backgroundColor: "#ffffff",
+    tailwindColor: "",
   },
 };
 
@@ -75,15 +92,6 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
       settings: {
         ...state.settings,
         text,
-      },
-    }));
-  },
-
-  setBgColor: (bgColor: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        bgColor,
       },
     }));
   },
@@ -198,6 +206,43 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
+  // Background
+  setBackground: (update: BackgroundUpdate) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          ...update,
+        },
+      },
+    }));
+  },
+
+  setBackgroundColor: (backgroundColor: string) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          backgroundColor,
+        },
+      },
+    }));
+  },
+
+  setTailwindColor: (tailwindColor: string) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          tailwindColor,
+        },
+      },
+    }));
+  },
+
   // Reset
   resetSettings: () => {
     set({
@@ -237,6 +282,33 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
           ...state.settings.image,
           scale: defaultSettings.image.scale,
         },
+      },
+    }));
+  },
+
+  resetBackground: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: defaultSettings.background,
+      },
+    }));
+  },
+
+  resetBackgroundColor: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        backgroundColor: defaultSettings.background.backgroundColor,
+      },
+    }));
+  },
+
+  resetTailwindColor: () => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        tailwindColor: defaultSettings.background.tailwindColor,
       },
     }));
   },

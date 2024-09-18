@@ -29,10 +29,10 @@ const Control = ({
   maxIcon,
 }: IControlProps) => {
   return (
-    <div className="flex gap-2 px-1">
+    <div className="flex gap-2">
       <div className="flex w-full flex-col items-center gap-3">
         <div className="flex w-full items-center justify-between">
-          <Label htmlFor="slider" className="text-primary/40">
+          <Label className="text-primary/40">
             {title}
           </Label>
           <Input

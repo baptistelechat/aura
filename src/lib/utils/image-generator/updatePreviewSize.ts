@@ -1,4 +1,4 @@
-import IUpdatePreview from "../interface/IUpdatePreview";
+import IUpdatePreview from "../../interface/IUpdatePreview";
 
 const updatePreviewSize = ({
   containerRef,

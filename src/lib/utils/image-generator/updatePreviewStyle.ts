@@ -1,4 +1,4 @@
-import IUpdatePreview from "../interface/IUpdatePreview";
+import IUpdatePreview from "../../interface/IUpdatePreview";
 
 const updatePreviewStyle = ({
   containerRef,
@@ -6,7 +6,7 @@ const updatePreviewStyle = ({
   imageRef,
   imageGeneratorStore,
 }: IUpdatePreview) => {
-  if (previewRef.current && containerRef.current && imageRef.current) {
+  if (previewRef.current && containerRef.current) {
     const width = imageGeneratorStore.settings.dimension.width;
     const height = imageGeneratorStore.settings.dimension.height;
 
@@ -29,8 +29,10 @@ const updatePreviewStyle = ({
     previewRef.current.style.width = `${width}px`;
     previewRef.current.style.height = `${height}px`;
 
-    imageRef.current.style.maxWidth = `${width * imageScale}px`;
-    imageRef.current.style.maxHeight = `${height * imageScale}px`;
+    if (imageRef.current) {
+      imageRef.current.style.maxWidth = `${width * imageScale}px`;
+      imageRef.current.style.maxHeight = `${height * imageScale}px`;
+    }
   }
 };
 

@@ -1,5 +1,5 @@
 import * as htmlToImage from "html-to-image";
-import IUpdatePreview from "../interface/IUpdatePreview";
+import IUpdatePreview from "../../interface/IUpdatePreview";
 import updatePreviewSize from "./updatePreviewSize";
 import updatePreviewStyle from "./updatePreviewStyle";
 const generateImage = async ({
