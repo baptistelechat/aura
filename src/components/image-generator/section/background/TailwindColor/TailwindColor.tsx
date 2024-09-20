@@ -1,13 +1,12 @@
 import SidebarSection from "@/components/image-generator/SidebarSection";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import useImageGeneratorStore, {
-  defaultSettings,
-} from "@/lib/store/imageGenerator.store";
+import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
 import { useState } from "react";
 import TailwindColorPicker from "./components/TailwindColorPicker";
 import TailwindGradientColor from "./components/TailwindGradientColor";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 
 const TailwindColor = () => {
   const [gradientColor, setGradientColor] = useState(false);
@@ -15,16 +14,16 @@ const TailwindColor = () => {
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
-  );
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   return (
     <SidebarSection
       title={"Tailwind Color"}
       icon={<Palette className="size-4" />}
-      disabled={backgroundColor === defaultSettings.background.backgroundColor}
+      disabled={
+        backgroundColor ===
+        defaultImageGeneratorSettings.background.backgroundColor
+      }
       reset={resetBackground}
     >
       <div className="flex flex-col gap-4">
@@ -39,7 +38,7 @@ const TailwindColor = () => {
         {gradientColor ? (
           <TailwindGradientColor />
         ) : (
-          <TailwindColorPicker action={setBackgroundColor} />
+          <TailwindColorPicker action={"solid"} />
         )}
       </div>
     </SidebarSection>

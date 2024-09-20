@@ -5,14 +5,58 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import tailwindColors from "@/lib/constant/tailwindColors";
+import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { Check } from "lucide-react";
 import { useState } from "react";
 
 interface ITailwindColorPickerProps {
-  action: (value:string) => void;
+  action: "solid" | "gradient-from" | "gradient-via" | "gradient-to";
 }
 
-const TailwindColorPicker = ({action}:ITailwindColorPickerProps) => {
-  const [tailwindColor, setTailwindColor] = useState("")
+const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
+  const [tailwindColor, setTailwindColor] = useState("");
+
+  const setBackgroundColor = useImageGeneratorStore(
+    (s) => s.setBackgroundColor
+  );
+  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
+  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
+  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
+
+  const handleColorClick = (colorName: string, hex: string) => () => {
+    setTailwindColor(colorName);
+    if (action === "solid") {
+      setBackgroundColor(hex);
+      setFrom("");
+      setVia("");
+      setTo("");
+    }
+    if (action === "gradient-from") {
+      setFrom(hex);
+    }
+    if (action === "gradient-via") {
+      setVia(hex);
+    }
+    if (action === "gradient-to") {
+      setTo(hex);
+    }
+  };
+
+  const handleShadeClick = (colorName: string, hex: string) => () => {
+    setTailwindColor(colorName);
+    if (action === "solid") {
+      setBackgroundColor(hex);
+    }
+    if (action === "gradient-from") {
+      setFrom(hex);
+    }
+    if (action === "gradient-via") {
+      setVia(hex);
+    }
+    if (action === "gradient-to") {
+      setTo(hex);
+    }
+  };
 
   return (
     <>
@@ -23,10 +67,15 @@ const TailwindColorPicker = ({action}:ITailwindColorPickerProps) => {
               <Tooltip key={`${colorName}`}>
                 <TooltipTrigger>
                   <div
-                    className="size-4 cursor-pointer rounded"
+                    className="size-5 cursor-pointer rounded"
                     style={{ backgroundColor: shades[500] }}
-                    onClick={() => setTailwindColor(colorName)}
-                  />
+                    onClick={handleColorClick(`${colorName}-500`, shades[500])}
+                  >{colorName === tailwindColor.split("-")[0] ? (
+                    <Check className="size-5" style={{ color: shades[50] }} />
+                  ) : (
+                    ""
+                  )}
+                  </div>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{colorName}</p>
@@ -40,7 +89,7 @@ const TailwindColorPicker = ({action}:ITailwindColorPickerProps) => {
       {tailwindColor !== "" ? (
         <div className="flex flex-col gap-2">
           <Label className="italic text-primary/40">
-            {tailwindColor.split("-")[0]}
+            {tailwindColor}
           </Label>
           <div className="grid grid-cols-11 gap-1">
             {Object.entries(tailwindColors)
@@ -56,12 +105,22 @@ const TailwindColorPicker = ({action}:ITailwindColorPickerProps) => {
                     <Tooltip key={`${colorName}-${shade}`}>
                       <TooltipTrigger>
                         <div
-                          className="size-4 cursor-pointer rounded"
+                          className="size-5 cursor-pointer rounded"
                           style={{ backgroundColor: hex }}
-                          onClick={() =>
-                            action(hex)
-                          }
-                        />
+                          onClick={handleShadeClick(
+                            `${colorName}-${shade}`,
+                            hex
+                          )}
+                        >
+                          {`${colorName}-${shade}` === tailwindColor ? (
+                            <Check
+                              className="size-5"
+                              style={{ color: Number(shade) >= 500 ? shades[50] : shades[950] }}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>{`${colorName}-${shade}`}</p>

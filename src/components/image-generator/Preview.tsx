@@ -27,14 +27,10 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
         id="preview"
         ref={previewRef}
         style={{
-          backgroundColor:
-            !tailwindGradient.from && !tailwindGradient.to
-              ? background.backgroundColor
-              : "",
           background:
             tailwindGradient.from && tailwindGradient.to
               ? `linear-gradient(${tailwindGradient.orientation}deg,${tailwindGradient.from} 0%, ${tailwindGradient.via} 50%, ${tailwindGradient.to} 100%)`
-              : "",
+              : background.backgroundColor,
           transition: "all 0.3s ease",
           position: "relative",
         }}

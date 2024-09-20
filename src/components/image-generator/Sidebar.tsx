@@ -61,8 +61,8 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
           <TabsTrigger value="background">Background</TabsTrigger>
         </TabsList>
         <TabsContent value="image" className="flex flex-col">
-          <Accordion type="multiple">
-            <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+          <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+            <Accordion type="multiple">
               <div className="flex flex-col gap-4 pr-4">
                 <ImageBorder />
                 <ImageShadow />
@@ -75,18 +75,18 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
                   placeholder="Enter your text"
                 />
               </div>
-            </ScrollArea>
-          </Accordion>
+            </Accordion>
+          </ScrollArea>
         </TabsContent>
         <TabsContent value="background" className="flex flex-col">
-          <Accordion type="multiple">
-            <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+          <ScrollArea className="max-h-[calc(100vh-375px)] grow">
+            <Accordion type="single" collapsible>
               <div className="flex flex-col gap-4 pr-4">
                 <CustomColor />
                 <TailwindColor />
               </div>
-            </ScrollArea>
-          </Accordion>
+            </Accordion>
+          </ScrollArea>
         </TabsContent>
       </Tabs>
       <div className="space-y-2">

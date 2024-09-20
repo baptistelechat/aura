@@ -1,4 +1,7 @@
 import { create } from "zustand";
+import ImageGeneratorSettings from "../types/ImageGeneratorSettings";
+import TailwindGradientOrientation from "../types/TailwindGradientOrientation";
+import defaultImageGeneratorSettings from "../constant/defaultImageGeneratorSettings";
 
 type DimensionUpdate = {
   width?: number;
@@ -11,32 +14,6 @@ type ImageUpdate = {
   shadow?: number;
   scale?: number;
   visibility?: boolean;
-};
-
-type TailwindGradientOrientation = 0 | 45 | 90 | 135 | 180 | 225 | 270 | 315;
-
-type ImageGeneratorSettings = {
-  text: string;
-  dimension: {
-    width: number;
-    height: number;
-  };
-  image: {
-    src: string | null;
-    borderRadius: number;
-    shadow: number;
-    scale: number;
-    visibility: boolean;
-  };
-  background: {
-    backgroundColor: string;
-    tailwindGradient: {
-      orientation: TailwindGradientOrientation;
-      from: string;
-      via: string;
-      to: string;
-    };
-  };
 };
 
 export type ImageGeneratorStoreType = {
@@ -70,33 +47,8 @@ export type ImageGeneratorStoreType = {
   resetBackgroundColor: () => void;
 };
 
-export const defaultSettings: ImageGeneratorSettings = {
-  text: "Your Text Here",
-  dimension: {
-    width: 1920,
-    height: 1080,
-  },
-  image: {
-    src: null,
-    borderRadius: 24,
-    shadow: 0.5,
-    scale: 0.5,
-    visibility: false,
-  },
-  background: {
-    backgroundColor: "#ffffff",
-    tailwindGradient: {
-      orientation: 0,
-      from: "",
-      via: "",
-      to: "",
-    },
-  },
-};
-
 const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
-  settings: defaultSettings,
-
+  settings: defaultImageGeneratorSettings,
   setText: (text: string) => {
     set((state) => ({
       settings: {
@@ -294,7 +246,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
   // Reset
   resetSettings: () => {
     set({
-      settings: defaultSettings,
+      settings: defaultImageGeneratorSettings,
     });
   },
 
@@ -304,7 +256,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
         ...state.settings,
         image: {
           ...state.settings.image,
-          borderRadius: defaultSettings.image.borderRadius,
+          borderRadius: defaultImageGeneratorSettings.image.borderRadius,
         },
       },
     }));
@@ -316,7 +268,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
         ...state.settings,
         image: {
           ...state.settings.image,
-          shadow: defaultSettings.image.shadow,
+          shadow: defaultImageGeneratorSettings.image.shadow,
         },
       },
     }));
@@ -328,7 +280,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
         ...state.settings,
         image: {
           ...state.settings.image,
-          scale: defaultSettings.image.scale,
+          scale: defaultImageGeneratorSettings.image.scale,
         },
       },
     }));
@@ -338,7 +290,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     set((state) => ({
       settings: {
         ...state.settings,
-        background: defaultSettings.background,
+        background: defaultImageGeneratorSettings.background,
       },
     }));
   },
@@ -347,7 +299,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     set((state) => ({
       settings: {
         ...state.settings,
-        backgroundColor: defaultSettings.background.backgroundColor,
+        backgroundColor: defaultImageGeneratorSettings.background.backgroundColor,
       },
     }));
   },

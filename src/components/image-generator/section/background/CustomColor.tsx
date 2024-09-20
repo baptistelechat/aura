@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useImageGeneratorStore, {
-  defaultSettings,
-} from "@/lib/store/imageGenerator.store";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
+import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Eraser, Paintbrush } from "lucide-react";
 import { ChangeEvent } from "react";
 import SidebarSection from "../../SidebarSection";
@@ -15,17 +14,26 @@ const CustomColor = () => {
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
+  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
+  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
+  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBackgroundColor(e.target.value);
+    setFrom("");
+    setVia("");
+    setTo("");
   };
 
   return (
     <SidebarSection
       title={"Custom Color"}
       icon={<Paintbrush className="size-4" />}
-      disabled={backgroundColor === defaultSettings.background.backgroundColor}
+      disabled={
+        backgroundColor ===
+        defaultImageGeneratorSettings.background.backgroundColor
+      }
       reset={resetBackground}
     >
       <div className="flex gap-2">

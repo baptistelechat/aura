@@ -1,9 +1,8 @@
-import useImageGeneratorStore, {
-  defaultSettings,
-} from "@/lib/store/imageGenerator.store";
+import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { LampDesk, Moon, Sun, SunMoon } from "lucide-react";
 import Control from "../../Control";
 import SidebarSection from "../../SidebarSection";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 
 const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
@@ -14,7 +13,7 @@ const ImageShadow = () => {
     <SidebarSection
       title={"Shadow"}
       icon={<LampDesk className="size-4" />}
-      disabled={shadow === defaultSettings.image.shadow}
+      disabled={shadow === defaultImageGeneratorSettings.image.shadow}
       reset={resetShadow}
     >
       <Control

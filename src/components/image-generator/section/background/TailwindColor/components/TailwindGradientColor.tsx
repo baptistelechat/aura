@@ -1,23 +1,20 @@
 import { Label } from "@/components/ui/label";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import TailwindColorPicker from "./TailwindColorPicker";
-import TailwindGradientOrientation from "./TailwindGradientOrientation";
+import TailwindGradientOrientation from "./TailwindGradientOrientationPicker";
 
 const TailwindGradientColor = () => {
-  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
+
 
   return (
     <>
       <Label className="text-primary/40">Orientation</Label>
       <TailwindGradientOrientation />
       <Label className="text-primary/40">From</Label>
-      <TailwindColorPicker action={setFrom} />
+      <TailwindColorPicker action={"gradient-from"} />
       <Label className="text-primary/40">Via</Label>
-      <TailwindColorPicker action={setVia} />
+      <TailwindColorPicker action={"gradient-via"} />
       <Label className="text-primary/40">To</Label>
-      <TailwindColorPicker action={setTo} />
+      <TailwindColorPicker action={"gradient-to"} />
     </>
   );
 };
