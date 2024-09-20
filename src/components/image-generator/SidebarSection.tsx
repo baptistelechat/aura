@@ -24,27 +24,29 @@ const SidebarSection = ({
 }: ISidebarSectionProps) => {
   return (
     <AccordionItem value={title.replaceAll(" ", "-").toLowerCase()}>
-      <AccordionTrigger>
-        <p className="flex items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
-          {icon}
-          {title}
-          {reset ? (
-            <Button
-              disabled={disabled}
-              variant="outline"
-              size="icon-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                reset();
-              }}
-            >
-              <RotateCcw className="size-4" />
-            </Button>
-          ) : (
-            <></>
-          )}
-        </p>
-      </AccordionTrigger>
+      <div className="flex items-center">
+        <AccordionTrigger>
+          <p className="flex w-full items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
+            {icon}
+            {title}
+          </p>
+        </AccordionTrigger>
+        {reset ? (
+          <Button
+            disabled={disabled}
+            variant="outline"
+            size="icon-sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              reset();
+            }}
+          >
+            <RotateCcw className="size-4" />
+          </Button>
+        ) : (
+          <></>
+        )}
+      </div>
       <AccordionContent>{children}</AccordionContent>
     </AccordionItem>
   );
