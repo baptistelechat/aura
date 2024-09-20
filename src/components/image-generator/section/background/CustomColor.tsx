@@ -28,7 +28,7 @@ const CustomColor = () => {
       disabled={backgroundColor === defaultSettings.background.backgroundColor}
       reset={resetBackground}
     >
-      <div className="mt-2 flex gap-2">
+      <div className="flex gap-2">
         <div className="flex w-fit flex-col items-center justify-center gap-2">
           <Label className="text-primary/40">Transparent</Label>
           <Button
@@ -42,9 +42,7 @@ const CustomColor = () => {
           </Button>
         </div>
         <div className="flex w-full flex-col items-center justify-center gap-2">
-          <Label className="text-primary/40">
-            {backgroundColor}
-          </Label>
+          <Label className="text-primary/40">{backgroundColor}</Label>
           <Input
             type="color"
             value={backgroundColor}
