@@ -10,9 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import { Eraser } from "lucide-react";
 import { Accordion } from "../ui/accordion";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import CustomColor from "./section/background/CustomColor";
 import TailwindColor from "./section/background/TailwindColor/TailwindColor";
@@ -20,6 +18,7 @@ import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
+import TransparentButton from "./section/background/TransparentButton";
 
 interface ISidebarProps {
   generateImage: () => void;
@@ -39,13 +38,6 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   const setImageVisibility = useImageGeneratorStore(
     (s) => s.setImageVisibility
   );
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
-  );
-  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -93,29 +85,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
               <div className="flex flex-col gap-4 pr-4">
                 <CustomColor />
                 <TailwindColor />
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => {
-                    setBackgroundColor("");
-                    setTailwindColor("");
-                    setFrom({
-                      name: "",
-                      hex: "",
-                    });
-                    setVia({
-                      name: "",
-                      hex:"",
-                    });
-                    setTo({
-                      name:"",
-                      hex:"",
-                    })
-                  }}
-                >
-                  <Eraser className="mr-2 size-5" />
-                  Transparent
-                </Button>
+               <TransparentButton/>
               </div>
             </Accordion>
           </ScrollArea>
