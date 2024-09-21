@@ -2,23 +2,22 @@ import { Button } from "@/components/ui/button";
 import gradientOrientations from "@/lib/constant/gradientOrientations";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import {
-  TailwindLinearGradientOrientation,
-  TailwindRadialGradientOrientation,
-} from "@/lib/types/TailwindGradientOrientation";
+  LinearGradientOrientation,
+  RadialGradientOrientation,
+} from "@/lib/types/gradientOrientation";
 
-
-interface ITailwindGradientOrientationPickerProps {
+interface IGradientOrientationPickerProps {
   variant: "linear" | "radial";
 }
 
-const TailwindGradientOrientationPicker = ({
+const GradientOrientationPicker = ({
   variant,
-}: ITailwindGradientOrientationPickerProps) => {
+}: IGradientOrientationPickerProps) => {
   const orientation = useImageGeneratorStore(
-    (s) => s.settings.background.tailwindGradient.orientation
+    (s) => s.settings.background.gradient.orientation
   );
   const setOrientation = useImageGeneratorStore(
-    (s) => s.setTailwindGradientOrientation
+    (s) => s.setGradientOrientation
   );
 
   return (
@@ -35,8 +34,8 @@ const TailwindGradientOrientationPicker = ({
               onClick={() =>
                 setOrientation(
                   angle as
-                    | TailwindLinearGradientOrientation
-                    | TailwindRadialGradientOrientation
+                    | LinearGradientOrientation
+                    | RadialGradientOrientation
                 )
               }
             >
@@ -54,4 +53,4 @@ const TailwindGradientOrientationPicker = ({
   );
 };
 
-export default TailwindGradientOrientationPicker;
+export default GradientOrientationPicker;

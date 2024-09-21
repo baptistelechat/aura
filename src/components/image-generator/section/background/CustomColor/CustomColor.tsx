@@ -1,14 +1,14 @@
-import SidebarSection from "@/components/image-generator/SidebarSection";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import { Palette } from "lucide-react";
+import { Paintbrush } from "lucide-react";
 import { useState } from "react";
-import TailwindColorPicker from "./components/TailwindColorPicker";
-import TailwindGradientColor from "./components/TailwindGradientColor";
+import SidebarSection from "../../../SidebarSection";
+import CustomColorPicker from "./components/CustomColorPicker";
+import CustomGradientColor from "./components/CustomGradientColor";
 
-const TailwindColor = () => {
+const CustomColor = () => {
   const [gradientColor, setGradientColor] = useState(false);
 
   const backgroundColor = useImageGeneratorStore(
@@ -26,8 +26,8 @@ const TailwindColor = () => {
 
   return (
     <SidebarSection
-      title={"Tailwind Color"}
-      icon={<Palette className="size-4" />}
+      title={"Custom Color"}
+      icon={<Paintbrush className="size-4" />}
       disabled={
         backgroundColor ===
           defaultImageGeneratorSettings.background.backgroundColor &&
@@ -51,13 +51,13 @@ const TailwindColor = () => {
           <Label htmlFor="gradient-color">Gradient color</Label>
         </div>
         {gradientColor ? (
-          <TailwindGradientColor />
+          <CustomGradientColor />
         ) : (
-          <TailwindColorPicker action={"solid"} />
+          <CustomColorPicker action={"solid"} />
         )}
       </div>
     </SidebarSection>
   );
 };
 
-export default TailwindColor;
+export default CustomColor;

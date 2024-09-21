@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { RefObject } from "react";
 
@@ -13,9 +14,19 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
     (s) => s.settings
   );
 
-  const tailwindGradient = useImageGeneratorStore(
-    (s) => s.settings.background.tailwindGradient
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
+
+  const backgroundStyle =
+    gradient.from.hex !== defaultImageGeneratorSettings.background.gradient.from.hex ||
+    gradient.via.hex !== defaultImageGeneratorSettings.background.gradient.via.hex ||
+    gradient.to.hex !== defaultImageGeneratorSettings.background.gradient.to.hex 
+      ? typeof gradient.orientation === "string" &&
+        gradient.orientation.includes("circle")
+        ? `radial-gradient(${gradient.orientation}, ${gradient.from.hex} 0%, ${gradient.via.hex} 50%, ${gradient.to.hex} 100%)`
+        : `linear-gradient(${gradient.orientation}deg, ${gradient.from.hex} 0%, ${gradient.via.hex} 50%, ${gradient.to.hex} 100%)`
+      : background.backgroundColor;
 
   return (
     <div
@@ -27,13 +38,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
         id="preview"
         ref={previewRef}
         style={{
-          background:
-            tailwindGradient.from.hex && tailwindGradient.to.hex
-              ? typeof tailwindGradient.orientation === "string" &&
-                tailwindGradient.orientation.includes("circle")
-                ? `radial-gradient(${tailwindGradient.orientation}, ${tailwindGradient.from.hex} 0%, ${tailwindGradient.via.hex} 50%, ${tailwindGradient.to.hex} 100%)`
-                : `linear-gradient(${tailwindGradient.orientation}deg, ${tailwindGradient.from.hex} 0%, ${tailwindGradient.via.hex} 50%, ${tailwindGradient.to.hex} 100%)`
-              : background.backgroundColor,
+          background: backgroundStyle,
           transition: "all 0.3s ease",
           position: "relative",
         }}

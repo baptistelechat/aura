@@ -8,27 +8,32 @@ import {
   ArrowUpLeft,
   ArrowUpRight,
   Circle,
-  X,
+  Dot,
 } from "lucide-react";
 import { ReactElement } from "react";
-import { TailwindLinearGradientOrientation, TailwindRadialGradientOrientation } from "../types/TailwindGradientOrientation";
+import {
+  LinearGradientOrientation,
+  RadialGradientOrientation,
+} from "../types/gradientOrientation";
 
 const gradientOrientations: {
-    linear: {
-        angle: TailwindLinearGradientOrientation | TailwindRadialGradientOrientation;
-        icon: ReactElement;
-    }[];
-    radial: {
-        angle: string;
-        icon: ReactElement;
-    }[];
+  linear: {
+    angle:
+      | LinearGradientOrientation
+      | RadialGradientOrientation;
+    icon: ReactElement;
+  }[];
+  radial: {
+    angle: string;
+    icon: ReactElement;
+  }[];
 } = {
   linear: [
     { angle: 135, icon: <ArrowDownRight className="size-4" /> },
     { angle: 180, icon: <ArrowDown className="size-4" /> },
     { angle: 225, icon: <ArrowDownLeft className="size-4" /> },
     { angle: 90, icon: <ArrowRight className="size-4" /> },
-    { angle: 0, icon: <X className="size-4" /> },
+    { angle: 0, icon: <Dot className="size-4" /> },
     { angle: 270, icon: <ArrowLeft className="size-4" /> },
     { angle: 45, icon: <ArrowUpRight className="size-4" /> },
     { angle: 0, icon: <ArrowUp className="size-4" /> },
@@ -59,4 +64,4 @@ const gradientOrientations: {
   ],
 };
 
-export default gradientOrientations
+export default gradientOrientations;

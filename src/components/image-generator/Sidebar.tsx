@@ -12,13 +12,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Accordion } from "../ui/accordion";
 import { Input } from "../ui/input";
-import CustomColor from "./section/background/CustomColor";
+import CustomColor from "./section/background/CustomColor/CustomColor";
 import TailwindColor from "./section/background/TailwindColor/TailwindColor";
+import TransparentButton from "./section/background/components/TransparentButton";
 import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
-import TransparentButton from "./section/background/TransparentButton";
 
 interface ISidebarProps {
   generateImage: () => void;
@@ -85,7 +85,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
               <div className="flex flex-col gap-4 pr-4">
                 <CustomColor />
                 <TailwindColor />
-               <TransparentButton/>
+                <TransparentButton />
               </div>
             </Accordion>
           </ScrollArea>

@@ -14,21 +14,21 @@ const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     visibility: false,
   },
   background: {
-    backgroundColor: "#ffffff",
-    tailwindColor: "",
-    tailwindGradient: {
+    backgroundColor: "#e2e8f0",
+    tailwindColor: "Slate-200",
+    gradient: {
       orientation: 135,
       from: {
-        name: "",
-        hex: "",
+        name: "Slate-200",
+        hex: "#e2e8f0",
       },
       via: {
-        name: "",
-        hex: "",
+        name: "Slate-200",
+        hex: "#e2e8f0",
       },
       to: {
-        name: "",
-        hex: "",
+        name: "Slate-200",
+        hex: "#e2e8f0",
       },
     },
   },

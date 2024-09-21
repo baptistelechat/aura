@@ -7,9 +7,9 @@ const TransparentButton = () => {
     (s) => s.setBackgroundColor
   );
   const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
+  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
+  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
+  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
 
   return (
     <Button

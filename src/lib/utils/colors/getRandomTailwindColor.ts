@@ -1,6 +1,5 @@
 import tailwindColors from "@/lib/constant/tailwindColors";
 
-// Typage explicite des nuances de couleur
 type TailwindColorShades = Record<string, string>;
 
 const getRandomTailwindColor = () => {

@@ -1,4 +1,4 @@
-export type TailwindLinearGradientOrientation =
+export type LinearGradientOrientation =
   | 0
   | 45
   | 90
@@ -8,7 +8,7 @@ export type TailwindLinearGradientOrientation =
   | 270
   | 315;
 
-  export type TailwindRadialGradientOrientation =
+  export type RadialGradientOrientation =
   | 315
   | "circle at top left"
   | "circle at top"

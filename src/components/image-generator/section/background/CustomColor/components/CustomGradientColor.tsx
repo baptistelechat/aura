@@ -5,18 +5,24 @@ import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { RotateCcw } from "lucide-react";
 import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
 import RandomGradient from "../../components/gradient/RandomGradient";
-import TailwindColorPicker from "./TailwindColorPicker";
+import CustomColorPicker from "./CustomColorPicker";
 
-const TailwindGradientColor = () => {
+const CustomGradientColor = () => {
+  const from = useImageGeneratorStore(
+    (s) => s.settings.background.gradient.from
+  );
   const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
+  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
   const setVia = useImageGeneratorStore((s) => s.setGradientVia);
 
   return (
     <>
-      <RandomGradient variant={"tailwind"} />
+      <RandomGradient variant={"custom"} />
       <GradientOrientationContainer />
-      <Label className="text-primary/40">From</Label>
-      <TailwindColorPicker action={"gradient-from"} />
+      <Label className="text-primary/40">
+        From - {from.hex !== "" ? from.hex : "Transparent"}
+      </Label>
+      <CustomColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Button
           disabled={
@@ -31,13 +37,17 @@ const TailwindGradientColor = () => {
         >
           <RotateCcw className="size-4" />
         </Button>
-        <Label className="text-primary/40">Via (Optional)</Label>
+        <Label className="text-primary/40">
+          Via (Optional) - {via.hex !== "" ? via.hex : "Transparent"}
+        </Label>
       </div>
-      <TailwindColorPicker action={"gradient-via"} />
-      <Label className="text-primary/40">To</Label>
-      <TailwindColorPicker action={"gradient-to"} />
+      <CustomColorPicker action={"gradient-via"} />
+      <Label className="text-primary/40">
+        To - {to.hex !== "" ? to.hex : "Transparent"}
+      </Label>
+      <CustomColorPicker action={"gradient-to"} />
     </>
   );
 };
 
-export default TailwindGradientColor;
+export default CustomGradientColor;

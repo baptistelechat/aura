@@ -18,22 +18,18 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
     (s) => s.settings.background.tailwindColor
   );
   const from = useImageGeneratorStore(
-    (s) => s.settings.background.tailwindGradient.from
+    (s) => s.settings.background.gradient.from
   );
-  const via = useImageGeneratorStore(
-    (s) => s.settings.background.tailwindGradient.via
-  );
-  const to = useImageGeneratorStore(
-    (s) => s.settings.background.tailwindGradient.to
-  );
+  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
+  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
 
   const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
-  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
+  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
+  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
+  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
 
   const currentColor =
     {
@@ -53,6 +49,10 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
     const isCurrentColor = currentColor === colorName;
 
     if (action === "solid") {
+      setFrom(defaultImageGeneratorSettings.background.gradient.from);
+      setVia(defaultImageGeneratorSettings.background.gradient.via);
+      setTo(defaultImageGeneratorSettings.background.gradient.to);
+
       if (isCurrentColor) {
         setTailwindColor("");
         setBackgroundColor(
@@ -61,9 +61,6 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
       } else {
         setTailwindColor(colorName);
         setBackgroundColor(hex);
-        setFrom({ name: "", hex: "" });
-        setVia({ name: "", hex: "" });
-        setTo({ name: "", hex: "" });
       }
     } else {
       let updatedFrom = from;
@@ -88,13 +85,11 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
           updatedVia.name === "" &&
           updatedTo.name === ""
         ) {
+          setTailwindColor("");
           setBackgroundColor(
             defaultImageGeneratorSettings.background.backgroundColor
-          ); 
-        } else if (
-          updatedFrom.name !== "" &&
-          updatedTo.name === ""
-        ) {
+          );
+        } else if (updatedFrom.name !== "" && updatedTo.name === "") {
           setTailwindColor(updatedFrom.name);
           setBackgroundColor(updatedFrom.hex);
         } else if (
@@ -102,16 +97,14 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
           updatedVia.name !== "" &&
           updatedTo.name === ""
         ) {
-          setTailwindColor(updatedVia.name); 
+          setTailwindColor(updatedVia.name);
           setBackgroundColor(updatedVia.hex);
-        } else if (
-          updatedFrom.name === "" &&
-          updatedTo.name !== ""
-        ) {
-          setTailwindColor(updatedTo.name); 
-          setBackgroundColor(updatedTo.hex); 
+        } else if (updatedFrom.name === "" && updatedTo.name !== "") {
+          setTailwindColor(updatedTo.name);
+          setBackgroundColor(updatedTo.hex);
         }
       } else {
+        setTailwindColor("");
         setGradientColor[action]?.({ name: colorName, hex });
 
         if (action === "gradient-from") updatedFrom = { name: colorName, hex };
@@ -123,18 +116,21 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
           updatedVia.name === "" &&
           updatedTo.name === ""
         ) {
+          setTailwindColor(updatedFrom.name);
           setBackgroundColor(updatedFrom.hex);
         } else if (
           updatedFrom.name === "" &&
           updatedVia.name !== "" &&
           updatedTo.name === ""
         ) {
+          setTailwindColor(updatedVia.name);
           setBackgroundColor(updatedVia.hex);
         } else if (
           updatedFrom.name === "" &&
           updatedVia.name === "" &&
           updatedTo.name !== ""
         ) {
+          setTailwindColor(updatedTo.name);
           setBackgroundColor(updatedTo.hex);
         }
       }
