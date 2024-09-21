@@ -1,4 +1,4 @@
-import TailwindGradientOrientation from "./TailwindGradientOrientation";
+import {TailwindLinearGradientOrientation, TailwindRadialGradientOrientation} from "./TailwindGradientOrientation";;
 
 type ImageGeneratorSettings = {
   text: string;
@@ -17,7 +17,9 @@ type ImageGeneratorSettings = {
     backgroundColor: string;
     tailwindColor: string;
     tailwindGradient: {
-      orientation: TailwindGradientOrientation;
+      orientation:
+        | TailwindLinearGradientOrientation
+        | TailwindRadialGradientOrientation;
       from: {
         name: string;
         hex: string;

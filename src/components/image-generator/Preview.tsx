@@ -29,7 +29,10 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
         style={{
           background:
             tailwindGradient.from.hex && tailwindGradient.to.hex
-              ? `linear-gradient(${tailwindGradient.orientation}deg,${tailwindGradient.from.hex} 0%, ${tailwindGradient.via.hex} 50%, ${tailwindGradient.to.hex} 100%)`
+              ? typeof tailwindGradient.orientation === "string" &&
+                tailwindGradient.orientation.includes("circle")
+                ? `radial-gradient(${tailwindGradient.orientation}, ${tailwindGradient.from.hex} 0%, ${tailwindGradient.via.hex} 50%, ${tailwindGradient.to.hex} 100%)`
+                : `linear-gradient(${tailwindGradient.orientation}deg, ${tailwindGradient.from.hex} 0%, ${tailwindGradient.via.hex} 50%, ${tailwindGradient.to.hex} 100%)`
               : background.backgroundColor,
           transition: "all 0.3s ease",
           position: "relative",

@@ -42,6 +42,10 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
+  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
+  const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
+  const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
+  const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -94,6 +98,19 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
                   size="lg"
                   onClick={() => {
                     setBackgroundColor("");
+                    setTailwindColor("");
+                    setFrom({
+                      name: "",
+                      hex: "",
+                    });
+                    setVia({
+                      name: "",
+                      hex:"",
+                    });
+                    setTo({
+                      name:"",
+                      hex:"",
+                    })
                   }}
                 >
                   <Eraser className="mr-2 size-5" />

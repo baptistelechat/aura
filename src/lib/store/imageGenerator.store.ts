@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import defaultImageGeneratorSettings from "../constant/defaultImageGeneratorSettings";
 import ImageGeneratorSettings from "../types/ImageGeneratorSettings";
-import TailwindGradientOrientation from "../types/TailwindGradientOrientation";
+import {TailwindLinearGradientOrientation, TailwindRadialGradientOrientation} from "../types/TailwindGradientOrientation";
 
 type DimensionUpdate = {
   width?: number;
@@ -34,7 +34,9 @@ export type ImageGeneratorStoreType = {
   setBackgroundColor: (backgroundColor: string) => void;
   setTailwindColor: (tailwindColor: string) => void;
   setTailwindGradientOrientation: (
-    orientation: TailwindGradientOrientation
+    orientation:
+      | TailwindLinearGradientOrientation
+      | TailwindRadialGradientOrientation
   ) => void;
   setTailwindGradientFrom: (from: { name: string; hex: string }) => void;
   setTailwindGradientVia: (via: { name: string; hex: string }) => void;
@@ -195,7 +197,9 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
   },
 
   setTailwindGradientOrientation: (
-    orientation: TailwindGradientOrientation
+    orientation:
+      | TailwindLinearGradientOrientation
+      | TailwindRadialGradientOrientation
   ) => {
     set((state) => ({
       settings: {
