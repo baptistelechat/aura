@@ -28,8 +28,8 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
         ref={previewRef}
         style={{
           background:
-            tailwindGradient.from && tailwindGradient.to
-              ? `linear-gradient(${tailwindGradient.orientation}deg,${tailwindGradient.from} 0%, ${tailwindGradient.via} 50%, ${tailwindGradient.to} 100%)`
+            tailwindGradient.from.hex && tailwindGradient.to.hex
+              ? `linear-gradient(${tailwindGradient.orientation}deg,${tailwindGradient.from.hex} 0%, ${tailwindGradient.via.hex} 50%, ${tailwindGradient.to.hex} 100%)`
               : background.backgroundColor,
           transition: "all 0.3s ease",
           position: "relative",

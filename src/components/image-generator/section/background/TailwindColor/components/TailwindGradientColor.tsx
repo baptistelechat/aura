@@ -11,7 +11,7 @@ const TailwindGradientColor = () => {
       <TailwindGradientOrientation />
       <Label className="text-primary/40">From</Label>
       <TailwindColorPicker action={"gradient-from"} />
-      <Label className="text-primary/40">Via</Label>
+      <Label className="text-primary/40">Via (Optional)</Label>
       <TailwindColorPicker action={"gradient-via"} />
       <Label className="text-primary/40">To</Label>
       <TailwindColorPicker action={"gradient-to"} />

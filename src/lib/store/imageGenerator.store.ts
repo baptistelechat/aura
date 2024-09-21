@@ -1,7 +1,7 @@
 import { create } from "zustand";
+import defaultImageGeneratorSettings from "../constant/defaultImageGeneratorSettings";
 import ImageGeneratorSettings from "../types/ImageGeneratorSettings";
 import TailwindGradientOrientation from "../types/TailwindGradientOrientation";
-import defaultImageGeneratorSettings from "../constant/defaultImageGeneratorSettings";
 
 type DimensionUpdate = {
   width?: number;
@@ -32,12 +32,13 @@ export type ImageGeneratorStoreType = {
   setImageVisibility: (visibility: boolean) => void;
   // Background
   setBackgroundColor: (backgroundColor: string) => void;
+  setTailwindColor: (tailwindColor: string) => void;
   setTailwindGradientOrientation: (
     orientation: TailwindGradientOrientation
   ) => void;
-  setTailwindGradientFrom: (from: string) => void;
-  setTailwindGradientVia: (via: string) => void;
-  setTailwindGradientTo: (to: string) => void;
+  setTailwindGradientFrom: (from: { name: string; hex: string }) => void;
+  setTailwindGradientVia: (via: { name: string; hex: string }) => void;
+  setTailwindGradientTo: (to: { name: string; hex: string }) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -181,6 +182,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
+  setTailwindColor: (tailwindColor: string) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          tailwindColor,
+        },
+      },
+    }));
+  },
+
   setTailwindGradientOrientation: (
     orientation: TailwindGradientOrientation
   ) => {
@@ -198,7 +211,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
-  setTailwindGradientFrom: (from: string) => {
+  setTailwindGradientFrom: (from: { name: string; hex: string }) => {
     set((state) => ({
       settings: {
         ...state.settings,
@@ -213,7 +226,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
-  setTailwindGradientVia: (via: string) => {
+  setTailwindGradientVia: (via: { name: string; hex: string }) => {
     set((state) => ({
       settings: {
         ...state.settings,
@@ -228,7 +241,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
-  setTailwindGradientTo: (to: string) => {
+  setTailwindGradientTo: (to: { name: string; hex: string }) => {
     set((state) => ({
       settings: {
         ...state.settings,
@@ -299,7 +312,8 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     set((state) => ({
       settings: {
         ...state.settings,
-        backgroundColor: defaultImageGeneratorSettings.background.backgroundColor,
+        backgroundColor:
+          defaultImageGeneratorSettings.background.backgroundColor,
       },
     }));
   },

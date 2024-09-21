@@ -11,8 +11,14 @@ const CustomColor = () => {
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
+  const tailwindGradient = useImageGeneratorStore(
+    (s) => s.settings.background.tailwindGradient
+  );
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
+  );
+  const setTailwindColor = useImageGeneratorStore(
+    (s) => s.setTailwindColor
   );
   const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
   const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
@@ -21,9 +27,19 @@ const CustomColor = () => {
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBackgroundColor(e.target.value);
-    setFrom("");
-    setVia("");
-    setTo("");
+    setTailwindColor("");
+    setFrom({
+      name: "",
+      hex: "",
+    });
+    setVia({
+      name: "",
+      hex: "",
+    });
+    setTo({
+      name: "",
+      hex: "",
+    });
   };
 
   return (
@@ -32,7 +48,16 @@ const CustomColor = () => {
       icon={<Paintbrush className="size-4" />}
       disabled={
         backgroundColor ===
-        defaultImageGeneratorSettings.background.backgroundColor
+          defaultImageGeneratorSettings.background.backgroundColor &&
+        tailwindGradient.orientation ===
+          defaultImageGeneratorSettings.background.tailwindGradient
+            .orientation &&
+        tailwindGradient.from ===
+          defaultImageGeneratorSettings.background.tailwindGradient.from &&
+        tailwindGradient.via ===
+          defaultImageGeneratorSettings.background.tailwindGradient.via &&
+        tailwindGradient.to ===
+          defaultImageGeneratorSettings.background.tailwindGradient.to
       }
       reset={resetBackground}
     >

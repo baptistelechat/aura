@@ -15,11 +15,21 @@ type ImageGeneratorSettings = {
   };
   background: {
     backgroundColor: string;
+    tailwindColor: string;
     tailwindGradient: {
       orientation: TailwindGradientOrientation;
-      from: string;
-      via: string;
-      to: string;
+      from: {
+        name: string;
+        hex: string;
+      };
+      via: {
+        name: string;
+        hex: string;
+      };
+      to: {
+        name: string;
+        hex: string;
+      };
     };
   };
 };

@@ -15,11 +15,21 @@ const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   },
   background: {
     backgroundColor: "#ffffff",
+    tailwindColor: "",
     tailwindGradient: {
       orientation: 135,
-      from: "",
-      via: "",
-      to: "",
+      from: {
+        name: "",
+        hex: "",
+      },
+      via: {
+        name: "",
+        hex: "",
+      },
+      to: {
+        name: "",
+        hex: "",
+      },
     },
   },
 };

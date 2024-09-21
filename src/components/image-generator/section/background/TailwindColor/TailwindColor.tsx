@@ -1,18 +1,21 @@
 import SidebarSection from "@/components/image-generator/SidebarSection";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
 import { useState } from "react";
 import TailwindColorPicker from "./components/TailwindColorPicker";
 import TailwindGradientColor from "./components/TailwindGradientColor";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 
 const TailwindColor = () => {
   const [gradientColor, setGradientColor] = useState(false);
 
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
+  );
+  const tailwindGradient = useImageGeneratorStore(
+    (s) => s.settings.background.tailwindGradient
   );
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
@@ -22,7 +25,16 @@ const TailwindColor = () => {
       icon={<Palette className="size-4" />}
       disabled={
         backgroundColor ===
-        defaultImageGeneratorSettings.background.backgroundColor
+          defaultImageGeneratorSettings.background.backgroundColor &&
+        tailwindGradient.orientation ===
+          defaultImageGeneratorSettings.background.tailwindGradient
+            .orientation &&
+        tailwindGradient.from ===
+          defaultImageGeneratorSettings.background.tailwindGradient.from &&
+        tailwindGradient.via ===
+          defaultImageGeneratorSettings.background.tailwindGradient.via &&
+        tailwindGradient.to ===
+          defaultImageGeneratorSettings.background.tailwindGradient.to
       }
       reset={resetBackground}
     >
