@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import { Eraser, Paintbrush } from "lucide-react";
+import { Paintbrush } from "lucide-react";
 import { ChangeEvent } from "react";
 import SidebarSection from "../../SidebarSection";
 
@@ -17,9 +16,7 @@ const CustomColor = () => {
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
-  const setTailwindColor = useImageGeneratorStore(
-    (s) => s.setTailwindColor
-  );
+  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
   const setFrom = useImageGeneratorStore((s) => s.setTailwindGradientFrom);
   const setVia = useImageGeneratorStore((s) => s.setTailwindGradientVia);
   const setTo = useImageGeneratorStore((s) => s.setTailwindGradientTo);
@@ -62,20 +59,8 @@ const CustomColor = () => {
       reset={resetBackground}
     >
       <div className="flex gap-2">
-        <div className="flex w-fit flex-col items-center justify-center gap-2">
-          <Label className="text-primary/40">Transparent</Label>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => {
-              setBackgroundColor("");
-            }}
-          >
-            <Eraser className="size-5" />
-          </Button>
-        </div>
-        <div className="flex w-full flex-col items-center justify-center gap-2">
-          <Label className="text-primary/40">{backgroundColor}</Label>
+        <div className="flex w-full flex-col gap-4">
+          <Label className="text-primary/40">{backgroundColor !== "" ? backgroundColor : "Transparent"}</Label>
           <Input
             type="color"
             value={backgroundColor}

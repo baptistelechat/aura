@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { Eraser } from "lucide-react";
 import { Accordion } from "../ui/accordion";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import CustomColor from "./section/background/CustomColor";
 import TailwindColor from "./section/background/TailwindColor/TailwindColor";
@@ -36,6 +38,9 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
   const setImageSrc = useImageGeneratorStore((s) => s.setImageSrc);
   const setImageVisibility = useImageGeneratorStore(
     (s) => s.setImageVisibility
+  );
+  const setBackgroundColor = useImageGeneratorStore(
+    (s) => s.setBackgroundColor
   );
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +89,16 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
               <div className="flex flex-col gap-4 pr-4">
                 <CustomColor />
                 <TailwindColor />
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => {
+                    setBackgroundColor("");
+                  }}
+                >
+                  <Eraser className="mr-2 size-5" />
+                  Transparent
+                </Button>
               </div>
             </Accordion>
           </ScrollArea>
