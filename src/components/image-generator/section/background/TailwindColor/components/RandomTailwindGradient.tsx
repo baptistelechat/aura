@@ -36,12 +36,22 @@ const RandomTailwindGradient = () => {
     );
 
     const randomFrom = getRandomTailwindColor();
-    const randomVia = getRandomTailwindColor();
     const randomTo = getRandomTailwindColor();
-
+    
     setFrom(randomFrom);
-    setVia(randomVia);
     setTo(randomTo);
+    
+    const shouldSetVia = Math.random() > 0.25;
+    
+    if (shouldSetVia) {
+    const randomVia = getRandomTailwindColor();
+    setVia(randomVia); 
+  } else {
+    setVia({
+      name:"",
+      hex:""
+    });
+  }
   };
 
   return (
