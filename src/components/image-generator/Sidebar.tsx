@@ -10,13 +10,15 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { Accordion } from "../ui/accordion";
 import { Input } from "../ui/input";
+import CustomColor from "./section/background/CustomColor/CustomColor";
+import TailwindColor from "./section/background/TailwindColor/TailwindColor";
+import TransparentButton from "./section/background/components/TransparentButton";
 import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
-import CustomColor from "./section/background/CustomColor";
-import TailwindColor from "./section/background/TailwindColor";
 
 interface ISidebarProps {
   generateImage: () => void;
@@ -61,26 +63,31 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
         </TabsList>
         <TabsContent value="image" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
-            <div className="flex flex-col gap-4 pr-4">
-              <ImageBorder />
-              <ImageShadow />
-              <ImageSize />
-              <ImageVisibility />
-              <Input
-                type="text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Enter your text"
-              />
-            </div>
+            <Accordion type="multiple">
+              <div className="flex flex-col gap-4 pr-4">
+                <ImageBorder />
+                <ImageShadow />
+                <ImageSize />
+                <ImageVisibility />
+                <Input
+                  type="text"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Enter your text"
+                />
+              </div>
+            </Accordion>
           </ScrollArea>
         </TabsContent>
         <TabsContent value="background" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
-            <div className="flex flex-col gap-4 pr-4">
-              <CustomColor />
-              <TailwindColor />
-            </div>
+            <Accordion type="single" collapsible>
+              <div className="flex flex-col gap-4 pr-4">
+                <CustomColor />
+                <TailwindColor />
+                <TransparentButton />
+              </div>
+            </Accordion>
           </ScrollArea>
         </TabsContent>
       </Tabs>

@@ -1,7 +1,11 @@
 import { RotateCcw } from "lucide-react";
 import { ReactElement, ReactNode } from "react";
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
 
 interface ISidebarSectionProps {
   title: string;
@@ -19,26 +23,32 @@ const SidebarSection = ({
   children,
 }: ISidebarSectionProps) => {
   return (
-    <div className="flex w-full flex-col gap-2 px-1">
-      <p className="flex items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
-        {icon}
-        {title}
+    <AccordionItem value={title.replaceAll(" ", "-").toLowerCase()}>
+      <div className="flex items-center">
+        <AccordionTrigger>
+          <p className="flex w-full items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
+            {icon}
+            {title}
+          </p>
+        </AccordionTrigger>
         {reset ? (
           <Button
             disabled={disabled}
             variant="outline"
             size="icon-sm"
-            onClick={reset}
+            onClick={(e) => {
+              e.stopPropagation();
+              reset();
+            }}
           >
             <RotateCcw className="size-4" />
           </Button>
         ) : (
           <></>
         )}
-      </p>
-      {children}
-      <Separator className="mt-2" />
-    </div>
+      </div>
+      <AccordionContent>{children}</AccordionContent>
+    </AccordionItem>
   );
 };
 

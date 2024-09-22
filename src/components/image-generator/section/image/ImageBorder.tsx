@@ -1,9 +1,8 @@
-import useImageGeneratorStore, {
-  defaultSettings,
-} from "@/lib/store/imageGenerator.store";
+import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";
 import Control from "../../Control";
 import SidebarSection from "../../SidebarSection";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 
 const ImageBorder = () => {
   const borderRadius = useImageGeneratorStore(
@@ -18,7 +17,9 @@ const ImageBorder = () => {
     <SidebarSection
       title={"Border"}
       icon={<BoxSelect className="size-4" />}
-      disabled={borderRadius === defaultSettings.image.borderRadius}
+      disabled={
+        borderRadius === defaultImageGeneratorSettings.image.borderRadius
+      }
       reset={resetBorderRadius}
     >
       <Control
