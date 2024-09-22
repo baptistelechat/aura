@@ -4,24 +4,27 @@ import { Switch } from "@/components/ui/switch";
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
-import { useState } from "react";
 import TailwindColorPicker from "./components/TailwindColorPicker";
 import TailwindGradientColor from "./components/TailwindGradientColor";
 
 const TailwindColor = () => {
-  const [gradientColor, setGradientColor] = useState(false);
-
+  const backgroundMode = useImageGeneratorStore((s) => s.settings.background.backgroundMode);
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
   );
+  const setBackgroundMode = useImageGeneratorStore((s) => s.setBackgroundMode);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   const handleCheckedChange = () => {
-    setGradientColor(!gradientColor);
-    resetBackground();
+    if (backgroundMode === "gradient") {
+      setBackgroundMode("solid");
+    } else {
+      setBackgroundMode("gradient");
+    }
+    resetBackground()
   };
 
   return (
@@ -45,12 +48,12 @@ const TailwindColor = () => {
         <div className="flex items-center gap-2">
           <Switch
             id="gradient-color"
-            checked={gradientColor}
+            checked={backgroundMode === "gradient"}
             onCheckedChange={handleCheckedChange}
           />
           <Label htmlFor="gradient-color">Gradient color</Label>
         </div>
-        {gradientColor ? (
+        {backgroundMode === "gradient" ? (
           <TailwindGradientColor />
         ) : (
           <TailwindColorPicker action={"solid"} />

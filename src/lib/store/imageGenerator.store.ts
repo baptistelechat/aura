@@ -34,8 +34,10 @@ export type ImageGeneratorStoreType = {
   setImageScale: (scale: number) => void;
   setImageVisibility: (visibility: boolean) => void;
   // Background
+  setBackgroundMode: (backgroundMode: "solid"|"gradient") => void;
   setBackgroundColor: (backgroundColor: string) => void;
   setTailwindColor: (tailwindColor: string) => void;
+  setUseVia: (useVia: boolean) => void;
   setGradientOrientation: (
     orientation: LinearGradientOrientation | RadialGradientOrientation
   ) => void;
@@ -173,6 +175,18 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
   },
 
   // Background
+  setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          backgroundMode,
+        },
+      },
+    }));
+  },
+
   setBackgroundColor: (backgroundColor: string) => {
     set((state) => ({
       settings: {
@@ -197,6 +211,21 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     }));
   },
 
+  setUseVia: (useVia: boolean) => {
+    set((state) => ({
+      settings: {
+        ...state.settings,
+        background: {
+          ...state.settings.background,
+          gradient: {
+            ...state.settings.background.gradient,
+            useVia,
+          },
+        },
+      },
+    }));
+  },
+  
   setGradientOrientation: (
     orientation: LinearGradientOrientation | RadialGradientOrientation
   ) => {
@@ -306,7 +335,10 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     set((state) => ({
       settings: {
         ...state.settings,
-        background: defaultImageGeneratorSettings.background,
+        background: {
+          ...defaultImageGeneratorSettings.background,
+          backgroundMode: state.settings.background.backgroundMode,
+        },
       },
     }));
   },

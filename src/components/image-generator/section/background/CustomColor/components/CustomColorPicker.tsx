@@ -21,6 +21,7 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
     (s) => s.setBackgroundColor
   );
   const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
+  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
   const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
   const setVia = useImageGeneratorStore((s) => s.setGradientVia);
   const setTo = useImageGeneratorStore((s) => s.setGradientTo);
@@ -33,7 +34,7 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
       "gradient-to": to.hex,
     }[action] || "";
 
-      const setGradientColor = {
+  const setGradientColor = {
     "gradient-from": setFrom,
     "gradient-via": setVia,
     "gradient-to": setTo,
@@ -42,17 +43,22 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (action === "solid") {
       setBackgroundColor(e.target.value);
-      setTailwindColor("")
+      setTailwindColor("");
     } else {
+      if (action === "gradient-via") {
+        setUseVia(true);
+      }
       setGradientColor[action]?.({ name: "", hex: e.target.value });
     }
   };
 
   return (
     <div className="flex w-full flex-col gap-4">
-      {action ==="solid" && <Label className="text-primary/40"> 
-        {currentColor !== "" ? currentColor : "Transparent"}
-      </Label>}
+      {action === "solid" && (
+        <Label className="text-primary/40">
+          {currentColor !== "" ? currentColor : "Transparent"}
+        </Label>
+      )}
       <Input
         type="color"
         value={currentColor}

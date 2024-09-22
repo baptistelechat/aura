@@ -17,12 +17,12 @@ type ImageGeneratorSettings = {
     visibility: boolean;
   };
   background: {
+    backgroundMode: "solid" | "gradient";
     backgroundColor: string;
     tailwindColor: string;
     gradient: {
-      orientation:
-        | LinearGradientOrientation
-        | RadialGradientOrientation;
+      useVia: boolean;
+      orientation: LinearGradientOrientation | RadialGradientOrientation;
       from: {
         name: string;
         hex: string;

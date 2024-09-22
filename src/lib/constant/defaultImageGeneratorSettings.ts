@@ -14,9 +14,11 @@ const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     visibility: false,
   },
   background: {
+    backgroundMode: "solid",
     backgroundColor: "#e2e8f0",
     tailwindColor: "Slate-200",
     gradient: {
+      useVia: true,
       orientation: 135,
       from: {
         name: "Slate-200",

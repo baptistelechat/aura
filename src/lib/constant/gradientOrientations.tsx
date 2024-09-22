@@ -18,9 +18,7 @@ import {
 
 const gradientOrientations: {
   linear: {
-    angle:
-      | LinearGradientOrientation
-      | RadialGradientOrientation;
+    angle: LinearGradientOrientation | RadialGradientOrientation | null;
     icon: ReactElement;
   }[];
   radial: {
@@ -33,7 +31,7 @@ const gradientOrientations: {
     { angle: 180, icon: <ArrowDown className="size-4" /> },
     { angle: 225, icon: <ArrowDownLeft className="size-4" /> },
     { angle: 90, icon: <ArrowRight className="size-4" /> },
-    { angle: 0, icon: <Dot className="size-4" /> },
+    { angle: null, icon: <Dot className="size-4" /> },
     { angle: 270, icon: <ArrowLeft className="size-4" /> },
     { angle: 45, icon: <ArrowUpRight className="size-4" /> },
     { angle: 0, icon: <ArrowUp className="size-4" /> },

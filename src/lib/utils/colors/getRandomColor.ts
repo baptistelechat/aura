@@ -11,8 +11,6 @@ const getRandomColor = () => {
     B: randomBlue,
   });
 
-  console.log(randomHexColor);
-
   return { name: "", hex: randomHexColor };
 };
 

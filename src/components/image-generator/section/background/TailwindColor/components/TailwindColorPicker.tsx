@@ -27,6 +27,7 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
+  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
   const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
   const setVia = useImageGeneratorStore((s) => s.setGradientVia);
   const setTo = useImageGeneratorStore((s) => s.setGradientTo);
@@ -48,20 +49,27 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
   const handleColorClick = (colorName: string, hex: string) => () => {
     const isCurrentColor = currentColor === colorName;
 
-    if (action === "solid") {
+    const resetGradient = () => {
       setFrom(defaultImageGeneratorSettings.background.gradient.from);
       setVia(defaultImageGeneratorSettings.background.gradient.via);
       setTo(defaultImageGeneratorSettings.background.gradient.to);
+    };
 
-      if (isCurrentColor) {
-        setTailwindColor("");
-        setBackgroundColor(
-          defaultImageGeneratorSettings.background.backgroundColor
-        );
-      } else {
-        setTailwindColor(colorName);
-        setBackgroundColor(hex);
-      }
+    const updateColors = (name: string, hexValue: string) => {
+      setTailwindColor(name);
+      setBackgroundColor(hexValue);
+    };
+
+    const resetColors = () => {
+      setTailwindColor("");
+      setBackgroundColor(
+        defaultImageGeneratorSettings.background.backgroundColor
+      );
+    };
+
+    if (action === "solid") {
+      resetGradient();
+      isCurrentColor ? resetColors() : updateColors(colorName, hex);
     } else {
       let updatedFrom = from;
       let updatedVia = via;
@@ -70,69 +78,38 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
       if (isCurrentColor) {
         setGradientColor[action]?.({ name: "", hex: "" });
 
-        if (action === "gradient-from") {
-          updatedFrom = { name: "", hex: "" };
-        }
-        if (action === "gradient-via") {
+        if (action === "gradient-from") updatedFrom = { name: "", hex: "" };
+        if (action === "gradient-via")
           updatedVia = { name: "", hex: "" };
-        }
-        if (action === "gradient-to") {
-          updatedTo = { name: "", hex: "" };
-        }
+        if (action === "gradient-to") updatedTo = { name: "", hex: "" };
 
         if (
           updatedFrom.name === "" &&
           updatedVia.name === "" &&
           updatedTo.name === ""
         ) {
-          setTailwindColor("");
-          setBackgroundColor(
-            defaultImageGeneratorSettings.background.backgroundColor
-          );
-        } else if (updatedFrom.name !== "" && updatedTo.name === "") {
-          setTailwindColor(updatedFrom.name);
-          setBackgroundColor(updatedFrom.hex);
-        } else if (
-          updatedFrom.name === "" &&
-          updatedVia.name !== "" &&
-          updatedTo.name === ""
-        ) {
-          setTailwindColor(updatedVia.name);
-          setBackgroundColor(updatedVia.hex);
-        } else if (updatedFrom.name === "" && updatedTo.name !== "") {
-          setTailwindColor(updatedTo.name);
-          setBackgroundColor(updatedTo.hex);
+          resetColors();
+        } else {
+          const color = updatedFrom.name || updatedVia.name || updatedTo.name;
+          const colorHex = updatedFrom.hex || updatedVia.hex || updatedTo.hex;
+          updateColors(color, colorHex);
         }
       } else {
         setTailwindColor("");
         setGradientColor[action]?.({ name: colorName, hex });
 
-        if (action === "gradient-from") updatedFrom = { name: colorName, hex };
-        if (action === "gradient-via") updatedVia = { name: colorName, hex };
+        if (action === "gradient-via") {
+        setUseVia(true);
+      }
+
+      if (action === "gradient-from") updatedFrom = { name: colorName, hex };
+        if (action === "gradient-via")
+          updatedVia = { name: colorName, hex };
         if (action === "gradient-to") updatedTo = { name: colorName, hex };
 
-        if (
-          updatedFrom.name !== "" &&
-          updatedVia.name === "" &&
-          updatedTo.name === ""
-        ) {
-          setTailwindColor(updatedFrom.name);
-          setBackgroundColor(updatedFrom.hex);
-        } else if (
-          updatedFrom.name === "" &&
-          updatedVia.name !== "" &&
-          updatedTo.name === ""
-        ) {
-          setTailwindColor(updatedVia.name);
-          setBackgroundColor(updatedVia.hex);
-        } else if (
-          updatedFrom.name === "" &&
-          updatedVia.name === "" &&
-          updatedTo.name !== ""
-        ) {
-          setTailwindColor(updatedTo.name);
-          setBackgroundColor(updatedTo.hex);
-        }
+        const color = updatedFrom.name || updatedVia.name || updatedTo.name;
+        const colorHex = updatedFrom.hex || updatedVia.hex || updatedTo.hex;
+        updateColors(color, colorHex);
       }
     }
   };

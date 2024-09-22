@@ -7,29 +7,20 @@ const TransparentButton = () => {
     (s) => s.setBackgroundColor
   );
   const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
+  const setBackgroundMode = useImageGeneratorStore((s) => s.setBackgroundMode);
+  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
+  const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   return (
     <Button
       variant="outline"
       size="lg"
       onClick={() => {
+        resetBackground();
+        setBackgroundMode("solid");
         setBackgroundColor("");
         setTailwindColor("");
-        setFrom({
-          name: "",
-          hex: "",
-        });
-        setVia({
-          name: "",
-          hex: "",
-        });
-        setTo({
-          name: "",
-          hex: "",
-        });
+        setUseVia(false);
       }}
     >
       <Eraser className="mr-2 size-5" />

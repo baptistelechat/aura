@@ -19,13 +19,21 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
   );
 
   const backgroundStyle =
-    gradient.from.hex !== defaultImageGeneratorSettings.background.gradient.from.hex ||
-    gradient.via.hex !== defaultImageGeneratorSettings.background.gradient.via.hex ||
-    gradient.to.hex !== defaultImageGeneratorSettings.background.gradient.to.hex 
+    gradient.from.hex !==
+      defaultImageGeneratorSettings.background.gradient.from.hex ||
+    gradient.via.hex !==
+      defaultImageGeneratorSettings.background.gradient.via.hex ||
+    gradient.to.hex !== defaultImageGeneratorSettings.background.gradient.to.hex
       ? typeof gradient.orientation === "string" &&
         gradient.orientation.includes("circle")
-        ? `radial-gradient(${gradient.orientation}, ${gradient.from.hex} 0%, ${gradient.via.hex} 50%, ${gradient.to.hex} 100%)`
-        : `linear-gradient(${gradient.orientation}deg, ${gradient.from.hex} 0%, ${gradient.via.hex} 50%, ${gradient.to.hex} 100%)`
+        ? `radial-gradient(${gradient.orientation}, ${gradient.from.hex} 0%, ${
+            gradient.useVia ? gradient.via.hex : ""
+          } 50%, ${gradient.to.hex} 100%)`
+        : `linear-gradient(${gradient.orientation}deg, ${
+            gradient.from.hex
+          } 0%,  ${gradient.useVia ? gradient.via.hex : ""} 50%, ${
+            gradient.to.hex
+          } 100%)`
       : background.backgroundColor;
 
   return (
