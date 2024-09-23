@@ -49,7 +49,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
           background: backgroundStyle,
           transition: "all 0.3s ease",
           position: "relative",
-          ...(background.backgroundColor === "" && {
+          ...(background.backgroundColor === "Transparent" && {
             backgroundImage:
               "linear-gradient(45deg, #eeeeee 25%, transparent 25%, transparent 75%, #eeeeee 75%), linear-gradient(45deg, #eeeeee 25%, transparent 25%, transparent 75%, #eeeeee 75%)",
             backgroundSize: "20px 20px",

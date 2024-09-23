@@ -56,7 +56,7 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
     <div className="flex w-full flex-col gap-4">
       {action === "solid" && (
         <Label className="text-primary/40">
-          {currentColor !== "" ? currentColor : "Transparent"}
+          {currentColor}
         </Label>
       )}
       <Input
