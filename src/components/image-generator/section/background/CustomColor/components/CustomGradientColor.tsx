@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
-import RandomGradient from "../../components/gradient/RandomGradient";
+import RandomColor from "../../components/RandomColor";
 import CustomColorPicker from "./CustomColorPicker";
 
 const CustomGradientColor = () => {
@@ -30,7 +30,7 @@ const CustomGradientColor = () => {
 
   return (
     <>
-      <RandomGradient variant={"custom"} />
+      <RandomColor variant={"custom-gradient"} />
       <GradientOrientationContainer />
       <Label className="text-primary/40">
         From - {from.hex !== "" ? from.hex : "Transparent"}

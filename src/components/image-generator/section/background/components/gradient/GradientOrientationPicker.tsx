@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import gradientOrientations from "@/lib/constant/gradientOrientations";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "@/lib/types/gradientOrientation";
-
 interface IGradientOrientationPickerProps {
   variant: "linear" | "radial";
 }
@@ -26,21 +30,34 @@ const GradientOrientationPicker = ({
         .reduce((rows, { angle, icon }, index) => {
           if (index % 3 === 0) rows.push([]);
           rows[rows.length - 1].push(
-            <Button
-              key={angle ?? "shuffle"}
-              disabled={orientation === angle || angle === null}
-              variant="outline"
-              size="icon"
-              onClick={() =>
-                setOrientation(
-                  angle as
-                    | LinearGradientOrientation
-                    | RadialGradientOrientation
-                )
-              }
-            >
-              {icon}
-            </Button>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  key={angle ?? "shuffle"}
+                  disabled={orientation === angle || angle === null}
+                  variant="outline"
+                  size="icon"
+                  onClick={() =>
+                    setOrientation(
+                      angle as
+                        | LinearGradientOrientation
+                        | RadialGradientOrientation
+                    )
+                  }
+                >
+                  {icon}
+                </Button>
+              </TooltipTrigger>
+              {angle !== null && (
+                <TooltipContent>
+                  <p>
+                    {typeof angle === "number"
+                      ? `${angle}°`
+                      : `${angle.charAt(0).toUpperCase()}${angle.slice(1)}`}
+                  </p>
+                </TooltipContent>
+              )}
+            </Tooltip>
           );
           return rows;
         }, [] as JSX.Element[][])

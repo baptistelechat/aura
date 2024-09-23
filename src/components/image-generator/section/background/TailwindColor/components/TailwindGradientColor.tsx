@@ -1,10 +1,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
-import RandomGradient from "../../components/gradient/RandomGradient";
+import RandomColor from "../../components/RandomColor";
 import TailwindColorPicker from "./TailwindColorPicker";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 
 const TailwindGradientColor = () => {
   const useVia = useImageGeneratorStore(
@@ -26,7 +26,7 @@ const TailwindGradientColor = () => {
 
   return (
     <>
-      <RandomGradient variant={"tailwind"} />
+      <RandomColor variant={"tailwind-gradient"} />
       <GradientOrientationContainer />
       <Label className="text-primary/40">From</Label>
       <TailwindColorPicker action={"gradient-from"} />

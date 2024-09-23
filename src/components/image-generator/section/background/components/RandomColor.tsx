@@ -1,4 +1,9 @@
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import gradientOrientations from "@/lib/constant/gradientOrientations";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
@@ -10,11 +15,12 @@ import getRandomColor from "@/lib/utils/colors/getRandomColor";
 import getRandomTailwindColor from "@/lib/utils/colors/getRandomTailwindColor";
 import { Dices } from "lucide-react";
 
-interface IRandomGradientProps {
-  variant: "custom" | "tailwind";
+interface IRandomColorProps {
+  variant: "custom" | "custom-gradient" | "tailwind-gradient";
+  icon?: boolean;
 }
 
-const RandomGradient = ({ variant }: IRandomGradientProps) => {
+const RandomColor = ({ variant, icon }: IRandomColorProps) => {
   const orientation = useImageGeneratorStore(
     (s) => s.settings.background.gradient.orientation
   );
@@ -47,9 +53,13 @@ const RandomGradient = ({ variant }: IRandomGradientProps) => {
     );
 
     const randomFrom =
-      variant === "custom" ? getRandomColor() : getRandomTailwindColor();
+      variant === "custom-gradient"
+        ? getRandomColor()
+        : getRandomTailwindColor();
     const randomTo =
-      variant === "custom" ? getRandomColor() : getRandomTailwindColor();
+      variant === "custom-gradient"
+        ? getRandomColor()
+        : getRandomTailwindColor();
 
     setBackgroundColor(
       defaultImageGeneratorSettings.background.backgroundColor
@@ -63,7 +73,9 @@ const RandomGradient = ({ variant }: IRandomGradientProps) => {
 
     if (shouldSetVia) {
       const randomVia =
-        variant === "custom" ? getRandomColor() : getRandomTailwindColor();
+        variant === "custom-gradient"
+          ? getRandomColor()
+          : getRandomTailwindColor();
       setUseVia(true);
       setVia({
         name: randomVia.name,
@@ -78,12 +90,40 @@ const RandomGradient = ({ variant }: IRandomGradientProps) => {
     }
   };
 
+  const getCustomRandomColor = () => {
+    const randomColor = getRandomColor();
+    setBackgroundColor(randomColor.hex);
+    setTailwindColor("");
+  };
+
   return (
-    <Button variant="outline" size="lg" onClick={getRandomGradient}>
-      <Dices className="mr-2 size-5" />
-      Random gradient
-    </Button>
+    <Tooltip>
+      <TooltipTrigger>
+        <Button
+          variant="outline"
+          size={icon ? "icon" : "lg"}
+          onClick={
+            variant.includes("gradient")
+              ? getRandomGradient
+              : getCustomRandomColor
+          }
+          className="w-full px-2"
+        >
+          <Dices className={`${icon ? "" : "mr-2"} size-5`} />
+          {icon
+            ? ""
+            : variant.includes("gradient")
+            ? "Random gradient"
+            : "Random color"}
+        </Button>
+      </TooltipTrigger>
+      {icon && (
+        <TooltipContent>
+          <p>Get a random {variant === "custom" ? "color" : "gradient"}</p>
+        </TooltipContent>
+      )}
+    </Tooltip>
   );
 };
 
-export default RandomGradient;
+export default RandomColor;
