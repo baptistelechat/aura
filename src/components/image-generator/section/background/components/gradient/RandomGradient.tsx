@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import gradientOrientations from "@/lib/constant/gradientOrientations";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import {
@@ -50,7 +51,9 @@ const RandomGradient = ({ variant }: IRandomGradientProps) => {
     const randomTo =
       variant === "custom" ? getRandomColor() : getRandomTailwindColor();
 
-    setBackgroundColor("");
+    setBackgroundColor(
+      defaultImageGeneratorSettings.background.backgroundColor
+    );
     setTailwindColor("");
 
     setFrom(randomFrom);
@@ -67,7 +70,7 @@ const RandomGradient = ({ variant }: IRandomGradientProps) => {
         hex: randomVia.hex,
       });
     } else {
-      setUseVia(false)
+      setUseVia(false);
       setVia({
         name: "",
         hex: "",

@@ -49,6 +49,12 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
           background: backgroundStyle,
           transition: "all 0.3s ease",
           position: "relative",
+          ...(background.backgroundColor === "" && {
+            backgroundImage:
+              "linear-gradient(45deg, #eeeeee 25%, transparent 25%, transparent 75%, #eeeeee 75%), linear-gradient(45deg, #eeeeee 25%, transparent 25%, transparent 75%, #eeeeee 75%)",
+            backgroundSize: "20px 20px",
+            backgroundPosition: "0 0, 10px 10px",
+          }),
         }}
         className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300"
       >
