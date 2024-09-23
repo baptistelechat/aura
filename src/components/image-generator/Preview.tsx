@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
+import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { RefObject } from "react";
 
@@ -49,9 +50,9 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
           background: backgroundStyle,
           transition: "all 0.3s ease",
           position: "relative",
-          ...(background.backgroundColor === "Transparent" && {
+          ...(background.backgroundColor === "" && {
             backgroundImage:
-              "linear-gradient(45deg, #eeeeee 25%, transparent 25%, transparent 75%, #eeeeee 75%), linear-gradient(45deg, #eeeeee 25%, transparent 25%, transparent 75%, #eeeeee 75%)",
+              transparentBackgroundStyle,
             backgroundSize: "20px 20px",
             backgroundPosition: "0 0, 10px 10px",
           }),

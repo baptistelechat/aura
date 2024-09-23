@@ -18,7 +18,7 @@ const TransparentButton = () => {
       onClick={() => {
         resetBackground();
         setBackgroundMode("solid");
-        setBackgroundColor("Transparent");
+        setBackgroundColor("");
         setTailwindColor("");
         setUseVia(false);
       }}
