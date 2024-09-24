@@ -26,10 +26,13 @@ const updatePreviewStyle = ({
     previewRef.current.classList.toggle("border-slate-200");
     previewRef.current.classList.toggle("transition-all");
     previewRef.current.classList.toggle("rounded-xl");
-    if (previewRef.current.style.backgroundImage === "") {
-      previewRef.current.style.backgroundImage = transparentBackgroundStyle;
-    } else {
-      previewRef.current.style.backgroundImage = "";
+    
+    if (imageGeneratorStore.settings.background.backgroundColor === "") {
+      if (previewRef.current.style.backgroundImage === "") {
+        previewRef.current.style.backgroundImage = transparentBackgroundStyle;
+      } else {
+        previewRef.current.style.backgroundImage = "";
+      }
     }
 
     previewRef.current.style.width = `${width}px`;
