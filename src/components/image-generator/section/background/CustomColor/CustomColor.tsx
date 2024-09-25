@@ -53,7 +53,9 @@ const CustomColor = () => {
             checked={backgroundMode === "gradient"}
             onCheckedChange={handleCheckedChange}
           />
-          <Label htmlFor="gradient-color">Gradient color</Label>
+          <Label htmlFor="gradient-color">
+            Gradient color
+          </Label>
         </div>
         {backgroundMode === "gradient" ? (
           <CustomGradientColor />

@@ -1,4 +1,3 @@
-import Menu from "@/components/Menu";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
@@ -38,7 +37,7 @@ export default function RootLayout({
             <div className="fixed bottom-4 right-4 z-50">
               <ThemeToggle />
             </div>
-            <Menu />
+            {/* <Menu /> */}
             <main className="grow md:overflow-hidden">{children}</main>
             <Toaster />
           </TooltipProvider>
