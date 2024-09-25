@@ -1,19 +1,32 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
-import RandomGradient from "../../components/gradient/RandomGradient";
+import RandomColor from "../../components/RandomColor";
 import TailwindColorPicker from "./TailwindColorPicker";
 
 const TailwindGradientColor = () => {
   const useVia = useImageGeneratorStore(
     (s) => s.settings.background.gradient.useVia
   );
+  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
+  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
   const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
+
+  const handleCheckboxChange = () => {
+    if (via.hex === "") {
+      setVia({
+        name: defaultImageGeneratorSettings.background.gradient.via.name,
+        hex: defaultImageGeneratorSettings.background.gradient.via.hex,
+      });
+    }
+    setUseVia(!useVia);
+  };
 
   return (
     <>
-      <RandomGradient variant={"tailwind"} />
+      <RandomColor variant={"tailwind-gradient"} />
       <GradientOrientationContainer />
       <Label className="text-primary/40">From</Label>
       <TailwindColorPicker action={"gradient-from"} />
@@ -21,7 +34,7 @@ const TailwindGradientColor = () => {
         <Checkbox
           id="tailwind-color-via"
           checked={useVia}
-          onCheckedChange={() => setUseVia(!useVia)}
+          onCheckedChange={() => handleCheckboxChange()}
         />
         <Label id="tailwind-color-via" className="text-primary/40">
           Via (Optional)

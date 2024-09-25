@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
+import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { RefObject } from "react";
 
@@ -49,6 +50,12 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
           background: backgroundStyle,
           transition: "all 0.3s ease",
           position: "relative",
+          ...(background.backgroundColor === "" && {
+            backgroundImage:
+              transparentBackgroundStyle,
+            backgroundSize: "20px 20px",
+            backgroundPosition: "0 0, 10px 10px",
+          }),
         }}
         className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300"
       >

@@ -1,7 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
+import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import { ChangeEvent } from "react";
+import RandomColor from "../../components/RandomColor";
 
 interface ICustomColorPickerProps {
   action: "solid" | "gradient-from" | "gradient-via" | "gradient-to";
@@ -52,19 +55,49 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
     }
   };
 
+  const handleTransparentClick = () => {
+    if (action === "gradient-via") {
+      setVia(defaultImageGeneratorSettings.background.gradient.via);
+      setUseVia(true);
+    } else {
+      setBackgroundColor(
+        defaultImageGeneratorSettings.background.backgroundColor
+      );
+    }
+  };
+
   return (
     <div className="flex w-full flex-col gap-4">
       {action === "solid" && (
         <Label className="text-primary/40">
-          {currentColor !== "" ? currentColor : "Transparent"}
+          {currentColor === "" ? "Transparent" : currentColor}
         </Label>
       )}
-      <Input
-        type="color"
-        value={currentColor}
-        onChange={(e) => handleColorChange(e)}
-        className="w-full"
-      />
+      <div className="flex gap-2">
+        <Input
+          id={action}
+          type="color"
+          value={currentColor}
+          onChange={(e) => handleColorChange(e)}
+          className={`${currentColor === "" ? "hidden" : "flex"} w-full`}
+        />
+        <div
+          className={`${
+            currentColor === "" ? "flex" : "hidden"
+          } h-10 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm ring-offset-background`}
+          onClick={() => handleTransparentClick()}
+        >
+          <div
+            className="size-full border border-input"
+            style={{
+              backgroundImage: transparentBackgroundStyle,
+              backgroundSize: "14px 14px",
+              backgroundPosition: "0 0, 7px 7px",
+            }}
+          />
+        </div>
+        {action === "solid" && <RandomColor variant={"custom"} icon />}
+      </div>
     </div>
   );
 };
