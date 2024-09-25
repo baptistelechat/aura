@@ -32,7 +32,7 @@ const CustomGradientColor = () => {
     <>
       <RandomColor variant={"custom-gradient"} />
       <GradientOrientationContainer />
-      <Label className="text-primary/40">
+      <Label>
         From - {from.hex !== "" ? from.hex : "Transparent"}
       </Label>
       <CustomColorPicker action={"gradient-from"} />
@@ -42,12 +42,12 @@ const CustomGradientColor = () => {
           checked={useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
-        <Label id="custom-color-via" className="text-primary/40">
+        <Label id="custom-color-via">
           Via (Optional) - {via.hex !== "" ? via.hex : "Transparent"}
         </Label>
       </div>
       <CustomColorPicker action={"gradient-via"} />
-      <Label className="text-primary/40">
+      <Label>
         To - {to.hex !== "" ? to.hex : "Transparent"}
       </Label>
       <CustomColorPicker action={"gradient-to"} />

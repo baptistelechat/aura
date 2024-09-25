@@ -25,8 +25,8 @@ const SidebarSection = ({
   return (
     <AccordionItem value={title.replaceAll(" ", "-").toLowerCase()}>
       <div className="flex items-center">
-        <AccordionTrigger>
-          <p className="flex w-full items-center gap-2 text-left text-sm font-medium uppercase text-primary/60">
+        <AccordionTrigger className="ml-0.5 px-1">
+          <p className="flex w-full items-center gap-2 text-left text-sm font-medium uppercase text-muted-foreground/80">
             {icon}
             {title}
           </p>
@@ -40,6 +40,7 @@ const SidebarSection = ({
               e.stopPropagation();
               reset();
             }}
+            className="mr-1"
           >
             <RotateCcw className="size-4" />
           </Button>
@@ -47,7 +48,7 @@ const SidebarSection = ({
           <></>
         )}
       </div>
-      <AccordionContent>{children}</AccordionContent>
+      <AccordionContent className="px-1 pt-1">{children}</AccordionContent>
     </AccordionItem>
   );
 };

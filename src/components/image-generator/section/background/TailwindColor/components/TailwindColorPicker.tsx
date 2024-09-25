@@ -144,7 +144,9 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
 
       {currentColor && (
         <div className="flex flex-col gap-2">
-          <Label className="italic text-primary/40">{currentColor}</Label>
+          <Label className="italic">
+            {currentColor}
+          </Label>
           <div className="grid grid-cols-11 gap-1">
             {Object.entries(tailwindColors)
               .filter(([name]) => name === currentColor.split("-")[0])

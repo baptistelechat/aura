@@ -1,7 +1,9 @@
+import { redirect } from "next/navigation";
+
 const Home = () => {
-  return (
-    <h1>Home</h1>
-  );
+  redirect("/image-generator");
+  
+  return <h1>Home</h1>;
 };
 
 export default Home;

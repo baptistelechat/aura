@@ -32,9 +32,7 @@ const Control = ({
     <div className="flex gap-2">
       <div className="flex w-full flex-col items-center gap-3">
         <div className="flex w-full items-center justify-between">
-          <Label className="text-primary/40">
-            {title}
-          </Label>
+          <Label>{title}</Label>
           <Input
             type="number"
             value={value}

@@ -28,7 +28,7 @@ const TailwindGradientColor = () => {
     <>
       <RandomColor variant={"tailwind-gradient"} />
       <GradientOrientationContainer />
-      <Label className="text-primary/40">From</Label>
+      <Label>From</Label>
       <TailwindColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Checkbox
@@ -36,12 +36,12 @@ const TailwindGradientColor = () => {
           checked={useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
-        <Label id="tailwind-color-via" className="text-primary/40">
+        <Label id="tailwind-color-via">
           Via (Optional)
         </Label>
       </div>
       <TailwindColorPicker action={"gradient-via"} />
-      <Label className="text-primary/40">To</Label>
+      <Label>To</Label>
       <TailwindColorPicker action={"gradient-to"} />
     </>
   );

@@ -74,6 +74,7 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Enter your text"
+                  className="mx-1 mb-1"
                 />
               </div>
             </Accordion>
