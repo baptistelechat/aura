@@ -37,7 +37,6 @@ const generateImage = async ({
       });
 
       if (action === "download") {
-        // Télécharger l'image
         const link = document.createElement("a");
         link.href = dataUrl;
         link.download = "social-image.png";
