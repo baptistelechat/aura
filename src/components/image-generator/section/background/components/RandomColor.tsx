@@ -98,7 +98,7 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Button
           variant="outline"
           size={icon ? "icon" : "lg"}
@@ -107,9 +107,9 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
               ? getRandomGradient
               : getCustomRandomColor
           }
-          className="w-full px-2"
+          className="px-2"
         >
-          <Dices className={`${icon ? "" : "mr-2"} size-5`} />
+          <Dices className={`${icon ? "" : "mr-2"} size-4`} />
           {icon
             ? ""
             : variant.includes("gradient")

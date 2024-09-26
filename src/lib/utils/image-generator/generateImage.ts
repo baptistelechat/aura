@@ -1,16 +1,21 @@
+import { ImageGeneratorStoreType } from "@/lib/store/imageGenerator.store";
 import * as htmlToImage from "html-to-image";
-import IUpdatePreview from "../../interface/IUpdatePreview";
 import updatePreviewSize from "./updatePreviewSize";
 import updatePreviewStyle from "./updatePreviewStyle";
+import { toast } from "sonner";
+
+interface IGenerateImage {
+  imageGeneratorStore: ImageGeneratorStoreType;
+  action?: "download" | "clipboard";
+}
 
 const generateImage = async ({
-  containerRef,
-  previewRef,
-  imageRef,
   imageGeneratorStore,
   action = "download",
-}: IUpdatePreview & { action?: "download" | "clipboard" }) => {
-  if (previewRef.current) {
+}: IGenerateImage) => {
+  const previewRef = imageGeneratorStore.refs.previewRef;
+
+  if (previewRef?.current) {
     const previewWidth = imageGeneratorStore.settings.dimension.width;
     const previewHeight = imageGeneratorStore.settings.dimension.height;
 
@@ -21,12 +26,7 @@ const generateImage = async ({
       previewRef.current.style.height.replace("px", "")
     );
 
-    updatePreviewStyle({
-      containerRef,
-      previewRef,
-      imageRef,
-      imageGeneratorStore,
-    });
+    updatePreviewStyle(imageGeneratorStore);
 
     try {
       const dataUrl = await new Promise<string>(async (resolve) => {
@@ -45,7 +45,7 @@ const generateImage = async ({
         const blob = await (await fetch(dataUrl)).blob();
         const clipboardItem = new ClipboardItem({ "image/png": blob });
         await navigator.clipboard.write([clipboardItem]);
-        console.log("Image copiée dans le presse-papiers !");
+        toast.success("Image copy to clipboard !");
       }
     } catch (error) {
       console.error("Error generating image:", error);
@@ -55,24 +55,14 @@ const generateImage = async ({
         height: previousHeight,
       });
 
-      updatePreviewStyle({
-        containerRef,
-        previewRef,
-        imageRef,
-        imageGeneratorStore,
-      });
+      updatePreviewStyle(imageGeneratorStore);
 
       imageGeneratorStore.setDimensions({
         width: previewWidth,
         height: previewHeight,
       });
 
-      updatePreviewSize({
-        containerRef,
-        previewRef,
-        imageRef,
-        imageGeneratorStore,
-      });
+      updatePreviewSize(imageGeneratorStore);
     }
   }
 };

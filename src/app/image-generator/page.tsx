@@ -1,9 +1,7 @@
 "use client";
 import Preview from "@/components/image-generator/Preview";
 import Sidebar from "@/components/image-generator/Sidebar";
-import IUpdatePreview from "@/lib/interface/IUpdatePreview";
 import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import generateImage from "@/lib/utils/image-generator/generateImage";
 import updatePreviewSize from "@/lib/utils/image-generator/updatePreviewSize";
 import { MonitorSmartphone } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -11,30 +9,36 @@ import { useEffect, useRef } from "react";
 const ImageGenerator = () => {
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
-  const imageGeneratorStore = useImageGeneratorStore();
+  const refs = useImageGeneratorStore((s) => s.refs);
+  const setRefs = useImageGeneratorStore((s) => s.setRefs);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const updatePreviewObject: IUpdatePreview = {
-    containerRef,
-    previewRef,
-    imageRef,
-    imageGeneratorStore,
-  };
+  useEffect(() => {
+    setRefs({
+      containerRef,
+      previewRef,
+      imageRef,
+    });
+  }, [setRefs]);
 
   useEffect(() => {
-    updatePreviewSize(updatePreviewObject);
+    updatePreviewSize(useImageGeneratorStore.getState());
     window.addEventListener("resize", () =>
-      updatePreviewSize(updatePreviewObject)
+      updatePreviewSize(useImageGeneratorStore.getState())
     );
-  }, [width, height]);
+    return () =>
+      window.removeEventListener("resize", () =>
+        updatePreviewSize(useImageGeneratorStore.getState())
+      );
+  }, [width, height, refs]);
 
   return (
     <div className="flex size-full gap-8 p-8">
       <div className="hidden w-full gap-4 md:flex">
-        <Sidebar generateImage={() => generateImage(updatePreviewObject)} />
+        <Sidebar />
         <Preview
           containerRef={containerRef}
           previewRef={previewRef}

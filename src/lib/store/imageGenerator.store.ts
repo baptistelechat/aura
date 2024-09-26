@@ -21,6 +21,17 @@ type ImageUpdate = {
 
 export type ImageGeneratorStoreType = {
   settings: ImageGeneratorSettings;
+  // Refs
+  refs: {
+    containerRef: React.RefObject<HTMLDivElement> | null;
+    previewRef: React.RefObject<HTMLDivElement> | null;
+    imageRef: React.RefObject<HTMLImageElement> | null;
+  };
+  setRefs: (refs: {
+    containerRef: React.RefObject<HTMLDivElement>;
+    previewRef: React.RefObject<HTMLDivElement>;
+    imageRef: React.RefObject<HTMLImageElement>;
+  }) => void;
   setText: (text: string) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
@@ -34,7 +45,7 @@ export type ImageGeneratorStoreType = {
   setImageScale: (scale: number) => void;
   setImageVisibility: (visibility: boolean) => void;
   // Background
-  setBackgroundMode: (backgroundMode: "solid"|"gradient") => void;
+  setBackgroundMode: (backgroundMode: "solid" | "gradient") => void;
   setBackgroundColor: (backgroundColor: string) => void;
   setTailwindColor: (tailwindColor: string) => void;
   setUseVia: (useVia: boolean) => void;
@@ -55,6 +66,23 @@ export type ImageGeneratorStoreType = {
 
 const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
   settings: defaultImageGeneratorSettings,
+
+  // Refs
+  refs: {
+    containerRef: null,
+    previewRef: null,
+    imageRef: null,
+  },
+  
+  setRefs: (refs) =>
+    set((state) => ({
+      refs: {
+        ...state.refs,
+        ...refs,
+      },
+    })),
+
+  // Text
   setText: (text: string) => {
     set((state) => ({
       settings: {
@@ -225,7 +253,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
       },
     }));
   },
-  
+
   setGradientOrientation: (
     orientation: LinearGradientOrientation | RadialGradientOrientation
   ) => {

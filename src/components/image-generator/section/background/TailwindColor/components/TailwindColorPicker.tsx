@@ -121,7 +121,7 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
           if (typeof shades === "object" && shades !== null) {
             return (
               <Tooltip key={colorName}>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <div
                     className="size-5 cursor-pointer rounded"
                     style={{ backgroundColor: shades[500] }}

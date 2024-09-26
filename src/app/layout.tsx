@@ -1,3 +1,4 @@
+import Menu from "@/components/Menu";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
@@ -6,7 +7,6 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Menu from "@/components/Menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,7 +40,7 @@ export default function RootLayout({
             </div>
             <Menu />
             <main className="grow md:overflow-hidden">{children}</main>
-            <Toaster />
+            <Toaster richColors expand={true} />
           </TooltipProvider>
         </ThemeProvider>
       </body>

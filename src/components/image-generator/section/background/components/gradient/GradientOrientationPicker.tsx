@@ -31,7 +31,7 @@ const GradientOrientationPicker = ({
           if (index % 3 === 0) rows.push([]);
           rows[rows.length - 1].push(
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   key={angle ?? "shuffle"}
                   disabled={orientation === angle || angle === null}

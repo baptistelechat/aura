@@ -19,12 +19,9 @@ import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
+import CopyToClipboard from "./CopyToClipboard";
 
-interface ISidebarProps {
-  generateImage: () => void;
-}
-
-const Sidebar = ({ generateImage }: ISidebarProps) => {
+const Sidebar = () => {
   const text = useImageGeneratorStore((s) => s.settings.text);
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
@@ -119,7 +116,10 @@ const Sidebar = ({ generateImage }: ISidebarProps) => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <DownloadButton generateImage={generateImage} />
+        <div className="flex w-full items-center gap-2">
+          <DownloadButton />
+          <CopyToClipboard />
+        </div>
       </div>
     </div>
   );

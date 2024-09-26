@@ -21,7 +21,7 @@ const gradientOrientations: {
     angle: LinearGradientOrientation | RadialGradientOrientation | null;
     icon: ReactElement;
   }[];
-  radial: {
+    radial: {
     angle: string;
     icon: ReactElement;
   }[];
