@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { House, ImageIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const Menu = () => {
@@ -11,11 +11,16 @@ const Menu = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   const currentTheme = theme === "system" ? systemTheme : theme;
   const logoVariant = currentTheme === "light" ? "color" : "light";
-
-  console.log(currentTheme);
-  console.log(logoVariant);
 
   const links: {
     name: string;
@@ -35,12 +40,6 @@ const Menu = () => {
       icon: <ImageIcon className="mr-2 size-4" />,
       disabled: false,
     },
-    // {
-    //   name: "Screen Recorder",
-    //   path: "/screen-recorder",
-    //   icon: <Clapperboard className="mr-2 size-4" />,
-    //   disabled: true,
-    // },
   ];
 
   return (
@@ -55,6 +54,9 @@ const Menu = () => {
             key={link.name}
             variant={pathname === link.path ? "default" : "link"}
             onClick={() => router.push(link.path)}
+            className={
+              currentTheme === "dark" && link.disabled ? "brightness-125" : ""
+            }
           >
             {link.icon}
             {link.name}
