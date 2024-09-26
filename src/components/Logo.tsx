@@ -11,6 +11,7 @@ interface ILogoProps {
 }
 
 const Logo = ({
+  variant = "color",
   size = "md",
   orientation = "horizontal",
 }: ILogoProps) => {
@@ -21,10 +22,10 @@ const Logo = ({
   };
 
   const textMapping = {
-    sm:"text-xl",
-    md:"text-2xl",
-    lg: "text-3xl"
-  }
+    sm: "text-xl",
+    md: "text-2xl",
+    lg: "text-3xl",
+  };
 
   const dimensions = sizeMapping[size];
   const textSize = textMapping[size];
@@ -41,8 +42,17 @@ const Logo = ({
         alt="Logo"
         width={dimensions}
         height={dimensions}
+        className={variant === "light" ? "brightness-200 saturate-0" : ""}
       />
-      <h1 className={cn("text-[#0E4598]", textSize, gugi.className)}>Aura</h1>
+      <h1
+        className={cn(
+          variant === "light" ? "text-white" : "text-[#0E4598]",
+          textSize,
+          gugi.className
+        )}
+      >
+        Aura
+      </h1>
     </div>
   );
 };

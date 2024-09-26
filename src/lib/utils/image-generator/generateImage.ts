@@ -2,12 +2,14 @@ import * as htmlToImage from "html-to-image";
 import IUpdatePreview from "../../interface/IUpdatePreview";
 import updatePreviewSize from "./updatePreviewSize";
 import updatePreviewStyle from "./updatePreviewStyle";
+
 const generateImage = async ({
   containerRef,
   previewRef,
   imageRef,
   imageGeneratorStore,
-}: IUpdatePreview) => {
+  action = "download",
+}: IUpdatePreview & { action?: "download" | "clipboard" }) => {
   if (previewRef.current) {
     const previewWidth = imageGeneratorStore.settings.dimension.width;
     const previewHeight = imageGeneratorStore.settings.dimension.height;
@@ -34,10 +36,18 @@ const generateImage = async ({
         }, 500);
       });
 
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = "social-image.png";
-      link.click();
+      if (action === "download") {
+        // Télécharger l'image
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = "social-image.png";
+        link.click();
+      } else if (action === "clipboard") {
+        const blob = await (await fetch(dataUrl)).blob();
+        const clipboardItem = new ClipboardItem({ "image/png": blob });
+        await navigator.clipboard.write([clipboardItem]);
+        console.log("Image copiée dans le presse-papiers !");
+      }
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
