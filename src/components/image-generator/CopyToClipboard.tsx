@@ -31,7 +31,7 @@ const CopyToClipboard = ({ extraStyle }: ICopyToClipboardProps) => {
         </Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>Copy to clipboard</p>
+        <p>Copy image to clipboard</p>
       </TooltipContent>
     </Tooltip>
   );

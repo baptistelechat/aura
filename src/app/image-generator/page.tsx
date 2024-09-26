@@ -5,8 +5,24 @@ import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import updatePreviewSize from "@/lib/utils/image-generator/updatePreviewSize";
 import { MonitorSmartphone } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const ImageGenerator = () => {
+  useHotkeys("ctrl+s", (event:any) => {
+    event.preventDefault();
+    console.log("Document sauvegardé");
+  });
+
+  useHotkeys("ctrl+c", (event:any) => {
+    event.preventDefault();
+    console.log("Contenu copié");
+  });
+
+  useHotkeys("ctrl+v", (event:any) => {
+    event.preventDefault();
+    console.log("Contenu collé");
+  });
+
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const refs = useImageGeneratorStore((s) => s.refs);
