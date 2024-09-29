@@ -1,27 +1,15 @@
-interface Hotkey {
-  key: string;
-  name: string;
-  description: string;
-  action: string;
-}
+import { Hotkey } from "../types/Hotkey";
+import generateImage from "../utils/image-generator/generateImage";
 
 export const hotkeys: Hotkey[] = [
   {
-    key: "ctrl+s",
-    name: "Save Document",
-    action: "saveDocument",
-    description: "Sauvegarder le document",
-  },
-  {
-    key: "ctrl+f",
-    name: "Open Find Dialog",
-    action: "openFindDialog",
-    description: "Ouvrir la boîte de dialogue de recherche",
-  },
-  {
-    key: "ctrl+z",
-    name: "Undo Laste Action",
-    action: "undoLastAction",
-    description: "Annuler la dernière action",
-  },
+    id:"copyToClipboard",
+    name: "Copy to Clipboard",
+    description: "Copy image to clipboard",
+    key: {
+      default: "ctrl+c",
+      mac:"meta+c"
+    },
+    action: ()=> generateImage({action: "clipboard"}),
+  }
 ];

@@ -20,6 +20,7 @@ type ImageUpdate = {
 };
 
 export type ImageGeneratorStoreType = {
+  hotkeySet: "default" | "mac";
   settings: ImageGeneratorSettings;
   // Refs
   refs: {
@@ -64,7 +65,12 @@ export type ImageGeneratorStoreType = {
   resetBackgroundColor: () => void;
 };
 
+const userAgent =
+  typeof window !== "undefined" ? window.navigator.userAgent : "";
+const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
+
 const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
+  hotkeySet,
   settings: defaultImageGeneratorSettings,
 
   // Refs
@@ -73,7 +79,7 @@ const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
     previewRef: null,
     imageRef: null,
   },
-  
+
   setRefs: (refs) =>
     set((state) => ({
       refs: {

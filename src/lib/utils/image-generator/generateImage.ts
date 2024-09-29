@@ -1,18 +1,17 @@
-import { ImageGeneratorStoreType } from "@/lib/store/imageGenerator.store";
+import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
 import * as htmlToImage from "html-to-image";
+import { toast } from "sonner";
 import updatePreviewSize from "./updatePreviewSize";
 import updatePreviewStyle from "./updatePreviewStyle";
-import { toast } from "sonner";
 
 interface IGenerateImage {
-  imageGeneratorStore: ImageGeneratorStoreType;
   action?: "download" | "clipboard";
 }
 
-const generateImage = async ({
-  imageGeneratorStore,
-  action = "download",
-}: IGenerateImage) => {
+const generateImage = async ({ action }: IGenerateImage = {}) => {
+  const providedAction = action || "download";
+
+  const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.refs.previewRef;
 
   if (previewRef?.current) {
@@ -36,7 +35,7 @@ const generateImage = async ({
         }, 500);
       });
 
-      if (action === "download") {
+      if (providedAction === "download") {
         const link = document.createElement("a");
         link.href = dataUrl;
         link.download = "social-image.png";
