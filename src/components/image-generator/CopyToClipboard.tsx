@@ -5,17 +5,17 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { getHotkeyByName } from "@/lib/utils/hotkey/getHotkeyByName";
+import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import generateImage from "@/lib/utils/image-generator/generateImage";
 import { ClipboardCopy } from "lucide-react";
-import Hotkey from "../keyboard/Hotkey";
+import Shortcut from "../keyboard/Shortcut";
 
 interface ICopyToClipboardProps {
   extraStyle?: string;
 }
 
 const CopyToClipboard = ({ extraStyle }: ICopyToClipboardProps) => {
-  const hotkeyString = getHotkeyByName("copyToClipboard");
+  const hotkey = getHotkeyById("copyToClipboard");
 
   return (
     <Tooltip>
@@ -34,8 +34,8 @@ const CopyToClipboard = ({ extraStyle }: ICopyToClipboardProps) => {
       </TooltipTrigger>
       <TooltipContent>
         <div className="flex flex-col items-center gap-2">
-          <p>Copy image to clipboard</p>
-          <Hotkey hotkey={hotkeyString} />
+          <p>{hotkey.name}</p>
+          <Shortcut hotkey={hotkey.key} />
         </div>
       </TooltipContent>
     </Tooltip>

@@ -1,8 +1,6 @@
 import { HotkeysEvent } from "react-hotkeys-hook/dist/types";
 
 export const getHotkeyString = (handler: HotkeysEvent) => {
-  console.log(handler);
-
   const keys = [];
 
   if (handler.ctrl) keys.push("ctrl");

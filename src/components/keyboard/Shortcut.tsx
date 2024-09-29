@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import Keyboard from "./Keyboard";
 
-interface IHotkeyProps {
+interface IShortcutProps {
   hotkey: string;
 }
 
-const Hotkey = ({ hotkey }: IHotkeyProps) => {
+const Shortcut = ({ hotkey }: IShortcutProps) => {
   const keys = hotkey.split("+");
 
   return (
@@ -20,4 +20,4 @@ const Hotkey = ({ hotkey }: IHotkeyProps) => {
   );
 };
 
-export default Hotkey;
+export default Shortcut;
