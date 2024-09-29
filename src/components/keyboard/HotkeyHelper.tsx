@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Tooltip,
   TooltipContent,
@@ -87,24 +88,26 @@ const HotkeyHelper = () => {
               }
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-2">
-            {hotkeys
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((hotkey: Hotkey) => (
-                <div
-                  key={hotkey.id}
-                  className="flex items-center justify-between border-b p-2"
-                >
-                  <div className="pr-8">
-                    <p className="font-semibold">{hotkey.name}</p>
-                    <p className="text-sm text-gray-500">
-                      {hotkey.description}
-                    </p>
+          <ScrollArea className="max-h-[calc(100vh-400px)] grow">
+            <div className="space-y-2 pr-4">
+              {hotkeys
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((hotkey: Hotkey) => (
+                  <div
+                    key={hotkey.id}
+                    className="flex items-center justify-between border-b p-2"
+                  >
+                    <div className="pr-8">
+                      <p className="font-semibold">{hotkey.name}</p>
+                      <p className="text-sm text-gray-500">
+                        {hotkey.description}
+                      </p>
+                    </div>
+                    <Shortcut hotkey={getHotkeyById(hotkey.id).key} />
                   </div>
-                  <Shortcut hotkey={getHotkeyById(hotkey.id).key} />
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
+          </ScrollArea>
           <DialogFooter>
             <DialogClose asChild>
               <Button type="submit">Got it!</Button>
