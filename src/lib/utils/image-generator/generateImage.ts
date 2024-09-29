@@ -8,13 +8,13 @@ interface IGenerateImage {
   action?: "download" | "clipboard";
 }
 
-const generateImage = async ({ action }: IGenerateImage = {}) => {
-  const providedAction = action || "download";
-
+const generateImage = async ({ action }: IGenerateImage) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.refs.previewRef;
 
   if (previewRef?.current) {
+    imageGeneratorStore.setIsDownloading(true);
+
     const previewWidth = imageGeneratorStore.settings.dimension.width;
     const previewHeight = imageGeneratorStore.settings.dimension.height;
 
@@ -27,27 +27,55 @@ const generateImage = async ({ action }: IGenerateImage = {}) => {
 
     updatePreviewStyle(imageGeneratorStore);
 
-    try {
-      const dataUrl = await new Promise<string>(async (resolve) => {
-        setTimeout(async () => {
-          const result = await htmlToImage.toPng(previewRef.current!);
-          resolve(result);
-        }, 500);
-      });
+    const generateAndHandleImage = new Promise<string>(
+      async (resolve, reject) => {
+        // Generate image
+        try {
+          const dataUrl = await new Promise<string>(async (resolve, reject) => {
+            try {
+              setTimeout(async () => {
+                const result = await htmlToImage.toPng(previewRef.current!);
+                resolve(result);
+              }, 500);
+            } catch (error) {
+              reject(error);
+            }
+          });
 
-      if (providedAction === "download") {
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = "social-image.png";
-        link.click();
-      } else if (action === "clipboard") {
-        const blob = await (await fetch(dataUrl)).blob();
-        const clipboardItem = new ClipboardItem({ "image/png": blob });
-        await navigator.clipboard.write([clipboardItem]);
-        toast.success("Image copy to clipboard !");
+          // Action - Download or Copy to clipboard
+          if (action === "download") {
+            const link = document.createElement("a");
+            link.href = dataUrl;
+            link.download = "social-image.png";
+            link.click();
+            resolve("Image successfully downloaded!");
+          } else if (action === "clipboard") {
+            const blob = await (await fetch(dataUrl)).blob();
+            const clipboardItem = new ClipboardItem({ "image/png": blob });
+            await navigator.clipboard.write([clipboardItem]);
+            resolve("Image copied to clipboard!");
+          }
+        } catch (error) {
+          reject(error);
+        }
       }
-    } catch (error) {
+    );
+
+    toast.promise(generateAndHandleImage, {
+      loading: "Generating image...",
+      success: (message) => {
+        return message as string;
+      },
+      error: "Failed to generate the image or perform the action.",
+    });
+
+    try {
+      await generateAndHandleImage;
+    } catch (error: any) {
       console.error("Error generating image:", error);
+      toast.error("Error generating the image or copying to clipboard.", {
+        description: error.message,
+      });
     } finally {
       imageGeneratorStore.setDimensions({
         width: previousWidth,
@@ -62,6 +90,7 @@ const generateImage = async ({ action }: IGenerateImage = {}) => {
       });
 
       updatePreviewSize(imageGeneratorStore);
+      imageGeneratorStore.setIsDownloading(false);
     }
   }
 };

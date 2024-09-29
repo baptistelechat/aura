@@ -20,8 +20,15 @@ type ImageUpdate = {
 };
 
 export type ImageGeneratorStoreType = {
-  hotkeySet: "default" | "mac";
+  general: {
+    hotkeySet: "default" | "mac";
+    tab:"image"|"background";
+    isDownloading: boolean;
+  };
   settings: ImageGeneratorSettings;
+  // General
+  setTab: (tab: "image" | "background") => void;
+  setIsDownloading: (isDownloading: boolean) => void;
   // Refs
   refs: {
     containerRef: React.RefObject<HTMLDivElement> | null;
@@ -70,9 +77,31 @@ const userAgent =
 const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
 
 const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
-  hotkeySet,
+  general : {
+    hotkeySet,
+    tab: "image",
+    isDownloading: false,
+  },
   settings: defaultImageGeneratorSettings,
 
+  // General
+  setTab: (tab: "image" | "background") => {
+    set((state) => ({
+      general: {
+        ...state.general,
+        tab
+      }
+    }));
+  },
+
+  setIsDownloading: (isDownloading: boolean) => {
+    set((state) => ({
+      general: {
+        ...state.general,
+        isDownloading: isDownloading,
+      },
+    }));
+  },
   // Refs
   refs: {
     containerRef: null,

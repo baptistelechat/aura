@@ -1,5 +1,8 @@
+import useImageGeneratorStore from "../store/imageGenerator.store";
 import { Hotkey } from "../types/Hotkey";
 import generateImage from "../utils/image-generator/generateImage";
+
+const setTab = useImageGeneratorStore.getState().setTab
 
 const openHotkeyHelper = () => {
   const hotkeyHelperButton = document.getElementById("hotkeyHelperButton");
@@ -30,5 +33,35 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+h",
     },
     action: () => openHotkeyHelper(),
+  },
+  {
+    id: "downloadImage",
+    name: "Download Image",
+    description: "Download the generated image to your local machine.",
+    key: {
+      default: "ctrl+s",
+      mac: "meta+s",
+    },
+    action: () => generateImage({ action: "download" }),
+  },
+  {
+    id: "switchToImageTab",
+    name: "Switch to Image Tab",
+    description: "Navigate to the image settings tab",
+    key: {
+      default: "ctrl+1",
+      mac: "meta+1",
+    },
+    action: () => setTab("image"),
+  },
+  {
+    id: "switchToBackgroundTab",
+    name: "Switch to Background Tab",
+    description: "Navigate to the background settings tab",
+    key: {
+      default: "ctrl+2",
+      mac: "meta+2",
+    },
+    action: () => setTab("background"),
   },
 ];

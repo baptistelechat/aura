@@ -19,7 +19,7 @@ import { hotkeys } from "@/lib/constant/hotkeys";
 import { Hotkey } from "@/lib/types/Hotkey";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
-import { CircleHelp } from "lucide-react";
+import { Keyboard } from "lucide-react";
 import Shortcut from "./Shortcut";
 
 const HotkeyHelperVariants: Variants = {
@@ -36,7 +36,7 @@ const HotkeyHelperVariants: Variants = {
 const HotkeyHelper = () => {
   const hotkey = getHotkeyById("openHotkeyHelper");
 
-  const openHotkeyHelper = () => {
+  const openDialog = () => {
     const hotkeyHelperButtonTrigger = document.getElementById(
       "hotkeyHelperButtonTrigger"
     );
@@ -56,9 +56,9 @@ const HotkeyHelper = () => {
             variants={HotkeyHelperVariants}
             initial="hidden"
             animate="visible"
-            onClick={() => openHotkeyHelper()}
+            onClick={() => openDialog()}
           >
-            <CircleHelp className="size-5" />
+            <Keyboard className="size-5" />
             <span className="sr-only">Show hotkey helper</span>
           </MotionButton>
         </TooltipTrigger>
@@ -77,7 +77,10 @@ const HotkeyHelper = () => {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Available Hotkeys</DialogTitle>
+            <DialogTitle className="flex items-center gap-2 font-bold text-primary">
+              <Keyboard className="size-4" />
+              <p>Available Hotkeys</p>
+            </DialogTitle>
             <DialogDescription>
               {
                 "Here's a list of all the hotkeys you can use in the app. Use these to quickly perform actions."
@@ -93,7 +96,7 @@ const HotkeyHelper = () => {
                   className="flex items-center justify-between border-b p-2"
                 >
                   <div className="pr-8">
-                    <p className="font-bold">{hotkey.name}</p>
+                    <p className="font-semibold">{hotkey.name}</p>
                     <p className="text-sm text-gray-500">
                       {hotkey.description}
                     </p>
