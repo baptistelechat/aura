@@ -2,7 +2,7 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";
 import Control from "../../Control";
-import SidebarSection from "../../SidebarSection";
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 
 const ImageBorder = () => {
   const borderRadius = useImageGeneratorStore(
@@ -14,7 +14,7 @@ const ImageBorder = () => {
   );
 
   return (
-    <SidebarSection
+    <CustomAccordionItem
       title={"Border"}
       icon={<BoxSelect className="size-4" />}
       disabled={
@@ -33,7 +33,7 @@ const ImageBorder = () => {
         middleIcon={<Squircle className="size-5" />}
         maxIcon={<Circle className="size-5" />}
       />
-    </SidebarSection>
+    </CustomAccordionItem>
   );
 };
 

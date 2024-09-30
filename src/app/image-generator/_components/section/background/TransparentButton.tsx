@@ -22,7 +22,7 @@ const TransparentButton = () => {
         setTailwindColor("");
         setUseVia(false);
       }}
-      className="mx-1 mb-1"
+      className="mx-1 w-full"
     >
       <Eraser className="mr-2 size-4" />
       Transparent

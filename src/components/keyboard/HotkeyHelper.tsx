@@ -1,4 +1,5 @@
 "use client";
+import { Accordion } from "@/components/ui/accordion";
 import { Button, MotionButton } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,9 +19,11 @@ import {
 } from "@/components/ui/tooltip";
 import { hotkeys } from "@/lib/constant/hotkeys";
 import { Hotkey } from "@/lib/types/Hotkey";
+import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
-import { Keyboard } from "lucide-react";
+import { ImageIcon, Keyboard, Layout, Palette, Save } from "lucide-react";
+import CustomAccordionItem from "../CustomAccordionItem";
 import Shortcut from "./Shortcut";
 
 const HotkeyHelperVariants: Variants = {
@@ -45,6 +48,29 @@ const HotkeyHelper = () => {
       hotkeyHelperButtonTrigger.click();
     }
   };
+
+  const categoryOrder = ["general", "save", "image", "background"];
+
+  const categoryTitles: Record<string, { title: string; icon: JSX.Element }> = {
+    general: { title: "General", icon: <Layout className="size-4" /> },
+    save: { title: "Save Image", icon: <Save className="size-4" /> },
+    image: { title: "Image Settings", icon: <ImageIcon className="size-4" /> },
+    background: {
+      title: "Background Settings",
+      icon: <Palette className="size-4" />,
+    },
+  };
+
+  const categorizedHotkeys = hotkeys.reduce(
+    (acc: Record<string, Hotkey[]>, hotkey: Hotkey) => {
+      if (!acc[hotkey.category]) {
+        acc[hotkey.category] = [];
+      }
+      acc[hotkey.category].push(hotkey);
+      return acc;
+    },
+    {}
+  );
 
   return (
     <>
@@ -89,24 +115,45 @@ const HotkeyHelper = () => {
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="max-h-[calc(100vh-400px)] grow">
-            <div className="space-y-2 pr-4">
-              {hotkeys
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((hotkey: Hotkey) => (
-                  <div
-                    key={hotkey.id}
-                    className="flex items-center justify-between border-b p-2"
-                  >
-                    <div className="pr-8">
-                      <p className="font-semibold">{hotkey.name}</p>
-                      <p className="text-sm text-gray-500">
-                        {hotkey.description}
-                      </p>
-                    </div>
-                    <Shortcut hotkey={getHotkeyById(hotkey.id).key} />
-                  </div>
-                ))}
-            </div>
+            <Accordion type="multiple">
+              {categoryOrder.map(
+                (category) =>
+                  categorizedHotkeys[category] && (
+                    <CustomAccordionItem
+                      key={category}
+                      title={categoryTitles[category].title}
+                      icon={categoryTitles[category].icon}
+                    >
+                      {categorizedHotkeys[category]
+                        .sort((a, b) => {
+                          const orderA = a.order !== undefined ? a.order : Infinity;
+                          const orderB = b.order !== undefined ? b.order : Infinity;
+                          return orderA - orderB || a.name.localeCompare(b.name);
+                        })
+                        .map((hotkey: Hotkey) => (
+                          <div
+                            key={hotkey.id}
+                            className={cn(
+                              "flex items-center justify-between py-2",
+                              categorizedHotkeys[category].length - 1 !==
+                                categorizedHotkeys[category].indexOf(hotkey)
+                                ? "border-b"
+                                : ""
+                            )}
+                          >
+                            <div className="pr-8">
+                              <p className="font-semibold">{hotkey.name}</p>
+                              <p className="text-sm text-gray-500">
+                                {hotkey.description}
+                              </p>
+                            </div>
+                            <Shortcut hotkey={getHotkeyById(hotkey.id).key} />
+                          </div>
+                        ))}
+                    </CustomAccordionItem>
+                  )
+              )}
+            </Accordion>
           </ScrollArea>
           <DialogFooter>
             <DialogClose asChild>

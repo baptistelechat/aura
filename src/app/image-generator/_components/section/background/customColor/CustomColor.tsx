@@ -3,9 +3,9 @@ import { Switch } from "@/components/ui/switch";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Paintbrush } from "lucide-react";
-import SidebarSection from "../../../SidebarSection";
 import CustomColorPicker from "./components/CustomColorPicker";
 import CustomGradientColor from "./components/CustomGradientColor";
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 
 const CustomColor = () => {
   const backgroundMode = useImageGeneratorStore(
@@ -30,7 +30,7 @@ const CustomColor = () => {
   };
 
   return (
-    <SidebarSection
+    <CustomAccordionItem
       title={"Custom Color"}
       icon={<Paintbrush className="size-4" />}
       disabled={
@@ -61,7 +61,7 @@ const CustomColor = () => {
           <CustomColorPicker action={"solid"} />
         )}
       </div>
-    </SidebarSection>
+    </CustomAccordionItem>
   );
 };
 

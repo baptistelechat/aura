@@ -1,52 +1,11 @@
-import { toast } from "sonner";
 import { useImageGeneratorStore } from "../store/imageGenerator.store";
 import { Hotkey } from "../types/Hotkey";
+import { loadImage } from "../utils/hotkey/action/loadImage";
+import { openHotkeyHelper } from "../utils/hotkey/action/openHotkeyHelper";
+import { pasteImage } from "../utils/hotkey/action/pasteImage";
 import { generateImage } from "../utils/image-generator/generateImage";
 
 const setTab = useImageGeneratorStore.getState().setTab;
-const setImageSrc = useImageGeneratorStore.getState().setImageSrc;
-const setImageVisibility = useImageGeneratorStore.getState().setImageVisibility;
-
-const openHotkeyHelper = () => {
-  const hotkeyHelperButton = document.getElementById("hotkeyHelperButton");
-  if (hotkeyHelperButton) {
-    hotkeyHelperButton.click();
-  }
-};
-
-const loadImage = () => {
-  const loadImageInput = document.getElementById(
-    "imageUploadInput"
-  ) as HTMLInputElement;
-  if (loadImageInput) {
-    loadImageInput.click();
-  }
-};
-
-const pasteImage = async () => {
-  try {
-    const clipboardItems = await navigator.clipboard.read();
-    for (const clipboardItem of clipboardItems) {
-      for (const type of clipboardItem.types) {
-        if (type.startsWith("image/")) {
-          const blobArray = await clipboardItem.getType(type);
-          const file = new File([blobArray], "pasted-image.png", { type });
-          const reader = new FileReader();
-
-          reader.onload = (e) => {
-            setImageSrc(e.target?.result as string);
-            setImageVisibility(true);
-          };
-
-          reader.readAsDataURL(file);
-        }
-      }
-    }
-  } catch (error) {
-    console.error("Error pasting image: ", error);
-    toast.error("Failed to paste image from clipboard.");
-  }
-};
 
 export const hotkeys: Hotkey[] = [
   {
@@ -54,6 +13,7 @@ export const hotkeys: Hotkey[] = [
     name: "Copy image to Clipboard",
     description:
       "Copy the generated image directly to your clipboard for easy pasting.",
+    category: "save",
     key: {
       default: "ctrl+c",
       mac: "meta+c",
@@ -65,6 +25,7 @@ export const hotkeys: Hotkey[] = [
     name: "Open Hotkey Helper",
     description:
       "Access the list of available hotkeys to boost your productivity.",
+    category: "general",
     key: {
       default: "ctrl+k",
       mac: "meta+k",
@@ -75,6 +36,7 @@ export const hotkeys: Hotkey[] = [
     id: "downloadImage",
     name: "Download Image",
     description: "Download the generated image to your local machine.",
+    category: "save",
     key: {
       default: "ctrl+s",
       mac: "meta+s",
@@ -85,16 +47,19 @@ export const hotkeys: Hotkey[] = [
     id: "switchToImageTab",
     name: "Switch to Image Tab",
     description: "Navigate to the image settings tab",
+    category:"image",
     key: {
       default: "ctrl+1",
       mac: "meta+1",
     },
     action: () => setTab("image"),
+    order:1
   },
   {
     id: "switchToBackgroundTab",
     name: "Switch to Background Tab",
     description: "Navigate to the background settings tab",
+    category:"background",
     key: {
       default: "ctrl+2",
       mac: "meta+2",
@@ -105,6 +70,7 @@ export const hotkeys: Hotkey[] = [
     id: "loadImage",
     name: "Load Image",
     description: "Select and import an image file from your local device",
+    category:"image",
     key: {
       default: "ctrl+o",
       mac: "meta+o",
@@ -115,6 +81,7 @@ export const hotkeys: Hotkey[] = [
     id: "pasteImage",
     name: "Paste Image from Clipboard",
     description: "Paste an image directly from your clipboard.",
+    category:"image",
     key: {
       default: "ctrl+v",
       mac: "meta+v",

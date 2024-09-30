@@ -2,7 +2,7 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { LampDesk, Moon, Sun, SunMoon } from "lucide-react";
 import Control from "../../Control";
-import SidebarSection from "../../SidebarSection";
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 
 const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
@@ -10,7 +10,7 @@ const ImageShadow = () => {
   const resetShadow = useImageGeneratorStore((s) => s.resetImageShadow);
 
   return (
-    <SidebarSection
+    <CustomAccordionItem
       title={"Shadow"}
       icon={<LampDesk className="size-4" />}
       disabled={shadow === defaultImageGeneratorSettings.image.shadow}
@@ -27,7 +27,7 @@ const ImageShadow = () => {
         middleIcon={<SunMoon className="size-5" />}
         maxIcon={<Sun className="size-5" />}
       />
-    </SidebarSection>
+    </CustomAccordionItem>
   );
 };
 

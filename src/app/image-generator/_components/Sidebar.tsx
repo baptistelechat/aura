@@ -96,30 +96,26 @@ const Sidebar = () => {
         <TabsContent value="image" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
             <Accordion type="multiple">
-              <div className="flex flex-col gap-4 pr-4">
-                <ImageBorder />
-                <ImageShadow />
-                <ImageSize />
-                <ImageVisibility />
-                <Input
-                  type="text"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Enter your text"
-                  className="mx-1 mb-1"
-                />
-              </div>
+              <ImageBorder />
+              <ImageShadow />
+              <ImageSize />
+              <ImageVisibility />
+              <Input
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Enter your text"
+                className="mx-1"
+              />
             </Accordion>
           </ScrollArea>
         </TabsContent>
         <TabsContent value="background" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
             <Accordion type="single" collapsible>
-              <div className="flex flex-col gap-4 pr-4">
                 <CustomColor />
                 <TailwindColor />
                 <TransparentButton />
-              </div>
             </Accordion>
           </ScrollArea>
         </TabsContent>

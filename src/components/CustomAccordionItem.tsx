@@ -4,10 +4,10 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../../../components/ui/accordion";
-import { Button } from "../../../components/ui/button";
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
-interface ISidebarSectionProps {
+interface ICustomAccordionItemProps {
   title: string;
   icon: ReactElement;
   disabled?: boolean;
@@ -15,15 +15,15 @@ interface ISidebarSectionProps {
   children?: ReactNode;
 }
 
-const SidebarSection = ({
+const CustomAccordionItem = ({
   title,
   icon,
   disabled,
   reset,
   children,
-}: ISidebarSectionProps) => {
+}: ICustomAccordionItemProps) => {
   return (
-    <AccordionItem value={title.replaceAll(" ", "-").toLowerCase()}>
+    <AccordionItem value={title.replaceAll(" ", "-").toLowerCase()} className="pt-1">
       <div className="flex items-center">
         <AccordionTrigger className="ml-0.5 px-1">
           <p className="flex w-full items-center gap-2 text-left text-sm font-medium uppercase text-muted-foreground/80">
@@ -53,4 +53,4 @@ const SidebarSection = ({
   );
 };
 
-export default SidebarSection;
+export default CustomAccordionItem;

@@ -1,4 +1,3 @@
-import SidebarSection from "@/app/image-generator/_components/SidebarSection";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
@@ -6,6 +5,7 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
 import TailwindColorPicker from "./components/TailwindColorPicker";
 import TailwindGradientColor from "./components/TailwindGradientColor";
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 
 const TailwindColor = () => {
   const backgroundMode = useImageGeneratorStore(
@@ -30,7 +30,7 @@ const TailwindColor = () => {
   };
 
   return (
-    <SidebarSection
+    <CustomAccordionItem
       title={"Tailwind Color"}
       icon={<Palette className="size-4" />}
       disabled={
@@ -61,7 +61,7 @@ const TailwindColor = () => {
           <TailwindColorPicker action={"solid"} />
         )}
       </div>
-    </SidebarSection>
+    </CustomAccordionItem>
   );
 };
 

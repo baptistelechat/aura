@@ -2,7 +2,7 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageDown, ImageIcon, ImageUp, Proportions } from "lucide-react";
 import Control from "../../Control";
-import SidebarSection from "../../SidebarSection";
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 
 const ImageSize = () => {
   const scale = useImageGeneratorStore((s) => s.settings.image.scale);
@@ -10,7 +10,7 @@ const ImageSize = () => {
   const resetScale = useImageGeneratorStore((s) => s.resetImageScale);
 
   return (
-    <SidebarSection
+    <CustomAccordionItem
       title={"Size"}
       icon={<Proportions className="size-4" />}
       disabled={scale === defaultImageGeneratorSettings.image.scale}
@@ -27,7 +27,7 @@ const ImageSize = () => {
         middleIcon={<ImageIcon className="size-5" />}
         maxIcon={<ImageUp className="size-5" />}
       />
-    </SidebarSection>
+    </CustomAccordionItem>
   );
 };
 
