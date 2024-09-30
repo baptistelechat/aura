@@ -47,6 +47,7 @@ const Sidebar = () => {
 
   const imageHotkey = getHotkeyById("switchToImageTab");
   const backgroundHotkey = getHotkeyById("switchToBackgroundTab");
+  const loadImageHotkey = getHotkeyById("loadImage");
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -130,14 +131,25 @@ const Sidebar = () => {
         </TabsContent>
       </Tabs>
       <div className="space-y-2">
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            handleImageChange(e);
-          }}
-          className="w-full"
-        />
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Input
+              id="imageUploadInput"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                handleImageChange(e);
+              }}
+              className="w-full"
+            />
+          </TooltipTrigger>
+          <TooltipContent className="mb-2">
+            <div className="flex flex-col items-center gap-2 font-normal">
+              <p>{loadImageHotkey.name}</p>
+              <Shortcut hotkey={loadImageHotkey.key} />
+            </div>
+          </TooltipContent>
+        </Tooltip>
         <Select
           value={`${width}x${height}`}
           onValueChange={(value) => {

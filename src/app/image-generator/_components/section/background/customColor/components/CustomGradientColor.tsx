@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import GradientOrientationContainer from "../../components/Gradient/GradientOrientationContainer";
+import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
 import RandomColor from "../../RandomColor";
 import CustomColorPicker from "./CustomColorPicker";
 

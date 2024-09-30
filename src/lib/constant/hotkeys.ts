@@ -11,6 +11,15 @@ const openHotkeyHelper = () => {
   }
 };
 
+const loadImage = () => {
+  const loadImageInput = document.getElementById(
+    "imageUploadInput"
+  ) as HTMLInputElement;
+  if (loadImageInput) {
+    loadImageInput.click();
+  }
+};
+
 export const hotkeys: Hotkey[] = [
   {
     id: "copyToClipboard",
@@ -63,5 +72,15 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+2",
     },
     action: () => setTab("background"),
+  },
+  {
+    id: "loadImage",
+    name: "Load Image",
+    description: "Select and import an image file from your local device",
+    key: {
+      default: "ctrl+o",
+      mac: "meta+o",
+    },
+    action: () => loadImage(),
   },
 ];
