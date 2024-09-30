@@ -33,9 +33,6 @@ const Sidebar = () => {
   const text = useImageGeneratorStore((s) => s.settings.text);
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
-  const imageVisibility = useImageGeneratorStore(
-    (s) => s.settings.image.visibility
-  );
 
   const setTab = useImageGeneratorStore((s) => s.setTab);
   const setText = useImageGeneratorStore((s) => s.setText);
@@ -57,10 +54,7 @@ const Sidebar = () => {
         setImageSrc(e.target?.result as string);
       };
       reader.readAsDataURL(file);
-
-      if (!imageVisibility) {
-        setImageVisibility(true);
-      }
+      setImageVisibility(true);
     }
   };
 
