@@ -20,7 +20,7 @@ const Menu = () => {
   if (!mounted) return null;
 
   const currentTheme = theme === "system" ? systemTheme : theme;
-  const logoVariant = currentTheme === "light" ? "color" : "light";
+  const logoVariant = currentTheme === "light" ? "color-dark" : "light";
 
   const links: {
     name: string;

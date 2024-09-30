@@ -19,12 +19,14 @@ const ImageGenerator = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const watermarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setRefs({
       containerRef,
       previewRef,
       imageRef,
+      watermarkRef
     });
   }, [setRefs]);
 
@@ -43,6 +45,7 @@ const ImageGenerator = () => {
           containerRef={containerRef}
           previewRef={previewRef}
           imageRef={imageRef}
+          watermarkRef={watermarkRef}
         />
       </div>
       <div className="flex size-full flex-col items-center justify-center gap-8 md:hidden">

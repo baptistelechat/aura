@@ -4,27 +4,75 @@ import Image from "next/image";
 
 const gugi = Gugi({ weight: "400", subsets: ["latin"] });
 
+const sizeMapping = { sm: 20, md: 40, lg: 60, watermark: 36 };
+const textMapping = {
+  sm: 18, //text-lg
+  md: 20, //"text-xl"
+  lg: 24, //text-2xl
+  watermark: 24, //text-2xl
+};
+
+const getBackgroundClass = (background: ILogoProps["background"]) => {
+  switch (background) {
+    case "light":
+      return "bg-white";
+    case "dark":
+      return "bg-black";
+    case "color-dark":
+      return "bg-[#0E4598]";
+    case "color-light":
+      return "bg-[#1573FE]";
+    default:
+      return "bg-transparent";
+  }
+};
+
+const getTextClass = (variant: ILogoProps["variant"]) => {
+  switch (variant) {
+    case "light":
+      return "text-white";
+    case "dark":
+      return "text-black";
+    case "color-dark":
+      return "text-[#0E4598]";
+    case "color-light":
+      return "text-[#1573FE]";
+    default:
+      return "";
+  }
+};
+
 interface ILogoProps {
-  variant?: "color" | "light" | "dark";
-  size?: "sm" | "md" | "lg";
+  variant?: "color-light" | "color-dark" | "light" | "dark";
+  size?: "sm" | "md" | "lg" | "watermark";
   orientation?: "horizontal" | "vertical";
+  background?: "color-light" | "color-dark" | "light" | "dark";
 }
 
 const Logo = ({
-  variant = "color",
+  variant = "color-dark",
   size = "md",
   orientation = "horizontal",
+  background,
 }: ILogoProps) => {
-  const sizeMapping = { sm: 20, md: 40, lg: 60 };
-  const textMapping = { sm: "text-xl", md: "text-2xl", lg: "text-3xl" };
-
   return (
     <div
       className={cn(
-        "flex items-center gap-2",
-        orientation === "vertical" ? "flex-col" : "flex-row"
+        "flex items-center gap-2 rounded-full px-8 py-3",
+        getBackgroundClass(background),
+        orientation === "vertical" ? "flex-col" : "flex-row",
       )}
     >
+      {size === "watermark" && (
+        <p
+          className={cn("font-semibold", getTextClass(variant), gugi.className)}
+          style={{
+            fontSize: textMapping[size] + "px",
+          }}
+        >
+          Create with
+        </p>
+      )}
       <Image
         src={
           variant === "light"
@@ -38,11 +86,10 @@ const Logo = ({
         height={sizeMapping[size]}
       />
       <h1
-        className={cn(
-          variant === "light" ? "text-white" : "text-[#0E4598]",
-          textMapping[size],
-          gugi.className
-        )}
+        className={cn(getTextClass(variant), gugi.className)}
+        style={{
+          fontSize: textMapping[size] + "px",
+        }}
       >
         Aura
       </h1>

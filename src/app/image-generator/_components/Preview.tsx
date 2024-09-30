@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
@@ -8,9 +9,15 @@ interface IPreviewProps {
   containerRef: RefObject<HTMLDivElement>;
   previewRef: RefObject<HTMLDivElement>;
   imageRef: RefObject<HTMLImageElement>;
+  watermarkRef: RefObject<HTMLDivElement>;
 }
 
-const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
+const Preview = ({
+  containerRef,
+  previewRef,
+  imageRef,
+  watermarkRef,
+}: IPreviewProps) => {
   const { text, background, dimension, image } = useImageGeneratorStore(
     (s) => s.settings
   );
@@ -96,18 +103,21 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
             {text}
           </span>
         )}
-        {/* <div className="absolute top-0 left-0 p-2 text-xs text-red-500">
-          Top Left
+        <div
+          ref={watermarkRef}
+          className="absolute bottom-4 right-4 origin-bottom-right"
+        >
+          {/* <div className="absolute left-2 top-2">
+            <Logo background="color-light" variant="light" size="watermark" />
+          </div>
+          <div className="absolute right-2 top-2">
+            <Logo variant="light" size="watermark" />
+          </div>
+          <div className="absolute bottom-2 left-2">
+            <Logo variant="dark" size="watermark" />
+          </div> */}
+          <Logo size="watermark" background="light" />
         </div>
-        <div className="absolute top-0 right-0 p-2 text-xs text-red-500">
-          Top Right
-        </div>
-        <div className="absolute bottom-0 left-0 p-2 text-xs text-red-500">
-          Bottom Left
-        </div>
-        <div className="absolute bottom-0 right-0 p-2 text-xs text-red-500">
-          Bottom Right
-        </div> */}
       </div>
     </div>
   );

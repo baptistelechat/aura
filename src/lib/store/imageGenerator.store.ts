@@ -34,11 +34,13 @@ export type ImageGeneratorStoreType = {
     containerRef: React.RefObject<HTMLDivElement> | null;
     previewRef: React.RefObject<HTMLDivElement> | null;
     imageRef: React.RefObject<HTMLImageElement> | null;
+    watermarkRef: React.RefObject<HTMLDivElement> | null;
   };
   setRefs: (refs: {
     containerRef: React.RefObject<HTMLDivElement>;
     previewRef: React.RefObject<HTMLDivElement>;
     imageRef: React.RefObject<HTMLImageElement>;
+    watermarkRef: React.RefObject<HTMLDivElement>;
   }) => void;
   setText: (text: string) => void;
   // Dimension
@@ -108,6 +110,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       containerRef: null,
       previewRef: null,
       imageRef: null,
+      watermarkRef:null,
     },
 
     setRefs: (refs) =>
