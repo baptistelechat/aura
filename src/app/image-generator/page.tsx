@@ -1,6 +1,6 @@
 "use client";
-import Preview from "@/components/image-generator/Preview";
-import Sidebar from "@/components/image-generator/Sidebar";
+import Preview from "@/app/image-generator/_components/Preview";
+import Sidebar from "@/app/image-generator/_components/Sidebar";
 import { hotkeys } from "@/lib/constant/hotkeys";
 import { useCustomHotKey } from "@/lib/hooks/useCustomHotKey";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";

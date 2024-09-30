@@ -1,4 +1,4 @@
-import DownloadButton from "@/components/image-generator/DownloadButton";
+import DownloadButton from "@/app/image-generator/_components/DownloadButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
@@ -16,13 +16,13 @@ import {
 } from "@/components/ui/tooltip";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
-import Shortcut from "../keyboard/Shortcut";
-import { Accordion } from "../ui/accordion";
-import { Input } from "../ui/input";
+import Shortcut from "../../../components/keyboard/Shortcut";
+import { Accordion } from "../../../components/ui/accordion";
+import { Input } from "../../../components/ui/input";
 import CopyToClipboard from "./CopyToClipboard";
-import CustomColor from "./section/background/CustomColor/CustomColor";
-import TailwindColor from "./section/background/TailwindColor/TailwindColor";
-import TransparentButton from "./section/background/components/TransparentButton";
+import CustomColor from "./section/background/customColor/CustomColor";
+import TailwindColor from "./section/background/tailwindColor/TailwindColor";
+import TransparentButton from "./section/background/TransparentButton";
 import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";

@@ -5,6 +5,7 @@ import { getHotkeyString } from "../utils/hotkey/getHotkeyString";
 
 export const useCustomHotKey = (hotkeys: Hotkey[]) => {
   const hotkeySet = useImageGeneratorStore.getState().general.hotkeySet;
+
   const shortcutKeys = hotkeys.map((hotkey) => hotkey.key[hotkeySet]);
 
   useHotkeys(shortcutKeys, (event, handler) => {

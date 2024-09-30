@@ -9,31 +9,27 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { generateImage } from "@/lib/utils/image-generator/generateImage";
-import { ClipboardCopy } from "lucide-react";
-import Shortcut from "../keyboard/Shortcut";
+import { Download } from "lucide-react";
+import Shortcut from "../../../components/keyboard/Shortcut";
 
-interface ICopyToClipboardProps {
+interface IDownloadButtonProps {
   extraStyle?: string;
 }
 
-const CopyToClipboard = ({ extraStyle }: ICopyToClipboardProps) => {
+const DownloadButton = ({ extraStyle }: IDownloadButtonProps) => {
   const isDownloading = useImageGeneratorStore((s) => s.general.isDownloading);
-  const hotkey = getHotkeyById("copyToClipboard");
+  const hotkey = getHotkeyById("downloadImage");
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
           disabled={isDownloading}
-          className={cn("px-2", extraStyle)}
-          size="icon"
-          onClick={() =>
-            generateImage({
-              action: "clipboard",
-            })
-          }
+          className={cn("w-full", extraStyle)}
+          onClick={() => generateImage({ action: "download" })}
         >
-          <ClipboardCopy className="size-4" />
+          <Download className="mr-2 size-4" />
+          Download Image
         </Button>
       </TooltipTrigger>
       <TooltipContent>
@@ -46,4 +42,4 @@ const CopyToClipboard = ({ extraStyle }: ICopyToClipboardProps) => {
   );
 };
 
-export default CopyToClipboard;
+export default DownloadButton;

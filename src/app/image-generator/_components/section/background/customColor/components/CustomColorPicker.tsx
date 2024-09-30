@@ -1,10 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
-import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
+import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ChangeEvent } from "react";
-import RandomColor from "../../components/RandomColor";
+import RandomColor from "../../RandomColor";
 
 interface ICustomColorPickerProps {
   action: "solid" | "gradient-from" | "gradient-via" | "gradient-to";

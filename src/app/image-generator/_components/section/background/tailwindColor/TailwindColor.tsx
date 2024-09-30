@@ -1,4 +1,4 @@
-import SidebarSection from "@/components/image-generator/SidebarSection";
+import SidebarSection from "@/app/image-generator/_components/SidebarSection";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
