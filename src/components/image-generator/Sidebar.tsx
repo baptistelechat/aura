@@ -14,7 +14,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import Shortcut from "../keyboard/Shortcut";
 import { Accordion } from "../ui/accordion";

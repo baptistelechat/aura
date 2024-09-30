@@ -1,8 +1,8 @@
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";
 import Control from "../../Control";
 import SidebarSection from "../../SidebarSection";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
 
 const ImageBorder = () => {
   const borderRadius = useImageGeneratorStore(

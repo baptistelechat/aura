@@ -2,9 +2,9 @@
 import Preview from "@/components/image-generator/Preview";
 import Sidebar from "@/components/image-generator/Sidebar";
 import { hotkeys } from "@/lib/constant/hotkeys";
-import useCustomHotKey from "@/lib/hooks/useCustomHotKey";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import updatePreviewSize from "@/lib/utils/image-generator/updatePreviewSize";
+import { useCustomHotKey } from "@/lib/hooks/useCustomHotKey";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize";
 import { MonitorSmartphone } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -29,14 +29,10 @@ const ImageGenerator = () => {
   }, [setRefs]);
 
   useEffect(() => {
-    updatePreviewSize(useImageGeneratorStore.getState());
-    window.addEventListener("resize", () =>
-      updatePreviewSize(useImageGeneratorStore.getState())
-    );
+    updatePreviewSize();
+    window.addEventListener("resize", () => updatePreviewSize());
     return () =>
-      window.removeEventListener("resize", () =>
-        updatePreviewSize(useImageGeneratorStore.getState())
-      );
+      window.removeEventListener("resize", () => updatePreviewSize());
   }, [width, height, refs]);
 
   return (

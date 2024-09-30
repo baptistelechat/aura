@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
 import RandomColor from "../../components/RandomColor";
 import TailwindColorPicker from "./TailwindColorPicker";
@@ -36,9 +36,7 @@ const TailwindGradientColor = () => {
           checked={useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
-        <Label id="tailwind-color-via">
-          Via (Optional)
-        </Label>
+        <Label id="tailwind-color-via">Via (Optional)</Label>
       </div>
       <TailwindColorPicker action={"gradient-via"} />
       <Label>To</Label>

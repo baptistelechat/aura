@@ -1,8 +1,8 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ChangeEvent } from "react";
 import RandomColor from "../../components/RandomColor";
 
@@ -69,9 +69,7 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
   return (
     <div className="flex w-full flex-col gap-4">
       {action === "solid" && (
-        <Label>
-          {currentColor === "" ? "Transparent" : currentColor}
-        </Label>
+        <Label>{currentColor === "" ? "Transparent" : currentColor}</Label>
       )}
       <div className="flex gap-2">
         <Input

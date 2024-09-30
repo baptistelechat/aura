@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import defaultImageGeneratorSettings from "../constant/defaultImageGeneratorSettings";
-import ImageGeneratorSettings from "../types/ImageGeneratorSettings";
+import { defaultImageGeneratorSettings } from "../constant/defaultImageGeneratorSettings";
+import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
@@ -22,7 +22,7 @@ type ImageUpdate = {
 export type ImageGeneratorStoreType = {
   general: {
     hotkeySet: "default" | "mac";
-    tab:"image"|"background";
+    tab: "image" | "background";
     isDownloading: boolean;
   };
   settings: ImageGeneratorSettings;
@@ -76,345 +76,345 @@ const userAgent =
   typeof window !== "undefined" ? window.navigator.userAgent : "";
 const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
 
-const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
-  general : {
-    hotkeySet,
-    tab: "image",
-    isDownloading: false,
-  },
-  settings: defaultImageGeneratorSettings,
+export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
+  (set) => ({
+    general: {
+      hotkeySet,
+      tab: "image",
+      isDownloading: false,
+    },
+    settings: defaultImageGeneratorSettings,
 
-  // General
-  setTab: (tab: "image" | "background") => {
-    set((state) => ({
-      general: {
-        ...state.general,
-        tab
-      }
-    }));
-  },
-
-  setIsDownloading: (isDownloading: boolean) => {
-    set((state) => ({
-      general: {
-        ...state.general,
-        isDownloading: isDownloading,
-      },
-    }));
-  },
-  // Refs
-  refs: {
-    containerRef: null,
-    previewRef: null,
-    imageRef: null,
-  },
-
-  setRefs: (refs) =>
-    set((state) => ({
-      refs: {
-        ...state.refs,
-        ...refs,
-      },
-    })),
-
-  // Text
-  setText: (text: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        text,
-      },
-    }));
-  },
-
-  //Dimension
-  setDimensions: (update: DimensionUpdate) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        dimension: {
-          ...state.settings.dimension,
-          ...update,
+    // General
+    setTab: (tab: "image" | "background") => {
+      set((state) => ({
+        general: {
+          ...state.general,
+          tab,
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setWidth: (width: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        dimension: {
-          ...state.settings.dimension,
-          width,
+    setIsDownloading: (isDownloading: boolean) => {
+      set((state) => ({
+        general: {
+          ...state.general,
+          isDownloading: isDownloading,
         },
-      },
-    }));
-  },
+      }));
+    },
+    // Refs
+    refs: {
+      containerRef: null,
+      previewRef: null,
+      imageRef: null,
+    },
 
-  setHeight: (height: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        dimension: {
-          ...state.settings.dimension,
-          height,
+    setRefs: (refs) =>
+      set((state) => ({
+        refs: {
+          ...state.refs,
+          ...refs,
         },
-      },
-    }));
-  },
+      })),
 
-  // Image
-  setImage: (update: ImageUpdate) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          ...update,
+    // Text
+    setText: (text: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          text,
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setImageSrc: (src: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          src,
-        },
-      },
-    }));
-  },
-
-  setImageBorderRadius: (borderRadius: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          borderRadius,
-        },
-      },
-    }));
-  },
-
-  setImageShadow: (shadow: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          shadow,
-        },
-      },
-    }));
-  },
-
-  setImageScale: (scale: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          scale,
-        },
-      },
-    }));
-  },
-
-  setImageVisibility: (visibility: boolean) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          visibility,
-        },
-      },
-    }));
-  },
-
-  // Background
-  setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          backgroundMode,
-        },
-      },
-    }));
-  },
-
-  setBackgroundColor: (backgroundColor: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          backgroundColor,
-        },
-      },
-    }));
-  },
-
-  setTailwindColor: (tailwindColor: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          tailwindColor,
-        },
-      },
-    }));
-  },
-
-  setUseVia: (useVia: boolean) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            useVia,
+    //Dimension
+    setDimensions: (update: DimensionUpdate) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          dimension: {
+            ...state.settings.dimension,
+            ...update,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientOrientation: (
-    orientation: LinearGradientOrientation | RadialGradientOrientation
-  ) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            orientation,
+    setWidth: (width: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          dimension: {
+            ...state.settings.dimension,
+            width,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientFrom: (from: { name: string; hex: string }) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            from,
+    setHeight: (height: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          dimension: {
+            ...state.settings.dimension,
+            height,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientVia: (via: { name: string; hex: string }) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            via,
+    // Image
+    setImage: (update: ImageUpdate) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            ...update,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientTo: (to: { name: string; hex: string }) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            to,
+    setImageSrc: (src: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            src,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  // Reset
-  resetSettings: () => {
-    set({
-      settings: defaultImageGeneratorSettings,
-    });
-  },
-
-  resetImageBorderRadius: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          borderRadius: defaultImageGeneratorSettings.image.borderRadius,
+    setImageBorderRadius: (borderRadius: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            borderRadius,
+          },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  resetImageShadow: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          shadow: defaultImageGeneratorSettings.image.shadow,
+    setImageShadow: (shadow: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            shadow,
+          },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  resetImageScale: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          scale: defaultImageGeneratorSettings.image.scale,
+    setImageScale: (scale: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            scale,
+          },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  resetBackground: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...defaultImageGeneratorSettings.background,
-          backgroundMode: state.settings.background.backgroundMode,
+    setImageVisibility: (visibility: boolean) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            visibility,
+          },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  resetBackgroundColor: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        backgroundColor:
-          defaultImageGeneratorSettings.background.backgroundColor,
-      },
-    }));
-  },
-}));
+    // Background
+    setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            backgroundMode,
+          },
+        },
+      }));
+    },
 
-export default useImageGeneratorStore;
+    setBackgroundColor: (backgroundColor: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            backgroundColor,
+          },
+        },
+      }));
+    },
+
+    setTailwindColor: (tailwindColor: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            tailwindColor,
+          },
+        },
+      }));
+    },
+
+    setUseVia: (useVia: boolean) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              useVia,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientOrientation: (
+      orientation: LinearGradientOrientation | RadialGradientOrientation
+    ) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              orientation,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientFrom: (from: { name: string; hex: string }) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              from,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientVia: (via: { name: string; hex: string }) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              via,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientTo: (to: { name: string; hex: string }) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              to,
+            },
+          },
+        },
+      }));
+    },
+
+    // Reset
+    resetSettings: () => {
+      set({
+        settings: defaultImageGeneratorSettings,
+      });
+    },
+
+    resetImageBorderRadius: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            borderRadius: defaultImageGeneratorSettings.image.borderRadius,
+          },
+        },
+      }));
+    },
+
+    resetImageShadow: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            shadow: defaultImageGeneratorSettings.image.shadow,
+          },
+        },
+      }));
+    },
+
+    resetImageScale: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            scale: defaultImageGeneratorSettings.image.scale,
+          },
+        },
+      }));
+    },
+
+    resetBackground: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...defaultImageGeneratorSettings.background,
+            backgroundMode: state.settings.background.backgroundMode,
+          },
+        },
+      }));
+    },
+
+    resetBackgroundColor: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          backgroundColor:
+            defaultImageGeneratorSettings.background.backgroundColor,
+        },
+      }));
+    },
+  })
+);

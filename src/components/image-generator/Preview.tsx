@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { RefObject } from "react";
 
 interface IPreviewProps {
@@ -51,8 +51,7 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
           transition: "all 0.3s ease",
           position: "relative",
           ...(background.backgroundColor === "" && {
-            backgroundImage:
-              transparentBackgroundStyle,
+            backgroundImage: transparentBackgroundStyle,
             backgroundSize: "20px 20px",
             backgroundPosition: "0 0, 10px 10px",
           }),

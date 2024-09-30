@@ -1,14 +1,14 @@
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import * as htmlToImage from "html-to-image";
 import { toast } from "sonner";
-import updatePreviewSize from "./updatePreviewSize";
-import updatePreviewStyle from "./updatePreviewStyle";
+import { updatePreviewSize } from "./updatePreviewSize";
+import { updatePreviewStyle } from "./updatePreviewStyle";
 
 interface IGenerateImage {
   action?: "download" | "clipboard";
 }
 
-const generateImage = async ({ action }: IGenerateImage) => {
+export const generateImage = async ({ action }: IGenerateImage) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.refs.previewRef;
 
@@ -25,7 +25,7 @@ const generateImage = async ({ action }: IGenerateImage) => {
       previewRef.current.style.height.replace("px", "")
     );
 
-    updatePreviewStyle(imageGeneratorStore);
+    updatePreviewStyle();
 
     const generateAndHandleImage = new Promise<string>(
       async (resolve, reject) => {
@@ -82,17 +82,15 @@ const generateImage = async ({ action }: IGenerateImage) => {
         height: previousHeight,
       });
 
-      updatePreviewStyle(imageGeneratorStore);
+      updatePreviewStyle();
 
       imageGeneratorStore.setDimensions({
         width: previewWidth,
         height: previewHeight,
       });
 
-      updatePreviewSize(imageGeneratorStore);
+      updatePreviewSize();
       imageGeneratorStore.setIsDownloading(false);
     }
   }
 };
-
-export default generateImage;

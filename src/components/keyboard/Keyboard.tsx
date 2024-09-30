@@ -1,4 +1,4 @@
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
 interface IKeyboardProps {
   keyName: string;

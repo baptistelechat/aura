@@ -1,7 +1,8 @@
-import transparentBackgroundStyle from "@/lib/constant/transparentBackgroundStyle";
-import { ImageGeneratorStoreType } from "@/lib/store/imageGenerator.store";
+import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
-const updatePreviewStyle = (imageGeneratorStore: ImageGeneratorStoreType) => {
+export const updatePreviewStyle = () => {
+  const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.refs.containerRef;
   const previewRef = imageGeneratorStore.refs.previewRef;
   const imageRef = imageGeneratorStore.refs.imageRef;
@@ -43,5 +44,3 @@ const updatePreviewStyle = (imageGeneratorStore: ImageGeneratorStoreType) => {
     }
   }
 };
-
-export default updatePreviewStyle;

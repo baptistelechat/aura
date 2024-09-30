@@ -1,8 +1,8 @@
-import useImageGeneratorStore from "../store/imageGenerator.store";
+import { useImageGeneratorStore } from "../store/imageGenerator.store";
 import { Hotkey } from "../types/Hotkey";
-import generateImage from "../utils/image-generator/generateImage";
+import { generateImage } from "../utils/image-generator/generateImage";
 
-const setTab = useImageGeneratorStore.getState().setTab
+const setTab = useImageGeneratorStore.getState().setTab;
 
 const openHotkeyHelper = () => {
   const hotkeyHelperButton = document.getElementById("hotkeyHelperButton");
@@ -29,8 +29,8 @@ export const hotkeys: Hotkey[] = [
     description:
       "Access the list of available hotkeys to boost your productivity.",
     key: {
-      default: "ctrl+h",
-      mac: "meta+h",
+      default: "ctrl+k",
+      mac: "meta+k",
     },
     action: () => openHotkeyHelper(),
   },

@@ -1,12 +1,11 @@
-import { ImageGeneratorStoreType } from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
-const updatePreviewSize = (
-  imageGeneratorStore: ImageGeneratorStoreType
-) => {
+export const updatePreviewSize = () => {
+  const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.refs.containerRef;
   const previewRef = imageGeneratorStore.refs.previewRef;
   const imageRef = imageGeneratorStore.refs.imageRef;
-  
+
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
 
@@ -38,5 +37,3 @@ const updatePreviewSize = (
     }
   }
 };
-
-export default updatePreviewSize;

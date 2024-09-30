@@ -1,11 +1,11 @@
 import { Label } from "@/components/ui/label";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { Switch } from "@/components/ui/switch";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Paintbrush } from "lucide-react";
 import SidebarSection from "../../../SidebarSection";
 import CustomColorPicker from "./components/CustomColorPicker";
 import CustomGradientColor from "./components/CustomGradientColor";
-import { Switch } from "@/components/ui/switch";
 
 const CustomColor = () => {
   const backgroundMode = useImageGeneratorStore(
@@ -53,9 +53,7 @@ const CustomColor = () => {
             checked={backgroundMode === "gradient"}
             onCheckedChange={handleCheckedChange}
           />
-          <Label htmlFor="gradient-color">
-            Gradient color
-          </Label>
+          <Label htmlFor="gradient-color">Gradient color</Label>
         </div>
         {backgroundMode === "gradient" ? (
           <CustomGradientColor />

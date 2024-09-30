@@ -1,14 +1,16 @@
 import SidebarSection from "@/components/image-generator/SidebarSection";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
 import TailwindColorPicker from "./components/TailwindColorPicker";
 import TailwindGradientColor from "./components/TailwindGradientColor";
 
 const TailwindColor = () => {
-  const backgroundMode = useImageGeneratorStore((s) => s.settings.background.backgroundMode);
+  const backgroundMode = useImageGeneratorStore(
+    (s) => s.settings.background.backgroundMode
+  );
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
@@ -24,7 +26,7 @@ const TailwindColor = () => {
     } else {
       setBackgroundMode("gradient");
     }
-    resetBackground()
+    resetBackground();
   };
 
   return (

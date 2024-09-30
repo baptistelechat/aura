@@ -5,10 +5,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
-import generateImage from "@/lib/utils/image-generator/generateImage";
+import { generateImage } from "@/lib/utils/image-generator/generateImage";
 import { ClipboardCopy } from "lucide-react";
 import Shortcut from "../keyboard/Shortcut";
 

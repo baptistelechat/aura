@@ -4,9 +4,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import tailwindColors from "@/lib/constant/tailwindColors";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { tailwindColors } from "@/lib/constant/tailwindColors";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Check } from "lucide-react";
 
 interface ITailwindColorPickerProps {
@@ -79,8 +79,7 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
         setGradientColor[action]?.({ name: "", hex: "" });
 
         if (action === "gradient-from") updatedFrom = { name: "", hex: "" };
-        if (action === "gradient-via")
-          updatedVia = { name: "", hex: "" };
+        if (action === "gradient-via") updatedVia = { name: "", hex: "" };
         if (action === "gradient-to") updatedTo = { name: "", hex: "" };
 
         if (
@@ -99,12 +98,11 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
         setGradientColor[action]?.({ name: colorName, hex });
 
         if (action === "gradient-via") {
-        setUseVia(true);
-      }
+          setUseVia(true);
+        }
 
-      if (action === "gradient-from") updatedFrom = { name: colorName, hex };
-        if (action === "gradient-via")
-          updatedVia = { name: colorName, hex };
+        if (action === "gradient-from") updatedFrom = { name: colorName, hex };
+        if (action === "gradient-via") updatedVia = { name: colorName, hex };
         if (action === "gradient-to") updatedTo = { name: colorName, hex };
 
         const color = updatedFrom.name || updatedVia.name || updatedTo.name;
@@ -144,9 +142,7 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
 
       {currentColor && (
         <div className="flex flex-col gap-2">
-          <Label className="italic">
-            {currentColor}
-          </Label>
+          <Label className="italic">{currentColor}</Label>
           <div className="grid grid-cols-11 gap-1">
             {Object.entries(tailwindColors)
               .filter(([name]) => name === currentColor.split("-")[0])

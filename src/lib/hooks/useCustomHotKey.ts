@@ -1,9 +1,9 @@
 import { useHotkeys } from "react-hotkeys-hook";
-import useImageGeneratorStore from "../store/imageGenerator.store";
+import { useImageGeneratorStore } from "../store/imageGenerator.store";
 import { Hotkey } from "../types/Hotkey";
 import { getHotkeyString } from "../utils/hotkey/getHotkeyString";
 
-const useCustomHotKey = (hotkeys: Hotkey[]) => {
+export const useCustomHotKey = (hotkeys: Hotkey[]) => {
   const hotkeySet = useImageGeneratorStore.getState().general.hotkeySet;
   const shortcutKeys = hotkeys.map((hotkey) => hotkey.key[hotkeySet]);
 
@@ -21,5 +21,3 @@ const useCustomHotKey = (hotkeys: Hotkey[]) => {
     }
   });
 };
-
-export default useCustomHotKey;

@@ -4,15 +4,15 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import gradientOrientations from "@/lib/constant/gradientOrientations";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { gradientOrientations } from "@/lib/constant/gradientOrientations";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "@/lib/types/gradientOrientation";
-import getRandomColor from "@/lib/utils/colors/getRandomColor";
-import getRandomTailwindColor from "@/lib/utils/colors/getRandomTailwindColor";
+import { getRandomColor } from "@/lib/utils/colors/getRandomColor";
+import { getRandomTailwindColor } from "@/lib/utils/colors/getRandomTailwindColor";
 import { Dices } from "lucide-react";
 
 interface IRandomColorProps {

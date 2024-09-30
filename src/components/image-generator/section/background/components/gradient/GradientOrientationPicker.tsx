@@ -4,8 +4,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import gradientOrientations from "@/lib/constant/gradientOrientations";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { gradientOrientations } from "@/lib/constant/gradientOrientations";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,

@@ -1,5 +1,5 @@
 import { hotkeys } from "@/lib/constant/hotkeys";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
 export const getHotkeyById = (hotkeyId: string) => {
   const hotkeySet = useImageGeneratorStore.getState().general.hotkeySet;

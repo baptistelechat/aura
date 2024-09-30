@@ -1,6 +1,6 @@
 import colors from "tailwindcss/colors";
 
-const tailwindColors = {
+export const tailwindColors = {
   Slate: colors.slate,
   Gray: colors.gray,
   Zinc: colors.zinc,
@@ -24,5 +24,3 @@ const tailwindColors = {
   Pink: colors.pink,
   Rose: colors.rose,
 };
-
-export default tailwindColors;

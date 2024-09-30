@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import defaultImageGeneratorSettings from "@/lib/constant/defaultImageGeneratorSettings";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
 import RandomColor from "../../components/RandomColor";
 import CustomColorPicker from "./CustomColorPicker";
@@ -32,9 +32,7 @@ const CustomGradientColor = () => {
     <>
       <RandomColor variant={"custom-gradient"} />
       <GradientOrientationContainer />
-      <Label>
-        From - {from.hex !== "" ? from.hex : "Transparent"}
-      </Label>
+      <Label>From - {from.hex !== "" ? from.hex : "Transparent"}</Label>
       <CustomColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Checkbox
@@ -47,9 +45,7 @@ const CustomGradientColor = () => {
         </Label>
       </div>
       <CustomColorPicker action={"gradient-via"} />
-      <Label>
-        To - {to.hex !== "" ? to.hex : "Transparent"}
-      </Label>
+      <Label>To - {to.hex !== "" ? to.hex : "Transparent"}</Label>
       <CustomColorPicker action={"gradient-to"} />
     </>
   );

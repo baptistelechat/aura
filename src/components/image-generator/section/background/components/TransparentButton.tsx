@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Eraser } from "lucide-react";
 
 const TransparentButton = () => {
