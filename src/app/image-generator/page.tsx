@@ -1,40 +1,44 @@
 "use client";
-import Preview from "@/components/image-generator/Preview";
-import Sidebar from "@/components/image-generator/Sidebar";
-import IUpdatePreview from "@/lib/interface/IUpdatePreview";
-import useImageGeneratorStore from "@/lib/store/imageGenerator.store";
-import generateImage from "@/lib/utils/image-generator/generateImage";
-import updatePreviewSize from "@/lib/utils/image-generator/updatePreviewSize";
+import Preview from "@/app/image-generator/_components/Preview";
+import Sidebar from "@/app/image-generator/_components/Sidebar";
+import { hotkeys } from "@/lib/constant/hotkeys";
+import { useCustomHotKey } from "@/lib/hooks/useCustomHotKey";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize";
 import { MonitorSmartphone } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const ImageGenerator = () => {
+  useCustomHotKey(hotkeys);
+
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
-  const imageGeneratorStore = useImageGeneratorStore();
+  const refs = useImageGeneratorStore((s) => s.refs);
+  const setRefs = useImageGeneratorStore((s) => s.setRefs);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const updatePreviewObject: IUpdatePreview = {
-    containerRef,
-    previewRef,
-    imageRef,
-    imageGeneratorStore,
-  };
+  useEffect(() => {
+    setRefs({
+      containerRef,
+      previewRef,
+      imageRef,
+    });
+  }, [setRefs]);
 
   useEffect(() => {
-    updatePreviewSize(updatePreviewObject);
-    window.addEventListener("resize", () =>
-      updatePreviewSize(updatePreviewObject)
-    );
-  }, [width, height]);
+    updatePreviewSize();
+    window.addEventListener("resize", () => updatePreviewSize());
+    return () =>
+      window.removeEventListener("resize", () => updatePreviewSize());
+  }, [width, height, refs]);
 
   return (
     <div className="flex size-full gap-8 p-8">
       <div className="hidden w-full gap-4 md:flex">
-        <Sidebar generateImage={() => generateImage(updatePreviewObject)} />
+        <Sidebar />
         <Preview
           containerRef={containerRef}
           previewRef={previewRef}

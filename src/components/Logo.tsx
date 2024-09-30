@@ -11,23 +11,12 @@ interface ILogoProps {
 }
 
 const Logo = ({
+  variant = "color",
   size = "md",
   orientation = "horizontal",
 }: ILogoProps) => {
-  const sizeMapping = {
-    sm: 20,
-    md: 40,
-    lg: 60,
-  };
-
-  const textMapping = {
-    sm:"text-xl",
-    md:"text-2xl",
-    lg: "text-3xl"
-  }
-
-  const dimensions = sizeMapping[size];
-  const textSize = textMapping[size];
+  const sizeMapping = { sm: 20, md: 40, lg: 60 };
+  const textMapping = { sm: "text-xl", md: "text-2xl", lg: "text-3xl" };
 
   return (
     <div
@@ -37,12 +26,26 @@ const Logo = ({
       )}
     >
       <Image
-        src="/Logo.svg"
+        src={
+          variant === "light"
+            ? "/Logo-light.svg"
+            : variant === "dark"
+            ? "/Logo-dark.svg"
+            : "/Logo.svg"
+        }
         alt="Logo"
-        width={dimensions}
-        height={dimensions}
+        width={sizeMapping[size]}
+        height={sizeMapping[size]}
       />
-      <h1 className={cn("text-[#0E4598]", textSize, gugi.className)}>Aura</h1>
+      <h1
+        className={cn(
+          variant === "light" ? "text-white" : "text-[#0E4598]",
+          textMapping[size],
+          gugi.className
+        )}
+      >
+        Aura
+      </h1>
     </div>
   );
 };

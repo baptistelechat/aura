@@ -1,3 +1,5 @@
+import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
+import Menu from "@/components/Menu";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
@@ -6,13 +8,13 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Menu from "@/components/Menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Aura | Create, Share, Inspire",
-  description: "A web application that allows you to generate images with a variety of options.",
+  description:
+    "A web application that allows you to generate images with a variety of options.",
 };
 
 export default function RootLayout({
@@ -30,17 +32,18 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          // defaultTheme="system"
+          defaultTheme="system"
           // enableSystem
           // disableTransitionOnChange
         >
           <TooltipProvider>
-            <div className="fixed bottom-4 right-4 z-50">
+            <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+              <HotkeyHelper />
               <ThemeToggle />
             </div>
             <Menu />
             <main className="grow md:overflow-hidden">{children}</main>
-            <Toaster />
+            <Toaster richColors expand={true} />
           </TooltipProvider>
         </ThemeProvider>
       </body>

@@ -16,7 +16,7 @@ import {
   RadialGradientOrientation,
 } from "../types/gradientOrientation";
 
-const gradientOrientations: {
+export const gradientOrientations: {
   linear: {
     angle: LinearGradientOrientation | RadialGradientOrientation | null;
     icon: ReactElement;
@@ -61,5 +61,3 @@ const gradientOrientations: {
     },
   ],
 };
-
-export default gradientOrientations;

@@ -3,7 +3,7 @@ import {
   RadialGradientOrientation,
 } from "./gradientOrientation";
 
-type ImageGeneratorSettings = {
+export type ImageGeneratorSettings = {
   text: string;
   dimension: {
     width: number;
@@ -38,5 +38,3 @@ type ImageGeneratorSettings = {
     };
   };
 };
-
-export default ImageGeneratorSettings;

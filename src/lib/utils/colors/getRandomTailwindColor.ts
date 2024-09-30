@@ -1,8 +1,8 @@
-import tailwindColors from "@/lib/constant/tailwindColors";
+import { tailwindColors } from "@/lib/constant/tailwindColors";
 
 type TailwindColorShades = Record<string, string>;
 
-const getRandomTailwindColor = () => {
+export const getRandomTailwindColor = () => {
   const colorKeys = Object.keys(
     tailwindColors
   ) as (keyof typeof tailwindColors)[];
@@ -21,5 +21,3 @@ const getRandomTailwindColor = () => {
     hex: colorShades[randomShade],
   };
 };
-
-export default getRandomTailwindColor;

@@ -1,6 +1,6 @@
-import ImageGeneratorSettings from "../types/ImageGeneratorSettings";
+import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 
-const defaultImageGeneratorSettings: ImageGeneratorSettings = {
+export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   text: "Your Text Here",
   dimension: {
     width: 1920,
@@ -35,5 +35,3 @@ const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     },
   },
 };
-
-export default defaultImageGeneratorSettings;
