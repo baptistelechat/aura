@@ -27,6 +27,7 @@ import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
+import ImageWatermark from "./section/image/ImageWatermark";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -100,6 +101,7 @@ const Sidebar = () => {
               <ImageShadow />
               <ImageSize />
               <ImageVisibility />
+              <ImageWatermark />
               <Input
                 type="text"
                 value={text}
@@ -113,9 +115,9 @@ const Sidebar = () => {
         <TabsContent value="background" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
             <Accordion type="single" collapsible>
-                <CustomColor />
-                <TailwindColor />
-                <TransparentButton />
+              <CustomColor />
+              <TailwindColor />
+              <TransparentButton />
             </Accordion>
           </ScrollArea>
         </TabsContent>

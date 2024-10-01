@@ -34,4 +34,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
       },
     },
   },
+  watermark: {
+    position: "bottom-right",
+  },
 };

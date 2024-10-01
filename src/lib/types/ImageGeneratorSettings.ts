@@ -37,4 +37,7 @@ export type ImageGeneratorSettings = {
       };
     };
   };
+  watermark: {
+    position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  };
 };
