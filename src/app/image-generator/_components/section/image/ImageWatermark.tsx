@@ -1,27 +1,40 @@
 import CustomAccordionItem from "@/components/CustomAccordionItem";
+import TransparentButton from "@/components/TransparentButton";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Tag } from "lucide-react";
-import WatermarkPositionPicker from "./components/watermark/WatermarkPositionPicker";
+import WatermarkSettingsPicker from "./components/watermark/WatermarkSettingsPicker";
 
 const ImageWatermark = () => {
-  const watermarkPosition = useImageGeneratorStore(
-    (s) => s.settings.watermark.position
+  const position = useImageGeneratorStore((s) => s.settings.watermark.position);
+  const background = useImageGeneratorStore(
+    (s) => s.settings.watermark.background
   );
-  const resetWatermarkPosition = useImageGeneratorStore(
-    (s) => s.resetWatermarkPosition
+  const foreground = useImageGeneratorStore(
+    (s) => s.settings.watermark.foreground
   );
+
+  const resetWatermark = useImageGeneratorStore((s) => s.resetWatermark);
 
   return (
     <CustomAccordionItem
       title={"Watermark"}
       icon={<Tag className="size-4" />}
       disabled={
-        watermarkPosition === defaultImageGeneratorSettings.watermark.position
+        position === defaultImageGeneratorSettings.watermark.position &&
+        background === defaultImageGeneratorSettings.watermark.background &&
+        foreground === defaultImageGeneratorSettings.watermark.foreground
       }
-      reset={resetWatermarkPosition}
+      reset={resetWatermark}
     >
-      <WatermarkPositionPicker />
+      <div className="flex flex-col gap-4">
+        <div className="flex w-full justify-between">
+          <WatermarkSettingsPicker variant={"position"} />
+          <WatermarkSettingsPicker variant={"background"} />
+          <WatermarkSettingsPicker variant={"foreground"} />
+        </div>
+        <TransparentButton variant="watermark" />
+      </div>
     </CustomAccordionItem>
   );
 };

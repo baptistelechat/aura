@@ -69,6 +69,8 @@ export type ImageGeneratorStoreType = {
   setWatermarkPosition: (
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
   ) => void;
+  setWatermarkBackground: (background: "color-light" | "color-dark" | "light" | "dark" | "transparent") => void;
+  setWatermarkForeground: (foreground: "color-light" | "color-dark" | "light" | "dark") => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -76,7 +78,7 @@ export type ImageGeneratorStoreType = {
   resetImageScale: () => void;
   resetBackground: () => void;
   resetBackgroundColor: () => void;
-  resetWatermarkPosition: () => void;
+  resetWatermark: () => void;
 };
 
 const userAgent =
@@ -375,6 +377,30 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
+    setWatermarkBackground: (background: "color-light" | "color-dark" | "light" | "dark" | "transparent") => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            background,
+          },
+        },
+      }));
+    },
+
+    setWatermarkForeground: (foreground: "color-light" | "color-dark" | "light" | "dark") => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            foreground,
+          },
+        },
+      }));
+    },
+
     // Reset
     resetSettings: () => {
       set({
@@ -440,13 +466,14 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    resetWatermarkPosition: () => {
+    resetWatermark: () => {
       set((state) => ({
         settings: {
           ...state.settings,
           watermark: {
-            ...defaultImageGeneratorSettings.watermark,
-            position: state.settings.watermark.position,
+            position: defaultImageGeneratorSettings.watermark.position,
+            background: defaultImageGeneratorSettings.watermark.background,
+            foreground: defaultImageGeneratorSettings.watermark.foreground,
           },
         },
       }));

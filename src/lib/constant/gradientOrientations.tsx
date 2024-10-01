@@ -18,11 +18,11 @@ import {
 
 export const gradientOrientations: {
   linear: {
-    angle: LinearGradientOrientation | RadialGradientOrientation | null;
+    angle: LinearGradientOrientation | null;
     icon: ReactElement;
   }[];
   radial: {
-    angle: string;
+    angle: RadialGradientOrientation;
     icon: ReactElement;
   }[];
 } = {

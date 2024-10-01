@@ -17,12 +17,12 @@ import {
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import Shortcut from "../../../components/keyboard/Shortcut";
+import TransparentButton from "../../../components/TransparentButton";
 import { Accordion } from "../../../components/ui/accordion";
 import { Input } from "../../../components/ui/input";
 import CopyToClipboard from "./CopyToClipboard";
 import CustomColor from "./section/background/customColor/CustomColor";
 import TailwindColor from "./section/background/tailwindColor/TailwindColor";
-import TransparentButton from "./section/background/TransparentButton";
 import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
@@ -100,8 +100,8 @@ const Sidebar = () => {
               <ImageBorder />
               <ImageShadow />
               <ImageSize />
-              <ImageVisibility />
               <ImageWatermark />
+              <ImageVisibility />
               <Input
                 type="text"
                 value={text}
@@ -117,7 +117,7 @@ const Sidebar = () => {
             <Accordion type="single" collapsible>
               <CustomColor />
               <TailwindColor />
-              <TransparentButton />
+              <TransparentButton variant="background" />
             </Accordion>
           </ScrollArea>
         </TabsContent>

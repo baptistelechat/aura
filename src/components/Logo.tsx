@@ -22,6 +22,8 @@ const getBackgroundClass = (background: ILogoProps["background"]) => {
       return "bg-[#0E4598]";
     case "color-light":
       return "bg-[#1573FE]";
+    case "transparent":
+      return "bg-transparent";
     default:
       return "bg-transparent";
   }
@@ -43,10 +45,10 @@ const getTextClass = (variant: ILogoProps["variant"]) => {
 };
 
 interface ILogoProps {
-  variant?: "color-light" | "color-dark" | "light" | "dark";
+  variant?: "light" | "dark" | "color-light" | "color-dark";
   size?: "sm" | "md" | "lg" | "watermark";
   orientation?: "horizontal" | "vertical";
-  background?: "color-light" | "color-dark" | "light" | "dark";
+  background?: "light" | "dark" | "color-light" | "color-dark" | "transparent";
 }
 
 const Logo = ({
@@ -60,7 +62,7 @@ const Logo = ({
       className={cn(
         "flex items-center gap-2 rounded-full px-8 py-3",
         getBackgroundClass(background),
-        orientation === "vertical" ? "flex-col" : "flex-row",
+        orientation === "vertical" ? "flex-col" : "flex-row"
       )}
     >
       {size === "watermark" && (

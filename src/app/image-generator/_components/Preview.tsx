@@ -3,6 +3,7 @@ import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { cn } from "@/lib/utils";
 import { RefObject } from "react";
 
 interface IPreviewProps {
@@ -18,13 +19,35 @@ const Preview = ({
   imageRef,
   watermarkRef,
 }: IPreviewProps) => {
-  const { text, background, dimension, image } = useImageGeneratorStore(
-    (s) => s.settings
-  );
+  const text = useImageGeneratorStore((s) => s.settings.text);
+  const background = useImageGeneratorStore((s) => s.settings.background);
+  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
+  const image = useImageGeneratorStore((s) => s.settings.image);
 
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
   );
+
+  const watermarkPosition = useImageGeneratorStore(
+    (s) => s.settings.watermark.position
+  );
+  const watermarkBackground = useImageGeneratorStore(
+    (s) => s.settings.watermark.background
+  );
+  const watermarkForeground = useImageGeneratorStore(
+    (s) => s.settings.watermark.foreground
+  );
+
+  console.log(watermarkBackground)
+
+  const watermarkAngle =
+    watermarkPosition === "top-left"
+      ? "top-4 left-4 origin-top-left"
+      : watermarkPosition === "top-right"
+      ? "top-4 right-4 origin-top-right"
+      : watermarkPosition === "bottom-left"
+      ? "bottom-4 left-4 origin-bottom-left"
+      : "bottom-4 right-4 origin-bottom-right";
 
   const backgroundStyle =
     gradient.from.hex !==
@@ -103,20 +126,12 @@ const Preview = ({
             {text}
           </span>
         )}
-        <div
-          ref={watermarkRef}
-          className="absolute bottom-4 right-4 origin-bottom-right"
-        >
-          {/* <div className="absolute left-2 top-2">
-            <Logo background="color-light" variant="light" size="watermark" />
-          </div>
-          <div className="absolute right-2 top-2">
-            <Logo variant="light" size="watermark" />
-          </div>
-          <div className="absolute bottom-2 left-2">
-            <Logo variant="dark" size="watermark" />
-          </div> */}
-          <Logo size="watermark" background="light" />
+        <div ref={watermarkRef} className={cn("absolute", watermarkAngle)}>
+          <Logo
+            size="watermark"
+            background={watermarkBackground}
+            variant={watermarkForeground}
+          />
         </div>
       </div>
     </div>
