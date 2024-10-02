@@ -2,14 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Eraser } from "lucide-react";
 
-interface ITransparentButtonProps {
-  variant: "background" | "watermark";
-}
-
-const TransparentButton = ({ variant }: ITransparentButtonProps) => {
-  const setWatermarkBackground = useImageGeneratorStore(
-    (s) => s.setWatermarkBackground
-  );
+const TransparentButton = () => {
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
   );
@@ -19,15 +12,11 @@ const TransparentButton = ({ variant }: ITransparentButtonProps) => {
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   const handleClick = () => {
-    if (variant === "background") {
-      resetBackground();
-      setBackgroundMode("solid");
-      setBackgroundColor("");
-      setTailwindColor("");
-      setUseVia(false);
-    } else if (variant === "watermark") {
-      setWatermarkBackground("transparent");
-    }
+    resetBackground();
+    setBackgroundMode("solid");
+    setBackgroundColor("");
+    setTailwindColor("");
+    setUseVia(false);
   };
 
   return (

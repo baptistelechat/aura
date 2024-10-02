@@ -1,9 +1,9 @@
 import CustomAccordionItem from "@/components/CustomAccordionItem";
-import TransparentButton from "@/components/TransparentButton";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Tag } from "lucide-react";
-import WatermarkSettingsPicker from "./components/watermark/WatermarkSettingsPicker";
+import WatermarkPositionPicker from "./components/watermark/WatermarkPositionPicker";
+import WatermarkSelect from "./components/watermark/WatermarkSelect";
 
 const ImageWatermark = () => {
   const position = useImageGeneratorStore((s) => s.settings.watermark.position);
@@ -27,13 +27,9 @@ const ImageWatermark = () => {
       }
       reset={resetWatermark}
     >
-      <div className="flex flex-col gap-4">
-        <div className="flex w-full justify-between">
-          <WatermarkSettingsPicker variant={"position"} />
-          <WatermarkSettingsPicker variant={"background"} />
-          <WatermarkSettingsPicker variant={"foreground"} />
-        </div>
-        <TransparentButton variant="watermark" />
+      <div className="flex w-full gap-4">
+        <WatermarkPositionPicker />
+        <WatermarkSelect />
       </div>
     </CustomAccordionItem>
   );

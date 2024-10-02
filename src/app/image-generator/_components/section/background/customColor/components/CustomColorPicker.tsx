@@ -4,7 +4,7 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ChangeEvent } from "react";
-import RandomColor from "../../RandomColor";
+import RandomColor from "../../components/RandomColor";
 
 interface ICustomColorPickerProps {
   action: "solid" | "gradient-from" | "gradient-via" | "gradient-to";
