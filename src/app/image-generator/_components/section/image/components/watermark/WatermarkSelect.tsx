@@ -4,10 +4,13 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { cn } from "@/lib/utils";
+import { CircleOff } from "lucide-react";
 
 const watermarks: {
   background: "light" | "dark" | "color-light" | "color-dark" | "transparent";
@@ -27,6 +30,14 @@ const watermarks: {
   { background: "transparent", foreground: "color-dark" },
 ];
 
+const watermarkColor = {
+  light: "bg-white",
+  dark: "bg-black",
+  "color-light": "bg-[#1573FE]",
+  "color-dark": "bg-[#0E4598]",
+  transparent: "bg-transparent",
+};
+
 const WatermarkSelect = () => {
   const background = useImageGeneratorStore(
     (s) => s.settings.watermark.background
@@ -38,9 +49,17 @@ const WatermarkSelect = () => {
   const setBackground = useImageGeneratorStore((s) => s.setWatermarkBackground);
   const setForeground = useImageGeneratorStore((s) => s.setWatermarkForeground);
 
+  // Grouper les éléments par background pour afficher dans <SelectGroup>
+  const groupedWatermarks = watermarks.reduce((groups, watermark) => {
+    (groups[watermark.background] = groups[watermark.background] || []).push(
+      watermark
+    );
+    return groups;
+  }, {} as Record<string, { background: string; foreground: string }[]>);
+
   return (
     <div className="flex w-full flex-col gap-4">
-      <Label>Variant</Label>
+      <Label>Watermark Variant</Label>
       <Select
         value={`${background}/${foreground}`}
         onValueChange={(value) => {
@@ -59,19 +78,54 @@ const WatermarkSelect = () => {
         }}
       >
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select a size" />
+          <SelectValue placeholder="Select a watermark style" />
         </SelectTrigger>
         <SelectContent>
-          <SelectGroup>
-            {watermarks.map((watermark) => (
-              <SelectItem
-                key={watermark.background + watermark.foreground}
-                value={`${watermark.background}/${watermark.foreground}`}
-              >
-                {watermark.background}/{watermark.foreground}
-              </SelectItem>
-            ))}
-          </SelectGroup>
+          {Object.entries(groupedWatermarks).map(([background, items]) => (
+            <SelectGroup key={background}>
+              <SelectLabel>
+                {background.charAt(0).toUpperCase() + background.slice(1)}
+              </SelectLabel>
+              {items.map((watermark) => (
+                <SelectItem
+                  key={`${watermark.background}/${watermark.foreground}`}
+                  value={`${watermark.background}/${watermark.foreground}`}
+                >
+                  <div className="flex gap-1">
+                    <div
+                      className={cn(
+                        "h-6 w-14 rounded border border-input flex items-center justify-center",
+                        watermarkColor[
+                          watermark.background as
+                            | "light"
+                            | "dark"
+                            | "color-light"
+                            | "color-dark"
+                            | "transparent"
+                        ]
+                      )}
+                    >
+                      {watermark.background === "transparent" && (
+                        <CircleOff className="size-4" />
+                      )}
+                    </div>
+                    <div
+                      className={cn(
+                        "h-6 w-14 rounded border border-input",
+                        watermarkColor[
+                          watermark.foreground as
+                            | "light"
+                            | "dark"
+                            | "color-light"
+                            | "color-dark"
+                        ]
+                      )}
+                    />
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          ))}
         </SelectContent>
       </Select>
     </div>

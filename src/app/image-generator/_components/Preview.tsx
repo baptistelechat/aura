@@ -130,7 +130,7 @@ const Preview = ({
           <Logo
             size="watermark"
             background={watermarkBackground}
-            variant={watermarkForeground}
+            foreground={watermarkForeground}
           />
         </div>
       </div>

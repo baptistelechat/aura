@@ -45,7 +45,7 @@ const Menu = () => {
   return (
     <nav className="flex w-full justify-center gap-4 px-8 pt-4">
       <div className="flex w-1/3 items-center justify-start">
-        <Logo size="md" variant={logoVariant} />
+        <Logo size="md" foreground={logoVariant} />
       </div>
       <div className="flex w-1/3 items-center justify-center">
         {links.map((link) => (

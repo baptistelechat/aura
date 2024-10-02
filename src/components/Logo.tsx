@@ -29,8 +29,8 @@ const getBackgroundClass = (background: ILogoProps["background"]) => {
   }
 };
 
-const getTextClass = (variant: ILogoProps["variant"]) => {
-  switch (variant) {
+const getTextClass = (foreground: ILogoProps["foreground"]) => {
+  switch (foreground) {
     case "light":
       return "text-white";
     case "dark":
@@ -45,14 +45,14 @@ const getTextClass = (variant: ILogoProps["variant"]) => {
 };
 
 interface ILogoProps {
-  variant?: "light" | "dark" | "color-light" | "color-dark";
   size?: "sm" | "md" | "lg" | "watermark";
-  orientation?: "horizontal" | "vertical";
+  foreground?: "light" | "dark" | "color-light" | "color-dark";
   background?: "light" | "dark" | "color-light" | "color-dark" | "transparent";
+  orientation?: "horizontal" | "vertical";
 }
 
 const Logo = ({
-  variant = "color-dark",
+  foreground = "color-dark",
   size = "md",
   orientation = "horizontal",
   background,
@@ -67,7 +67,7 @@ const Logo = ({
     >
       {size === "watermark" && (
         <p
-          className={cn("font-semibold", getTextClass(variant), gugi.className)}
+          className={cn("font-semibold", getTextClass(foreground), gugi.className)}
           style={{
             fontSize: textMapping[size] + "px",
           }}
@@ -77,9 +77,9 @@ const Logo = ({
       )}
       <Image
         src={
-          variant === "light"
+          foreground === "light"
             ? "/Logo-light.svg"
-            : variant === "dark"
+            : foreground === "dark"
             ? "/Logo-dark.svg"
             : "/Logo.svg"
         }
@@ -88,7 +88,7 @@ const Logo = ({
         height={sizeMapping[size]}
       />
       <h1
-        className={cn(getTextClass(variant), gugi.className)}
+        className={cn(getTextClass(foreground), gugi.className)}
         style={{
           fontSize: textMapping[size] + "px",
         }}
