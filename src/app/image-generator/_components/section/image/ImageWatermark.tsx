@@ -15,15 +15,16 @@ const ImageWatermark = () => {
   );
 
   const resetWatermark = useImageGeneratorStore((s) => s.resetWatermark);
+  const defaultWatermarkSettings = defaultImageGeneratorSettings.watermark
 
   return (
     <CustomAccordionItem
       title={"Watermark"}
       icon={<Tag className="size-4" />}
       disabled={
-        position === defaultImageGeneratorSettings.watermark.position &&
-        background === defaultImageGeneratorSettings.watermark.background &&
-        foreground === defaultImageGeneratorSettings.watermark.foreground
+        position === defaultWatermarkSettings.position &&
+        background === defaultWatermarkSettings.background &&
+        foreground === defaultWatermarkSettings.foreground
       }
       reset={resetWatermark}
     >

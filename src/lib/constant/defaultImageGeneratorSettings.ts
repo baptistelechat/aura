@@ -33,6 +33,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
         hex: "#e2e8f0",
       },
     },
+    magicColor:[]
   },
   watermark: {
     position: "bottom-right",

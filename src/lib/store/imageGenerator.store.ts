@@ -65,6 +65,7 @@ export type ImageGeneratorStoreType = {
   setGradientFrom: (from: { name: string; hex: string }) => void;
   setGradientVia: (via: { name: string; hex: string }) => void;
   setGradientTo: (to: { name: string; hex: string }) => void;
+  setMagicColor:(magicColor:string[])=>void;
   // Watermark
   setWatermarkPosition: (
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -357,6 +358,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
               ...state.settings.background.gradient,
               to,
             },
+          },
+        },
+      }));
+    },
+
+    setMagicColor:(magicColor:string[])=>{
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            magicColor
           },
         },
       }));

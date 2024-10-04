@@ -19,6 +19,7 @@ const CustomColor = () => {
   );
   const setBackgroundMode = useImageGeneratorStore((s) => s.setBackgroundMode);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
+  const defaultBackgroundSettings = defaultImageGeneratorSettings.background;
 
   const handleCheckedChange = () => {
     if (backgroundMode === "gradient") {
@@ -35,14 +36,14 @@ const CustomColor = () => {
       icon={<Paintbrush className="size-4" />}
       disabled={
         backgroundColor ===
-          defaultImageGeneratorSettings.background.backgroundColor &&
+          defaultBackgroundSettings.backgroundColor &&
         gradient.orientation ===
-          defaultImageGeneratorSettings.background.gradient.orientation &&
+          defaultBackgroundSettings.gradient.orientation &&
         gradient.from ===
-          defaultImageGeneratorSettings.background.gradient.from &&
+          defaultBackgroundSettings.gradient.from &&
         gradient.via ===
-          defaultImageGeneratorSettings.background.gradient.via &&
-        gradient.to === defaultImageGeneratorSettings.background.gradient.to
+          defaultBackgroundSettings.gradient.via &&
+        gradient.to === defaultBackgroundSettings.gradient.to
       }
       reset={resetBackground}
     >

@@ -38,8 +38,6 @@ const Preview = ({
     (s) => s.settings.watermark.foreground
   );
 
-  console.log(watermarkBackground)
-
   const watermarkAngle =
     watermarkPosition === "top-left"
       ? "top-4 left-4 origin-top-left"

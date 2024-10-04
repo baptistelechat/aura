@@ -19,6 +19,7 @@ const TailwindColor = () => {
   );
   const setBackgroundMode = useImageGeneratorStore((s) => s.setBackgroundMode);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
+  const defaultBackgroundSettings = defaultImageGeneratorSettings.background;
 
   const handleCheckedChange = () => {
     if (backgroundMode === "gradient") {
@@ -34,15 +35,12 @@ const TailwindColor = () => {
       title={"Tailwind Color"}
       icon={<Palette className="size-4" />}
       disabled={
-        backgroundColor ===
-          defaultImageGeneratorSettings.background.backgroundColor &&
+        backgroundColor === defaultBackgroundSettings.backgroundColor &&
         gradient.orientation ===
-          defaultImageGeneratorSettings.background.gradient.orientation &&
-        gradient.from ===
-          defaultImageGeneratorSettings.background.gradient.from &&
-        gradient.via ===
-          defaultImageGeneratorSettings.background.gradient.via &&
-        gradient.to === defaultImageGeneratorSettings.background.gradient.to
+          defaultBackgroundSettings.gradient.orientation &&
+        gradient.from === defaultBackgroundSettings.gradient.from &&
+        gradient.via === defaultBackgroundSettings.gradient.via &&
+        gradient.to === defaultBackgroundSettings.gradient.to
       }
       reset={resetBackground}
     >

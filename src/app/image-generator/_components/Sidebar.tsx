@@ -28,8 +28,10 @@ import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
 import ImageWatermark from "./section/image/ImageWatermark";
+import ImageInput from "./ImageInput";
+import MagicColor from "./section/background/magicColor/MagicColor";
 
-const Sidebar = () => {
+const Sidebar = () => {  
   const tab = useImageGeneratorStore((s) => s.general.tab);
   const text = useImageGeneratorStore((s) => s.settings.text);
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
@@ -38,26 +40,9 @@ const Sidebar = () => {
   const setTab = useImageGeneratorStore((s) => s.setTab);
   const setText = useImageGeneratorStore((s) => s.setText);
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
-  const setImageSrc = useImageGeneratorStore((s) => s.setImageSrc);
-  const setImageVisibility = useImageGeneratorStore(
-    (s) => s.setImageVisibility
-  );
 
   const imageHotkey = getHotkeyById("switchToImageTab");
   const backgroundHotkey = getHotkeyById("switchToBackgroundTab");
-  const loadImageHotkey = getHotkeyById("loadImage");
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImageSrc(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-      setImageVisibility(true);
-    }
-  };
 
   return (
     <div className="flex h-full w-96 flex-col gap-4">
@@ -117,31 +102,14 @@ const Sidebar = () => {
             <Accordion type="single" collapsible>
               <CustomColor />
               <TailwindColor />
+              <MagicColor />
               <TransparentButton />
             </Accordion>
           </ScrollArea>
         </TabsContent>
       </Tabs>
       <div className="space-y-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Input
-              id="imageUploadInput"
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                handleImageChange(e);
-              }}
-              className="w-full"
-            />
-          </TooltipTrigger>
-          <TooltipContent className="mb-2">
-            <div className="flex flex-col items-center gap-2 font-normal">
-              <p>{loadImageHotkey.name}</p>
-              <Shortcut hotkey={loadImageHotkey.key} />
-            </div>
-          </TooltipContent>
-        </Tooltip>
+        <ImageInput/>
         <Select
           value={`${width}x${height}`}
           onValueChange={(value) => {
