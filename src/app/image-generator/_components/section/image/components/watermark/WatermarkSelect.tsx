@@ -49,7 +49,6 @@ const WatermarkSelect = () => {
   const setBackground = useImageGeneratorStore((s) => s.setWatermarkBackground);
   const setForeground = useImageGeneratorStore((s) => s.setWatermarkForeground);
 
-  // Grouper les éléments par background pour afficher dans <SelectGroup>
   const groupedWatermarks = watermarks.reduce((groups, watermark) => {
     (groups[watermark.background] = groups[watermark.background] || []).push(
       watermark
@@ -59,7 +58,7 @@ const WatermarkSelect = () => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <Label>Watermark Variant</Label>
+      <Label>Style</Label>
       <Select
         value={`${background}/${foreground}`}
         onValueChange={(value) => {
