@@ -17,16 +17,17 @@ import {
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import Shortcut from "../../../components/keyboard/Shortcut";
+import TransparentButton from "./section/background/TransparentButton";
 import { Accordion } from "../../../components/ui/accordion";
 import { Input } from "../../../components/ui/input";
 import CopyToClipboard from "./CopyToClipboard";
 import CustomColor from "./section/background/customColor/CustomColor";
 import TailwindColor from "./section/background/tailwindColor/TailwindColor";
-import TransparentButton from "./section/background/TransparentButton";
 import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
+import ImageWatermark from "./section/image/ImageWatermark";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -99,6 +100,7 @@ const Sidebar = () => {
               <ImageBorder />
               <ImageShadow />
               <ImageSize />
+              <ImageWatermark />
               <ImageVisibility />
               <Input
                 type="text"
@@ -113,9 +115,9 @@ const Sidebar = () => {
         <TabsContent value="background" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
             <Accordion type="single" collapsible>
-                <CustomColor />
-                <TailwindColor />
-                <TransparentButton />
+              <CustomColor />
+              <TailwindColor />
+              <TransparentButton />
             </Accordion>
           </ScrollArea>
         </TabsContent>

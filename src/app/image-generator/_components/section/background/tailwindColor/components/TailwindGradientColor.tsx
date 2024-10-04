@@ -2,8 +2,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import GradientOrientationContainer from "../../components/gradient/GradientOrientationContainer";
-import RandomColor from "../../RandomColor";
+import GradientOrientationPicker from "../../components/GradientOrientationPicker";
+import RandomColor from "../../components/RandomColor";
 import TailwindColorPicker from "./TailwindColorPicker";
 
 const TailwindGradientColor = () => {
@@ -27,7 +27,10 @@ const TailwindGradientColor = () => {
   return (
     <>
       <RandomColor variant={"tailwind-gradient"} />
-      <GradientOrientationContainer />
+      <div className="flex justify-between">
+        <GradientOrientationPicker variant={"linear"} />
+        <GradientOrientationPicker variant={"radial"} />
+      </div>
       <Label>From</Label>
       <TailwindColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">

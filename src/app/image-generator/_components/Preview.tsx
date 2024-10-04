@@ -1,23 +1,53 @@
 /* eslint-disable @next/next/no-img-element */
+import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { cn } from "@/lib/utils";
 import { RefObject } from "react";
 
 interface IPreviewProps {
   containerRef: RefObject<HTMLDivElement>;
   previewRef: RefObject<HTMLDivElement>;
   imageRef: RefObject<HTMLImageElement>;
+  watermarkRef: RefObject<HTMLDivElement>;
 }
 
-const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
-  const { text, background, dimension, image } = useImageGeneratorStore(
-    (s) => s.settings
-  );
+const Preview = ({
+  containerRef,
+  previewRef,
+  imageRef,
+  watermarkRef,
+}: IPreviewProps) => {
+  const text = useImageGeneratorStore((s) => s.settings.text);
+  const background = useImageGeneratorStore((s) => s.settings.background);
+  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
+  const image = useImageGeneratorStore((s) => s.settings.image);
 
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
   );
+
+  const watermarkPosition = useImageGeneratorStore(
+    (s) => s.settings.watermark.position
+  );
+  const watermarkBackground = useImageGeneratorStore(
+    (s) => s.settings.watermark.background
+  );
+  const watermarkForeground = useImageGeneratorStore(
+    (s) => s.settings.watermark.foreground
+  );
+
+  console.log(watermarkBackground)
+
+  const watermarkAngle =
+    watermarkPosition === "top-left"
+      ? "top-4 left-4 origin-top-left"
+      : watermarkPosition === "top-right"
+      ? "top-4 right-4 origin-top-right"
+      : watermarkPosition === "bottom-left"
+      ? "bottom-4 left-4 origin-bottom-left"
+      : "bottom-4 right-4 origin-bottom-right";
 
   const backgroundStyle =
     gradient.from.hex !==
@@ -96,18 +126,13 @@ const Preview = ({ containerRef, previewRef, imageRef }: IPreviewProps) => {
             {text}
           </span>
         )}
-        {/* <div className="absolute top-0 left-0 p-2 text-xs text-red-500">
-          Top Left
+        <div ref={watermarkRef} className={cn("absolute", watermarkAngle)}>
+          <Logo
+            size="watermark"
+            background={watermarkBackground}
+            foreground={watermarkForeground}
+          />
         </div>
-        <div className="absolute top-0 right-0 p-2 text-xs text-red-500">
-          Top Right
-        </div>
-        <div className="absolute bottom-0 left-0 p-2 text-xs text-red-500">
-          Bottom Left
-        </div>
-        <div className="absolute bottom-0 right-0 p-2 text-xs text-red-500">
-          Bottom Right
-        </div> */}
       </div>
     </div>
   );

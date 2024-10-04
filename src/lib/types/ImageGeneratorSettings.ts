@@ -37,4 +37,9 @@ export type ImageGeneratorSettings = {
       };
     };
   };
+  watermark: {
+    position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
+    foreground: "color-light" | "color-dark" | "light" | "dark";
+  };
 };

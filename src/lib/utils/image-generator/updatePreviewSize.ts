@@ -5,6 +5,7 @@ export const updatePreviewSize = () => {
   const containerRef = imageGeneratorStore.refs.containerRef;
   const previewRef = imageGeneratorStore.refs.previewRef;
   const imageRef = imageGeneratorStore.refs.imageRef;
+  const watermarkRef = imageGeneratorStore.refs.watermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
@@ -34,6 +35,10 @@ export const updatePreviewSize = () => {
     if (imageRef?.current) {
       imageRef.current.style.maxWidth = `${previewWidth * imageScale}px`;
       imageRef.current.style.maxHeight = `${previewHeight * imageScale}px`;
+    }
+
+    if (watermarkRef?.current) {
+      watermarkRef.current.style.scale = `${(previewHeight * 0.05) / 60}`;
     }
   }
 };

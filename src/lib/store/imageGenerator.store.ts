@@ -34,11 +34,13 @@ export type ImageGeneratorStoreType = {
     containerRef: React.RefObject<HTMLDivElement> | null;
     previewRef: React.RefObject<HTMLDivElement> | null;
     imageRef: React.RefObject<HTMLImageElement> | null;
+    watermarkRef: React.RefObject<HTMLDivElement> | null;
   };
   setRefs: (refs: {
     containerRef: React.RefObject<HTMLDivElement>;
     previewRef: React.RefObject<HTMLDivElement>;
     imageRef: React.RefObject<HTMLImageElement>;
+    watermarkRef: React.RefObject<HTMLDivElement>;
   }) => void;
   setText: (text: string) => void;
   // Dimension
@@ -63,6 +65,12 @@ export type ImageGeneratorStoreType = {
   setGradientFrom: (from: { name: string; hex: string }) => void;
   setGradientVia: (via: { name: string; hex: string }) => void;
   setGradientTo: (to: { name: string; hex: string }) => void;
+  // Watermark
+  setWatermarkPosition: (
+    position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
+  ) => void;
+  setWatermarkBackground: (background: "color-light" | "color-dark" | "light" | "dark" | "transparent") => void;
+  setWatermarkForeground: (foreground: "color-light" | "color-dark" | "light" | "dark") => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -70,6 +78,7 @@ export type ImageGeneratorStoreType = {
   resetImageScale: () => void;
   resetBackground: () => void;
   resetBackgroundColor: () => void;
+  resetWatermark: () => void;
 };
 
 const userAgent =
@@ -108,6 +117,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       containerRef: null,
       previewRef: null,
       imageRef: null,
+      watermarkRef: null,
     },
 
     setRefs: (refs) =>
@@ -352,6 +362,45 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
+    // Watermark
+    setWatermarkPosition: (
+      position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
+    ) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            position,
+          },
+        },
+      }));
+    },
+
+    setWatermarkBackground: (background: "color-light" | "color-dark" | "light" | "dark" | "transparent") => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            background,
+          },
+        },
+      }));
+    },
+
+    setWatermarkForeground: (foreground: "color-light" | "color-dark" | "light" | "dark") => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            foreground,
+          },
+        },
+      }));
+    },
+
     // Reset
     resetSettings: () => {
       set({
@@ -413,6 +462,19 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           ...state.settings,
           backgroundColor:
             defaultImageGeneratorSettings.background.backgroundColor,
+        },
+      }));
+    },
+
+    resetWatermark: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            position: defaultImageGeneratorSettings.watermark.position,
+            background: defaultImageGeneratorSettings.watermark.background,
+            foreground: defaultImageGeneratorSettings.watermark.foreground,
+          },
         },
       }));
     },

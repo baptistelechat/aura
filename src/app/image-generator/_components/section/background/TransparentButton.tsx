@@ -11,21 +11,23 @@ const TransparentButton = () => {
   const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
+  const handleClick = () => {
+    resetBackground();
+    setBackgroundMode("solid");
+    setBackgroundColor("");
+    setTailwindColor("");
+    setUseVia(false);
+  };
+
   return (
     <Button
       variant="outline"
       size="lg"
-      onClick={() => {
-        resetBackground();
-        setBackgroundMode("solid");
-        setBackgroundColor("");
-        setTailwindColor("");
-        setUseVia(false);
-      }}
+      onClick={() => handleClick()}
       className="mx-1 w-full"
     >
       <Eraser className="mr-2 size-4" />
-      Transparent
+      Transparent background
     </Button>
   );
 };
