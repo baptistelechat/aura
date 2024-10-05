@@ -4,9 +4,9 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import GradientOrientationPicker from "../../components/GradientOrientationPicker";
 import RandomColor from "../../components/RandomColor";
-import CustomColorPicker from "./CustomColorPicker";
+import MagicColorPicker from "./MagicColorPicker";
 
-const CustomGradientColor = () => {
+const MagicGradientColor = () => {
   const useVia = useImageGeneratorStore(
     (s) => s.settings.background.gradient.useVia
   );
@@ -21,7 +21,7 @@ const CustomGradientColor = () => {
   const handleCheckboxChange = () => {
     if (via.hex === "") {
       setVia({
-        name: "",
+        name: defaultImageGeneratorSettings.background.gradient.via.name,
         hex: defaultImageGeneratorSettings.background.gradient.via.hex,
       });
     }
@@ -30,7 +30,7 @@ const CustomGradientColor = () => {
 
   return (
     <>
-      <RandomColor variant={"custom-gradient"} />
+      <RandomColor variant={"magic-gradient"} />
       <div className="flex justify-between">
         <GradientOrientationPicker variant={"linear"} />
         <GradientOrientationPicker variant={"radial"} />
@@ -38,10 +38,10 @@ const CustomGradientColor = () => {
       <Label>
         From - {from.hex !== "" ? from.hex.toUpperCase() : "Transparent"}
       </Label>
-      <CustomColorPicker action={"gradient-from"} />
+      <MagicColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Checkbox
-          id="custom-color-via"
+          id="magic-color-via"
           checked={useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
@@ -50,11 +50,11 @@ const CustomGradientColor = () => {
           {via.hex !== "" ? via.hex.toUpperCase() : "Transparent"}
         </Label>
       </div>
-      <CustomColorPicker action={"gradient-via"} />
+      <MagicColorPicker action={"gradient-via"} />
       <Label>To - {to.hex !== "" ? to.hex.toUpperCase() : "Transparent"}</Label>
-      <CustomColorPicker action={"gradient-to"} />
+      <MagicColorPicker action={"gradient-to"} />
     </>
   );
 };
 
-export default CustomGradientColor;
+export default MagicGradientColor;

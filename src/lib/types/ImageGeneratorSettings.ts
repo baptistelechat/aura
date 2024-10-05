@@ -36,6 +36,7 @@ export type ImageGeneratorSettings = {
         hex: string;
       };
     };
+    magicColor:string[]
   };
   watermark: {
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
