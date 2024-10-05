@@ -16,13 +16,20 @@ import { getRandomTailwindColor } from "@/lib/utils/colors/getRandomTailwindColo
 import { Dices } from "lucide-react";
 
 interface IRandomColorProps {
-  variant: "custom" | "custom-gradient" | "tailwind-gradient";
+  variant:
+    | "custom"
+    | "custom-gradient"
+    | "tailwind-gradient"
+    | "magic-gradient";
   icon?: boolean;
 }
 
 const RandomColor = ({ variant, icon }: IRandomColorProps) => {
   const orientation = useImageGeneratorStore(
     (s) => s.settings.background.gradient.orientation
+  );
+  const magicColor = useImageGeneratorStore(
+    (s) => s.settings.background.magicColor
   );
   const setBackgroundColor = useImageGeneratorStore(
     (s) => s.setBackgroundColor
@@ -35,6 +42,15 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
   const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
   const setVia = useImageGeneratorStore((s) => s.setGradientVia);
   const setTo = useImageGeneratorStore((s) => s.setGradientTo);
+
+  const getRandomMagicColor = () => {
+    const randomMagicColor =
+      magicColor[Math.floor(Math.random() * magicColor.length)];
+    return {
+      name: "",
+      hex:randomMagicColor,
+    };
+  };
 
   const getRandomGradient = () => {
     const gradientType = ["linear", "radial"][Math.floor(Math.random() * 2)] as
@@ -55,11 +71,15 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
     const randomFrom =
       variant === "custom-gradient"
         ? getRandomColor()
-        : getRandomTailwindColor();
+        : variant === "tailwind-gradient"
+        ? getRandomTailwindColor()
+        : getRandomMagicColor();
     const randomTo =
       variant === "custom-gradient"
         ? getRandomColor()
-        : getRandomTailwindColor();
+        : variant === "tailwind-gradient"
+        ? getRandomTailwindColor()
+        : getRandomMagicColor();
 
     setBackgroundColor(
       defaultImageGeneratorSettings.background.backgroundColor
@@ -75,7 +95,9 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
       const randomVia =
         variant === "custom-gradient"
           ? getRandomColor()
-          : getRandomTailwindColor();
+          : variant === "tailwind-gradient"
+          ? getRandomTailwindColor()
+          : getRandomMagicColor();
       setUseVia(true);
       setVia({
         name: randomVia.name,

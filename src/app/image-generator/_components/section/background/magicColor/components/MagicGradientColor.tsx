@@ -30,7 +30,7 @@ const MagicGradientColor = () => {
 
   return (
     <>
-      <RandomColor variant={"tailwind-gradient"} />
+      <RandomColor variant={"magic-gradient"} />
       <div className="flex justify-between">
         <GradientOrientationPicker variant={"linear"} />
         <GradientOrientationPicker variant={"radial"} />
