@@ -78,7 +78,7 @@ const ImageInput = () => {
           onChange={(e) => {
             handleImageChange(e);
           }}
-          className="w-full"
+          className="w-full hover:cursor-pointer"
         />
       </TooltipTrigger>
       <TooltipContent className="mb-2">

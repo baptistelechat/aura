@@ -18,6 +18,7 @@ export type ImageGeneratorSettings = {
   };
   background: {
     backgroundMode: "solid" | "gradient";
+    blur: number;
     backgroundColor: string;
     tailwindColor: string;
     gradient: {
@@ -36,7 +37,7 @@ export type ImageGeneratorSettings = {
         hex: string;
       };
     };
-    magicColor:string[]
+    magicColor: string[];
   };
   watermark: {
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right";

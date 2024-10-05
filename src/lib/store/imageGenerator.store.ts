@@ -33,12 +33,14 @@ export type ImageGeneratorStoreType = {
   refs: {
     containerRef: React.RefObject<HTMLDivElement> | null;
     previewRef: React.RefObject<HTMLDivElement> | null;
+    backgroundRef: React.RefObject<HTMLDivElement> | null;
     imageRef: React.RefObject<HTMLImageElement> | null;
     watermarkRef: React.RefObject<HTMLDivElement> | null;
   };
   setRefs: (refs: {
     containerRef: React.RefObject<HTMLDivElement>;
     previewRef: React.RefObject<HTMLDivElement>;
+    backgroundRef: React.RefObject<HTMLDivElement>;
     imageRef: React.RefObject<HTMLImageElement>;
     watermarkRef: React.RefObject<HTMLDivElement>;
   }) => void;
@@ -56,6 +58,7 @@ export type ImageGeneratorStoreType = {
   setImageVisibility: (visibility: boolean) => void;
   // Background
   setBackgroundMode: (backgroundMode: "solid" | "gradient") => void;
+  setBackgroundBlur: (blur: number) => void;
   setBackgroundColor: (backgroundColor: string) => void;
   setTailwindColor: (tailwindColor: string) => void;
   setUseVia: (useVia: boolean) => void;
@@ -65,19 +68,24 @@ export type ImageGeneratorStoreType = {
   setGradientFrom: (from: { name: string; hex: string }) => void;
   setGradientVia: (via: { name: string; hex: string }) => void;
   setGradientTo: (to: { name: string; hex: string }) => void;
-  setMagicColor:(magicColor:string[])=>void;
+  setMagicColor: (magicColor: string[]) => void;
   // Watermark
   setWatermarkPosition: (
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
   ) => void;
-  setWatermarkBackground: (background: "color-light" | "color-dark" | "light" | "dark" | "transparent") => void;
-  setWatermarkForeground: (foreground: "color-light" | "color-dark" | "light" | "dark") => void;
+  setWatermarkBackground: (
+    background: "color-light" | "color-dark" | "light" | "dark" | "transparent"
+  ) => void;
+  setWatermarkForeground: (
+    foreground: "color-light" | "color-dark" | "light" | "dark"
+  ) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
   resetImageShadow: () => void;
   resetImageScale: () => void;
   resetBackground: () => void;
+  resetBackgroundBlur: () => void;
   resetBackgroundColor: () => void;
   resetWatermark: () => void;
 };
@@ -117,6 +125,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     refs: {
       containerRef: null,
       previewRef: null,
+      backgroundRef: null,
       imageRef: null,
       watermarkRef: null,
     },
@@ -250,6 +259,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     },
 
     // Background
+
     setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
       set((state) => ({
         settings: {
@@ -257,6 +267,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...state.settings.background,
             backgroundMode,
+          },
+        },
+      }));
+    },
+
+    setBackgroundBlur: (blur: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            blur,
           },
         },
       }));
@@ -363,13 +385,13 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    setMagicColor:(magicColor:string[])=>{
+    setMagicColor: (magicColor: string[]) => {
       set((state) => ({
         settings: {
           ...state.settings,
           background: {
             ...state.settings.background,
-            magicColor
+            magicColor,
           },
         },
       }));
@@ -390,7 +412,14 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    setWatermarkBackground: (background: "color-light" | "color-dark" | "light" | "dark" | "transparent") => {
+    setWatermarkBackground: (
+      background:
+        | "color-light"
+        | "color-dark"
+        | "light"
+        | "dark"
+        | "transparent"
+    ) => {
       set((state) => ({
         settings: {
           ...state.settings,
@@ -402,7 +431,9 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    setWatermarkForeground: (foreground: "color-light" | "color-dark" | "light" | "dark") => {
+    setWatermarkForeground: (
+      foreground: "color-light" | "color-dark" | "light" | "dark"
+    ) => {
       set((state) => ({
         settings: {
           ...state.settings,
@@ -464,7 +495,19 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...defaultImageGeneratorSettings.background,
             backgroundMode: state.settings.background.backgroundMode,
-            magicColor: state.settings.background.magicColor
+            magicColor: state.settings.background.magicColor,
+          },
+        },
+      }));
+    },
+
+    resetBackgroundBlur: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            blur: defaultImageGeneratorSettings.background.blur,
           },
         },
       }));

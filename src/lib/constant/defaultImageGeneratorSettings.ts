@@ -15,6 +15,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   },
   background: {
     backgroundMode: "solid",
+    blur: 0,
     backgroundColor: "#e2e8f0",
     tailwindColor: "Slate-200",
     gradient: {

@@ -9,6 +9,7 @@ import { RefObject } from "react";
 interface IPreviewProps {
   containerRef: RefObject<HTMLDivElement>;
   previewRef: RefObject<HTMLDivElement>;
+  backgroundRef: RefObject<HTMLDivElement>;
   imageRef: RefObject<HTMLImageElement>;
   watermarkRef: RefObject<HTMLDivElement>;
 }
@@ -16,6 +17,7 @@ interface IPreviewProps {
 const Preview = ({
   containerRef,
   previewRef,
+  backgroundRef,
   imageRef,
   watermarkRef,
 }: IPreviewProps) => {
@@ -74,56 +76,75 @@ const Preview = ({
       <div
         id="preview"
         ref={previewRef}
-        style={{
-          background: backgroundStyle,
-          transition: "all 0.3s ease",
-          position: "relative",
-          ...(background.backgroundColor === "" && {
-            backgroundImage: transparentBackgroundStyle,
-            backgroundSize: "20px 20px",
-            backgroundPosition: "0 0, 10px 10px",
-          }),
-        }}
         className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300"
+        style={{
+          position: "relative",
+          transition: "all 0.3s ease",
+        }}
       >
-        {image.src && (
-          <img
-            ref={imageRef}
-            src={image.src}
-            alt="Selected"
-            style={{
-              borderRadius: `${image.borderRadius}px`,
-              // boxShadow: `0 25px 50px -12px rgb(0 0 0 /${image.shadow})`,
-              filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
-              // transform: `scale(${image.scale})`,
-              maxHeight: `${
-                Number(previewRef.current?.style.height.replace("px", "")) *
-                image.scale
-              }px`,
-              maxWidth: `${
-                Number(previewRef.current?.style.width.replace("px", "")) *
-                image.scale
-              }px`,
-            }}
-            className={`${
-              !image.visibility ? "hidden" : ""
-            } transition-all duration-300`}
-          />
-        )}
-        {!image.src && (
-          <span
-            className="break-words p-4 text-center font-bold text-black"
-            style={{
-              fontSize: `${Math.max(
-                16,
-                Math.min(dimension.width, dimension.height) / 20
-              )}px`,
-              maxWidth: "100%",
-            }}
-          >
-            {text}
-          </span>
-        )}
+        {/* Background layer */}
+        <div
+          ref={backgroundRef}
+          className="absolute inset-0 z-0"
+          style={{
+            background: backgroundStyle,
+            filter: `blur(${background.blur}px)`,
+            ...(background.backgroundColor === "" && {
+              backgroundImage: transparentBackgroundStyle,
+              backgroundSize: "20px 20px",
+              backgroundPosition: "0 0, 10px 10px",
+            }),
+          }}
+        />
+
+        {/* Content layer */}
+        <div
+          className="relative z-10 flex items-center justify-center"
+          style={{
+            position: "relative",
+            maxHeight: "100%",
+            maxWidth: "100%",
+          }}
+        >
+          {image.src && (
+            <img
+              ref={imageRef}
+              src={image.src}
+              alt="Selected"
+              style={{
+                borderRadius: `${image.borderRadius}px`,
+                filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
+                maxHeight: `${
+                  Number(previewRef.current?.style.height.replace("px", "")) *
+                  image.scale
+                }px`,
+                maxWidth: `${
+                  Number(previewRef.current?.style.width.replace("px", "")) *
+                  image.scale
+                }px`,
+              }}
+              className={`${
+                !image.visibility ? "hidden" : ""
+              } transition-all duration-300`}
+            />
+          )}
+          {!image.src && (
+            <span
+              className="break-words p-4 text-center font-bold text-black"
+              style={{
+                fontSize: `${Math.max(
+                  16,
+                  Math.min(dimension.width, dimension.height) / 20
+                )}px`,
+                maxWidth: "100%",
+              }}
+            >
+              {text}
+            </span>
+          )}
+        </div>
+
+        {/* Watermark */}
         <div ref={watermarkRef} className={cn("absolute", watermarkAngle)}>
           <Logo
             size="watermark"

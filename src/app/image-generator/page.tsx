@@ -18,6 +18,7 @@ const ImageGenerator = () => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLImageElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const watermarkRef = useRef<HTMLDivElement>(null);
 
@@ -25,6 +26,7 @@ const ImageGenerator = () => {
     setRefs({
       containerRef,
       previewRef,
+      backgroundRef,
       imageRef,
       watermarkRef
     });
@@ -44,6 +46,7 @@ const ImageGenerator = () => {
         <Preview
           containerRef={containerRef}
           previewRef={previewRef}
+          backgroundRef={backgroundRef}
           imageRef={imageRef}
           watermarkRef={watermarkRef}
         />
