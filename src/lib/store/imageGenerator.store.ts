@@ -464,6 +464,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...defaultImageGeneratorSettings.background,
             backgroundMode: state.settings.background.backgroundMode,
+            magicColor: state.settings.background.magicColor
           },
         },
       }));

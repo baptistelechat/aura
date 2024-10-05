@@ -1,12 +1,8 @@
 import CustomAccordionItem from "@/components/CustomAccordionItem";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { WandSparkles } from "lucide-react";
+import MagicColorPicker from "./components/MagicColorPicker";
 
 const MagicColor = () => {
   const backgroundColor = useImageGeneratorStore(
@@ -14,13 +10,6 @@ const MagicColor = () => {
   );
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
-  );
-  const magicColor = useImageGeneratorStore(
-    (s) => s.settings.background.magicColor
-  );
-
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
   );
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
   const defaultBackgroundSettings = defaultImageGeneratorSettings.background;
@@ -39,28 +28,7 @@ const MagicColor = () => {
       }
       reset={resetBackground}
     >
-      {magicColor.length > 0 ? (
-        <div className="flex gap-1">
-          {magicColor.map((color, index) => (
-            <Tooltip key={index}>
-              <TooltipTrigger asChild>
-                <div
-                  className="flex size-5 cursor-pointer rounded"
-                  onClick={() => setBackgroundColor(color)}
-                  style={{
-                    backgroundColor: color,
-                  }}
-                />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{color}</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
-        </div>
-      ) : (
-        <p>Load an image to get magic colors</p>
-      )}
+      <MagicColorPicker action={"solid"} />
     </CustomAccordionItem>
   );
 };

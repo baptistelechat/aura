@@ -35,7 +35,9 @@ const CustomGradientColor = () => {
         <GradientOrientationPicker variant={"linear"} />
         <GradientOrientationPicker variant={"radial"} />
       </div>
-      <Label>From - {from.hex !== "" ? from.hex : "Transparent"}</Label>
+      <Label>
+        From - {from.hex !== "" ? from.hex.toUpperCase() : "Transparent"}
+      </Label>
       <CustomColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Checkbox
@@ -44,11 +46,12 @@ const CustomGradientColor = () => {
           onCheckedChange={() => handleCheckboxChange()}
         />
         <Label id="custom-color-via">
-          Via (Optional) - {via.hex !== "" ? via.hex : "Transparent"}
+          Via (Optional) -{" "}
+          {via.hex !== "" ? via.hex.toUpperCase() : "Transparent"}
         </Label>
       </div>
       <CustomColorPicker action={"gradient-via"} />
-      <Label>To - {to.hex !== "" ? to.hex : "Transparent"}</Label>
+      <Label>To - {to.hex !== "" ? to.hex.toUpperCase() : "Transparent"}</Label>
       <CustomColorPicker action={"gradient-to"} />
     </>
   );
