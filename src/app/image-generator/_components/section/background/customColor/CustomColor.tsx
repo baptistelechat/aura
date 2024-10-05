@@ -6,6 +6,7 @@ import { Paintbrush } from "lucide-react";
 import CustomColorPicker from "./components/CustomColorPicker";
 import CustomGradientColor from "./components/CustomGradientColor";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
+import { handleBackgroundModeChange } from "@/lib/utils/image-generator/handleBackgroundModeChange";
 
 const CustomColor = () => {
   const backgroundMode = useImageGeneratorStore(
@@ -17,18 +18,8 @@ const CustomColor = () => {
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
   );
-  const setBackgroundMode = useImageGeneratorStore((s) => s.setBackgroundMode);
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
   const defaultBackgroundSettings = defaultImageGeneratorSettings.background;
-
-  const handleCheckedChange = () => {
-    if (backgroundMode === "gradient") {
-      setBackgroundMode("solid");
-    } else {
-      setBackgroundMode("gradient");
-    }
-    resetBackground();
-  };
 
   return (
     <CustomAccordionItem
@@ -52,7 +43,7 @@ const CustomColor = () => {
           <Switch
             id="gradient-color"
             checked={backgroundMode === "gradient"}
-            onCheckedChange={handleCheckedChange}
+            onCheckedChange={handleBackgroundModeChange}
           />
           <Label htmlFor="gradient-color">Gradient color</Label>
         </div>

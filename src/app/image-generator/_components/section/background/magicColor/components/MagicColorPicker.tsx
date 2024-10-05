@@ -102,7 +102,6 @@ const MagicColorPicker = ({ action }: IMagicColorProps) => {
     );
   }
 
-  return <p>Load an image to get magic colors</p>;
 };
 
 export default MagicColorPicker;
