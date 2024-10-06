@@ -32,6 +32,7 @@ import ImageInput from "./ImageInput";
 import MagicColor from "./section/background/magicColor/MagicColor";
 import BackgroundBlur from "./section/background/BackgroundBlur";
 import BackgroundNoise from "./section/background/BackgroundNoise";
+import BackgroundImage from "./section/background/BackgroundImage";
 
 const Sidebar = () => {  
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -105,6 +106,7 @@ const Sidebar = () => {
               <CustomColor />
               <TailwindColor />
               <MagicColor />
+              <BackgroundImage />
               <BackgroundBlur />
               <BackgroundNoise />
               <TransparentButton />

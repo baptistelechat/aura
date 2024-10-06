@@ -7,37 +7,24 @@ import { handleBackgroundModeChange } from "@/lib/utils/image-generator/handleBa
 import { WandSparkles } from "lucide-react";
 import MagicColorPicker from "./components/MagicColorPicker";
 import MagicGradientColor from "./components/MagicGradientColor";
+import { loadImage } from "@/lib/utils/hotkey/action/loadImage";
 
 const MagicColor = () => {
   const backgroundMode = useImageGeneratorStore(
     (s) => s.settings.background.backgroundMode
   );
-  const backgroundColor = useImageGeneratorStore(
-    (s) => s.settings.background.backgroundColor
-  );
-  const gradient = useImageGeneratorStore(
-    (s) => s.settings.background.gradient
-  );
   const magicColor = useImageGeneratorStore(
     (s) => s.settings.background.magicColor
   );
-
-  const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
-  const defaultBackgroundSettings = defaultImageGeneratorSettings.background;
 
   return (
     <CustomAccordionItem
       title={"Magic Color"}
       icon={<WandSparkles className="size-4" />}
       disabled={
-        backgroundColor === defaultBackgroundSettings.backgroundColor &&
-        gradient.orientation ===
-          defaultBackgroundSettings.gradient.orientation &&
-        gradient.from === defaultBackgroundSettings.gradient.from &&
-        gradient.via === defaultBackgroundSettings.gradient.via &&
-        gradient.to === defaultBackgroundSettings.gradient.to
+        magicColor === defaultImageGeneratorSettings.background.magicColor
       }
-      reset={resetBackground}
+      reset={loadImage}
     >
       {magicColor.length > 0 ? (
         <div className="flex w-full flex-col gap-4">

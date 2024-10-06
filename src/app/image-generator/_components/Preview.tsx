@@ -1,27 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
-import { RefObject } from "react";
+import { useEffect, useRef } from "react";
 import NoiseBackground from "./NoiseBackground";
 
-interface IPreviewProps {
-  containerRef: RefObject<HTMLDivElement>;
-  previewRef: RefObject<HTMLDivElement>;
-  backgroundRef: RefObject<HTMLDivElement>;
-  imageRef: RefObject<HTMLImageElement>;
-  watermarkRef: RefObject<HTMLDivElement>;
-}
-
-const Preview = ({
-  containerRef,
-  previewRef,
-  backgroundRef,
-  imageRef,
-  watermarkRef,
-}: IPreviewProps) => {
+const Preview = () => {
   const text = useImageGeneratorStore((s) => s.settings.text);
   const background = useImageGeneratorStore((s) => s.settings.background);
   const dimension = useImageGeneratorStore((s) => s.settings.dimension);
@@ -40,6 +27,24 @@ const Preview = ({
   const watermarkForeground = useImageGeneratorStore(
     (s) => s.settings.watermark.foreground
   );
+  
+    const setPreviewRefs = useImageGeneratorStore((s) => s.setPreviewRefs);
+
+    const containerRef = useRef<HTMLDivElement>(null);
+    const previewRef = useRef<HTMLDivElement>(null);
+    const backgroundRef = useRef<HTMLImageElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
+    const watermarkRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      setPreviewRefs({
+        containerRef,
+        previewRef,
+        backgroundRef,
+        imageRef,
+        watermarkRef,
+      });
+    }, []);
 
   const watermarkAngle =
     watermarkPosition === "top-left"
@@ -90,6 +95,9 @@ const Preview = ({
           style={{
             background: backgroundStyle,
             filter: `blur(${background.blur}px)`,
+            ...(background.backgroundImage && {
+              background: `url(${background.backgroundImage}) center center / cover`,
+            }),
             ...(background.backgroundColor === "" && {
               backgroundImage: transparentBackgroundStyle,
               backgroundSize: "20px 20px",
