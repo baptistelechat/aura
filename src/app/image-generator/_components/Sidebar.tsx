@@ -31,6 +31,7 @@ import ImageWatermark from "./section/image/ImageWatermark";
 import ImageInput from "./ImageInput";
 import MagicColor from "./section/background/magicColor/MagicColor";
 import BackgroundBlur from "./section/background/BackgroundBlur";
+import BackgroundNoise from "./section/background/BackgroundNoise";
 
 const Sidebar = () => {  
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -105,6 +106,7 @@ const Sidebar = () => {
               <TailwindColor />
               <MagicColor />
               <BackgroundBlur />
+              <BackgroundNoise />
               <TransparentButton />
             </Accordion>
           </ScrollArea>

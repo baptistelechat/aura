@@ -5,6 +5,7 @@ import { transparentBackgroundStyle } from "@/lib/constant/transparentBackground
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { RefObject } from "react";
+import NoiseBackground from "./NoiseBackground";
 
 interface IPreviewProps {
   containerRef: RefObject<HTMLDivElement>;
@@ -96,6 +97,7 @@ const Preview = ({
             }),
           }}
         />
+        <NoiseBackground />
 
         {/* Content layer */}
         <div

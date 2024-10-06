@@ -19,6 +19,7 @@ export type ImageGeneratorSettings = {
   background: {
     backgroundMode: "solid" | "gradient";
     blur: number;
+    noise: number;
     backgroundColor: string;
     tailwindColor: string;
     gradient: {

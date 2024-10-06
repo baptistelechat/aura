@@ -16,6 +16,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   background: {
     backgroundMode: "solid",
     blur: 0,
+    noise: 0,
     backgroundColor: "#e2e8f0",
     tailwindColor: "Slate-200",
     gradient: {
@@ -34,7 +35,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
         hex: "#e2e8f0",
       },
     },
-    magicColor:[]
+    magicColor: [],
   },
   watermark: {
     position: "bottom-right",

@@ -59,6 +59,7 @@ export type ImageGeneratorStoreType = {
   // Background
   setBackgroundMode: (backgroundMode: "solid" | "gradient") => void;
   setBackgroundBlur: (blur: number) => void;
+  setBackgroundNoise: (noise: number) => void;
   setBackgroundColor: (backgroundColor: string) => void;
   setTailwindColor: (tailwindColor: string) => void;
   setUseVia: (useVia: boolean) => void;
@@ -86,6 +87,7 @@ export type ImageGeneratorStoreType = {
   resetImageScale: () => void;
   resetBackground: () => void;
   resetBackgroundBlur: () => void;
+  resetBackgroundNoise: () => void;
   resetBackgroundColor: () => void;
   resetWatermark: () => void;
 };
@@ -279,6 +281,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...state.settings.background,
             blur,
+          },
+        },
+      }));
+    },
+
+    setBackgroundNoise: (noise: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            noise,
           },
         },
       }));
@@ -508,6 +522,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...state.settings.background,
             blur: defaultImageGeneratorSettings.background.blur,
+          },
+        },
+      }));
+    },
+
+    resetBackgroundNoise: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            noise: defaultImageGeneratorSettings.background.noise,
           },
         },
       }));
