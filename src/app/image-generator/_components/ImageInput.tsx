@@ -8,32 +8,17 @@ import {
 } from "@/components/ui/tooltip";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
+import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import ColorThief from "colorthief";
 import { ColorTranslator } from "colortranslator";
 import { useEffect } from "react";
 
 const ImageInput = () => {
   const imageSrc = useImageGeneratorStore((s) => s.settings.image.src);
-  const imageRef = useImageGeneratorStore((s) => s.refs.imageRef);
-  const setImageSrc = useImageGeneratorStore((s) => s.setImageSrc);
-  const setImageVisibility = useImageGeneratorStore(
-    (s) => s.setImageVisibility
-  );
+  const imageRef = useImageGeneratorStore((s) => s.previewRefs.imageRef);
   const setMagicColor = useImageGeneratorStore((s) => s.setMagicColor);
 
   const loadImageHotkey = getHotkeyById("loadImage");
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImageSrc(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-      setImageVisibility(true);
-    }
-  };
 
   useEffect(() => {
     if (imageRef && imageRef.current) {
@@ -76,7 +61,7 @@ const ImageInput = () => {
           type="file"
           accept="image/*"
           onChange={(e) => {
-            handleImageChange(e);
+            uploadImage(e, "image");
           }}
           className="w-full hover:cursor-pointer"
         />

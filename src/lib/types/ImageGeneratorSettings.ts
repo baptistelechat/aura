@@ -39,6 +39,7 @@ export type ImageGeneratorSettings = {
       };
     };
     magicColor: string[];
+    backgroundImage: string | null;
   };
   watermark: {
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right";

@@ -30,14 +30,14 @@ export type ImageGeneratorStoreType = {
   setTab: (tab: "image" | "background") => void;
   setIsDownloading: (isDownloading: boolean) => void;
   // Refs
-  refs: {
+  previewRefs: {
     containerRef: React.RefObject<HTMLDivElement> | null;
     previewRef: React.RefObject<HTMLDivElement> | null;
     backgroundRef: React.RefObject<HTMLDivElement> | null;
     imageRef: React.RefObject<HTMLImageElement> | null;
     watermarkRef: React.RefObject<HTMLDivElement> | null;
   };
-  setRefs: (refs: {
+  setPreviewRefs: (refs: {
     containerRef: React.RefObject<HTMLDivElement>;
     previewRef: React.RefObject<HTMLDivElement>;
     backgroundRef: React.RefObject<HTMLDivElement>;
@@ -70,6 +70,7 @@ export type ImageGeneratorStoreType = {
   setGradientVia: (via: { name: string; hex: string }) => void;
   setGradientTo: (to: { name: string; hex: string }) => void;
   setMagicColor: (magicColor: string[]) => void;
+  setBackgroundImage: (backgroundImage: string) => void;
   // Watermark
   setWatermarkPosition: (
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -124,7 +125,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
     // Refs
-    refs: {
+    previewRefs: {
       containerRef: null,
       previewRef: null,
       backgroundRef: null,
@@ -132,13 +133,14 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       watermarkRef: null,
     },
 
-    setRefs: (refs) =>
+    setPreviewRefs: (previewRefs) => {
       set((state) => ({
-        refs: {
-          ...state.refs,
-          ...refs,
+        previewRefs: {
+          ...state.previewRefs,
+          ...previewRefs,
         },
-      })),
+      }));
+    },
 
     // Text
     setText: (text: string) => {
@@ -305,6 +307,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...state.settings.background,
             backgroundColor,
+            backgroundImage: null,
           },
         },
       }));
@@ -406,6 +409,20 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...state.settings.background,
             magicColor,
+          },
+        },
+      }));
+    },
+
+    setBackgroundImage: (backgroundImage: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            backgroundImage,
+            backgroundColor:
+              defaultImageGeneratorSettings.background.backgroundColor,
           },
         },
       }));

@@ -2,10 +2,10 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
 export const updatePreviewSize = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
-  const containerRef = imageGeneratorStore.refs.containerRef;
-  const previewRef = imageGeneratorStore.refs.previewRef;
-  const imageRef = imageGeneratorStore.refs.imageRef;
-  const watermarkRef = imageGeneratorStore.refs.watermarkRef;
+  const containerRef = imageGeneratorStore.previewRefs.containerRef;
+  const previewRef = imageGeneratorStore.previewRefs.previewRef;
+  const imageRef = imageGeneratorStore.previewRefs.imageRef;
+  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
