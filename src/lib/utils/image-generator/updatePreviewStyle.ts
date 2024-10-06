@@ -5,10 +5,11 @@ export const updatePreviewStyle = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.refs.containerRef;
   const previewRef = imageGeneratorStore.refs.previewRef;
+  const backgroundRef = imageGeneratorStore.refs.backgroundRef;
   const imageRef = imageGeneratorStore.refs.imageRef;
   const watermarkRef = imageGeneratorStore.refs.watermarkRef;
 
-  if (previewRef?.current && containerRef?.current) {
+  if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
     const width = imageGeneratorStore.settings.dimension.width;
     const height = imageGeneratorStore.settings.dimension.height;
 
@@ -29,10 +30,11 @@ export const updatePreviewStyle = () => {
     previewRef.current.classList.toggle("rounded-xl");
 
     if (imageGeneratorStore.settings.background.backgroundColor === "") {
-      if (previewRef.current.style.backgroundImage === "") {
-        previewRef.current.style.backgroundImage = transparentBackgroundStyle;
+      if (backgroundRef.current.style.backgroundImage === "") {
+        backgroundRef.current.style.backgroundImage =
+          transparentBackgroundStyle;
       } else {
-        previewRef.current.style.backgroundImage = "";
+        backgroundRef.current.style.backgroundImage = "";
       }
     }
 

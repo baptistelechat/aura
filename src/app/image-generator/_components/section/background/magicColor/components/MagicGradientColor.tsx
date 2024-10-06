@@ -1,3 +1,4 @@
+"use client"; 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
@@ -5,6 +6,7 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import GradientOrientationPicker from "../../components/GradientOrientationPicker";
 import RandomColor from "../../components/RandomColor";
 import MagicColorPicker from "./MagicColorPicker";
+import { useEffect } from "react";
 
 const MagicGradientColor = () => {
   const useVia = useImageGeneratorStore(
@@ -27,6 +29,10 @@ const MagicGradientColor = () => {
     }
     setUseVia(!useVia);
   };
+
+  useEffect(() => {
+    setUseVia(false);
+  }, []);
 
   return (
     <>

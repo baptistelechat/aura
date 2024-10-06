@@ -1,6 +1,6 @@
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { ImageDown, ImageIcon, ImageUp, Proportions } from "lucide-react";
+import { ImageDown, ImageIcon, ImageUp, Scaling } from "lucide-react";
 import Control from "../../Control";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
 
@@ -12,7 +12,7 @@ const ImageSize = () => {
   return (
     <CustomAccordionItem
       title={"Size"}
-      icon={<Proportions className="size-4" />}
+      icon={<Scaling className="size-4" />}
       disabled={scale === defaultImageGeneratorSettings.image.scale}
       reset={resetScale}
     >
