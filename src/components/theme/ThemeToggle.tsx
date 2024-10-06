@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MotionButton } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,6 +25,25 @@ const ThemeToggleVariants: Variants = {
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <></>;
+  }
+
+  const Icon = () => {
+    if (theme === "system") {
+      return <MonitorCog className="size-5" />;
+    } else if (theme === "light") {
+      return <Sun className="size-5" />;
+    } else {
+      return <Moon className="size-5" />;
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -35,15 +55,7 @@ const ThemeToggle = () => {
           initial="hidden"
           animate="visible"
         >
-          {theme === "light" && (
-            <Sun className="size-5 " />
-          )}
-          {theme === "dark" && (
-            <Moon className="size-5 " />
-          )}
-          {theme === "system" && (
-            <MonitorCog className="size-5 " />
-          )}
+          {Icon()}
           <span className="sr-only">Toggle theme</span>
         </MotionButton>
       </DropdownMenuTrigger>
@@ -81,9 +93,6 @@ const ThemeToggle = () => {
           )}
           Dark
         </DropdownMenuItem>
-        {/* <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
