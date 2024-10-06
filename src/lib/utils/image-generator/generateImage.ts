@@ -10,7 +10,7 @@ interface IGenerateImage {
 
 export const generateImage = async ({ action }: IGenerateImage) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
-  const previewRef = imageGeneratorStore.refs.previewRef;
+  const previewRef = imageGeneratorStore.previewRefs.previewRef;
 
   if (previewRef?.current) {
     imageGeneratorStore.setIsDownloading(true);
