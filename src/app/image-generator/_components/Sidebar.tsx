@@ -33,6 +33,7 @@ import MagicColor from "./section/background/magicColor/MagicColor";
 import BackgroundBlur from "./section/background/BackgroundBlur";
 import BackgroundNoise from "./section/background/BackgroundNoise";
 import BackgroundImage from "./section/background/BackgroundImage";
+import OverlayShadow from "./section/background/OverlayShadow";
 
 const Sidebar = () => {  
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -103,6 +104,7 @@ const Sidebar = () => {
         <TabsContent value="background" className="flex flex-col">
           <ScrollArea className="max-h-[calc(100vh-375px)] grow">
             <Accordion type="single" collapsible>
+              <OverlayShadow/>
               <CustomColor />
               <TailwindColor />
               <MagicColor />
