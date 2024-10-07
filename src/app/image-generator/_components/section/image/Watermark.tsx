@@ -5,7 +5,7 @@ import { Tag } from "lucide-react";
 import WatermarkPositionPicker from "./components/watermark/WatermarkPositionPicker";
 import WatermarkSelect from "./components/watermark/WatermarkSelect";
 
-const ImageWatermark = () => {
+const Watermark = () => {
   const position = useImageGeneratorStore((s) => s.settings.watermark.position);
   const background = useImageGeneratorStore(
     (s) => s.settings.watermark.background
@@ -36,4 +36,4 @@ const ImageWatermark = () => {
   );
 };
 
-export default ImageWatermark;
+export default Watermark;

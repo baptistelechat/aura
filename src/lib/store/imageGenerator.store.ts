@@ -71,6 +71,9 @@ export type ImageGeneratorStoreType = {
   setGradientTo: (to: { name: string; hex: string }) => void;
   setMagicColor: (magicColor: string[]) => void;
   setBackgroundImage: (backgroundImage: string) => void;
+  // Overlay
+  setOverlayName: (name: string) => void;
+  setOverlayOpacity: (opacity: number) => void;
   // Watermark
   setWatermarkPosition: (
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -90,6 +93,7 @@ export type ImageGeneratorStoreType = {
   resetBackgroundBlur: () => void;
   resetBackgroundNoise: () => void;
   resetBackgroundColor: () => void;
+  resetOverlay: ()=> void;
   resetWatermark: () => void;
 };
 
@@ -263,7 +267,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     },
 
     // Background
-
     setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
       set((state) => ({
         settings: {
@@ -428,6 +431,31 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
+    // Overlay
+    setOverlayName: (name: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          overlay: {
+            ...state.settings.overlay,
+            name,
+          },
+        },
+      }));
+    },
+
+    setOverlayOpacity: (opacity: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          overlay: {
+            ...state.settings.overlay,
+            opacity,
+          },
+        },
+      }));
+    },
+
     // Watermark
     setWatermarkPosition: (
       position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -562,6 +590,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           ...state.settings,
           backgroundColor:
             defaultImageGeneratorSettings.background.backgroundColor,
+        },
+      }));
+    },
+
+    resetOverlay:() => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          overlay: {
+            name: defaultImageGeneratorSettings.overlay.name,
+            opacity: defaultImageGeneratorSettings.overlay.opacity,
+          },
         },
       }));
     },

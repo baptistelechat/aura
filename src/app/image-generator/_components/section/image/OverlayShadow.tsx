@@ -1,6 +1,8 @@
 "use client";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
-import { ImageIcon } from "lucide-react";
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { Blend } from "lucide-react";
 import Image from "next/image";
 import { useMemo } from "react";
 
@@ -23,12 +25,26 @@ const generateShadowImages = (start: number, end: number): Shadow[] => {
 };
 
 const OverlayShadow = () => {
+  const name = useImageGeneratorStore(s=> s.settings.overlay.name);
+  const opacity = useImageGeneratorStore(s=> s.settings.overlay.opacity);
+
+  const setName = useImageGeneratorStore(s=> s.setOverlayName);
+  // const setOpacity = useImageGeneratorStore(s=> s.setOverlayOpacity);
+
+  const resetOverlay = useImageGeneratorStore(s=> s.resetOverlay);
+
   const shadows = useMemo(() => generateShadowImages(11, 111), []);
+  const defaultOverlaySettings = defaultImageGeneratorSettings.overlay;
 
   return (
     <CustomAccordionItem
       title={"Overlay Shadow"}
-      icon={<ImageIcon className="size-4" />}
+      icon={<Blend className="size-4" />}
+      disabled={
+        name === defaultOverlaySettings.name &&
+        opacity === defaultOverlaySettings.opacity
+      }
+      reset={resetOverlay}
     >
       <div className="flex w-full flex-col gap-4">
         <div className="grid grid-cols-3 gap-2">
@@ -41,7 +57,7 @@ const OverlayShadow = () => {
                 height={100}
                 quality={30}
                 className="cursor-pointer rounded"
-                onClick={() => console.log(shadow.name)}
+                onClick={()=> setName(shadow.name)}
                 layout="responsive"
                 loading="lazy"
               />

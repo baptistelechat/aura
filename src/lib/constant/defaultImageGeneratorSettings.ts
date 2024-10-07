@@ -40,6 +40,10 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     magicColor: [],
     backgroundImage: null,
   },
+  overlay: {
+    name: "",
+    opacity: 0.5,
+  },
   watermark: {
     position: "bottom-right",
     background: "light",
