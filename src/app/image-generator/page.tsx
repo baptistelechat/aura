@@ -13,20 +13,20 @@ const ImageGenerator = () => {
 
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
+  const previewRefs = useImageGeneratorStore((s) => s.previewRefs);
 
   useEffect(() => {
     updatePreviewSize();
     window.addEventListener("resize", () => updatePreviewSize());
     return () =>
       window.removeEventListener("resize", () => updatePreviewSize());
-  }, [width, height]);
+  }, [width, height, previewRefs]);
 
   return (
     <div className="flex size-full gap-8 p-8">
       <div className="hidden w-full gap-4 md:flex">
         <Sidebar />
-        <Preview
-        />
+        <Preview />
       </div>
       <div className="flex size-full flex-col items-center justify-center gap-8 md:hidden">
         <MonitorSmartphone className="size-40" />

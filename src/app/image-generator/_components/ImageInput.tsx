@@ -6,6 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { defaultColor } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
@@ -28,13 +29,17 @@ const ImageInput = () => {
       // Add an event listener for the 'load' event
       imgElement.onload = () => {
         const rgbPalette = colorThief.getPalette(imgElement, 11);
-        const hexPalette = rgbPalette.map((color) =>
-          ColorTranslator.toHEX({
-            R: color[0],
-            G: color[1],
-            B: color[2],
-          })
-        );
+        const hexPalette = rgbPalette.map((color) => {
+          try {
+            return ColorTranslator.toHEX({
+              R: color[0],
+              G: color[1],
+              B: color[2],
+            });
+          } catch (error: any) {
+            return defaultColor;
+          }
+        });
         setMagicColor(hexPalette);
       };
 
