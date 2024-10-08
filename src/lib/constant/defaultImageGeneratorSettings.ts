@@ -42,7 +42,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   },
   overlay: {
     name: "",
-    opacity: 0.5,
+    opacity: 50,
   },
   watermark: {
     position: "bottom-right",
