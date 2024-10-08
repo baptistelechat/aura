@@ -28,6 +28,8 @@ const Control = ({
   middleIcon,
   maxIcon,
 }: IControlProps) => {
+  const coef = 100 / (max - min);
+
   return (
     <div className="flex gap-2">
       <div className="flex w-full flex-col items-center gap-3">
@@ -35,12 +37,12 @@ const Control = ({
           <Label>{title}</Label>
           <Input
             type="number"
-            value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
+            value={(value * coef).toFixed(0)}
+            onChange={(e) => setValue(Number(e.target.value) / coef)}
             className="h-8 w-16"
-            min={min}
-            max={max}
-            step={step}
+            min={(min * coef).toFixed(0)}
+            max={(max * coef).toFixed(0)}
+            step={(step * coef).toFixed(0)}
           />
         </div>
         <Slider

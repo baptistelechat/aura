@@ -18,6 +18,8 @@ const Preview = () => {
     (s) => s.settings.background.gradient
   );
 
+  const overlay = useImageGeneratorStore((s) => s.settings.overlay);
+
   const watermarkPosition = useImageGeneratorStore(
     (s) => s.settings.watermark.position
   );
@@ -27,24 +29,24 @@ const Preview = () => {
   const watermarkForeground = useImageGeneratorStore(
     (s) => s.settings.watermark.foreground
   );
-  
-    const setPreviewRefs = useImageGeneratorStore((s) => s.setPreviewRefs);
 
-    const containerRef = useRef<HTMLDivElement>(null);
-    const previewRef = useRef<HTMLDivElement>(null);
-    const backgroundRef = useRef<HTMLImageElement>(null);
-    const imageRef = useRef<HTMLImageElement>(null);
-    const watermarkRef = useRef<HTMLDivElement>(null);
+  const setPreviewRefs = useImageGeneratorStore((s) => s.setPreviewRefs);
 
-    useEffect(() => {
-      setPreviewRefs({
-        containerRef,
-        previewRef,
-        backgroundRef,
-        imageRef,
-        watermarkRef,
-      });
-    }, []);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const watermarkRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setPreviewRefs({
+      containerRef,
+      previewRef,
+      backgroundRef,
+      imageRef,
+      watermarkRef,
+    });
+  }, []);
 
   const watermarkAngle =
     watermarkPosition === "top-left"
@@ -82,11 +84,7 @@ const Preview = () => {
       <div
         id="preview"
         ref={previewRef}
-        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300"
-        style={{
-          position: "relative",
-          transition: "all 0.3s ease",
-        }}
+        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300 ease-in-out"
       >
         {/* Background layer */}
         <div
@@ -154,8 +152,22 @@ const Preview = () => {
           )}
         </div>
 
+        {/* Overlay Shadow */}
+        {overlay.name && (
+          <div className="">
+            <img
+              src={`/textures/shadow-overlays/overlays/${overlay.name}`}
+              alt="Overlay Shadow"
+              className="absolute inset-0 z-10 size-full object-cover"
+              style={{
+                opacity: overlay.opacity / 100,
+              }}
+            />
+          </div>
+        )}
+
         {/* Watermark */}
-        <div ref={watermarkRef} className={cn("absolute", watermarkAngle)}>
+        <div ref={watermarkRef} className={cn("absolute z-20", watermarkAngle)}>
           <Logo
             size="watermark"
             background={watermarkBackground}

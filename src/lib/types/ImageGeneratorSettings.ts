@@ -41,6 +41,10 @@ export type ImageGeneratorSettings = {
     magicColor: string[];
     backgroundImage: string | null;
   };
+  overlay: {
+    name: string;
+    opacity: number;
+  };
   watermark: {
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
     background: "color-light" | "color-dark" | "light" | "dark" | "transparent";

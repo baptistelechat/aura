@@ -1,5 +1,7 @@
 import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 
+export const defaultColor = "#e2e8f0";
+
 export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   text: "Your Text Here",
   dimension: {
@@ -17,26 +19,30 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     backgroundMode: "solid",
     blur: 0,
     noise: 0,
-    backgroundColor: "#e2e8f0",
+    backgroundColor: defaultColor,
     tailwindColor: "Slate-200",
     gradient: {
       useVia: true,
       orientation: 135,
       from: {
         name: "Slate-200",
-        hex: "#e2e8f0",
+        hex: defaultColor,
       },
       via: {
         name: "Slate-200",
-        hex: "#e2e8f0",
+        hex: defaultColor,
       },
       to: {
         name: "Slate-200",
-        hex: "#e2e8f0",
+        hex: defaultColor,
       },
     },
     magicColor: [],
     backgroundImage: null,
+  },
+  overlay: {
+    name: "",
+    opacity: 0.5,
   },
   watermark: {
     position: "bottom-right",

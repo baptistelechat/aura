@@ -27,12 +27,13 @@ import ImageBorder from "./section/image/ImageBorder";
 import ImageShadow from "./section/image/ImageShadow";
 import ImageSize from "./section/image/ImageSize";
 import ImageVisibility from "./section/image/ImageVisibility";
-import ImageWatermark from "./section/image/ImageWatermark";
+import Watermark from "./section/image/Watermark";
 import ImageInput from "./ImageInput";
 import MagicColor from "./section/background/magicColor/MagicColor";
 import BackgroundBlur from "./section/background/BackgroundBlur";
 import BackgroundNoise from "./section/background/BackgroundNoise";
 import BackgroundImage from "./section/background/BackgroundImage";
+import OverlayShadow from "./section/image/OverlayShadow";
 
 const Sidebar = () => {  
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -88,7 +89,8 @@ const Sidebar = () => {
               <ImageBorder />
               <ImageShadow />
               <ImageSize />
-              <ImageWatermark />
+              <OverlayShadow/>
+              <Watermark />
               <ImageVisibility />
               <Input
                 type="text"
