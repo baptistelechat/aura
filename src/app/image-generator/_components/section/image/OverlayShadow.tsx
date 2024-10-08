@@ -57,8 +57,8 @@ const OverlayShadow = () => {
           value={opacity}
           setValue={setOpacity}
           min={0}
-          max={100}
-          step={1}
+          max={1}
+          step={0.05}
           minIcon={<Moon className="size-5" />}
           middleIcon={<SunMoon className="size-5" />}
           maxIcon={<Sun className="size-5" />}
