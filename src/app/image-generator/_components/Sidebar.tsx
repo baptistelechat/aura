@@ -14,19 +14,21 @@ import {
 //   TooltipContent,
 //   TooltipTrigger,
 // } from "@/components/ui/tooltip";
-import { tabs } from "@/lib/constant/tabs";
 import {
-  TabOptions,
   useImageGeneratorStore,
 } from "@/lib/store/imageGenerator.store";
 // import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 // import Shortcut from "../../../components/keyboard/Shortcut";
-
+import { tabOptions } from "@/lib/constant/tabOptions";
 import CopyToClipboard from "./CopyToClipboard";
 import ImageInput from "./ImageInput";
-import Image from "./section/image/Image";
+import BackgroundEffects from "./section/background-effects/BackgroundEffects";
 import Background from "./section/background/Background";
-
+import Image from "./section/image/Image";
+import Watermarks from "./section/watermarks/Watermarks";
+import Visibility from "./section/Visibility";
+import { TabNames } from "@/lib/types/TabNames";
+import Overlays from "./section/overlays/Overlays";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -41,17 +43,14 @@ const Sidebar = () => {
 
   return (
     <div className="flex h-full w-96 flex-col gap-4">
-      <Select
-        value={tab}
-        onValueChange={(value) => setTab(value as TabOptions)}
-      >
+      <Select value={tab} onValueChange={(value) => setTab(value as TabNames)}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a size" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {tabs.map((tab) => (
-              <SelectItem key={tab.name} value={tab.name}>
+            {tabOptions.map((tab) => (
+              <SelectItem key={tab.name} value={tab.name} disabled={tab.disabled}>
                 <div className="flex items-center gap-2">
                   {tab.icon}
                   {tab.name.charAt(0).toUpperCase() +
@@ -63,12 +62,13 @@ const Sidebar = () => {
         </SelectContent>
       </Select>
 
-      { tab === "image" && <Image /> }
-      { tab === "background" && <Background /> }
-      {/* { tab === "background-effects" && <BackgroundEffects /> }
-      { tab === "annotations" && <Annotations /> }
-      { tab === "watermark" && <Watermark /> }
-      { tab === "visibility" && <Visibility /> } */}
+      {tab === "image" && <Image />}
+      {tab === "background" && <Background />}
+      {tab === "background-effects" && <BackgroundEffects />}
+      {tab === "overlays" && <Overlays />}
+      {/* { tab === "annotations" && <Annotations /> } */}
+      { tab === "watermarks" && <Watermarks /> }
+      { tab === "visibility" && <Visibility /> }
 
       {/* <Tabs
         value={tab}
@@ -107,7 +107,6 @@ const Sidebar = () => {
           
         </TabsContent>
       </Tabs> */}
-
 
       <div className="space-y-2">
         <ImageInput />

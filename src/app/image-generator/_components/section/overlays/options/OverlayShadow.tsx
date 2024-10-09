@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
-import { Blend, Moon, Sun, SunMoon } from "lucide-react";
+import { Ghost, Moon, Sun, SunMoon } from "lucide-react";
 import Image from "next/image";
 import { useMemo } from "react";
 import Control from "@/components/Control";
@@ -44,7 +44,7 @@ const OverlayShadow = () => {
   return (
     <CustomAccordionItem
       title={"Overlay Shadow"}
-      icon={<Blend className="size-4" />}
+      icon={<Ghost className="size-4" />}
       disabled={
         name === defaultOverlaySettings.name &&
         opacity === defaultOverlaySettings.opacity

@@ -1,17 +1,16 @@
+import CustomAccordion from "@/components/CustomAccordion";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { Eye } from "lucide-react";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
 
-const ImageVisibility = () => {
+const Visibility = () => {
   const visibility = useImageGeneratorStore((s) => s.settings.image.visibility);
   const setVisibility = useImageGeneratorStore((s) => s.setImageVisibility);
 
   return (
-    <CustomAccordionItem title={"Visibility"} icon={<Eye className="size-4" />}>
-      <div className="flex flex-col gap-2 px-1">
-        <div className="flex items-center space-x-2">
+    <CustomAccordion type="multiple">
+      <div className="flex w-full flex-col gap-4">
+        <div className="flex items-center gap-2">
           <Switch
             id="toggle-image"
             checked={visibility}
@@ -20,8 +19,8 @@ const ImageVisibility = () => {
           <Label htmlFor="toggle-image">Show Image</Label>
         </div>
       </div>
-    </CustomAccordionItem>
+    </CustomAccordion>
   );
 };
 
-export default ImageVisibility;
+export default Visibility;

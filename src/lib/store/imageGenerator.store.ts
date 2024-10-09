@@ -5,6 +5,7 @@ import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "../types/gradientOrientation";
+import { TabNames } from "../types/TabNames";
 
 type DimensionUpdate = {
   width?: number;
@@ -19,23 +20,17 @@ type ImageUpdate = {
   visibility?: boolean;
 };
 
-export type TabOptions =
-  | "image"
-  | "background"
-  | "background-effects"
-  | "annotations"
-  | "watermark"
-  | "visibility";
+
 
 export type ImageGeneratorStoreType = {
   general: {
     hotkeySet: "default" | "mac";
-    tab: TabOptions;
+    tab: TabNames;
     isDownloading: boolean;
   };
   settings: ImageGeneratorSettings;
   // General
-  setTab: (tab: TabOptions) => void;
+  setTab: (tab: TabNames) => void;
   setIsDownloading: (isDownloading: boolean) => void;
   // Refs
   previewRefs: {
@@ -109,515 +104,522 @@ const userAgent =
   typeof window !== "undefined" ? window.navigator.userAgent : "";
 const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
 
-export const useImageGeneratorStore = create<ImageGeneratorStoreType>((set) => ({
-  general: {
-    hotkeySet,
-    tab: "image",
-    isDownloading: false,
-  },
-  settings: defaultImageGeneratorSettings,
+export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
+  (set) => ({
+    general: {
+      hotkeySet,
+      tab: "image",
+      isDownloading: false,
+    },
+    settings: defaultImageGeneratorSettings,
 
-  // General
-  setTab: (tab: TabOptions) => {
-    set((state) => ({
-      general: {
-        ...state.general,
-        tab,
-      },
-    }));
-  },
-
-  setIsDownloading: (isDownloading: boolean) => {
-    set((state) => ({
-      general: {
-        ...state.general,
-        isDownloading: isDownloading,
-      },
-    }));
-  },
-  // Refs
-  previewRefs: {
-    containerRef: null,
-    previewRef: null,
-    backgroundRef: null,
-    imageRef: null,
-    watermarkRef: null,
-  },
-
-  setPreviewRefs: (previewRefs) => {
-    set((state) => ({
-      previewRefs: {
-        ...state.previewRefs,
-        ...previewRefs,
-      },
-    }));
-  },
-
-  // Text
-  setText: (text: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        text,
-      },
-    }));
-  },
-
-  //Dimension
-  setDimensions: (update: DimensionUpdate) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        dimension: {
-          ...state.settings.dimension,
-          ...update,
+    // General
+    setTab: (tab: TabNames) => {
+      set((state) => ({
+        general: {
+          ...state.general,
+          tab,
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setWidth: (width: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        dimension: {
-          ...state.settings.dimension,
-          width,
+    setIsDownloading: (isDownloading: boolean) => {
+      set((state) => ({
+        general: {
+          ...state.general,
+          isDownloading: isDownloading,
         },
-      },
-    }));
-  },
+      }));
+    },
+    // Refs
+    previewRefs: {
+      containerRef: null,
+      previewRef: null,
+      backgroundRef: null,
+      imageRef: null,
+      watermarkRef: null,
+    },
 
-  setHeight: (height: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        dimension: {
-          ...state.settings.dimension,
-          height,
+    setPreviewRefs: (previewRefs) => {
+      set((state) => ({
+        previewRefs: {
+          ...state.previewRefs,
+          ...previewRefs,
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  // Image
-  setImage: (update: ImageUpdate) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          ...update,
+    // Text
+    setText: (text: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          text,
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setImageSrc: (src: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          src,
-        },
-      },
-    }));
-  },
-
-  setImageBorderRadius: (borderRadius: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          borderRadius,
-        },
-      },
-    }));
-  },
-
-  setImageShadow: (shadow: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          shadow,
-        },
-      },
-    }));
-  },
-
-  setImageScale: (scale: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          scale,
-        },
-      },
-    }));
-  },
-
-  setImageVisibility: (visibility: boolean) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          visibility,
-        },
-      },
-    }));
-  },
-
-  // Background
-  setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          backgroundMode,
-        },
-      },
-    }));
-  },
-
-  setBackgroundBlur: (blur: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          blur,
-        },
-      },
-    }));
-  },
-
-  setBackgroundNoise: (noise: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          noise,
-        },
-      },
-    }));
-  },
-
-  setBackgroundColor: (backgroundColor: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          backgroundColor,
-          backgroundImage: null,
-        },
-      },
-    }));
-  },
-
-  setTailwindColor: (tailwindColor: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          tailwindColor,
-        },
-      },
-    }));
-  },
-
-  setUseVia: (useVia: boolean) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            useVia,
+    //Dimension
+    setDimensions: (update: DimensionUpdate) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          dimension: {
+            ...state.settings.dimension,
+            ...update,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientOrientation: (
-    orientation: LinearGradientOrientation | RadialGradientOrientation
-  ) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            orientation,
+    setWidth: (width: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          dimension: {
+            ...state.settings.dimension,
+            width,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientFrom: (from: { name: string; hex: string }) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            from,
+    setHeight: (height: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          dimension: {
+            ...state.settings.dimension,
+            height,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientVia: (via: { name: string; hex: string }) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            via,
+    // Image
+    setImage: (update: ImageUpdate) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            ...update,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setGradientTo: (to: { name: string; hex: string }) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          gradient: {
-            ...state.settings.background.gradient,
-            to,
+    setImageSrc: (src: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            src,
           },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setMagicColor: (magicColor: string[]) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          magicColor,
+    setImageBorderRadius: (borderRadius: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            borderRadius,
+          },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setBackgroundImage: (backgroundImage: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          backgroundImage,
+    setImageShadow: (shadow: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            shadow,
+          },
+        },
+      }));
+    },
+
+    setImageScale: (scale: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            scale,
+          },
+        },
+      }));
+    },
+
+    setImageVisibility: (visibility: boolean) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            visibility,
+          },
+        },
+      }));
+    },
+
+    // Background
+    setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            backgroundMode,
+          },
+        },
+      }));
+    },
+
+    setBackgroundBlur: (blur: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            blur,
+          },
+        },
+      }));
+    },
+
+    setBackgroundNoise: (noise: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            noise,
+          },
+        },
+      }));
+    },
+
+    setBackgroundColor: (backgroundColor: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            backgroundColor,
+            backgroundImage: null,
+          },
+        },
+      }));
+    },
+
+    setTailwindColor: (tailwindColor: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            tailwindColor,
+          },
+        },
+      }));
+    },
+
+    setUseVia: (useVia: boolean) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              useVia,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientOrientation: (
+      orientation: LinearGradientOrientation | RadialGradientOrientation
+    ) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              orientation,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientFrom: (from: { name: string; hex: string }) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              from,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientVia: (via: { name: string; hex: string }) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              via,
+            },
+          },
+        },
+      }));
+    },
+
+    setGradientTo: (to: { name: string; hex: string }) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            gradient: {
+              ...state.settings.background.gradient,
+              to,
+            },
+          },
+        },
+      }));
+    },
+
+    setMagicColor: (magicColor: string[]) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            magicColor,
+          },
+        },
+      }));
+    },
+
+    setBackgroundImage: (backgroundImage: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            backgroundImage,
+            backgroundColor:
+              defaultImageGeneratorSettings.background.backgroundColor,
+          },
+        },
+      }));
+    },
+
+    // Overlay
+    setOverlayName: (name: string) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          overlay: {
+            ...state.settings.overlay,
+            name,
+          },
+        },
+      }));
+    },
+
+    setOverlayOpacity: (opacity: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          overlay: {
+            ...state.settings.overlay,
+            opacity,
+          },
+        },
+      }));
+    },
+
+    // Watermark
+    setWatermarkPosition: (
+      position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
+    ) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            position,
+          },
+        },
+      }));
+    },
+
+    setWatermarkBackground: (
+      background:
+        | "color-light"
+        | "color-dark"
+        | "light"
+        | "dark"
+        | "transparent"
+    ) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            background,
+          },
+        },
+      }));
+    },
+
+    setWatermarkForeground: (
+      foreground: "color-light" | "color-dark" | "light" | "dark"
+    ) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            foreground,
+          },
+        },
+      }));
+    },
+
+    // Reset
+    resetSettings: () => {
+      set({
+        settings: defaultImageGeneratorSettings,
+      });
+    },
+
+    resetImageBorderRadius: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            borderRadius: defaultImageGeneratorSettings.image.borderRadius,
+          },
+        },
+      }));
+    },
+
+    resetImageShadow: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            shadow: defaultImageGeneratorSettings.image.shadow,
+          },
+        },
+      }));
+    },
+
+    resetImageScale: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            scale: defaultImageGeneratorSettings.image.scale,
+          },
+        },
+      }));
+    },
+
+    resetBackground: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...defaultImageGeneratorSettings.background,
+            backgroundMode: state.settings.background.backgroundMode,
+            magicColor: state.settings.background.magicColor,
+          },
+        },
+      }));
+    },
+
+    resetBackgroundBlur: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            blur: defaultImageGeneratorSettings.background.blur,
+          },
+        },
+      }));
+    },
+
+    resetBackgroundNoise: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            noise: defaultImageGeneratorSettings.background.noise,
+          },
+        },
+      }));
+    },
+
+    resetBackgroundColor: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
           backgroundColor:
             defaultImageGeneratorSettings.background.backgroundColor,
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  // Overlay
-  setOverlayName: (name: string) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        overlay: {
-          ...state.settings.overlay,
-          name,
+    resetOverlay: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          overlay: {
+            name: defaultImageGeneratorSettings.overlay.name,
+            opacity: defaultImageGeneratorSettings.overlay.opacity,
+          },
         },
-      },
-    }));
-  },
+      }));
+    },
 
-  setOverlayOpacity: (opacity: number) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        overlay: {
-          ...state.settings.overlay,
-          opacity,
+    resetWatermark: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            position: defaultImageGeneratorSettings.watermark.position,
+            background: defaultImageGeneratorSettings.watermark.background,
+            foreground: defaultImageGeneratorSettings.watermark.foreground,
+          },
         },
-      },
-    }));
-  },
-
-  // Watermark
-  setWatermarkPosition: (
-    position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
-  ) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        watermark: {
-          ...state.settings.watermark,
-          position,
-        },
-      },
-    }));
-  },
-
-  setWatermarkBackground: (
-    background: "color-light" | "color-dark" | "light" | "dark" | "transparent"
-  ) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        watermark: {
-          ...state.settings.watermark,
-          background,
-        },
-      },
-    }));
-  },
-
-  setWatermarkForeground: (
-    foreground: "color-light" | "color-dark" | "light" | "dark"
-  ) => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        watermark: {
-          ...state.settings.watermark,
-          foreground,
-        },
-      },
-    }));
-  },
-
-  // Reset
-  resetSettings: () => {
-    set({
-      settings: defaultImageGeneratorSettings,
-    });
-  },
-
-  resetImageBorderRadius: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          borderRadius: defaultImageGeneratorSettings.image.borderRadius,
-        },
-      },
-    }));
-  },
-
-  resetImageShadow: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          shadow: defaultImageGeneratorSettings.image.shadow,
-        },
-      },
-    }));
-  },
-
-  resetImageScale: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        image: {
-          ...state.settings.image,
-          scale: defaultImageGeneratorSettings.image.scale,
-        },
-      },
-    }));
-  },
-
-  resetBackground: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...defaultImageGeneratorSettings.background,
-          backgroundMode: state.settings.background.backgroundMode,
-          magicColor: state.settings.background.magicColor,
-        },
-      },
-    }));
-  },
-
-  resetBackgroundBlur: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          blur: defaultImageGeneratorSettings.background.blur,
-        },
-      },
-    }));
-  },
-
-  resetBackgroundNoise: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        background: {
-          ...state.settings.background,
-          noise: defaultImageGeneratorSettings.background.noise,
-        },
-      },
-    }));
-  },
-
-  resetBackgroundColor: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        backgroundColor:
-          defaultImageGeneratorSettings.background.backgroundColor,
-      },
-    }));
-  },
-
-  resetOverlay: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        overlay: {
-          name: defaultImageGeneratorSettings.overlay.name,
-          opacity: defaultImageGeneratorSettings.overlay.opacity,
-        },
-      },
-    }));
-  },
-
-  resetWatermark: () => {
-    set((state) => ({
-      settings: {
-        ...state.settings,
-        watermark: {
-          position: defaultImageGeneratorSettings.watermark.position,
-          background: defaultImageGeneratorSettings.watermark.background,
-          foreground: defaultImageGeneratorSettings.watermark.foreground,
-        },
-      },
-    }));
-  },
-}));
+      }));
+    },
+  })
+);

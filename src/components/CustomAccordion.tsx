@@ -9,7 +9,7 @@ interface ICustomAccordionProps {
 
 const CustomAccordion = ({ type, children }: ICustomAccordionProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col">
       <ScrollArea className="max-h-[calc(100vh-375px)] grow">
         <Accordion type={type} collapsible={type === "single"}>
           {children}

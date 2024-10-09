@@ -22,7 +22,7 @@ import { Hotkey } from "@/lib/types/Hotkey";
 import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
-import { ImageIcon, Keyboard, Layout, Palette, Save } from "lucide-react";
+import { ImageIcon, Keyboard, Layout, PaintbrushVertical, Save } from "lucide-react";
 import CustomAccordionItem from "../CustomAccordionItem";
 import Shortcut from "./Shortcut";
 
@@ -54,10 +54,10 @@ const HotkeyHelper = () => {
   const categoryTitles: Record<string, { title: string; icon: JSX.Element }> = {
     general: { title: "General", icon: <Layout className="size-4" /> },
     save: { title: "Save Image", icon: <Save className="size-4" /> },
-    image: { title: "Image Settings", icon: <ImageIcon className="size-4" /> },
+    image: { title: "Image", icon: <ImageIcon className="size-4" /> },
     background: {
-      title: "Background Settings",
-      icon: <Palette className="size-4" />,
+      title: "Background",
+      icon: <PaintbrushVertical className="size-4" />,
     },
   };
 
