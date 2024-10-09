@@ -160,7 +160,7 @@ const Preview = () => {
               alt="Overlay Shadow"
               className="absolute inset-0 z-10 size-full object-cover"
               style={{
-                opacity: overlay.opacity / 100,
+                opacity: overlay.opacity,
               }}
             />
           </div>

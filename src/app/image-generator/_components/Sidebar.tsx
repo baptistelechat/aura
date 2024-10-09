@@ -1,5 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
 import DownloadButton from "@/app/image-generator/_components/DownloadButton";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -8,49 +8,69 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import {
+//   Tooltip,
+//   TooltipContent,
+//   TooltipTrigger,
+// } from "@/components/ui/tooltip";
+import { tabs } from "@/lib/constant/tabs";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
-import Shortcut from "../../../components/keyboard/Shortcut";
-import TransparentButton from "./section/background/TransparentButton";
-import { Accordion } from "../../../components/ui/accordion";
-import { Input } from "../../../components/ui/input";
-import CopyToClipboard from "./CopyToClipboard";
-import CustomColor from "./section/background/customColor/CustomColor";
-import TailwindColor from "./section/background/tailwindColor/TailwindColor";
-import ImageBorder from "./section/image/ImageBorder";
-import ImageShadow from "./section/image/ImageShadow";
-import ImageSize from "./section/image/ImageSize";
-import ImageVisibility from "./section/image/ImageVisibility";
-import Watermark from "./section/image/Watermark";
-import ImageInput from "./ImageInput";
-import MagicColor from "./section/background/magicColor/MagicColor";
-import BackgroundBlur from "./section/background/BackgroundBlur";
-import BackgroundNoise from "./section/background/BackgroundNoise";
-import BackgroundImage from "./section/background/BackgroundImage";
-import OverlayShadow from "./section/image/OverlayShadow";
+  TabOptions,
+  useImageGeneratorStore,
+} from "@/lib/store/imageGenerator.store";
+// import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
+// import Shortcut from "../../../components/keyboard/Shortcut";
 
-const Sidebar = () => {  
+import CopyToClipboard from "./CopyToClipboard";
+import ImageInput from "./ImageInput";
+import Image from "./section/image/Image";
+import Background from "./section/background/Background";
+
+
+const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
-  const text = useImageGeneratorStore((s) => s.settings.text);
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
 
   const setTab = useImageGeneratorStore((s) => s.setTab);
-  const setText = useImageGeneratorStore((s) => s.setText);
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
 
-  const imageHotkey = getHotkeyById("switchToImageTab");
-  const backgroundHotkey = getHotkeyById("switchToBackgroundTab");
+  // const imageHotkey = getHotkeyById("switchToImageTab");
+  // const backgroundHotkey = getHotkeyById("switchToBackgroundTab");
 
   return (
     <div className="flex h-full w-96 flex-col gap-4">
-      <Tabs
+      <Select
+        value={tab}
+        onValueChange={(value) => setTab(value as TabOptions)}
+      >
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Select a size" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {tabs.map((tab) => (
+              <SelectItem key={tab.name} value={tab.name}>
+                <div className="flex items-center gap-2">
+                  {tab.icon}
+                  {tab.name.charAt(0).toUpperCase() +
+                    tab.name.slice(1).replace("-", " ")}
+                </div>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+
+      { tab === "image" && <Image /> }
+      { tab === "background" && <Background /> }
+      {/* { tab === "background-effects" && <BackgroundEffects /> }
+      { tab === "annotations" && <Annotations /> }
+      { tab === "watermark" && <Watermark /> }
+      { tab === "visibility" && <Visibility /> } */}
+
+      {/* <Tabs
         value={tab}
         onValueChange={(value) => setTab(value as "image" | "background")}
         className="flex grow flex-col"
@@ -84,40 +104,13 @@ const Sidebar = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="image" className="flex flex-col">
-          <ScrollArea className="max-h-[calc(100vh-375px)] grow">
-            <Accordion type="multiple">
-              <ImageBorder />
-              <ImageShadow />
-              <ImageSize />
-              <OverlayShadow/>
-              <Watermark />
-              <ImageVisibility />
-              <Input
-                type="text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Enter your text"
-                className="mx-1"
-              />
-            </Accordion>
-          </ScrollArea>
+          
         </TabsContent>
-        <TabsContent value="background" className="flex flex-col">
-          <ScrollArea className="max-h-[calc(100vh-375px)] grow">
-            <Accordion type="single" collapsible>
-              <CustomColor />
-              <TailwindColor />
-              <MagicColor />
-              <BackgroundImage />
-              <BackgroundBlur />
-              <BackgroundNoise />
-              <TransparentButton />
-            </Accordion>
-          </ScrollArea>
-        </TabsContent>
-      </Tabs>
+      </Tabs> */}
+
+
       <div className="space-y-2">
-        <ImageInput/>
+        <ImageInput />
         <Select
           value={`${width}x${height}`}
           onValueChange={(value) => {

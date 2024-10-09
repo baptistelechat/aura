@@ -1,4 +1,6 @@
 "use client";
+import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { House, ImageIcon } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -63,7 +65,10 @@ const Menu = () => {
           </Button>
         ))}
       </div>
-      <div className="flex w-1/3 items-center justify-center" />
+      <div className="flex w-1/3 items-center justify-end gap-2">
+        <HotkeyHelper />
+        <ThemeToggle />
+      </div>
     </nav>
   );
 };

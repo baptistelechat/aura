@@ -1,8 +1,8 @@
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageDown, ImageIcon, ImageUp, Scaling } from "lucide-react";
-import Control from "../../Control";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import Control from "@/components/Control";
 
 const ImageSize = () => {
   const scale = useImageGeneratorStore((s) => s.settings.image.scale);

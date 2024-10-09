@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Blend, Moon, Sun, SunMoon } from "lucide-react";
 import Image from "next/image";
 import { useMemo } from "react";
-import Control from "../../Control";
+import Control from "@/components/Control";
 
 type Shadow = {
   id: number;
@@ -82,7 +82,7 @@ const OverlayShadow = () => {
                   height={100}
                   quality={30}
                   className="rounded transition-all duration-300 ease-in-out dark:invert"
-                  layout="responsive"
+                  // layout="responsive"
                   loading="lazy"
                 />
               </div>

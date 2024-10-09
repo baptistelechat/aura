@@ -1,9 +1,9 @@
 import { Minus, Plus, Scale } from "lucide-react";
 import { ReactElement } from "react";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import { Label } from "../../../components/ui/label";
-import { Slider } from "../../../components/ui/slider";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Slider } from "./ui/slider";
 
 interface IControlProps {
   title: string;

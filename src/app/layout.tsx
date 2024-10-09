@@ -1,7 +1,5 @@
-import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
 import Menu from "@/components/Menu";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -37,10 +35,7 @@ export default function RootLayout({
           // disableTransitionOnChange
         >
           <TooltipProvider>
-            <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
-              <HotkeyHelper />
-              <ThemeToggle />
-            </div>
+            
             <Menu />
             <main className="grow md:overflow-hidden">{children}</main>
             <Toaster richColors expand={true} />

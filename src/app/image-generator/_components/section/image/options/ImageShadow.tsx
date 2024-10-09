@@ -1,8 +1,8 @@
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { LampDesk, Moon, Sun, SunMoon } from "lucide-react";
-import Control from "../../Control";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import Control from "@/components/Control";
 
 const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
