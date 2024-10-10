@@ -4,20 +4,38 @@ import { Switch } from "@/components/ui/switch";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
 const Visibility = () => {
-  const visibility = useImageGeneratorStore((s) => s.settings.image.visibility);
-  const setVisibility = useImageGeneratorStore((s) => s.setImageVisibility);
+  const settings = useImageGeneratorStore((s) => s.settings);
+  const setImageVisibility = useImageGeneratorStore(
+    (s) => s.setImageVisibility
+  );
+  const setWatermarkVisibility = useImageGeneratorStore(
+    (s) => s.setWatermarkVisibility
+  );
+
+  const items = [
+    {
+      id: "toggle-image",
+      label: "Show Image",
+      checked: settings.image.visibility,
+      onChange: setImageVisibility,
+    },
+    {
+      id: "toggle-watermark",
+      label: "Show Watermark",
+      checked: settings.watermark.visibility,
+      onChange: setWatermarkVisibility,
+    },
+  ];
 
   return (
     <CustomAccordion type="multiple">
       <div className="flex w-full flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <Switch
-            id="toggle-image"
-            checked={visibility}
-            onCheckedChange={(value) => setVisibility(value)}
-          />
-          <Label htmlFor="toggle-image">Show Image</Label>
-        </div>
+        {items.map(({ id, label, checked, onChange }) => (
+          <div key={id} className="flex items-center gap-2">
+            <Switch id={id} checked={checked} onCheckedChange={onChange} />
+            <Label htmlFor={id}>{label}</Label>
+          </div>
+        ))}
       </div>
     </CustomAccordion>
   );

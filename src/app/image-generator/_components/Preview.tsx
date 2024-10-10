@@ -20,15 +20,7 @@ const Preview = () => {
 
   const overlay = useImageGeneratorStore((s) => s.settings.overlay);
 
-  const watermarkPosition = useImageGeneratorStore(
-    (s) => s.settings.watermark.position
-  );
-  const watermarkBackground = useImageGeneratorStore(
-    (s) => s.settings.watermark.background
-  );
-  const watermarkForeground = useImageGeneratorStore(
-    (s) => s.settings.watermark.foreground
-  );
+  const watermark = useImageGeneratorStore((s) => s.settings.watermark);
 
   const setPreviewRefs = useImageGeneratorStore((s) => s.setPreviewRefs);
 
@@ -49,11 +41,11 @@ const Preview = () => {
   }, []);
 
   const watermarkAngle =
-    watermarkPosition === "top-left"
+    watermark.position === "top-left"
       ? "top-4 left-4 origin-top-left"
-      : watermarkPosition === "top-right"
+      : watermark.position === "top-right"
       ? "top-4 right-4 origin-top-right"
-      : watermarkPosition === "bottom-left"
+      : watermark.position === "bottom-left"
       ? "bottom-4 left-4 origin-bottom-left"
       : "bottom-4 right-4 origin-bottom-right";
 
@@ -131,9 +123,10 @@ const Preview = () => {
                   image.scale
                 }px`,
               }}
-              className={`${
+              className={cn(
+                "transition-all duration-300",
                 !image.visibility ? "hidden" : ""
-              } transition-all duration-300`}
+              )}
             />
           )}
           {!image.src && (
@@ -167,11 +160,18 @@ const Preview = () => {
         )}
 
         {/* Watermark */}
-        <div ref={watermarkRef} className={cn("absolute z-20", watermarkAngle)}>
+        <div
+          ref={watermarkRef}
+          className={cn(
+            "absolute z-20",
+            watermarkAngle,
+            !watermark.visibility ? "hidden" : ""
+          )}
+        >
           <Logo
             size="watermark"
-            background={watermarkBackground}
-            foreground={watermarkForeground}
+            background={watermark.background}
+            foreground={watermark.foreground}
           />
         </div>
       </div>
