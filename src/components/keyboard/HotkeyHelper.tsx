@@ -22,7 +22,19 @@ import { Hotkey } from "@/lib/types/Hotkey";
 import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
-import { ImageIcon, Keyboard, Layout, PaintbrushVertical, Save } from "lucide-react";
+import {
+  Blend,
+  Eye,
+  ImageIcon,
+  Keyboard,
+  Layout,
+  Milestone,
+  PaintbrushVertical,
+  Save,
+  Shapes,
+  Sparkle,
+  Tags,
+} from "lucide-react";
 import CustomAccordionItem from "../CustomAccordionItem";
 import Shortcut from "./Shortcut";
 
@@ -49,24 +61,46 @@ const HotkeyHelper = () => {
     }
   };
 
-  const categoryOrder = ["general", "save", "image", "background"];
+  const categoryOrder = [
+    "general",
+    "save",
+    "navigation",
+    "image",
+    "background",
+    "background-effects",
+    "overlays",
+    "annotations",
+    "watermarks",
+    "visibility",
+  ];
 
   const categoryTitles: Record<string, { title: string; icon: JSX.Element }> = {
     general: { title: "General", icon: <Layout className="size-4" /> },
     save: { title: "Save Image", icon: <Save className="size-4" /> },
+    navigation: { title: "Navigation", icon: <Milestone className="size-4" /> },
     image: { title: "Image", icon: <ImageIcon className="size-4" /> },
     background: {
       title: "Background",
       icon: <PaintbrushVertical className="size-4" />,
     },
+    "background-effects": {
+      title: "Background Effects",
+      icon: <Sparkle className="size-4" />,
+    },
+    overlays: { title: "Overlays", icon: <Blend className="size-4" /> },
+    annotations: { title: "Annotations", icon: <Shapes className="size-4" /> },
+    watermarks: { title: "Watermarks", icon: <Tags className="size-4" /> },
+    visibility: { title: "Visibility", icon: <Eye className="size-4" /> },
   };
 
   const categorizedHotkeys = hotkeys.reduce(
     (acc: Record<string, Hotkey[]>, hotkey: Hotkey) => {
-      if (!acc[hotkey.category]) {
-        acc[hotkey.category] = [];
-      }
-      acc[hotkey.category].push(hotkey);
+      hotkey.category.forEach((category) => {
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(hotkey);
+      });
       return acc;
     },
     {}
@@ -126,9 +160,13 @@ const HotkeyHelper = () => {
                     >
                       {categorizedHotkeys[category]
                         .sort((a, b) => {
-                          const orderA = a.order !== undefined ? a.order : Infinity;
-                          const orderB = b.order !== undefined ? b.order : Infinity;
-                          return orderA - orderB || a.name.localeCompare(b.name);
+                          const orderA =
+                            a.order !== undefined ? a.order : Infinity;
+                          const orderB =
+                            b.order !== undefined ? b.order : Infinity;
+                          return (
+                            orderA - orderB || a.name.localeCompare(b.name)
+                          );
                         })
                         .map((hotkey: Hotkey) => (
                           <div
