@@ -3,6 +3,7 @@ import * as htmlToImage from "html-to-image";
 import { toast } from "sonner";
 import { updatePreviewSize } from "./updatePreviewSize";
 import { updatePreviewStyle } from "./updatePreviewStyle";
+import { validateWatermark } from "./validateWatermark";
 
 interface IGenerateImage {
   action?: "download" | "clipboard";
@@ -11,6 +12,10 @@ interface IGenerateImage {
 export const generateImage = async ({ action }: IGenerateImage) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
+
+  if (!validateWatermark()) {
+    return;
+  }
 
   if (previewRef?.current) {
     imageGeneratorStore.setIsDownloading(true);

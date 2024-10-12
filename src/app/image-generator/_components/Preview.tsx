@@ -161,6 +161,7 @@ const Preview = () => {
 
         {/* Watermark */}
         <div
+          id="watermark-container"
           ref={watermarkRef}
           className={cn(
             "absolute z-20",
