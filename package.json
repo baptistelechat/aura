@@ -1,10 +1,10 @@
 {
-  "name": "baptistelechat-boilerplate",
+  "name": "aura",
   "version": "1.0.0",
-  "description": "A boilerplate for easily bootstrap a new project using NextJS.",
+  "description": "A web application that allows you to generate images with a variety of options.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/baptistelechat/baptistelechat-boilerplate.git"
+    "url": "git+https://github.com/baptistelechat/aura.git"
   },
   "author": "Baptiste LECHAT <[email](mailto:baptistelechat@outlook.fr)>",
   "license": "MIT",

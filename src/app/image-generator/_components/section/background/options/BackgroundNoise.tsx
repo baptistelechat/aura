@@ -2,7 +2,7 @@ import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Dot, Grip } from "lucide-react";
-import Control from "../../Control";
+import Control from "@/components/Control";
 
 const BackgroundNoise = () => {
   const noise = useImageGeneratorStore((s) => s.settings.background.noise);

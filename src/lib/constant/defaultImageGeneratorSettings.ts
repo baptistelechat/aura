@@ -48,5 +48,6 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     position: "bottom-right",
     background: "light",
     foreground: "color-dark",
+    visibility: true,
   },
 };

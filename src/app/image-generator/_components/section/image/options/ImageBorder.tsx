@@ -1,8 +1,8 @@
+import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";
-import Control from "../../Control";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import Control from "@/components/Control";
 
 const ImageBorder = () => {
   const borderRadius = useImageGeneratorStore(

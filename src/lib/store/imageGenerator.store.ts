@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { defaultImageGeneratorSettings } from "../constant/defaultImageGeneratorSettings";
-import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "../types/gradientOrientation";
+import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
+import { TabNames } from "../types/TabNames";
 
 type DimensionUpdate = {
   width?: number;
@@ -22,12 +23,12 @@ type ImageUpdate = {
 export type ImageGeneratorStoreType = {
   general: {
     hotkeySet: "default" | "mac";
-    tab: "image" | "background";
+    tab: TabNames;
     isDownloading: boolean;
   };
   settings: ImageGeneratorSettings;
   // General
-  setTab: (tab: "image" | "background") => void;
+  setTab: (tab: TabNames) => void;
   setIsDownloading: (isDownloading: boolean) => void;
   // Refs
   previewRefs: {
@@ -84,6 +85,7 @@ export type ImageGeneratorStoreType = {
   setWatermarkForeground: (
     foreground: "color-light" | "color-dark" | "light" | "dark"
   ) => void;
+  setWatermarkVisibility: (visibility: boolean) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -93,7 +95,7 @@ export type ImageGeneratorStoreType = {
   resetBackgroundBlur: () => void;
   resetBackgroundNoise: () => void;
   resetBackgroundColor: () => void;
-  resetOverlay: ()=> void;
+  resetOverlay: () => void;
   resetWatermark: () => void;
 };
 
@@ -111,7 +113,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     settings: defaultImageGeneratorSettings,
 
     // General
-    setTab: (tab: "image" | "background") => {
+    setTab: (tab: TabNames) => {
       set((state) => ({
         general: {
           ...state.general,
@@ -504,6 +506,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
+    setWatermarkVisibility: (visibility: boolean) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          watermark: {
+            ...state.settings.watermark,
+            visibility,
+          },
+        },
+      }));
+    },
+
     // Reset
     resetSettings: () => {
       set({
@@ -594,7 +608,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    resetOverlay:() => {
+    resetOverlay: () => {
       set((state) => ({
         settings: {
           ...state.settings,
@@ -614,6 +628,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
             position: defaultImageGeneratorSettings.watermark.position,
             background: defaultImageGeneratorSettings.watermark.background,
             foreground: defaultImageGeneratorSettings.watermark.foreground,
+            visibility: defaultImageGeneratorSettings.watermark.visibility,
           },
         },
       }));

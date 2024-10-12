@@ -2,7 +2,7 @@ import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Circle, CircleDashed, CircleDotDashed } from "lucide-react";
-import Control from "../../Control";
+import Control from "@/components/Control";
 
 const BackgroundBlur = () => {
   const blur = useImageGeneratorStore((s) => s.settings.background.blur);
