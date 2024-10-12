@@ -32,7 +32,9 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+k",
     },
     action: () => openHotkeyHelper(),
-    order: 1,
+    order: {
+      "general": 1,
+    },
   },
   {
     id: "loadImage",
@@ -77,7 +79,10 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+1",
     },
     action: () => setTab("image"),
-    order: 1,
+    order: {
+      navigation : 1,
+      image: 1,
+    },
   },
   {
     id: "switchToBackgroundTab",
@@ -89,7 +94,10 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+2",
     },
     action: () => setTab("background"),
-    order: 2,
+    order: {
+      navigation : 2,
+      background: 1
+    },
   },
   {
     id: "switchToBackgroundEffectsTab",
@@ -101,7 +109,10 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+3",
     },
     action: () => setTab("background-effects"),
-    order: 3,
+    order: {
+      navigation : 3,
+      "background-effects": 1
+    },
   },
   {
     id: "switchToOverlaysTab",
@@ -113,7 +124,10 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+4",
     },
     action: () => setTab("overlays"),
-    order: 4,
+    order: {
+      navigation : 4,
+      overlays:1
+    },
   },
   {
     id: "switchToAnnotationsTab",
@@ -126,7 +140,10 @@ export const hotkeys: Hotkey[] = [
     },
     // action: () => setTab("annotations"),
     action: () => toast.info("Annotations tab currently in development"),
-    order: 5,
+    order: {
+      navigation : 5,
+      annotations:1
+    },
   },
   {
     id: "switchToWatermarksTab",
@@ -138,7 +155,10 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+6",
     },
     action: () => setTab("watermarks"),
-    order: 6,
+    order: {
+      navigation : 6,
+      watermarks:1
+    },
   },
   {
     id: "switchToVisibilityTab",
@@ -150,6 +170,9 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+7",
     },
     action: () => setTab("visibility"),
-    order: 7,
+    order: {
+      navigation : 7,
+      visibility: 1
+    },
   },
 ];

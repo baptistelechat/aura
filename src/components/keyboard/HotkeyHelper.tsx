@@ -18,7 +18,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { hotkeys } from "@/lib/constant/hotkeys";
-import { Hotkey } from "@/lib/types/Hotkey";
+import { Hotkey, HotkeyCategory } from "@/lib/types/Hotkey";
 import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
@@ -61,7 +61,7 @@ const HotkeyHelper = () => {
     }
   };
 
-  const categoryOrder = [
+  const categoryOrder: HotkeyCategory[] = [
     "general",
     "save",
     "navigation",
@@ -160,10 +160,8 @@ const HotkeyHelper = () => {
                     >
                       {categorizedHotkeys[category]
                         .sort((a, b) => {
-                          const orderA =
-                            a.order !== undefined ? a.order : Infinity;
-                          const orderB =
-                            b.order !== undefined ? b.order : Infinity;
+                          const orderA = a.order?.[category] ?? Infinity;
+                          const orderB = b.order?.[category] ?? Infinity;
                           return (
                             orderA - orderB || a.name.localeCompare(b.name)
                           );
