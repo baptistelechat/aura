@@ -29,7 +29,7 @@ const Visibility = () => {
 
   return (
     <CustomAccordion type="multiple">
-      <div className="flex w-full flex-col gap-4">
+      <div className="mt-2 flex w-full flex-col gap-4">
         {items.map(({ id, label, checked, onChange }) => (
           <div key={id} className="flex items-center gap-2">
             <Switch id={id} checked={checked} onCheckedChange={onChange} />

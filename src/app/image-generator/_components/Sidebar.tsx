@@ -8,17 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import {
-//   Tooltip,
-//   TooltipContent,
-//   TooltipTrigger,
-// } from "@/components/ui/tooltip";
-import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-// import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
-// import Shortcut from "../../../components/keyboard/Shortcut";
 import { tabOptions } from "@/lib/constant/tabOptions";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { TabNames } from "@/lib/types/TabNames";
+import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
+import { Lightbulb } from "lucide-react";
 import CopyToClipboard from "./CopyToClipboard";
 import ImageInput from "./ImageInput";
 import BackgroundEffects from "./section/background-effects/BackgroundEffects";
@@ -36,12 +30,25 @@ const Sidebar = () => {
   const setTab = useImageGeneratorStore((s) => s.setTab);
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
 
-  // const imageHotkey = getHotkeyById("switchToImageTab");
-  // const backgroundHotkey = getHotkeyById("switchToBackgroundTab");
+  const preview = useImageGeneratorStore((s) => s.previewRefs.previewRef);
+
+  const hotkey = getHotkeyById(
+    `switchTo${
+      tab.charAt(0).toUpperCase() + tab.slice(1).replace("-e", "E")
+    }Tab`
+  );
+
+  const handleTabChange = (value: TabNames) => {
+    setTab(value);
+    preview?.current?.click();
+  };
 
   return (
-    <div className="flex h-full w-96 flex-col gap-4">
-      <Select value={tab} onValueChange={(value) => setTab(value as TabNames)}>
+    <div className="flex h-full w-96 flex-col gap-2">
+      <Select
+        value={tab}
+        onValueChange={(value) => handleTabChange(value as TabNames)}
+      >
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a size" />
         </SelectTrigger>
@@ -72,43 +79,10 @@ const Sidebar = () => {
       {tab === "watermarks" && <Watermarks />}
       {tab === "visibility" && <Visibility />}
 
-      {/* <Tabs
-        value={tab}
-        onValueChange={(value) => setTab(value as "image" | "background")}
-        className="flex grow flex-col"
-      >
-        <TabsList className="mb-4 grid w-full grid-cols-2">
-          <TabsTrigger value="image">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="size-full">Image</div>
-              </TooltipTrigger>
-              <TooltipContent className="mb-2">
-                <div className="flex flex-col items-center gap-2 font-normal">
-                  <p>{imageHotkey.name}</p>
-                  <Shortcut hotkey={imageHotkey.key} />
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </TabsTrigger>
-          <TabsTrigger value="background">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="size-full">Background</div>
-              </TooltipTrigger>
-              <TooltipContent className="mb-2">
-                <div className="flex flex-col items-center gap-2 font-normal">
-                  <p>{backgroundHotkey.name}</p>
-                  <Shortcut hotkey={backgroundHotkey.key} />
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="image" className="flex flex-col">
-          
-        </TabsContent>
-      </Tabs> */}
+      <p className="mb-1 flex w-full items-center gap-1 text-left text-sm italic text-muted-foreground/80">
+        <Lightbulb className="size-4" />
+        {hotkey.name} : {hotkey.key.toUpperCase()}
+      </p>
 
       <div className="space-y-2">
         <ImageInput />
