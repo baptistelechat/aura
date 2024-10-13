@@ -8,7 +8,6 @@ import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize
 import { validateWatermark } from "@/lib/utils/image-generator/validateWatermark";
 import { MonitorSmartphone } from "lucide-react";
 import { useEffect } from "react";
-import { toast } from "sonner";
 
 const ImageGenerator = () => {
   useCustomHotKey(hotkeys);
@@ -27,11 +26,7 @@ const ImageGenerator = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!validateWatermark()) {
-        toast.warning("The page will reload in 3 seconds. All settings will be lost.");
         clearInterval(interval);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
       }
     }, 1000);
 
