@@ -1,5 +1,20 @@
 import { toast } from "sonner";
 
+const errorMessage = () => {
+  const preview = document.getElementById("preview") as HTMLDivElement;
+  preview.style.filter = "blur(8px)";
+
+  toast.error(
+    "Watermark is partially or completely hidden. Image generation aborted."
+  );
+  toast.warning(
+    "The page will reload in 3 seconds. All settings will be lost."
+  );
+  setTimeout(() => {
+    window.location.reload();
+  }, 3000);
+};
+
 const isElementHidden = (element: HTMLElement | null) => {
   if (!element) return false;
 
@@ -14,15 +29,7 @@ const isElementHidden = (element: HTMLElement | null) => {
     style.maxWidth === "0px" ||
     style.scale === "0"
   ) {
-    toast.error(
-      "Watermark is partially or completely hidden. Image generation aborted."
-    );
-    toast.warning(
-      "The page will reload in 3 seconds. All settings will be lost."
-    );
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
+    errorMessage();
     return true;
   }
   return false;
@@ -40,13 +47,7 @@ export const validateWatermark = () => {
     !watermarkLogo ||
     watermarkElements?.length !== 3
   ) {
-    toast.error("Watermark missing or altered. Image generation aborted.");
-    toast.warning(
-      "The page will reload in 3 seconds. All settings will be lost."
-    );
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
+    errorMessage();
     return false;
   }
 
