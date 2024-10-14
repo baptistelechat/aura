@@ -45,7 +45,7 @@ const ImageGenerator = () => {
         <div className="flex size-full flex-col items-center justify-center gap-8">
           <MonitorSmartphone className="size-40" />
           <p className="text-center text-3xl font-bold">
-            This tool is not available on mobile or small devices. Try using it
+            Aura is not available on mobile or small devices. Try using it
             on a desktop browser
           </p>
         </div>
