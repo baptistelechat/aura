@@ -2,6 +2,7 @@
 import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { House, ImageIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,6 +10,7 @@ import { ReactElement, useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const Menu = () => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const { theme, systemTheme } = useTheme();
   const pathname = usePathname();
   const router = useRouter();
@@ -43,6 +45,14 @@ const Menu = () => {
       disabled: false,
     },
   ];
+
+  if (!isDesktop) {
+    return (
+      <nav className="flex w-full justify-center gap-4 px-8 pt-4">
+        <Logo size="md" foreground={logoVariant} />
+      </nav>
+    );
+  }
 
   return (
     <nav className="flex w-full justify-center gap-4 px-8 pt-4">
