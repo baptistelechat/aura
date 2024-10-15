@@ -37,27 +37,20 @@ const ImageGenerator = () => {
         clearInterval(interval);
       };
     }
-  }, []);
-
-  if (!isDesktop) {
-    return (
-      <div className="flex size-full gap-8 p-8">
-        <div className="flex size-full flex-col items-center justify-center gap-8">
-          <MonitorSmartphone className="size-40" />
-          <p className="text-center text-3xl font-bold">
-            Aura is not available on mobile or small devices. Try using it
-            on a desktop browser
-          </p>
-        </div>
-      </div>
-    );
-  }
+  }, [isDesktop]);
 
   return (
     <div className="flex size-full gap-8 p-8">
       <div className="hidden w-full gap-4 md:flex">
         <Sidebar />
         <Preview />
+      </div>
+      <div className="flex size-full flex-col items-center justify-center gap-8 md:hidden">
+        <MonitorSmartphone className="size-40" />
+        <p className="text-center text-3xl font-bold">
+          Aura is not available on mobile or small devices. Try using it on a
+          desktop browser
+        </p>
       </div>
     </div>
   );
