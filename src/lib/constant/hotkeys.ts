@@ -5,6 +5,7 @@ import { loadImage } from "../utils/hotkey/action/loadImage";
 import { openHotkeyHelper } from "../utils/hotkey/action/openHotkeyHelper";
 import { pasteImage } from "../utils/hotkey/action/pasteImage";
 import { generateImage } from "../utils/image-generator/generateImage";
+import { openFeedback } from "../utils/hotkey/action/openFeedback";
 
 const setTab = useImageGeneratorStore.getState().setTab;
 
@@ -33,7 +34,7 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => openHotkeyHelper(),
     order: {
-      "general": 1,
+      general: 1,
     },
   },
   {
@@ -46,6 +47,9 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+o",
     },
     action: () => loadImage(),
+    order: {
+      general: 2,
+    },
   },
   {
     id: "pasteImage",
@@ -57,6 +61,24 @@ export const hotkeys: Hotkey[] = [
       mac: "meta+v",
     },
     action: () => pasteImage(),
+    order: {
+      general: 3,
+    },
+  },
+  {
+    id: "openFeedback",
+    name: "Open Feedback",
+    description:
+      "Open the feedback form to share your thoughts, report an issue, or provide feedback to help us improve.",
+    category: ["general"],
+    key: {
+      default: "ctrl+h",
+      mac: "meta+h",
+    },
+    action: () => openFeedback(),
+    order: {
+      general: 4,
+    }
   },
   {
     id: "downloadImage",
@@ -80,7 +102,7 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => setTab("image"),
     order: {
-      navigation : 1,
+      navigation: 1,
       image: 1,
     },
   },
@@ -95,8 +117,8 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => setTab("background"),
     order: {
-      navigation : 2,
-      background: 1
+      navigation: 2,
+      background: 1,
     },
   },
   {
@@ -110,8 +132,8 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => setTab("background-effects"),
     order: {
-      navigation : 3,
-      "background-effects": 1
+      navigation: 3,
+      "background-effects": 1,
     },
   },
   {
@@ -125,8 +147,8 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => setTab("overlays"),
     order: {
-      navigation : 4,
-      overlays:1
+      navigation: 4,
+      overlays: 1,
     },
   },
   {
@@ -141,8 +163,8 @@ export const hotkeys: Hotkey[] = [
     // action: () => setTab("annotations"),
     action: () => toast.info("Annotations tab currently in development"),
     order: {
-      navigation : 5,
-      annotations:1
+      navigation: 5,
+      annotations: 1,
     },
   },
   {
@@ -156,8 +178,8 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => setTab("watermarks"),
     order: {
-      navigation : 6,
-      watermarks:1
+      navigation: 6,
+      watermarks: 1,
     },
   },
   {
@@ -171,8 +193,8 @@ export const hotkeys: Hotkey[] = [
     },
     action: () => setTab("visibility"),
     order: {
-      navigation : 7,
-      visibility: 1
+      navigation: 7,
+      visibility: 1,
     },
   },
 ];
