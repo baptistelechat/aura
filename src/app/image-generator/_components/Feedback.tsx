@@ -1,4 +1,5 @@
 import Shortcut from "@/components/keyboard/Shortcut";
+import Loader, { LoaderEnum } from "@/components/Loader";
 import { Button, MotionButton } from "@/components/ui/button";
 import {
   Sheet,
@@ -17,11 +18,8 @@ import {
 } from "@/components/ui/tooltip";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
-import { reuleaux } from "ldrs";
 import { HelpCircle } from "lucide-react";
 import { useState } from "react";
-
-reuleaux.register();
 
 const FeedbackVariants: Variants = {
   hidden: {
@@ -91,14 +89,7 @@ const Feedback = () => {
           <div className="relative size-full py-4">
             {isLoading && (
               <div className="flex size-full flex-col items-center justify-center gap-4 text-primary">
-                <l-reuleaux
-                  size="42"
-                  stroke="5"
-                  stroke-length="0.15"
-                  bg-opacity="0.1"
-                  speed="1.2"
-                  color="#2563eb"
-                />
+                <Loader loader={LoaderEnum.REULEAUX} color="#2563eb" />
                 <p className="text-xl font-bold text-primary">Loading ...</p>
               </div>
             )}
