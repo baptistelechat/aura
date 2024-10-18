@@ -72,8 +72,8 @@ export const hotkeys: Hotkey[] = [
       "Open the feedback form to share your thoughts, report an issue, or provide feedback to help us improve.",
     category: ["general"],
     key: {
-      default: "ctrl+h",
-      mac: "meta+h",
+      default: "f1",
+      mac: "f1",
     },
     action: () => openFeedback(),
     order: {

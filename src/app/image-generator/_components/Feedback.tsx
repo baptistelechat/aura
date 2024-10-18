@@ -17,7 +17,11 @@ import {
 } from "@/components/ui/tooltip";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
+import { reuleaux } from "ldrs";
 import { HelpCircle } from "lucide-react";
+import { useState } from "react";
+
+reuleaux.register();
 
 const FeedbackVariants: Variants = {
   hidden: {
@@ -31,10 +35,10 @@ const FeedbackVariants: Variants = {
 };
 
 const Feedback = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const hotkey = getHotkeyById("openFeedback");
 
-
-    const openSheet = () => {
+  const openSheet = () => {
     const feedbackButtonTrigger = document.getElementById(
       "feedbackButtonTrigger"
     );
@@ -42,7 +46,6 @@ const Feedback = () => {
       feedbackButtonTrigger.click();
     }
   };
-
 
   return (
     <>
@@ -68,7 +71,7 @@ const Feedback = () => {
           </div>
         </TooltipContent>
       </Tooltip>
-      <Sheet>
+      <Sheet onOpenChange={(open) => setIsLoading(open)}>
         <SheetTrigger asChild>
           <Button id="feedbackButtonTrigger" className="hidden">
             Open Feedback sheet
@@ -76,18 +79,35 @@ const Feedback = () => {
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Feedback & Support</SheetTitle>
+            <SheetTitle className="flex items-center gap-2 font-bold text-primary">
+              <HelpCircle className="size-4" />
+              <p>Feedback & Support</p>
+            </SheetTitle>
             <SheetDescription>
               Share your thoughts, report an issue, or provide feedback to help
               us improve.
             </SheetDescription>
           </SheetHeader>
-          <div className="size-full py-4">
+          <div className="relative size-full py-4">
+            {isLoading && (
+              <div className="flex size-full flex-col items-center justify-center gap-4 text-primary">
+                <l-reuleaux
+                  size="42"
+                  stroke="5"
+                  stroke-length="0.15"
+                  bg-opacity="0.1"
+                  speed="1.2"
+                  color="#2563eb"
+                />
+                <p className="text-xl font-bold text-primary">Loading ...</p>
+              </div>
+            )}
             <iframe
               src="https://tally.so/r/wAqXpW"
               width="100%"
               height="90%"
               title="Aura - Feedback & Support"
+              onLoad={() => setIsLoading(false)}
             ></iframe>
           </div>
           <SheetFooter>
