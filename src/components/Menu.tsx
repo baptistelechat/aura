@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
 import Logo from "./Logo";
+import Feedback from "@/app/image-generator/_components/Feedback";
 
 const Menu = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -76,6 +77,7 @@ const Menu = () => {
         ))}
       </div>
       <div className="flex w-1/3 items-center justify-end gap-2">
+        <Feedback />
         <HotkeyHelper />
         <ThemeToggle />
       </div>

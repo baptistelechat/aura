@@ -133,7 +133,7 @@ const HotkeyHelper = () => {
       <Dialog>
         <DialogTrigger asChild>
           <Button id="hotkeyHelperButtonTrigger" className="hidden">
-            Open dialog
+            Open Hotkey Helper dialog
           </Button>
         </DialogTrigger>
         <DialogContent>
