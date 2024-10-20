@@ -13,7 +13,7 @@ import { useEffect } from "react";
 const ImageGenerator = () => {
   useCustomHotKey(hotkeys);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-
+  
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const previewRefs = useImageGeneratorStore((s) => s.previewRefs);

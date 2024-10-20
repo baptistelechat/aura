@@ -85,7 +85,6 @@ export type ImageGeneratorStoreType = {
   setWatermarkForeground: (
     foreground: "color-light" | "color-dark" | "light" | "dark"
   ) => void;
-  setWatermarkVisibility: (visibility: boolean) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -506,18 +505,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    setWatermarkVisibility: (visibility: boolean) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          watermark: {
-            ...state.settings.watermark,
-            visibility,
-          },
-        },
-      }));
-    },
-
     // Reset
     resetSettings: () => {
       set({
@@ -628,7 +615,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
             position: defaultImageGeneratorSettings.watermark.position,
             background: defaultImageGeneratorSettings.watermark.background,
             foreground: defaultImageGeneratorSettings.watermark.foreground,
-            visibility: defaultImageGeneratorSettings.watermark.visibility,
           },
         },
       }));
