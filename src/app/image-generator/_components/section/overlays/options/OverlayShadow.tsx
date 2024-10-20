@@ -73,10 +73,12 @@ const OverlayShadow = () => {
                   shadow.name === name &&
                     "outline outline-2 outline-offset-0 outline-primary"
                 )}
-                onClick={() => setName(shadow.name)}
+                onClick={() =>
+                  setName(`/textures/overlays-shadow/thumbnails/${shadow.name}`)
+                }
               >
                 <Image
-                  src={`/textures/shadow-overlays/thumbnails/${shadow.name}`}
+                  src={`/textures/overlays-shadow/thumbnails/${shadow.name}`}
                   alt={shadow.alt}
                   width={100}
                   height={100}

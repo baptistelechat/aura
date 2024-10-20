@@ -146,10 +146,10 @@ const Preview = () => {
         </div>
 
         {/* Overlay Shadow */}
-        {overlay.name && (
+        {overlay.name && overlay.name.includes("overlays-shadow") && (
           <div className="">
             <img
-              src={`/textures/shadow-overlays/overlays/${overlay.name}`}
+              src={`${overlay.name}`}
               alt="Overlay Shadow"
               className="absolute inset-0 z-10 size-full object-cover"
               style={{
