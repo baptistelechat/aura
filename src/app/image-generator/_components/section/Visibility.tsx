@@ -8,9 +8,6 @@ const Visibility = () => {
   const setImageVisibility = useImageGeneratorStore(
     (s) => s.setImageVisibility
   );
-  const setWatermarkVisibility = useImageGeneratorStore(
-    (s) => s.setWatermarkVisibility
-  );
 
   const items = [
     {
@@ -18,12 +15,6 @@ const Visibility = () => {
       label: "Show Image",
       checked: settings.image.visibility,
       onChange: setImageVisibility,
-    },
-    {
-      id: "toggle-watermark",
-      label: "Show Watermark",
-      checked: settings.watermark.visibility,
-      onChange: setWatermarkVisibility,
     },
   ];
 

@@ -26,7 +26,7 @@ const DownloadButton = ({ extraStyle }: IDownloadButtonProps) => {
         <Button
           disabled={isDownloading}
           className={cn("w-full", extraStyle)}
-          onClick={() => generateImage({ action: "download" })}
+          onClick={() => generateImage({ action: "download", method: "button" })}
         >
           <Download className="mr-2 size-4" />
           Download Image

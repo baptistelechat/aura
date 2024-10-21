@@ -4,12 +4,14 @@ import { toast } from "sonner";
 import { updatePreviewSize } from "./updatePreviewSize";
 import { updatePreviewStyle } from "./updatePreviewStyle";
 import { validateWatermark } from "./validateWatermark";
+import { umamiGenerateImage } from "../umami/umamiGenerateImage";
 
 interface IGenerateImage {
   action?: "download" | "clipboard";
+  method?: "button" | "shortcut";
 }
 
-export const generateImage = async ({ action }: IGenerateImage) => {
+export const generateImage = async ({ action, method }: IGenerateImage) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
 
@@ -53,11 +55,13 @@ export const generateImage = async ({ action }: IGenerateImage) => {
             link.href = dataUrl;
             link.download = "social-image.png";
             link.click();
+            umamiGenerateImage({ action, method });
             resolve("Image successfully downloaded!");
           } else if (action === "clipboard") {
             const blob = await (await fetch(dataUrl)).blob();
             const clipboardItem = new ClipboardItem({ "image/png": blob });
             await navigator.clipboard.write([clipboardItem]);
+            umamiGenerateImage({ action, method });
             resolve("Image copied to clipboard!");
           }
         } catch (error) {

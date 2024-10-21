@@ -16,15 +16,8 @@ export const updatePreviewStyle = () => {
     const imageVisibility = imageGeneratorStore.settings.image.visibility;
     const imageScale = imageGeneratorStore.settings.image.scale;
 
-    const watermarkVisibility =
-      imageGeneratorStore.settings.watermark.visibility;
-
     if (!imageVisibility) {
       imageGeneratorStore.setImageVisibility(true);
-    }
-
-    if (!watermarkVisibility) {
-      imageGeneratorStore.setWatermarkVisibility(true);
     }
 
     containerRef.current.classList.toggle("size-full");

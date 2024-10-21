@@ -2,10 +2,10 @@ import { toast } from "sonner";
 import { useImageGeneratorStore } from "../store/imageGenerator.store";
 import { Hotkey } from "../types/Hotkey";
 import { loadImage } from "../utils/hotkey/action/loadImage";
+import { openFeedback } from "../utils/hotkey/action/openFeedback";
 import { openHotkeyHelper } from "../utils/hotkey/action/openHotkeyHelper";
 import { pasteImage } from "../utils/hotkey/action/pasteImage";
 import { generateImage } from "../utils/image-generator/generateImage";
-import { openFeedback } from "../utils/hotkey/action/openFeedback";
 
 const setTab = useImageGeneratorStore.getState().setTab;
 
@@ -20,7 +20,7 @@ export const hotkeys: Hotkey[] = [
       default: "ctrl+c",
       mac: "meta+c",
     },
-    action: () => generateImage({ action: "clipboard" }),
+    action: () => generateImage({ action: "clipboard", method: "shortcut" }),
   },
   {
     id: "openHotkeyHelper",
@@ -78,7 +78,7 @@ export const hotkeys: Hotkey[] = [
     action: () => openFeedback(),
     order: {
       general: 4,
-    }
+    },
   },
   {
     id: "downloadImage",
@@ -89,7 +89,7 @@ export const hotkeys: Hotkey[] = [
       default: "ctrl+s",
       mac: "meta+s",
     },
-    action: () => generateImage({ action: "download" }),
+    action: () => generateImage({ action: "download", method: "shortcut" }),
   },
   {
     id: "switchToImageTab",

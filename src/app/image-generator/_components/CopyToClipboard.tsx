@@ -30,6 +30,7 @@ const CopyToClipboard = ({ extraStyle }: ICopyToClipboardProps) => {
           onClick={() =>
             generateImage({
               action: "clipboard",
+              method: "button",
             })
           }
         >

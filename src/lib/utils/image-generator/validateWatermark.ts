@@ -10,6 +10,9 @@ const errorMessage = () => {
   toast.warning(
     "The page will reload in 3 seconds. All settings will be lost."
   );
+  if (window?.umami) {
+    window.umami.track("watermark-error");
+  }
   setTimeout(() => {
     window.location.reload();
   }, 3000);
