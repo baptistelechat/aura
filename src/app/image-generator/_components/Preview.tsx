@@ -166,7 +166,6 @@ const Preview = () => {
           className={cn(
             "absolute z-20",
             watermarkAngle,
-            !watermark.visibility ? "hidden" : ""
           )}
         >
           <Logo

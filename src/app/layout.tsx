@@ -2,6 +2,7 @@ import Menu from "@/components/Menu";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import UmamiBanner from "@/components/UmamiBanner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -44,6 +45,7 @@ export default function RootLayout({
           <TooltipProvider>
             <Menu />
             <main className="grow md:overflow-hidden">{children}</main>
+            <UmamiBanner />
             <Toaster richColors expand={true} />
           </TooltipProvider>
         </ThemeProvider>
