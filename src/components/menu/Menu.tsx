@@ -1,5 +1,5 @@
 "use client";
-import Feedback from "@/app/image-generator/_components/Feedback";
+import Feedback from "@/components/menu/components/Feedback";
 import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,8 @@ import { House, ImageIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
-import Logo from "./Logo";
+import Logo from "../Logo";
+import Changelog from "./components/Changelog";
 
 const Menu = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -77,6 +78,7 @@ const Menu = () => {
         ))}
       </div>
       <div className="flex w-1/3 items-center justify-end gap-2">
+        <Changelog/>
         <Feedback />
         <HotkeyHelper />
         <ThemeToggle />

@@ -1,4 +1,4 @@
-import Menu from "@/components/Menu";
+import Menu from "@/components/menu/Menu";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
