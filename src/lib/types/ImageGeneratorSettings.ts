@@ -4,7 +4,6 @@ import {
 } from "./gradientOrientation";
 
 export type ImageGeneratorSettings = {
-  text: string;
   dimension: {
     width: number;
     height: number;

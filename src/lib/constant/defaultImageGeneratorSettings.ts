@@ -3,7 +3,6 @@ import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 export const defaultColor = "#e2e8f0";
 
 export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
-  text: "Your Text Here",
   dimension: {
     width: 1920,
     height: 1080,

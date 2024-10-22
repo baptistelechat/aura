@@ -9,9 +9,7 @@ import { useEffect, useRef } from "react";
 import NoiseBackground from "./NoiseBackground";
 
 const Preview = () => {
-  const text = useImageGeneratorStore((s) => s.settings.text);
   const background = useImageGeneratorStore((s) => s.settings.background);
-  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const image = useImageGeneratorStore((s) => s.settings.image);
 
   const gradient = useImageGeneratorStore(
@@ -130,18 +128,15 @@ const Preview = () => {
             />
           )}
           {!image.src && (
-            <span
-              className="break-words p-4 text-center font-bold text-black"
+            <div
               style={{
-                fontSize: `${Math.max(
-                  16,
-                  Math.min(dimension.width, dimension.height) / 20
-                )}px`,
-                maxWidth: "100%",
+                scale: previewRef.current
+                  ? parseFloat(previewRef.current.style.height)/5/60
+                  : "auto",
               }}
             >
-              {text}
-            </span>
+              <Logo size="lg" />
+            </div>
           )}
         </div>
 
@@ -163,10 +158,7 @@ const Preview = () => {
         <div
           id="watermark-container"
           ref={watermarkRef}
-          className={cn(
-            "absolute z-20",
-            watermarkAngle,
-          )}
+          className={cn("absolute z-20", watermarkAngle)}
         >
           <Logo
             size="watermark"

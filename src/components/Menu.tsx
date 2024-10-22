@@ -1,4 +1,5 @@
 "use client";
+import Feedback from "@/app/image-generator/_components/Feedback";
 import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,6 @@ import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
 import Logo from "./Logo";
-import Feedback from "@/app/image-generator/_components/Feedback";
 
 const Menu = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -56,9 +56,9 @@ const Menu = () => {
   }
 
   return (
-    <nav className="flex w-full justify-center gap-4 px-8 pt-4">
+    <nav className="flex w-full justify-center gap-4 px-8 pt-8">
       <div className="flex w-1/3 items-center justify-start">
-        <Logo size="md" foreground={logoVariant} />
+          <Logo size="md" foreground={logoVariant} />
       </div>
       <div className="flex w-1/3 items-center justify-center">
         {links.map((link) => (

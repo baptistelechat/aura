@@ -45,7 +45,6 @@ export type ImageGeneratorStoreType = {
     imageRef: React.RefObject<HTMLImageElement>;
     watermarkRef: React.RefObject<HTMLDivElement>;
   }) => void;
-  setText: (text: string) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
   setWidth: (width: number) => void;
@@ -143,16 +142,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
         previewRefs: {
           ...state.previewRefs,
           ...previewRefs,
-        },
-      }));
-    },
-
-    // Text
-    setText: (text: string) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          text,
         },
       }));
     },

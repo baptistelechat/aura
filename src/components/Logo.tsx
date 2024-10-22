@@ -60,7 +60,8 @@ const Logo = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-full px-8 py-3",
+        "flex items-center gap-2 rounded-full",
+        size === "watermark" && "px-8 py-3",
         getBackgroundClass(background),
         orientation === "vertical" ? "flex-col" : "flex-row"
       )}
