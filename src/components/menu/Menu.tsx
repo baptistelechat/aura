@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
 import Logo from "../Logo";
-import Changelog from "./components/Changelog";
+import Changelog from "./components/WhatsNews";
 
 const Menu = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
