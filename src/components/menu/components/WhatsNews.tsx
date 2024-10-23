@@ -1,3 +1,4 @@
+"use client";
 import { Button, MotionButton } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -13,9 +14,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { whatsNewsData } from "@/lib/constant/awhatsNewsData";
+import { changelogData } from "@/lib/constant/changelogData";
 import { Variants } from "framer-motion";
 import { Newspaper } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const WhatsNewsVariants: Variants = {
   hidden: {
@@ -29,14 +31,27 @@ const WhatsNewsVariants: Variants = {
 };
 
 const WhatsNews = () => {
+  const [hasNewUpdates, setHasNewUpdates] = useState(false);
+
   const openSheet = () => {
-    const whatsNewsButtonTrigger = document.getElementById(
-      "whatsNewsButtonTrigger"
-    );
-    if (whatsNewsButtonTrigger) {
-      whatsNewsButtonTrigger.click();
-    }
+    const buttonTrigger = document.getElementById("whatsNewsButtonTrigger");
+    buttonTrigger?.click();
+    localStorage.setItem("aura.whatsNews", changelogData.length.toString());
+    setHasNewUpdates(false);
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUpdateCount = localStorage.getItem("aura.whatsNews");
+      const currentUpdateCount = changelogData.length;
+
+      if (storedUpdateCount) {
+        setHasNewUpdates(storedUpdateCount !== currentUpdateCount.toString());
+      } else {
+        localStorage.setItem("aura.whatsNews", "0");
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -49,7 +64,8 @@ const WhatsNews = () => {
             variants={WhatsNewsVariants}
             initial="hidden"
             animate="visible"
-            onClick={() => openSheet()}
+            onClick={openSheet}
+            showPing={hasNewUpdates}
           >
             <Newspaper className="size-5" />
             <span className="sr-only">What&apos;s news</span>
@@ -79,7 +95,7 @@ const WhatsNews = () => {
             <div className="flex h-full flex-col">
               <ScrollArea className="h-[calc(100vh-150px)] grow pr-4">
                 <div className="mt-4 space-y-4">
-                  {whatsNewsData.map((entry, index) => (
+                  {changelogData.map((entry, index) => (
                     <div key={index} className="flex w-full gap-2">
                       <div className="flex w-1/4 flex-col text-lg font-bold text-primary">
                         <p>{entry.date.month}</p>

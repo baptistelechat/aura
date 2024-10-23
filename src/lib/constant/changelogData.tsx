@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Changelog } from "../types/Changelog";
 
-export const whatsNewsData: Changelog[] = [
+export const changelogData: Changelog[] = [
   {
     date: {
       month: "October",

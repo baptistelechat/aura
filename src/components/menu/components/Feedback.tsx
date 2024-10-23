@@ -38,9 +38,7 @@ const Feedback = () => {
     const feedbackButtonTrigger = document.getElementById(
       "feedbackButtonTrigger"
     );
-    if (feedbackButtonTrigger) {
-      feedbackButtonTrigger.click();
-    }
+    feedbackButtonTrigger?.click();
   };
 
   return (
