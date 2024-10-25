@@ -22,11 +22,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const UMAMI_ID = process.env.NEXT_PUBLIC_UMAMI_ID;
+
   return (
     <html lang="en" className="h-full">
       <Script
         src="https://cloud.umami.is/script.js"
-        data-website-id="569c4ee9-34b2-4980-af88-19a9af3b4f81"
+        data-website-id={UMAMI_ID}
         strategy="afterInteractive"
         data-domains="aura-studio.vercel.app"
       />
