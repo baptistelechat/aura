@@ -5,7 +5,7 @@ export const changelogData: Changelog[] = [
   {
     date: {
       month: "October",
-      day: 23,
+      day: 28,
       year: 2024,
     },
     content: (
