@@ -3,10 +3,8 @@ import Loader, { LoaderEnum } from "@/components/Loader";
 import { Button, MotionButton } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -18,7 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { Variants } from "framer-motion";
-import { HelpCircle } from "lucide-react";
+import { LifeBuoy } from "lucide-react";
 import { useState } from "react";
 
 const FeedbackVariants: Variants = {
@@ -34,15 +32,13 @@ const FeedbackVariants: Variants = {
 
 const Feedback = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const hotkey = getHotkeyById("openFeedback");
+  const hotkey = getHotkeyById("leaveFeedback");
 
   const openSheet = () => {
     const feedbackButtonTrigger = document.getElementById(
       "feedbackButtonTrigger"
     );
-    if (feedbackButtonTrigger) {
-      feedbackButtonTrigger.click();
-    }
+    feedbackButtonTrigger?.click();
   };
 
   return (
@@ -58,7 +54,7 @@ const Feedback = () => {
             animate="visible"
             onClick={() => openSheet()}
           >
-            <HelpCircle className="size-5" />
+            <LifeBuoy className="size-5" />
             <span className="sr-only">Feedback & Support</span>
           </MotionButton>
         </TooltipTrigger>
@@ -78,7 +74,7 @@ const Feedback = () => {
         <SheetContent>
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2 font-bold text-primary">
-              <HelpCircle className="size-4" />
+              <LifeBuoy className="size-4" />
               <p>Feedback & Support</p>
             </SheetTitle>
             <SheetDescription>
@@ -101,11 +97,6 @@ const Feedback = () => {
               onLoad={() => setIsLoading(false)}
             ></iframe>
           </div>
-          <SheetFooter>
-            <SheetClose asChild>
-              <Button type="submit">Save changes</Button>
-            </SheetClose>
-          </SheetFooter>
         </SheetContent>
       </Sheet>
     </>

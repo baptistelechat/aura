@@ -66,8 +66,8 @@ export const hotkeys: Hotkey[] = [
     },
   },
   {
-    id: "openFeedback",
-    name: "Open Feedback",
+    id: "leaveFeedback",
+    name: "Leave a Feedback",
     description:
       "Open the feedback form to share your thoughts, report an issue, or provide feedback to help us improve.",
     category: ["general"],
