@@ -29,7 +29,7 @@ const getBackgroundClass = (background: ILogoProps["background"]) => {
   }
 };
 
-const getTextClass = (foreground: ILogoProps["foreground"]) => {
+export const getTextClass = (foreground: ILogoProps["foreground"]) => {
   switch (foreground) {
     case "light":
       return "text-white";
