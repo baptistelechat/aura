@@ -11,10 +11,35 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const TITLE = "Aura | Create, Share, Inspire";
+const DESCRIPTION =
+  "A web application that allows you to generate images with a variety of options.";
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL || "https://aura-studio.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Aura | Create, Share, Inspire",
-  description:
-    "A web application that allows you to generate images with a variety of options.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE + "TEST",
+    description: DESCRIPTION,
+    url: APP_URL,
+    siteName: TITLE,
+    images: [
+      {
+        url: `${APP_URL}/api/og?homepage=1`,
+        alt: TITLE,
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [`${APP_URL}/api/og?homepage=1`],
+    creator: "@baptistelechat",
+  },
 };
 
 export default function RootLayout({
@@ -22,7 +47,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const UMAMI_ID = process.env.NEXT_PUBLIC_UMAMI_ID;
 
   return (
