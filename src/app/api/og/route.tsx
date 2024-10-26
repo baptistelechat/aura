@@ -18,8 +18,9 @@ export async function GET(request: NextRequest) {
   const logoPath = process.env.NEXT_PUBLIC_APP_URL + "/Logo.svg";
   const XPath = process.env.NEXT_PUBLIC_APP_URL + "/images/og-images/x.svg";
   const randomImageNumber = Math.floor(Math.random() * 10) + 1;
-const backgroundPath =
-    process.env.NEXT_PUBLIC_APP_URL + `/images/og-images/${randomImageNumber}.jpg`;
+  const backgroundPath =
+    process.env.NEXT_PUBLIC_APP_URL +
+    `/images/og-images/${randomImageNumber}.jpg`;
 
   const gugiFontPath =
     process.env.NEXT_PUBLIC_APP_URL + "/fonts/Gugi/Gugi-Regular.ttf";

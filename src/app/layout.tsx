@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {
-    title: TITLE + "TEST",
+    title: TITLE,
     description: DESCRIPTION,
     url: APP_URL,
     siteName: TITLE,
