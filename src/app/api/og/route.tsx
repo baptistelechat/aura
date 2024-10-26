@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
   const colorLight = "#1573FE";
 
   const logoPath = process.env.NEXT_PUBLIC_APP_URL + "/Logo.svg";
+  const XPath = process.env.NEXT_PUBLIC_APP_URL + "/images/og-images/x.svg";
   const backgroundPath =
     process.env.NEXT_PUBLIC_APP_URL + "/images/og-images/1.jpg";
 
@@ -118,7 +119,7 @@ export async function GET(request: NextRequest) {
           >
             <img
               src={backgroundPath}
-              alt="Background image"
+              alt="Background Image"
               style={{
                 width: "100%",
                 height: "100%",
@@ -127,13 +128,37 @@ export async function GET(request: NextRequest) {
                 filter: "grayscale(100%)",
               }}
             />
-            <p style={{
-              position: "absolute",
-              bottom: "0%",
-              right: "24px",
-              color: "white",
-              fontSize: "18px",
-            }}>@baptistelechat</p>
+            <div
+              style={{
+                display: "flex",
+                gap: "8px",
+                alignItems: "center",
+                justifyContent: "center", 
+                position: "absolute",
+                bottom: "12px",
+                right: "24px",
+                color: "white",
+              }}
+            >
+              <img
+                src={XPath}
+                alt="X Logo"
+                style={{
+                  width: "18px",
+                  height: "18px",
+                  filter: "invert(100%)",
+                }}
+              />
+              <p
+                style={{
+                  fontSize: "18px",
+                  padding: "0",
+                  margin: "0",
+                }}
+              >
+                @baptistelechat
+              </p>
+            </div>
           </div>
         </div>
       </div>
