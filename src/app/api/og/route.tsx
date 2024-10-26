@@ -17,8 +17,9 @@ export async function GET(request: NextRequest) {
 
   const logoPath = process.env.NEXT_PUBLIC_APP_URL + "/Logo.svg";
   const XPath = process.env.NEXT_PUBLIC_APP_URL + "/images/og-images/x.svg";
-  const backgroundPath =
-    process.env.NEXT_PUBLIC_APP_URL + "/images/og-images/1.jpg";
+  const randomImageNumber = Math.floor(Math.random() * 10) + 1;
+const backgroundPath =
+    process.env.NEXT_PUBLIC_APP_URL + `/images/og-images/${randomImageNumber}.jpg`;
 
   const gugiFontPath =
     process.env.NEXT_PUBLIC_APP_URL + "/fonts/Gugi/Gugi-Regular.ttf";
@@ -56,6 +57,7 @@ export async function GET(request: NextRequest) {
         >
           <div
             style={{
+              position: "relative",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -81,6 +83,7 @@ export async function GET(request: NextRequest) {
                   height: "150px",
                   objectFit: "cover",
                   marginBottom: "20px",
+                  display: homepage === "1" ? "block" : "none",
                 }}
               />
               <h1
@@ -105,10 +108,39 @@ export async function GET(request: NextRequest) {
             >
               {description}
             </p>
+            <div
+              style={{
+                display: "flex",
+                gap: "8px",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "absolute",
+                bottom: "18px",
+                right: "18px",
+                color: "black",
+              }}
+            >
+              <img
+                src={XPath}
+                alt="X Logo"
+                style={{
+                  width: "20px",
+                  height: "20px",
+                }}
+              />
+              <p
+                style={{
+                  fontSize: "20px",
+                  padding: "0",
+                  margin: "0",
+                }}
+              >
+                @baptistelechat
+              </p>
+            </div>
           </div>
           <div
             style={{
-              position: "relative",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -128,37 +160,6 @@ export async function GET(request: NextRequest) {
                 filter: "grayscale(100%)",
               }}
             />
-            <div
-              style={{
-                display: "flex",
-                gap: "8px",
-                alignItems: "center",
-                justifyContent: "center", 
-                position: "absolute",
-                bottom: "12px",
-                right: "24px",
-                color: "white",
-              }}
-            >
-              <img
-                src={XPath}
-                alt="X Logo"
-                style={{
-                  width: "18px",
-                  height: "18px",
-                  filter: "invert(100%)",
-                }}
-              />
-              <p
-                style={{
-                  fontSize: "18px",
-                  padding: "0",
-                  margin: "0",
-                }}
-              >
-                @baptistelechat
-              </p>
-            </div>
           </div>
         </div>
       </div>
