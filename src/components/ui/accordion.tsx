@@ -6,7 +6,17 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Accordion = AccordionPrimitive.Root;
+const Accordion = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Root
+    ref={ref}
+    className={cn("space-y-4 pr-4 pb-2", className)}
+    {...props}
+  />
+));
+Accordion.displayName = AccordionPrimitive.Root.displayName;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -30,7 +40,7 @@ const AccordionTrigger = React.forwardRef<
       className={cn(
         "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180 gap-2",
         className
-      )}
+      )}  
       {...props}
     >
       <ChevronDown className="size-4 shrink-0 transition-transform duration-200" />

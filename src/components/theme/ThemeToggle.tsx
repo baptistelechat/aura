@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MotionButton } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,23 +8,31 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Variants } from "framer-motion";
-import { ChevronRight, Dot, Moon, Sun } from "lucide-react";
+import { ChevronRight, Dot, MonitorCog, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-const ThemeToggleVariants: Variants = {
-  hidden: {
-    x: 50,
-    opacity: 0,
-  },
-  visible: {
-    x: 0,
-    opacity: 1,
-  },
-};
+import { ActionVariants } from "@/lib/utils/framer-motion/variants";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <></>;
+  }
+
+  const Icon = () => {
+    if (theme === "system") {
+      return <MonitorCog className="size-5" />;
+    } else if (theme === "light") {
+      return <Sun className="size-5" />;
+    } else {
+      return <Moon className="size-5" />;
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -31,12 +40,11 @@ const ThemeToggle = () => {
         <MotionButton
           variant="outline"
           size="icon"
-          variants={ThemeToggleVariants}
+          variants={ActionVariants}
           initial="hidden"
           animate="visible"
         >
-          <Sun className="size-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute size-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          {Icon()}
           <span className="sr-only">Toggle theme</span>
         </MotionButton>
       </DropdownMenuTrigger>
@@ -74,9 +82,6 @@ const ThemeToggle = () => {
           )}
           Dark
         </DropdownMenuItem>
-        {/* <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

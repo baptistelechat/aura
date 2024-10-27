@@ -3,8 +3,7 @@ import {
   RadialGradientOrientation,
 } from "./gradientOrientation";
 
-type ImageGeneratorSettings = {
-  text: string;
+export type ImageGeneratorSettings = {
   dimension: {
     width: number;
     height: number;
@@ -18,6 +17,8 @@ type ImageGeneratorSettings = {
   };
   background: {
     backgroundMode: "solid" | "gradient";
+    blur: number;
+    noise: number;
     backgroundColor: string;
     tailwindColor: string;
     gradient: {
@@ -36,7 +37,16 @@ type ImageGeneratorSettings = {
         hex: string;
       };
     };
+    magicColor: string[];
+    backgroundImage: string | null;
+  };
+  overlay: {
+    name: string;
+    opacity: number;
+  };
+  watermark: {
+    position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
+    foreground: "color-light" | "color-dark" | "light" | "dark";
   };
 };
-
-export default ImageGeneratorSettings;

@@ -1,12 +1,15 @@
-import IUpdatePreview from "../../interface/IUpdatePreview";
+import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
-const updatePreviewStyle = ({
-  containerRef,
-  previewRef,
-  imageRef,
-  imageGeneratorStore,
-}: IUpdatePreview) => {
-  if (previewRef.current && containerRef.current) {
+export const updatePreviewStyle = () => {
+  const imageGeneratorStore = useImageGeneratorStore.getState();
+  const containerRef = imageGeneratorStore.previewRefs.containerRef;
+  const previewRef = imageGeneratorStore.previewRefs.previewRef;
+  const backgroundRef = imageGeneratorStore.previewRefs.backgroundRef;
+  const imageRef = imageGeneratorStore.previewRefs.imageRef;
+  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
+
+  if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
     const width = imageGeneratorStore.settings.dimension.width;
     const height = imageGeneratorStore.settings.dimension.height;
 
@@ -26,14 +29,25 @@ const updatePreviewStyle = ({
     previewRef.current.classList.toggle("transition-all");
     previewRef.current.classList.toggle("rounded-xl");
 
+    if (imageGeneratorStore.settings.background.backgroundColor === "") {
+      if (backgroundRef.current.style.backgroundImage === "") {
+        backgroundRef.current.style.backgroundImage =
+          transparentBackgroundStyle;
+      } else {
+        backgroundRef.current.style.backgroundImage = "";
+      }
+    }
+
     previewRef.current.style.width = `${width}px`;
     previewRef.current.style.height = `${height}px`;
 
-    if (imageRef.current) {
+    if (imageRef?.current) {
       imageRef.current.style.maxWidth = `${width * imageScale}px`;
       imageRef.current.style.maxHeight = `${height * imageScale}px`;
     }
+
+    if (watermarkRef?.current) {
+      watermarkRef.current.style.scale = `${(height * 0.05) / 60}`;
+    }
   }
 };
-
-export default updatePreviewStyle;
