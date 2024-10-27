@@ -15,20 +15,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { changelogData } from "@/lib/constant/changelogData";
-import { Variants } from "framer-motion";
+import { ActionVariants } from "@/lib/utils/framer-motion/variants";
 import { Newspaper } from "lucide-react";
 import { useEffect, useState } from "react";
-
-const WhatsNewsVariants: Variants = {
-  hidden: {
-    x: 50,
-    opacity: 0,
-  },
-  visible: {
-    x: 0,
-    opacity: 1,
-  },
-};
 
 const WhatsNews = () => {
   const [hasNewUpdates, setHasNewUpdates] = useState(false);
@@ -61,7 +50,7 @@ const WhatsNews = () => {
             id="whatsNewsButton"
             variant="outline"
             size="icon"
-            variants={WhatsNewsVariants}
+            variants={ActionVariants}
             initial="hidden"
             animate="visible"
             onClick={openSheet}

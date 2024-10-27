@@ -8,20 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Variants } from "framer-motion";
 import { ChevronRight, Dot, MonitorCog, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-const ThemeToggleVariants: Variants = {
-  hidden: {
-    x: 50,
-    opacity: 0,
-  },
-  visible: {
-    x: 0,
-    opacity: 1,
-  },
-};
+import { ActionVariants } from "@/lib/utils/framer-motion/variants";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -51,7 +40,7 @@ const ThemeToggle = () => {
         <MotionButton
           variant="outline"
           size="icon"
-          variants={ThemeToggleVariants}
+          variants={ActionVariants}
           initial="hidden"
           animate="visible"
         >

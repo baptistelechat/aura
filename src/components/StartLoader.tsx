@@ -18,7 +18,10 @@ const StartLoader = () => {
               className="animate-bounce-slow"
             />
             <p
-              className={cn("text-6xl font-bold text-[#0E4598]", gugi.className)}
+              className={cn(
+                "text-6xl font-bold text-[#0E4598]",
+                gugi.className
+              )}
             >
               AURA
             </p>
@@ -32,9 +35,8 @@ const StartLoader = () => {
             <Image
               src={`/images/og-images/${randomImageNumber}.jpg`}
               alt="Background"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-r-xl grayscale"
+              fill
+              className="rounded-r-xl object-cover grayscale"
             />
           </div>
         </div>

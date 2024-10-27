@@ -1,15 +1,17 @@
 "use client";
-import Feedback from "@/components/menu/components/Feedback";
 import HotkeyHelper from "@/components/keyboard/HotkeyHelper";
+import Feedback from "@/components/menu/components/Feedback";
 import ThemeToggle from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { MenuVariants } from "@/lib/utils/framer-motion/variants";
+import { motion } from "framer-motion";
 import { House, ImageIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
 import Logo from "../Logo";
-import Changelog from "./components/WhatsNews";
+import WhatsNews from "./components/WhatsNews";
 
 const Menu = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -58,10 +60,20 @@ const Menu = () => {
 
   return (
     <nav className="flex w-full justify-center gap-4 px-8 pt-8">
-      <div className="flex w-1/3 items-center justify-start">
-          <Logo size="md" foreground={logoVariant} />
-      </div>
-      <div className="flex w-1/3 items-center justify-center">
+      <motion.div
+        className="flex w-1/3 items-center justify-start"
+        variants={MenuVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <Logo size="md" foreground={logoVariant} />
+      </motion.div>
+      <motion.div
+        className="flex w-1/3 items-center justify-center"
+        variants={MenuVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {links.map((link) => (
           <Button
             disabled={link.disabled}
@@ -76,9 +88,9 @@ const Menu = () => {
             {link.name}
           </Button>
         ))}
-      </div>
+      </motion.div>
       <div className="flex w-1/3 items-center justify-end gap-2">
-        <Changelog/>
+        <WhatsNews />
         <Feedback />
         <HotkeyHelper />
         <ThemeToggle />

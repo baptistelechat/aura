@@ -14,21 +14,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ActionVariants } from "@/lib/utils/framer-motion/variants";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
-import { Variants } from "framer-motion";
 import { LifeBuoy } from "lucide-react";
 import { useState } from "react";
-
-const FeedbackVariants: Variants = {
-  hidden: {
-    x: 50,
-    opacity: 0,
-  },
-  visible: {
-    x: 0,
-    opacity: 1,
-  },
-};
 
 const Feedback = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +38,7 @@ const Feedback = () => {
             id="feedbackButton"
             variant="outline"
             size="icon"
-            variants={FeedbackVariants}
+            variants={ActionVariants}
             initial="hidden"
             animate="visible"
             onClick={() => openSheet()}

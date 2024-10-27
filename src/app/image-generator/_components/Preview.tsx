@@ -7,6 +7,8 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import NoiseBackground from "./NoiseBackground";
+import {motion } from "framer-motion";
+import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
 
 const Preview = () => {
   const background = useImageGeneratorStore((s) => s.settings.background);
@@ -66,10 +68,13 @@ const Preview = () => {
       : background.backgroundColor;
 
   return (
-    <div
+    <motion.div
       id="preview-container"
       ref={containerRef}
       className="flex size-full grow items-center justify-center overflow-hidden"
+      variants={PreviewVariants}
+      initial="hidden"
+      animate="visible"
     >
       <div
         id="preview"
@@ -167,7 +172,7 @@ const Preview = () => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
