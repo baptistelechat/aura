@@ -1,7 +1,6 @@
 "use client";
 import Preview from "@/app/image-generator/_components/Preview";
 import Sidebar from "@/app/image-generator/_components/Sidebar";
-import StartLoader from "@/components/StartLoader";
 import { hotkeys } from "@/lib/constant/hotkeys";
 import { useCustomHotKey } from "@/lib/hooks/useCustomHotKey";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
@@ -9,30 +8,16 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize";
 import { validateWatermark } from "@/lib/utils/image-generator/validateWatermark";
 import { MonitorSmartphone } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const ImageGenerator = () => {
-  const [isLoading, setIsLoading] = useState(true);
   useCustomHotKey(hotkeys);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const previewRefs = useImageGeneratorStore((s) => s.previewRefs);
-
-  useEffect(() => {
-    const handleLoad = () => {
-      setIsLoading(false);
-    };
-
-    if (document.readyState === "complete") {
-      setIsLoading(false);
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
-    }
-  }, []);
-
+  
   useEffect(() => {
     updatePreviewSize();
     window.addEventListener("resize", () => updatePreviewSize());
@@ -56,7 +41,6 @@ const ImageGenerator = () => {
 
   return (
     <div className="relative flex size-full gap-8 p-8">
-      {isLoading && <StartLoader />}
       <div className="hidden w-full gap-4 md:flex">
         <Sidebar />
         <Preview />

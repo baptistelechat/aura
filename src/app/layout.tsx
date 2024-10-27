@@ -1,13 +1,14 @@
 import Menu from "@/components/menu/Menu";
+import StartLoader from "@/components/StartLoader";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import UmamiBanner from "@/components/UmamiBanner";
 import { cn } from "@/lib/utils";
+import { inter } from "@/lib/utils/fonts";
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
-import { inter } from "@/lib/utils/fonts";
 
 const TITLE = "Aura | Create, Share, Inspire";
 const DESCRIPTION =
@@ -68,6 +69,7 @@ export default function RootLayout({
           // disableTransitionOnChange
         >
           <TooltipProvider>
+            <StartLoader />
             <Menu />
             <main className="grow md:overflow-hidden">{children}</main>
             <UmamiBanner />

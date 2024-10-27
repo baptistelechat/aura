@@ -1,9 +1,33 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { gugi } from "@/lib/utils/fonts";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import {motion} from "framer-motion";
+import { LoaderVariants } from "@/lib/utils/framer-motion/variants";
 
 const StartLoader = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const randomImageNumber = Math.floor(Math.random() * 10) + 1;
+
+  useEffect(() => {
+    const handleLoad = () => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    };
+
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
+
+  if (!isLoading) {
+    return <></>;
+  }
 
   return (
     <div className="absolute left-0 top-0 z-50 flex size-full items-center justify-center bg-gradient-to-bl from-[#0E4598] to-[#1573FE] p-4">
@@ -31,14 +55,19 @@ const StartLoader = () => {
           </p>
         </div>
         <div className="flex h-full w-1/2 flex-col items-center justify-center gap-4">
-          <div className="relative size-full">
+          <motion.div
+            className="relative size-full"
+            variants={LoaderVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <Image
               src={`/images/og-images/${randomImageNumber}.jpg`}
               alt="Background"
               fill
               className="rounded-r-xl object-cover grayscale"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

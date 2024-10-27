@@ -8,6 +8,9 @@ export const SidebarVariants: Variants = {
   visible: {
     x: 0,
     opacity: 1,
+    transition: {
+      delay: 3,
+    },
   },
 };
 
@@ -19,6 +22,9 @@ export const MenuVariants: Variants = {
   visible: {
     y: 0,
     opacity: 1,
+    transition: {
+      delay: 3,
+    },
   },
 };
 
@@ -30,10 +36,25 @@ export const ActionVariants: Variants = {
   visible: {
     x: 0,
     opacity: 1,
+    transition: {
+      delay: 3,
+    },
   },
 };
 
 export const PreviewVariants: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 3,
+    },
+  },
+};
+
+export const LoaderVariants: Variants = {
   hidden: {
     opacity: 0,
   },
