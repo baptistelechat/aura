@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Gugi } from "next/font/google";
+import { gugi } from "@/lib/utils/fonts";
 import Image from "next/image";
-
-const gugi = Gugi({ weight: "400", subsets: ["latin"] });
 
 const sizeMapping = { sm: 20, md: 40, lg: 60, watermark: 36 };
 const textMapping = {
@@ -29,7 +27,7 @@ const getBackgroundClass = (background: ILogoProps["background"]) => {
   }
 };
 
-const getTextClass = (foreground: ILogoProps["foreground"]) => {
+export const getTextClass = (foreground: ILogoProps["foreground"]) => {
   switch (foreground) {
     case "light":
       return "text-white";

@@ -5,11 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import UmamiBanner from "@/components/UmamiBanner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { inter } from "@/lib/utils/fonts";
 
 const TITLE = "Aura | Create, Share, Inspire";
 const DESCRIPTION =
