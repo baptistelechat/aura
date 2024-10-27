@@ -66,7 +66,7 @@ const Logo = ({
     >
       {size === "watermark" && (
         <p
-          className={cn("font-semibold", getTextClass(foreground), gugi.className)}
+          className={cn(getTextClass(foreground), gugi.className)}
           style={{
             fontSize: textMapping[size] + "px",
           }}
