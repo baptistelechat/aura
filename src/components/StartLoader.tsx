@@ -43,7 +43,7 @@ const StartLoader = () => {
             />
             <p
               className={cn(
-                "text-6xl font-bold text-[#0E4598]",
+                "text-6xl text-[#0E4598]",
                 gugi.className
               )}
             >
