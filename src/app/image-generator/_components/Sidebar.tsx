@@ -11,7 +11,9 @@ import {
 import { tabOptions } from "@/lib/constant/tabOptions";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { TabNames } from "@/lib/types/TabNames";
+import { SidebarVariants } from "@/lib/utils/framer-motion/variants";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
+import { motion } from "framer-motion";
 import { Lightbulb } from "lucide-react";
 import CopyToClipboard from "./CopyToClipboard";
 import ImageInput from "./ImageInput";
@@ -44,7 +46,12 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-full w-96 flex-col gap-2">
+    <motion.div
+      className="flex h-full w-96 flex-col gap-2"
+      variants={SidebarVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <Select
         value={tab}
         onValueChange={(value) => handleTabChange(value as TabNames)}
@@ -109,7 +116,7 @@ const Sidebar = () => {
           <CopyToClipboard />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -20,8 +20,8 @@ import {
 import { hotkeys } from "@/lib/constant/hotkeys";
 import { Hotkey, HotkeyCategory } from "@/lib/types/Hotkey";
 import { cn } from "@/lib/utils";
+import { ActionVariants } from "@/lib/utils/framer-motion/variants";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
-import { Variants } from "framer-motion";
 import {
   Blend,
   Eye,
@@ -37,17 +37,6 @@ import {
 } from "lucide-react";
 import CustomAccordionItem from "../CustomAccordionItem";
 import Shortcut from "./Shortcut";
-
-const HotkeyHelperVariants: Variants = {
-  hidden: {
-    x: 50,
-    opacity: 0,
-  },
-  visible: {
-    x: 0,
-    opacity: 1,
-  },
-};
 
 const HotkeyHelper = () => {
   const hotkey = getHotkeyById("openHotkeyHelper");
@@ -114,7 +103,7 @@ const HotkeyHelper = () => {
             id="hotkeyHelperButton"
             variant="outline"
             size="icon"
-            variants={HotkeyHelperVariants}
+            variants={ActionVariants}
             initial="hidden"
             animate="visible"
             onClick={() => openDialog()}
