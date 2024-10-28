@@ -55,6 +55,9 @@ export type ImageGeneratorStoreType = {
   setImageBorderRadius: (borderRadius: number) => void;
   setImageShadow: (shadow: number) => void;
   setImageScale: (scale: number) => void;
+  setImageRotateX: (rotateX: number) => void;
+  setImageRotateY: (rotateY: number) => void;
+  setImageRotateZ: (rotateZ: number) => void;
   setImageVisibility: (visibility: boolean) => void;
   // Background
   setBackgroundMode: (backgroundMode: "solid" | "gradient") => void;
@@ -89,6 +92,7 @@ export type ImageGeneratorStoreType = {
   resetImageBorderRadius: () => void;
   resetImageShadow: () => void;
   resetImageScale: () => void;
+  resetImageRotate: () => void;
   resetBackground: () => void;
   resetBackgroundBlur: () => void;
   resetBackgroundNoise: () => void;
@@ -239,6 +243,42 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           image: {
             ...state.settings.image,
             scale,
+          },
+        },
+      }));
+    },
+
+    setImageRotateX: (rotateX: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            rotateX,
+          },
+        },
+      }));
+    },
+
+    setImageRotateY: (rotateY: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            rotateY,
+          },
+        },
+      }));
+    },
+
+    setImageRotateZ: (rotateZ: number) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            rotateZ,
           },
         },
       }));
@@ -532,6 +572,20 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           image: {
             ...state.settings.image,
             scale: defaultImageGeneratorSettings.image.scale,
+          },
+        },
+      }));
+    },
+
+    resetImageRotate: () => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          image: {
+            ...state.settings.image,
+            rotateX: defaultImageGeneratorSettings.image.rotateX,
+            rotateY: defaultImageGeneratorSettings.image.rotateY,
+            rotateZ: defaultImageGeneratorSettings.image.rotateZ,
           },
         },
       }));

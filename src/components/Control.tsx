@@ -15,6 +15,7 @@ interface IControlProps {
   minIcon?: ReactElement;
   middleIcon?: ReactElement;
   maxIcon?: ReactElement;
+  normalize?: boolean;
 }
 
 const Control = ({
@@ -27,8 +28,9 @@ const Control = ({
   minIcon,
   middleIcon,
   maxIcon,
+  normalize = true
 }: IControlProps) => {
-  const coef = 100 / (max - min);
+  const coef = normalize ? 100 / (max - min) : 1;
 
   return (
     <div className="flex gap-2">
@@ -39,7 +41,7 @@ const Control = ({
             type="number"
             value={(value * coef).toFixed(0)}
             onChange={(e) => setValue(Number(e.target.value) / coef)}
-            className="h-8 w-16"
+            className="h-8 w-16 pr-2"
             min={(min * coef).toFixed(0)}
             max={(max * coef).toFixed(0)}
             step={(step * coef).toFixed(0)}
