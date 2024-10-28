@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Slider } from "./ui/slider";
+import { cn } from "@/lib/utils";
 
 interface IControlProps {
   title: string;
@@ -16,6 +17,7 @@ interface IControlProps {
   middleIcon?: ReactElement;
   maxIcon?: ReactElement;
   normalize?: boolean;
+  extraStyle?: string;
 }
 
 const Control = ({
@@ -28,12 +30,13 @@ const Control = ({
   minIcon,
   middleIcon,
   maxIcon,
-  normalize = true
+  normalize = true,
+  extraStyle,
 }: IControlProps) => {
   const coef = normalize ? 100 / (max - min) : 1;
 
   return (
-    <div className="flex gap-2">
+    <div className={cn("flex gap-2", extraStyle)}>
       <div className="flex w-full flex-col items-center gap-3">
         <div className="flex w-full items-center justify-between">
           <Label>{title}</Label>

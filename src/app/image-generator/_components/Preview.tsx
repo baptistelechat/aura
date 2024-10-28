@@ -5,10 +5,10 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
+import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
+import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import NoiseBackground from "./NoiseBackground";
-import {motion } from "framer-motion";
-import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
 
 const Preview = () => {
   const background = useImageGeneratorStore((s) => s.settings.background);
@@ -107,6 +107,7 @@ const Preview = () => {
             position: "relative",
             maxHeight: "100%",
             maxWidth: "100%",
+            perspective: "1000px",
           }}
         >
           {image.src && (
@@ -125,6 +126,9 @@ const Preview = () => {
                   Number(previewRef.current?.style.width.replace("px", "")) *
                   image.scale
                 }px`,
+                transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
+                backfaceVisibility: "hidden",
+                transformStyle: "preserve-3d",
               }}
               className={cn(
                 "transition-all duration-300",
@@ -136,7 +140,7 @@ const Preview = () => {
             <div
               style={{
                 scale: previewRef.current
-                  ? parseFloat(previewRef.current.style.height)/5/60
+                  ? parseFloat(previewRef.current.style.height) / 5 / 60
                   : "auto",
               }}
             >

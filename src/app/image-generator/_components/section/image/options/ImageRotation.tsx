@@ -3,10 +3,13 @@ import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import {
-  ImageIcon,
+  ArrowUpFromDot,
+  Dot,
   Rotate3D,
   RotateCcwSquare,
   RotateCwSquare,
+  Square,
+  UndoDot,
 } from "lucide-react";
 
 const ImageRotation = () => {
@@ -24,32 +27,38 @@ const ImageRotation = () => {
     <CustomAccordionItem
       title={"Rotation"}
       icon={<Rotate3D className="size-4" />}
-      disabled={rotateX === defaultImageGeneratorSettings.image.rotateX ||rotateY === defaultImageGeneratorSettings.image.rotateY || rotateZ === defaultImageGeneratorSettings.image.rotateZ}
+      disabled={
+        rotateX === defaultImageGeneratorSettings.image.rotateX &&
+        rotateY === defaultImageGeneratorSettings.image.rotateY &&
+        rotateZ === defaultImageGeneratorSettings.image.rotateZ
+      }
       reset={resetRotate}
     >
       <Control
         title={"rotateX"}
         value={rotateX}
         setValue={setRotateX}
-        min={-180}
-        max={180}
-        step={1}
-        minIcon={<RotateCcwSquare className="size-5" />}
-        middleIcon={<ImageIcon className="size-5" />}
-        maxIcon={<RotateCwSquare className="size-5" />}
+        min={-90}
+        max={90}
+        step={5}
+        minIcon={<ArrowUpFromDot className="size-5 -scale-y-100" />}
+        middleIcon={<Dot className="size-5" />}
+        maxIcon={<ArrowUpFromDot className="size-5" />}
         normalize={false}
+        extraStyle="mb-4"
       />
       <Control
         title={"rotateY"}
         value={rotateY}
         setValue={setRotateY}
-        min={-180}
-        max={180}
-        step={1}
-        minIcon={<RotateCcwSquare className="size-5" />}
-        middleIcon={<ImageIcon className="size-5" />}
-        maxIcon={<RotateCwSquare className="size-5" />}
+        min={-90}
+        max={90}
+        step={5}
+        minIcon={<UndoDot className="size-5 rotate-90 -scale-x-100" />}
+        middleIcon={<Dot className="size-5" />}
+        maxIcon={<UndoDot className="size-5 rotate-90" />}
         normalize={false}
+        extraStyle="mb-4"
       />
       <Control
         title={"rotateZ"}
@@ -57,9 +66,9 @@ const ImageRotation = () => {
         setValue={setRotateZ}
         min={-180}
         max={180}
-        step={1}
+        step={5}
         minIcon={<RotateCcwSquare className="size-5" />}
-        middleIcon={<ImageIcon className="size-5" />}
+        middleIcon={<Square className="size-5" />}
         maxIcon={<RotateCwSquare className="size-5" />}
         normalize={false}
       />
