@@ -13,6 +13,9 @@ export type ImageGeneratorSettings = {
     borderRadius: number;
     shadow: number;
     scale: number;
+    rotateX: number;
+    rotateY: number;
+    rotateZ: number;
     visibility: boolean;
   };
   background: {
