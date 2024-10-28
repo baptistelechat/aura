@@ -31,9 +31,9 @@ export const umamiGenerateImage = ({
     ? "magic-gradient"
     : backgroundMode;
 
-    const overlayType = overlay.name.includes("overlays-shadow")
-      ? "overlay-shadow"
-      : "";
+  const overlayType = overlay.name.includes("overlays-shadow")
+    ? "overlay-shadow"
+    : "null";
 
   if (window?.umami) {
     window.umami.track("generate-image", {
