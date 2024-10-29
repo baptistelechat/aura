@@ -129,7 +129,7 @@ export const dimensions: GroupedDimensions = {
       title: "Professional Banner",
     },
   ],
-  X: [
+  "Twitter (X)": [
     {
       width: 800,
       height: 800,
