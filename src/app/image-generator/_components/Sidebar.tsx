@@ -23,16 +23,13 @@ import Image from "./section/image/Image";
 import Overlays from "./section/overlays/Overlays";
 import Visibility from "./section/Visibility";
 import Watermarks from "./section/watermarks/Watermarks";
+import DimensionSelect from "./DimensionSelect";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
-  const width = useImageGeneratorStore((s) => s.settings.dimension.width);
-  const height = useImageGeneratorStore((s) => s.settings.dimension.height);
+  const preview = useImageGeneratorStore((s) => s.previewRefs.previewRef);
 
   const setTab = useImageGeneratorStore((s) => s.setTab);
-  const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
-
-  const preview = useImageGeneratorStore((s) => s.previewRefs.previewRef);
 
   const hotkey = getHotkeyById(
     `switchTo${
@@ -93,24 +90,7 @@ const Sidebar = () => {
 
       <div className="space-y-2">
         <ImageInput />
-        <Select
-          value={`${width}x${height}`}
-          onValueChange={(value) => {
-            const [width, height] = value.split("x").map(Number);
-            setDimensions({ width, height });
-          }}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a size" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="1920x1080">1920x1080 (16:9)</SelectItem>
-              <SelectItem value="1080x1080">1080x1080 (1:1)</SelectItem>
-              <SelectItem value="1080x1920">1080x1920 (9:16)</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <DimensionSelect/>
         <div className="flex w-full items-center gap-2">
           <DownloadButton />
           <CopyToClipboard />
