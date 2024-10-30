@@ -2,7 +2,7 @@
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
-export async function GET(request: NextRequest) {
+export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
   const homepage = searchParams.get("homepage") || "0";
   const title =

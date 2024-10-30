@@ -16,6 +16,8 @@ import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { motion } from "framer-motion";
 import { Lightbulb } from "lucide-react";
 import CopyToClipboard from "./CopyToClipboard";
+import DimensionSelect from "./DimensionSelect";
+import FormatSelect from "./FormatSelect";
 import ImageInput from "./ImageInput";
 import BackgroundEffects from "./section/background-effects/BackgroundEffects";
 import Background from "./section/background/Background";
@@ -23,7 +25,6 @@ import Image from "./section/image/Image";
 import Overlays from "./section/overlays/Overlays";
 import Visibility from "./section/Visibility";
 import Watermarks from "./section/watermarks/Watermarks";
-import DimensionSelect from "./DimensionSelect";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -44,7 +45,10 @@ const Sidebar = () => {
 
   return (
     <motion.div
-      className="flex h-full w-96 flex-col gap-2"
+      className="flex h-full flex-col gap-2"
+      style={{
+        width: "26rem",
+      }}
       variants={SidebarVariants}
       initial="hidden"
       animate="visible"
@@ -90,10 +94,11 @@ const Sidebar = () => {
 
       <div className="space-y-2">
         <ImageInput />
-        <DimensionSelect/>
+        <DimensionSelect />
         <div className="flex w-full items-center gap-2">
           <DownloadButton />
           <CopyToClipboard />
+          <FormatSelect />
         </div>
       </div>
     </motion.div>

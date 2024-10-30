@@ -9,6 +9,8 @@ const TransparentButton = () => {
   const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
   const setBackgroundMode = useImageGeneratorStore((s) => s.setBackgroundMode);
   const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
+  const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
+
   const resetBackground = useImageGeneratorStore((s) => s.resetBackground);
 
   const handleClick = () => {
@@ -17,6 +19,7 @@ const TransparentButton = () => {
     setBackgroundColor("");
     setTailwindColor("");
     setUseVia(false);
+    setDimensions({ format: "png" });
   };
 
   return (

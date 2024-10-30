@@ -4,6 +4,7 @@ export const defaultColor = "#e2e8f0";
 
 export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   dimension: {
+    format: "png",
     category: "Default",
     width: 1920,
     height: 1080,

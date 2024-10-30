@@ -17,6 +17,7 @@ interface IDownloadButtonProps {
 }
 
 const DownloadButton = ({ extraStyle }: IDownloadButtonProps) => {
+  const format = useImageGeneratorStore((s) => s.settings.dimension.format);
   const isDownloading = useImageGeneratorStore((s) => s.general.isDownloading);
   const hotkey = getHotkeyById("downloadImage");
 
@@ -29,7 +30,7 @@ const DownloadButton = ({ extraStyle }: IDownloadButtonProps) => {
           onClick={() => generateImage({ action: "download", method: "button" })}
         >
           <Download className="mr-2 size-4" />
-          Download Image
+          Download Image (*.{format})
         </Button>
       </TooltipTrigger>
       <TooltipContent>

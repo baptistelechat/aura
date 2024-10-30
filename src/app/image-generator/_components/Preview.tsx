@@ -79,7 +79,7 @@ const Preview = () => {
       <div
         id="preview"
         ref={previewRef}
-        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-300 ease-in-out"
+        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-700 ease-in-out"
       >
         {/* Background layer */}
         <div
