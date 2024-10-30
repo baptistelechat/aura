@@ -6,8 +6,10 @@ import {
 } from "../types/gradientOrientation";
 import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 import { TabNames } from "../types/TabNames";
+import sharp from "sharp";
 
 type DimensionUpdate = {
+  format?: keyof sharp.FormatEnum;
   category?: string;
   width?: number;
   height?: number;

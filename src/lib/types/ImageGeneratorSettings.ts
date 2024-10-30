@@ -1,3 +1,4 @@
+import sharp from "sharp";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
@@ -5,6 +6,7 @@ import {
 
 export type ImageGeneratorSettings = {
   dimension: {
+    format: keyof sharp.FormatEnum;
     category: string;
     width: number;
     height: number;
