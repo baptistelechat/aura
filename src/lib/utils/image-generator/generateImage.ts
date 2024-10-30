@@ -1,10 +1,10 @@
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import * as htmlToImage from "html-to-image";
 import { toast } from "sonner";
+import { umamiGenerateImage } from "../umami/umamiGenerateImage";
 import { updatePreviewSize } from "./updatePreviewSize";
 import { updatePreviewStyle } from "./updatePreviewStyle";
 import { validateWatermark } from "./validateWatermark";
-import { umamiGenerateImage } from "../umami/umamiGenerateImage";
 
 interface IGenerateImage {
   action?: "download" | "clipboard";
@@ -58,11 +58,20 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
             umamiGenerateImage({ action, method });
             resolve("Image successfully downloaded!");
           } else if (action === "clipboard") {
-            const blob = await (await fetch(dataUrl)).blob();
-            const clipboardItem = new ClipboardItem({ "image/png": blob });
-            await navigator.clipboard.write([clipboardItem]);
-            umamiGenerateImage({ action, method });
-            resolve("Image copied to clipboard!");
+            if (navigator.clipboard && ClipboardItem) {
+              const blob = await (await fetch(dataUrl)).blob();
+              const clipboardItem = new ClipboardItem({ "image/png": blob });
+              await navigator.clipboard.write([clipboardItem]);
+              umamiGenerateImage({ action, method });
+              resolve("Image copied to clipboard!");
+            } else {
+              if (!navigator.clipboard) {
+                reject("Clipboard API is not supported in this browser.");
+              }
+              if (!ClipboardItem) {
+                reject("ClipboardItem API is not supported in this browser.");
+              }
+            }
           }
         } catch (error) {
           reject(error);

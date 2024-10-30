@@ -8,6 +8,7 @@ import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
 import { TabNames } from "../types/TabNames";
 
 type DimensionUpdate = {
+  category?: string;
   width?: number;
   height?: number;
 };

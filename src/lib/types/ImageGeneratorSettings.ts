@@ -5,6 +5,7 @@ import {
 
 export type ImageGeneratorSettings = {
   dimension: {
+    category: string;
     width: number;
     height: number;
   };
