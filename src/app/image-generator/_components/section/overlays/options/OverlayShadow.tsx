@@ -70,8 +70,8 @@ const OverlayShadow = () => {
               <div
                 className={cn(
                   "relative cursor-pointer rounded",
-                  shadow.name === name &&
-                    "outline outline-2 outline-offset-0 outline-primary"
+                  `/textures/overlays-shadow/thumbnails/${shadow.name}` ===
+                    name && "outline outline-2 outline-offset-0 outline-primary"
                 )}
                 onClick={() =>
                   setName(`/textures/overlays-shadow/thumbnails/${shadow.name}`)
