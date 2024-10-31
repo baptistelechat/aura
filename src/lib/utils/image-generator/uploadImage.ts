@@ -2,15 +2,13 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { toast } from "sonner"; // Import de toast
 
 export const uploadImage = (
-  event: React.ChangeEvent<HTMLInputElement>,
+  file: File | undefined,
   mode: "image" | "background"
 ) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const setImageSrc = imageGeneratorStore.setImageSrc;
   const setBackgroundImage = imageGeneratorStore.setBackgroundImage;
   const setImageVisibility = imageGeneratorStore.setImageVisibility;
-
-  const file = event.target.files?.[0];
 
   if (file) {
     const reader = new FileReader();

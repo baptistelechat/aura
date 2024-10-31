@@ -66,7 +66,7 @@ const ImageInput = () => {
           type="file"
           accept="image/*"
           onChange={(e) => {
-            uploadImage(e, "image");
+            uploadImage(e.target.files?.[0], "image");
           }}
           className="w-full hover:cursor-pointer"
         />

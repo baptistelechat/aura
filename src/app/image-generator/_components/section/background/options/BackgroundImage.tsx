@@ -39,7 +39,7 @@ const BackgroundImage = () => {
           type="file"
           accept="image/*"
           onChange={(e) => {
-            uploadImage(e, "background");
+            uploadImage(e.target.files?.[0], "background");
           }}
           className="w-full hover:cursor-pointer"
         />

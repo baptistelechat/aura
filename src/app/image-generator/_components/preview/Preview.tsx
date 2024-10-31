@@ -6,8 +6,11 @@ import { transparentBackgroundStyle } from "@/lib/constant/transparentBackground
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
+import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { useDropzone } from "react-dropzone";
+import DropZone from "./components/DropZone";
 import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
@@ -29,6 +32,12 @@ const Preview = () => {
   const backgroundRef = useRef<HTMLImageElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const watermarkRef = useRef<HTMLDivElement>(null);
+
+  const onDrop = useCallback((files: File[]) => {
+    uploadImage(files[0], "image");
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   useEffect(() => {
     setPreviewRefs({
@@ -107,46 +116,45 @@ const Preview = () => {
             position: "relative",
             maxHeight: "100%",
             maxWidth: "100%",
-            perspective: "1000px",
           }}
         >
-          {image.src && (
-            <img
-              ref={imageRef}
-              src={image.src}
-              alt="Selected"
-              style={{
-                borderRadius: `${image.borderRadius}px`,
-                filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
-                maxHeight: `${
-                  Number(previewRef.current?.style.height.replace("px", "")) *
-                  image.scale
-                }px`,
-                maxWidth: `${
-                  Number(previewRef.current?.style.width.replace("px", "")) *
-                  image.scale
-                }px`,
-                transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
-                backfaceVisibility: "hidden",
-                transformStyle: "preserve-3d",
-              }}
-              className={cn(
-                "transition-all duration-300",
-                !image.visibility ? "hidden" : ""
-              )}
-            />
-          )}
-          {!image.src && (
+          {image.src ? (
             <div
-              style={{
-                scale: previewRef.current
-                  ? parseFloat(previewRef.current.style.height) / 5 / 60
-                  : "auto",
-              }}
+              className="cursor-pointer transition-all duration-300 hover:brightness-75"
+              style={{ perspective: "1000px" }}
             >
-              <Logo size="lg" />
+              <img
+                {...getRootProps()}
+                ref={imageRef}
+                src={image.src}
+                alt="Selected"
+                style={{
+                  borderRadius: `${image.borderRadius}px`,
+                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
+                  maxHeight: `${
+                    Number(previewRef.current?.style.height.replace("px", "")) *
+                    image.scale
+                  }px`,
+                  maxWidth: `${
+                    Number(previewRef.current?.style.width.replace("px", "")) *
+                    image.scale
+                  }px`,
+                  transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
+                  backfaceVisibility: "hidden",
+                  transformStyle: "preserve-3d",
+                }}
+                className={cn(
+                  "transition-all duration-300 ease-in-out",
+                  !image.visibility ? "hidden" : "",
+                  isDragActive && "border-2 border-dashed border-primary",
+                  !image.src && "bg-primary/20 p-8"
+                )}
+              />
             </div>
+          ) : (
+            <DropZone />
           )}
+          <input {...getInputProps()} accept="image/*" />
         </div>
 
         {/* Overlay Shadow */}
