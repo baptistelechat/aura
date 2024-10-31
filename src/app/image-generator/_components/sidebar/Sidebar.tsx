@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import DownloadButton from "@/app/image-generator/_components/DownloadButton";
 import {
   Select,
   SelectContent,
@@ -15,16 +14,17 @@ import { SidebarVariants } from "@/lib/utils/framer-motion/variants";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { motion } from "framer-motion";
 import { Lightbulb } from "lucide-react";
-import CopyToClipboard from "./CopyToClipboard";
-import DimensionSelect from "./DimensionSelect";
-import FormatSelect from "./FormatSelect";
-import ImageInput from "./ImageInput";
-import BackgroundEffects from "./section/background-effects/BackgroundEffects";
-import Background from "./section/background/Background";
-import Image from "./section/image/Image";
-import Overlays from "./section/overlays/Overlays";
-import Visibility from "./section/Visibility";
-import Watermarks from "./section/watermarks/Watermarks";
+import BackgroundEffects from "../section/background-effects/BackgroundEffects";
+import Background from "../section/background/Background";
+import Image from "../section/image/Image";
+import Overlays from "../section/overlays/Overlays";
+import Visibility from "../section/Visibility";
+import Watermarks from "../section/watermarks/Watermarks";
+import CopyToClipboard from "./components/CopyToClipboard";
+import DimensionSelect from "./components/DimensionSelect";
+import DownloadButton from "./components/DownloadButton";
+import FormatSelect from "./components/FormatSelect";
+import ImageInput from "./components/ImageInput";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);

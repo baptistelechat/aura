@@ -1,4 +1,5 @@
 "use client";
+import Shortcut from "@/components/keyboard/Shortcut";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -9,7 +10,6 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { generateImage } from "@/lib/utils/image-generator/generateImage";
 import { ClipboardCopy } from "lucide-react";
-import Shortcut from "../../../components/keyboard/Shortcut";
 
 const CopyToClipboard = () => {
   const isDownloading = useImageGeneratorStore((s) => s.general.isDownloading);

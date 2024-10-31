@@ -1,4 +1,5 @@
 "use client";
+import Shortcut from "@/components/keyboard/Shortcut";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -10,7 +11,6 @@ import { cn } from "@/lib/utils";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { generateImage } from "@/lib/utils/image-generator/generateImage";
 import { Download } from "lucide-react";
-import Shortcut from "../../../components/keyboard/Shortcut";
 
 interface IDownloadButtonProps {
   extraStyle?: string;
@@ -27,7 +27,9 @@ const DownloadButton = ({ extraStyle }: IDownloadButtonProps) => {
         <Button
           disabled={isDownloading}
           className={cn("w-full", extraStyle)}
-          onClick={() => generateImage({ action: "download", method: "button" })}
+          onClick={() =>
+            generateImage({ action: "download", method: "button" })
+          }
         >
           <Download className="mr-2 size-4" />
           Download Image (*.{format})

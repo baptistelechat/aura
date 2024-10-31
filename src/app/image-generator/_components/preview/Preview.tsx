@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import NoiseBackground from "./NoiseBackground";
+import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
   const background = useImageGeneratorStore((s) => s.settings.background);

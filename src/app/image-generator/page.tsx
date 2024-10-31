@@ -1,6 +1,6 @@
 "use client";
-import Preview from "@/app/image-generator/_components/Preview";
-import Sidebar from "@/app/image-generator/_components/Sidebar";
+import Preview from "@/app/image-generator/_components/preview/Preview";
+import Sidebar from "@/app/image-generator/_components/sidebar/Sidebar";
 import { hotkeys } from "@/lib/constant/hotkeys";
 import { useCustomHotKey } from "@/lib/hooks/useCustomHotKey";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
@@ -17,7 +17,7 @@ const ImageGenerator = () => {
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const previewRefs = useImageGeneratorStore((s) => s.previewRefs);
-  
+
   useEffect(() => {
     updatePreviewSize();
     window.addEventListener("resize", () => updatePreviewSize());
