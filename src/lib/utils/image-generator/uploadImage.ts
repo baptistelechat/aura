@@ -10,6 +10,11 @@ export const uploadImage = (
   const setBackgroundImage = imageGeneratorStore.setBackgroundImage;
 
   if (file) {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Invalid file type. Please upload an image.");
+      return;
+    }
+    
     const reader = new FileReader();
 
     toast.promise(
