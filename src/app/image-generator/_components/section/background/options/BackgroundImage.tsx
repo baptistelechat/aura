@@ -4,7 +4,7 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageIcon } from "lucide-react";
 import { useRef } from "react";
-import DropZone from "../../../../../../components/DropZone";
+import DropZone from "@/components/DropZone";
 
 const BackgroundImage = () => {
   const backgroundImage = useImageGeneratorStore(

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import DropZone from "@/components/DropZone";
 import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
@@ -10,7 +11,6 @@ import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import DropZone from "../../../../components/DropZone";
 import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
