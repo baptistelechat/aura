@@ -10,7 +10,7 @@ import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import DropZone from "./components/DropZone";
+import DropZone from "../../../../components/DropZone";
 import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
@@ -123,7 +123,9 @@ const Preview = () => {
                 alt="Selected"
                 style={{
                   borderRadius: `${image.borderRadius}px`,
-                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow})) ${isDragActive ? "brightness(0.75)" : ""}`,
+                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
+                    image.shadow
+                  })) ${isDragActive ? "brightness(0.75)" : ""}`,
                   maxHeight: `${
                     Number(previewRef.current?.style.height.replace("px", "")) *
                     image.scale
@@ -139,12 +141,12 @@ const Preview = () => {
                 className={cn(
                   "transition-all duration-300 ease-in-out",
                   !image.visibility ? "hidden" : "",
-                  !image.src && "bg-primary/20 p-8",
+                  !image.src && "bg-primary/20 p-8"
                 )}
               />
             </div>
           ) : (
-            <DropZone />
+            <DropZone mode="image" />
           )}
           <input {...getInputProps()} accept="image/*" />
         </div>
