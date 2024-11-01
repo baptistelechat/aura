@@ -1,14 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import DropZone from "@/components/DropZone";
 import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
+import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import NoiseBackground from "./NoiseBackground";
+import { useCallback, useEffect, useRef } from "react";
+import { useDropzone } from "react-dropzone";
+import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
   const background = useImageGeneratorStore((s) => s.settings.background);
@@ -29,6 +32,12 @@ const Preview = () => {
   const backgroundRef = useRef<HTMLImageElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const watermarkRef = useRef<HTMLDivElement>(null);
+
+  const onDrop = useCallback((files: File[]) => {
+    uploadImage(files[0], "image");
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   useEffect(() => {
     setPreviewRefs({
@@ -101,52 +110,45 @@ const Preview = () => {
         <NoiseBackground />
 
         {/* Content layer */}
-        <div
-          className="relative z-10 flex items-center justify-center"
-          style={{
-            position: "relative",
-            maxHeight: "100%",
-            maxWidth: "100%",
-            perspective: "1000px",
-          }}
-        >
-          {image.src && (
-            <img
-              ref={imageRef}
-              src={image.src}
-              alt="Selected"
-              style={{
-                borderRadius: `${image.borderRadius}px`,
-                filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
-                maxHeight: `${
-                  Number(previewRef.current?.style.height.replace("px", "")) *
-                  image.scale
-                }px`,
-                maxWidth: `${
-                  Number(previewRef.current?.style.width.replace("px", "")) *
-                  image.scale
-                }px`,
-                transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
-                backfaceVisibility: "hidden",
-                transformStyle: "preserve-3d",
-              }}
-              className={cn(
-                "transition-all duration-300",
-                !image.visibility ? "hidden" : ""
-              )}
-            />
-          )}
-          {!image.src && (
+        <div className="relative z-10 flex size-full items-center justify-center">
+          {image.src ? (
             <div
-              style={{
-                scale: previewRef.current
-                  ? parseFloat(previewRef.current.style.height) / 5 / 60
-                  : "auto",
-              }}
+              className="cursor-pointer transition-all duration-300 hover:brightness-75"
+              style={{ perspective: "1000px" }}
             >
-              <Logo size="lg" />
+              <img
+                {...getRootProps()}
+                ref={imageRef}
+                src={image.src}
+                alt="Selected"
+                style={{
+                  borderRadius: `${image.borderRadius}px`,
+                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
+                    image.shadow
+                  })) ${isDragActive ? "brightness(0.75)" : ""}`,
+                  maxHeight: `${
+                    Number(previewRef.current?.style.height.replace("px", "")) *
+                    image.scale
+                  }px`,
+                  maxWidth: `${
+                    Number(previewRef.current?.style.width.replace("px", "")) *
+                    image.scale
+                  }px`,
+                  transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
+                  backfaceVisibility: "hidden",
+                  transformStyle: "preserve-3d",
+                }}
+                className={cn(
+                  "transition-all duration-300 ease-in-out",
+                  !image.visibility ? "hidden" : "",
+                  !image.src && "bg-primary/20 p-8"
+                )}
+              />
             </div>
+          ) : (
+            <DropZone mode="image" />
           )}
+          <input {...getInputProps()} accept="image/*" />
         </div>
 
         {/* Overlay Shadow */}
