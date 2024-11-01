@@ -54,7 +54,6 @@ export type ImageGeneratorStoreType = {
   setHeight: (height: number) => void;
   // Image
   setImage: (update: ImageUpdate) => void;
-  setImageSrc: (src: string) => void;
   setImageBorderRadius: (borderRadius: number) => void;
   setImageShadow: (shadow: number) => void;
   setImageScale: (scale: number) => void;
@@ -202,19 +201,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
         },
       }));
     },
-
-    setImageSrc: (src: string) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            src,
-          },
-        },
-      }));
-    },
-
+    
     setImageBorderRadius: (borderRadius: number) => {
       set((state) => ({
         settings: {

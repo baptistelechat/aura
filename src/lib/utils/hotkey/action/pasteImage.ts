@@ -1,8 +1,7 @@
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { toast } from "sonner";
 
-const setImageSrc = useImageGeneratorStore.getState().setImageSrc;
-const setImageVisibility = useImageGeneratorStore.getState().setImageVisibility;
+const setImage = useImageGeneratorStore.getState().setImage;
 
 export const pasteImage = async () => {
   try {
@@ -15,8 +14,10 @@ export const pasteImage = async () => {
           const reader = new FileReader();
 
           reader.onload = (e) => {
-            setImageSrc(e.target?.result as string);
-            setImageVisibility(true);
+            setImage({
+              src: e.target?.result as string,
+              visibility: true,
+            });
           };
 
           reader.readAsDataURL(file);

@@ -1,14 +1,13 @@
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { toast } from "sonner"; // Import de toast
+import { toast } from "sonner";
 
 export const uploadImage = (
   file: File | undefined,
   mode: "image" | "background"
 ) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
-  const setImageSrc = imageGeneratorStore.setImageSrc;
+  const setImage = imageGeneratorStore.setImage;
   const setBackgroundImage = imageGeneratorStore.setBackgroundImage;
-  const setImageVisibility = imageGeneratorStore.setImageVisibility;
 
   if (file) {
     const reader = new FileReader();
@@ -16,15 +15,14 @@ export const uploadImage = (
     toast.promise(
       new Promise<void>((resolve, reject) => {
         reader.onload = (e) => {
-          const imageSrc = e.target?.result as string;
+          const src = e.target?.result as string;
 
           if (mode === "image") {
-            setImageSrc(imageSrc);
-            setImageVisibility(true);
+            setImage({ src, visibility: true });
             resolve();
           } else if (mode === "background") {
-            if (imageSrc) {
-              setBackgroundImage(imageSrc);
+            if (src) {
+              setBackgroundImage(src);
               resolve();
             } else {
               reject(new Error("Failed to load background image."));

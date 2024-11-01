@@ -110,14 +110,7 @@ const Preview = () => {
         <NoiseBackground />
 
         {/* Content layer */}
-        <div
-          className="relative z-10 flex items-center justify-center"
-          style={{
-            position: "relative",
-            maxHeight: "100%",
-            maxWidth: "100%",
-          }}
-        >
+        <div className="relative z-10 flex size-full items-center justify-center">
           {image.src ? (
             <div
               className="cursor-pointer transition-all duration-300 hover:brightness-75"
@@ -130,7 +123,7 @@ const Preview = () => {
                 alt="Selected"
                 style={{
                   borderRadius: `${image.borderRadius}px`,
-                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow}))`,
+                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${image.shadow})) ${isDragActive ? "brightness(0.75)" : ""}`,
                   maxHeight: `${
                     Number(previewRef.current?.style.height.replace("px", "")) *
                     image.scale
@@ -146,8 +139,7 @@ const Preview = () => {
                 className={cn(
                   "transition-all duration-300 ease-in-out",
                   !image.visibility ? "hidden" : "",
-                  isDragActive && "border-2 border-dashed border-primary",
-                  !image.src && "bg-primary/20 p-8"
+                  !image.src && "bg-primary/20 p-8",
                 )}
               />
             </div>
