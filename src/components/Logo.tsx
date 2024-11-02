@@ -18,7 +18,7 @@ const getBackgroundClass = (background: ILogoProps["background"]) => {
       return "bg-black";
     case "color-dark":
       return "bg-[#0E4598]";
-      case "color-light":
+    case "color-light":
       return "bg-[#1573FE]";
     case "transparent":
       return "bg-transparent";
@@ -77,10 +77,10 @@ const Logo = ({
       <Image
         src={
           foreground === "light"
-            ? "/Logo-light.svg"
+            ? "/images/logo/Logo-light.svg"
             : foreground === "dark"
-            ? "/Logo-dark.svg"
-            : "/Logo.svg"
+            ? "/images/logo/Logo-dark.svg"
+            : "/images/logo/Logo.svg"
         }
         alt="Logo"
         width={sizeMapping[size]}

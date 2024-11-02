@@ -16,7 +16,7 @@ export const changelogData: Changelog[] = [
           create beautiful visuals faster than ever.
         </p>
         <Image
-          src={"/changelog/2024 10 23/presentation.png"}
+          src={"/images/changelog/2024 10 23/presentation.png"}
           alt={"Aura Presentation"}
           layout="responsive"
           width={1920}

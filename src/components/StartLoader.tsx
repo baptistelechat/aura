@@ -1,10 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { gugi } from "@/lib/utils/fonts";
+import { LoaderVariants } from "@/lib/utils/framer-motion/variants";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import {motion} from "framer-motion";
-import { LoaderVariants } from "@/lib/utils/framer-motion/variants";
 
 const StartLoader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,18 +35,13 @@ const StartLoader = () => {
         <div className="flex h-full w-1/2 flex-col items-center justify-center gap-4">
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
-              src="/Logo.svg"
+              src="/images/logo/Logo.svg"
               alt="Logo"
               width={150}
               height={150}
               className="animate-bounce-slow"
             />
-            <p
-              className={cn(
-                "text-6xl text-[#0E4598]",
-                gugi.className
-              )}
-            >
+            <p className={cn("text-6xl text-[#0E4598]", gugi.className)}>
               AURA
             </p>
           </div>

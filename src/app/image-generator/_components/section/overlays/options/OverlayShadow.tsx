@@ -67,17 +67,17 @@ const OverlayShadow = () => {
               <div
                 className={cn(
                   "relative cursor-pointer rounded",
-                  `/textures/overlays-shadow/thumbnails/${shadow.name}` ===
+                  `/images/textures/overlays-shadow/thumbnails/${shadow.name}` ===
                     name && "outline outline-2 outline-offset-0 outline-primary"
                 )}
                 onClick={() =>
                   setOverlay({
-                    name: `/textures/overlays-shadow/thumbnails/${shadow.name}`,
+                    name: `/images/textures/overlays-shadow/thumbnails/${shadow.name}`,
                   })
                 }
               >
                 <Image
-                  src={`/textures/overlays-shadow/thumbnails/${shadow.name}`}
+                  src={`/images/textures/overlays-shadow/thumbnails/${shadow.name}`}
                   alt={shadow.alt}
                   width={100}
                   height={100}
