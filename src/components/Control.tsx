@@ -1,4 +1,4 @@
-import { BackgroundUpdate, ImageUpdate } from "@/lib/store/imageGenerator.store";
+import { BackgroundUpdate, ImageUpdate, OverlayUpdate } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { Minus, Plus, Scale } from "lucide-react";
 import { ReactElement } from "react";
@@ -10,8 +10,8 @@ import { Slider } from "./ui/slider";
 interface IControlProps {
   title: string;
   value: number;
-  setValue: (update: Partial<ImageUpdate & BackgroundUpdate>) => void;
-  updateKey: keyof (ImageUpdate & BackgroundUpdate); 
+  setValue: (update: Partial<ImageUpdate & BackgroundUpdate> & OverlayUpdate) => void;
+  updateKey: keyof (ImageUpdate & BackgroundUpdate & OverlayUpdate); 
   min?: number;
   max?: number;
   step?: number;

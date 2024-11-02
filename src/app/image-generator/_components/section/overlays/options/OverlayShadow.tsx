@@ -1,4 +1,5 @@
 "use client";
+import Control from "@/components/Control";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { Separator } from "@/components/ui/separator";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
@@ -7,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { Ghost, Moon, Sun, SunMoon } from "lucide-react";
 import Image from "next/image";
 import { useMemo } from "react";
-import Control from "@/components/Control";
 
 type Shadow = {
   id: number;
@@ -33,8 +33,7 @@ const OverlayShadow = () => {
   const name = useImageGeneratorStore((s) => s.settings.overlay.name);
   const opacity = useImageGeneratorStore((s) => s.settings.overlay.opacity);
 
-  const setName = useImageGeneratorStore((s) => s.setOverlayName);
-  const setOpacity = useImageGeneratorStore((s) => s.setOverlayOpacity);
+  const setOverlay = useImageGeneratorStore((s) => s.setOverlay);
 
   const resetOverlay = useImageGeneratorStore((s) => s.resetOverlay);
 
@@ -55,7 +54,8 @@ const OverlayShadow = () => {
         <Control
           title={"opacity"}
           value={opacity}
-          setValue={setOpacity}
+          setValue={setOverlay}
+          updateKey={"opacity"}
           min={0}
           max={1}
           step={0.05}
@@ -74,7 +74,9 @@ const OverlayShadow = () => {
                     name && "outline outline-2 outline-offset-0 outline-primary"
                 )}
                 onClick={() =>
-                  setName(`/textures/overlays-shadow/thumbnails/${shadow.name}`)
+                  setOverlay({
+                    name: `/textures/overlays-shadow/thumbnails/${shadow.name}`,
+                  })
                 }
               >
                 <Image

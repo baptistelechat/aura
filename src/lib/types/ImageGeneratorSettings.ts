@@ -48,14 +48,16 @@ export type BackgroundSettings = {
   backgroundImage: string | null;
 };
 
+export type OverlaySettings = {
+  name: string;
+  opacity: number;
+}
+
 export type ImageGeneratorSettings = {
   dimension: DimensionSettings;
   image: ImageSettings;
   background: BackgroundSettings;
-  overlay: {
-    name: string;
-    opacity: number;
-  };
+  overlay: OverlaySettings;
   watermark: {
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
     background: "color-light" | "color-dark" | "light" | "dark" | "transparent";

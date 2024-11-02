@@ -5,12 +5,14 @@ import {
   DimensionSettings,
   ImageGeneratorSettings,
   ImageSettings,
+  OverlaySettings,
 } from "../types/ImageGeneratorSettings";
 import { TabNames } from "../types/TabNames";
 
 type DimensionUpdate = Partial<DimensionSettings>;
 export type ImageUpdate = Partial<ImageSettings>;
 export type BackgroundUpdate = Partial<BackgroundSettings>;
+export type OverlayUpdate = Partial<OverlaySettings>;
 
 export type ImageGeneratorStoreType = {
   general: {
@@ -45,8 +47,7 @@ export type ImageGeneratorStoreType = {
   // Background
   setBackground: (update: BackgroundUpdate) => void;
   // Overlay
-  setOverlayName: (name: string) => void;
-  setOverlayOpacity: (opacity: number) => void;
+  setOverlay: (update: OverlayUpdate) => void;
   // Watermark
   setWatermarkPosition: (
     position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
@@ -173,25 +174,13 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     },
 
     // Overlay
-    setOverlayName: (name: string) => {
+    setOverlay: (update: OverlayUpdate) => {
       set((state) => ({
         settings: {
           ...state.settings,
           overlay: {
             ...state.settings.overlay,
-            name,
-          },
-        },
-      }));
-    },
-
-    setOverlayOpacity: (opacity: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          overlay: {
-            ...state.settings.overlay,
-            opacity,
+            ...update,
           },
         },
       }));
