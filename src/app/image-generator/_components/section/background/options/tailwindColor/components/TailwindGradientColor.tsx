@@ -7,21 +7,22 @@ import RandomColor from "../../components/RandomColor";
 import TailwindColorPicker from "./TailwindColorPicker";
 
 const TailwindGradientColor = () => {
-  const useVia = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.useVia
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const handleCheckboxChange = () => {
-    if (via.hex === "") {
-      setVia({
-        name: defaultImageGeneratorSettings.background.gradient.via.name,
-        hex: defaultImageGeneratorSettings.background.gradient.via.hex,
-      });
-    }
-    setUseVia(!useVia);
+    setBackground({
+      gradient: {
+        ...gradient,
+        via:
+          gradient.via.hex === ""
+            ? defaultImageGeneratorSettings.background.gradient.via
+            : gradient.via,
+        useVia: !gradient.useVia,
+      },
+    });
   };
 
   return (
@@ -36,7 +37,7 @@ const TailwindGradientColor = () => {
       <div className="flex items-center gap-2">
         <Checkbox
           id="tailwind-color-via"
-          checked={useVia}
+          checked={gradient.useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
         <Label id="tailwind-color-via">Via (Optional)</Label>

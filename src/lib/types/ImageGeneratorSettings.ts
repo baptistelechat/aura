@@ -1,8 +1,8 @@
+import sharp from "sharp";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "./gradientOrientation";
-import sharp from "sharp";
 
 export type DimensionSettings = {
   format: keyof sharp.FormatEnum;
@@ -23,32 +23,32 @@ export type ImageSettings = {
 };
 
 export type BackgroundSettings = {
-    backgroundMode: "solid" | "gradient";
-    blur: number;
-    noise: number;
-    backgroundColor: string;
-    tailwindColor: string;
-    gradient: {
-      useVia: boolean;
-      orientation: LinearGradientOrientation | RadialGradientOrientation;
-      from: {
-        name: string;
-        hex: string;
-      };
-      via: {
-        name: string;
-        hex: string;
-      };
-      to: {
-        name: string;
-        hex: string;
-      };
+  backgroundMode: "solid" | "gradient";
+  blur: number;
+  noise: number;
+  backgroundColor: string;
+  tailwindColor: string;
+  gradient: {
+    useVia: boolean;
+    orientation: LinearGradientOrientation | RadialGradientOrientation;
+    from: {
+      name: string;
+      hex: string;
     };
-    magicColor: string[];
-    backgroundImage: string | null;
-  }
+    via: {
+      name: string;
+      hex: string;
+    };
+    to: {
+      name: string;
+      hex: string;
+    };
+  };
+  magicColor: string[];
+  backgroundImage: string | null;
+};
 
-  export type ImageGeneratorSettings = {
+export type ImageGeneratorSettings = {
   dimension: DimensionSettings;
   image: ImageSettings;
   background: BackgroundSettings;

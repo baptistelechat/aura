@@ -7,25 +7,26 @@ import RandomColor from "../../components/RandomColor";
 import CustomColorPicker from "./CustomColorPicker";
 
 const CustomGradientColor = () => {
-  const useVia = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.useVia
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const from = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.from
-  );
-  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
-  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
+
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const handleCheckboxChange = () => {
-    if (via.hex === "") {
-      setVia({
-        name: "",
-        hex: defaultImageGeneratorSettings.background.gradient.via.hex,
-      });
-    }
-    setUseVia(!useVia);
+    setBackground({
+      gradient: {
+        ...gradient,
+        via:
+          gradient.via.hex === ""
+            ? {
+                name: "",
+                hex: defaultImageGeneratorSettings.background.gradient.via.hex,
+              }
+            : gradient.via,
+        useVia: !gradient.useVia,
+      },
+    });
   };
 
   return (
@@ -36,22 +37,30 @@ const CustomGradientColor = () => {
         <GradientOrientationPicker variant={"radial"} />
       </div>
       <Label>
-        From - {from.hex !== "" ? from.hex.toUpperCase() : "Transparent"}
+        From -{" "}
+        {gradient.from.hex !== ""
+          ? gradient.from.hex.toUpperCase()
+          : "Transparent"}
       </Label>
       <CustomColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Checkbox
           id="custom-color-via"
-          checked={useVia}
+          checked={gradient.useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
         <Label id="custom-color-via">
           Via (Optional) -{" "}
-          {via.hex !== "" ? via.hex.toUpperCase() : "Transparent"}
+          {gradient.via.hex !== ""
+            ? gradient.via.hex.toUpperCase()
+            : "Transparent"}
         </Label>
       </div>
       <CustomColorPicker action={"gradient-via"} />
-      <Label>To - {to.hex !== "" ? to.hex.toUpperCase() : "Transparent"}</Label>
+      <Label>
+        To -{" "}
+        {gradient.to.hex !== "" ? gradient.to.hex.toUpperCase() : "Transparent"}
+      </Label>
       <CustomColorPicker action={"gradient-to"} />
     </>
   );

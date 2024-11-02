@@ -6,7 +6,7 @@ import Control from "@/components/Control";
 
 const BackgroundBlur = () => {
   const blur = useImageGeneratorStore((s) => s.settings.background.blur);
-  const setBlur = useImageGeneratorStore((s) => s.setBackgroundBlur);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
   const resetBlur = useImageGeneratorStore((s) => s.resetBackgroundBlur);
 
   return (
@@ -19,7 +19,8 @@ const BackgroundBlur = () => {
       <Control
         title={"blur"}
         value={blur}
-        setValue={setBlur}
+        setValue={setBackground}
+        updateKey={"blur"}
         min={0}
         max={64}
         step={1}

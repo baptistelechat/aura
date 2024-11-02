@@ -14,55 +14,57 @@ const CustomColorPicker = ({ action }: ICustomColorPickerProps) => {
   const backgroundColor = useImageGeneratorStore(
     (s) => s.settings.background.backgroundColor
   );
-  const from = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.from
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
-  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
 
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
-  );
-  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
-  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const currentColor =
     {
       solid: backgroundColor,
-      "gradient-from": from.hex,
-      "gradient-via": via.hex,
-      "gradient-to": to.hex,
+      "gradient-from": gradient.from.hex,
+      "gradient-via": gradient.via.hex,
+      "gradient-to": gradient.to.hex,
     }[action] || "";
-
-  const setGradientColor = {
-    "gradient-from": setFrom,
-    "gradient-via": setVia,
-    "gradient-to": setTo,
-  };
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (action === "solid") {
-      setBackgroundColor(e.target.value);
-      setTailwindColor("");
+      setBackground({
+        backgroundColor: e.target.value,
+        backgroundImage: null,
+        tailwindColor: "",
+      });
     } else {
-      if (action === "gradient-via") {
-        setUseVia(true);
-      }
-      setGradientColor[action]?.({ name: "", hex: e.target.value });
+      const newColor = { name: "", hex: e.target.value };
+
+      setBackground({
+        gradient: {
+          ...gradient,
+          useVia: action === "gradient-via" ? true : gradient.useVia,
+          from: action === "gradient-from" ? newColor : gradient.from,
+          via: action === "gradient-via" ? newColor : gradient.via,
+          to: action === "gradient-to" ? newColor : gradient.to,
+        },
+      });
     }
   };
 
   const handleTransparentClick = () => {
     if (action === "gradient-via") {
-      setVia(defaultImageGeneratorSettings.background.gradient.via);
-      setUseVia(true);
+      setBackground({
+        gradient: {
+          ...gradient,
+          useVia: false,
+          via: defaultImageGeneratorSettings.background.gradient.via,
+        },
+      });
     } else {
-      setBackgroundColor(
-        defaultImageGeneratorSettings.background.backgroundColor
-      );
+      setBackground({
+        backgroundColor:
+          defaultImageGeneratorSettings.background.backgroundColor,
+        backgroundImage: null,
+      });
     }
   };
 

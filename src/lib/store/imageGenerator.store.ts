@@ -1,10 +1,6 @@
 import { create } from "zustand";
 import { defaultImageGeneratorSettings } from "../constant/defaultImageGeneratorSettings";
 import {
-  LinearGradientOrientation,
-  RadialGradientOrientation,
-} from "../types/gradientOrientation";
-import {
   BackgroundSettings,
   DimensionSettings,
   ImageGeneratorSettings,
@@ -48,20 +44,6 @@ export type ImageGeneratorStoreType = {
   setImageVisibility: (visibility: boolean) => void;
   // Background
   setBackground: (update: BackgroundUpdate) => void;
-  setBackgroundMode: (backgroundMode: "solid" | "gradient") => void;
-  setBackgroundBlur: (blur: number) => void;
-  setBackgroundNoise: (noise: number) => void;
-  setBackgroundColor: (backgroundColor: string) => void;
-  setTailwindColor: (tailwindColor: string) => void;
-  setUseVia: (useVia: boolean) => void;
-  setGradientOrientation: (
-    orientation: LinearGradientOrientation | RadialGradientOrientation
-  ) => void;
-  setGradientFrom: (from: { name: string; hex: string }) => void;
-  setGradientVia: (via: { name: string; hex: string }) => void;
-  setGradientTo: (to: { name: string; hex: string }) => void;
-  setMagicColor: (magicColor: string[]) => void;
-  setBackgroundImage: (backgroundImage: string) => void;
   // Overlay
   setOverlayName: (name: string) => void;
   setOverlayOpacity: (opacity: number) => void;
@@ -185,170 +167,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           background: {
             ...state.settings.background,
             ...update,
-          },
-        },
-      }));
-    },
-
-    setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            backgroundMode,
-          },
-        },
-      }));
-    },
-
-    setBackgroundBlur: (blur: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            blur,
-          },
-        },
-      }));
-    },
-
-    setBackgroundNoise: (noise: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            noise,
-          },
-        },
-      }));
-    },
-
-    setBackgroundColor: (backgroundColor: string) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            backgroundColor,
-            backgroundImage: null,
-          },
-        },
-      }));
-    },
-
-    setTailwindColor: (tailwindColor: string) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            tailwindColor,
-          },
-        },
-      }));
-    },
-
-    setUseVia: (useVia: boolean) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            gradient: {
-              ...state.settings.background.gradient,
-              useVia,
-            },
-          },
-        },
-      }));
-    },
-
-    setGradientOrientation: (
-      orientation: LinearGradientOrientation | RadialGradientOrientation
-    ) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            gradient: {
-              ...state.settings.background.gradient,
-              orientation,
-            },
-          },
-        },
-      }));
-    },
-
-    setGradientFrom: (from: { name: string; hex: string }) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            gradient: {
-              ...state.settings.background.gradient,
-              from,
-            },
-          },
-        },
-      }));
-    },
-
-    setGradientVia: (via: { name: string; hex: string }) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            gradient: {
-              ...state.settings.background.gradient,
-              via,
-            },
-          },
-        },
-      }));
-    },
-
-    setGradientTo: (to: { name: string; hex: string }) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            gradient: {
-              ...state.settings.background.gradient,
-              to,
-            },
-          },
-        },
-      }));
-    },
-
-    setMagicColor: (magicColor: string[]) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            magicColor,
-          },
-        },
-      }));
-    },
-
-    setBackgroundImage: (backgroundImage: string) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            backgroundImage,
-            backgroundColor:
-              defaultImageGeneratorSettings.background.backgroundColor,
           },
         },
       }));

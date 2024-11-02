@@ -6,7 +6,7 @@ import Control from "@/components/Control";
 
 const BackgroundNoise = () => {
   const noise = useImageGeneratorStore((s) => s.settings.background.noise);
-  const setNoise = useImageGeneratorStore((s) => s.setBackgroundNoise);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
   const resetNoise = useImageGeneratorStore((s) => s.resetBackgroundNoise);
 
   return (
@@ -19,7 +19,8 @@ const BackgroundNoise = () => {
       <Control
         title={"opacity"}
         value={noise}
-        setValue={setNoise}
+        setValue={setBackground}
+        updateKey={"noise"}
         min={0}
         max={1}
         step={0.05}

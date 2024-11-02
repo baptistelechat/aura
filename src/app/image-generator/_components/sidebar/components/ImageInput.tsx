@@ -17,7 +17,8 @@ import { useEffect } from "react";
 const ImageInput = () => {
   const imageSrc = useImageGeneratorStore((s) => s.settings.image.src);
   const imageRef = useImageGeneratorStore((s) => s.previewRefs.imageRef);
-  const setMagicColor = useImageGeneratorStore((s) => s.setMagicColor);
+
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const loadImageHotkey = getHotkeyById("loadImage");
 
@@ -40,7 +41,7 @@ const ImageInput = () => {
             return defaultColor;
           }
         });
-        setMagicColor(hexPalette);
+        setBackground({ magicColor: hexPalette });
       };
 
       // If the image is already fully loaded (e.g., from cache)
@@ -53,7 +54,7 @@ const ImageInput = () => {
             B: color[2],
           })
         );
-        setMagicColor(hexPalette);
+        setBackground({ magicColor: hexPalette });
       }
     }
   }, [imageSrc]);
