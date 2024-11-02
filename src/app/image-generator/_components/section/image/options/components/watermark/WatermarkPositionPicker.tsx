@@ -25,8 +25,8 @@ const WatermarkPositionPicker = () => {
     (s) => s.settings.watermark.position
   );
 
-  const setWatermarkPosition = useImageGeneratorStore(
-    (s) => s.setWatermarkPosition
+  const setWatermark = useImageGeneratorStore(
+    (s) => s.setWatermark
   );
 
   return (
@@ -44,12 +44,14 @@ const WatermarkPositionPicker = () => {
                     variant="outline"
                     size="icon"
                     onClick={() =>
-                      setWatermarkPosition(
-                        name as
+                      setWatermark(
+                        {
+                          position : name as
                           | "top-left"
                           | "top-right"
                           | "bottom-left"
                           | "bottom-right"
+                        }
                       )
                     }
                   >

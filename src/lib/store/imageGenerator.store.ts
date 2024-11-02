@@ -6,6 +6,7 @@ import {
   ImageGeneratorSettings,
   ImageSettings,
   OverlaySettings,
+  WatermarkSettings,
 } from "../types/ImageGeneratorSettings";
 import { TabNames } from "../types/TabNames";
 
@@ -13,6 +14,7 @@ type DimensionUpdate = Partial<DimensionSettings>;
 export type ImageUpdate = Partial<ImageSettings>;
 export type BackgroundUpdate = Partial<BackgroundSettings>;
 export type OverlayUpdate = Partial<OverlaySettings>;
+export type WatermarkUpdate = Partial<WatermarkSettings>;
 
 export type ImageGeneratorStoreType = {
   general: {
@@ -49,15 +51,7 @@ export type ImageGeneratorStoreType = {
   // Overlay
   setOverlay: (update: OverlayUpdate) => void;
   // Watermark
-  setWatermarkPosition: (
-    position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
-  ) => void;
-  setWatermarkBackground: (
-    background: "color-light" | "color-dark" | "light" | "dark" | "transparent"
-  ) => void;
-  setWatermarkForeground: (
-    foreground: "color-light" | "color-dark" | "light" | "dark"
-  ) => void;
+  setWatermark: (update: WatermarkUpdate) => void;
   // Reset
   resetSettings: () => void;
   resetImageBorderRadius: () => void;
@@ -187,48 +181,13 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     },
 
     // Watermark
-    setWatermarkPosition: (
-      position: "top-left" | "top-right" | "bottom-left" | "bottom-right"
-    ) => {
+    setWatermark: (update: WatermarkUpdate) => {
       set((state) => ({
         settings: {
           ...state.settings,
           watermark: {
             ...state.settings.watermark,
-            position,
-          },
-        },
-      }));
-    },
-
-    setWatermarkBackground: (
-      background:
-        | "color-light"
-        | "color-dark"
-        | "light"
-        | "dark"
-        | "transparent"
-    ) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          watermark: {
-            ...state.settings.watermark,
-            background,
-          },
-        },
-      }));
-    },
-
-    setWatermarkForeground: (
-      foreground: "color-light" | "color-dark" | "light" | "dark"
-    ) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          watermark: {
-            ...state.settings.watermark,
-            foreground,
+            ...update,
           },
         },
       }));

@@ -51,16 +51,18 @@ export type BackgroundSettings = {
 export type OverlaySettings = {
   name: string;
   opacity: number;
-}
+};
+
+export type WatermarkSettings = {
+  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
+  foreground: "color-light" | "color-dark" | "light" | "dark";
+};
 
 export type ImageGeneratorSettings = {
   dimension: DimensionSettings;
   image: ImageSettings;
   background: BackgroundSettings;
   overlay: OverlaySettings;
-  watermark: {
-    position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-    background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
-    foreground: "color-light" | "color-dark" | "light" | "dark";
-  };
+  watermark: WatermarkSettings;
 };
