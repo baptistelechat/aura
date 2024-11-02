@@ -6,7 +6,7 @@ import Control from "@/components/Control";
 
 const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
-  const setShadow = useImageGeneratorStore((s) => s.setImageShadow);
+  const setImage = useImageGeneratorStore((s) => s.setImage);
   const resetShadow = useImageGeneratorStore((s) => s.resetImageShadow);
 
   return (
@@ -19,7 +19,8 @@ const ImageShadow = () => {
       <Control
         title={"opacity"}
         value={shadow}
-        setValue={setShadow}
+        setValue={setImage}
+        updateKey={"shadow"}
         min={0}
         max={1}
         step={0.05}

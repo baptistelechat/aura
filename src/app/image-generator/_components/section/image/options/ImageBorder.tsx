@@ -1,14 +1,14 @@
+import Control from "@/components/Control";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";
-import Control from "@/components/Control";
 
 const ImageBorder = () => {
   const borderRadius = useImageGeneratorStore(
     (s) => s.settings.image.borderRadius
   );
-  const setBorderRadius = useImageGeneratorStore((s) => s.setImageBorderRadius);
+  const setImage = useImageGeneratorStore((s) => s.setImage);
   const resetBorderRadius = useImageGeneratorStore(
     (s) => s.resetImageBorderRadius
   );
@@ -25,7 +25,8 @@ const ImageBorder = () => {
       <Control
         title={"border-radius"}
         value={borderRadius}
-        setValue={setBorderRadius}
+        setValue={setImage}
+        updateKey={"borderRadius"}
         min={0}
         max={48}
         step={1}

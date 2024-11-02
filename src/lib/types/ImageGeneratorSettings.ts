@@ -1,27 +1,28 @@
-import sharp from "sharp";
 import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "./gradientOrientation";
+import sharp from "sharp";
 
-export type ImageGeneratorSettings = {
-  dimension: {
-    format: keyof sharp.FormatEnum;
-    category: string;
-    width: number;
-    height: number;
-  };
-  image: {
-    src: string | null;
-    borderRadius: number;
-    shadow: number;
-    scale: number;
-    rotateX: number;
-    rotateY: number;
-    rotateZ: number;
-    visibility: boolean;
-  };
-  background: {
+export type DimensionSettings = {
+  format: keyof sharp.FormatEnum;
+  category: string;
+  width: number;
+  height: number;
+};
+
+export type ImageSettings = {
+  src: string | null;
+  borderRadius: number;
+  shadow: number;
+  scale: number;
+  rotateX: number;
+  rotateY: number;
+  rotateZ: number;
+  visibility: boolean;
+};
+
+export type BackgroundSettings = {
     backgroundMode: "solid" | "gradient";
     blur: number;
     noise: number;
@@ -45,7 +46,12 @@ export type ImageGeneratorSettings = {
     };
     magicColor: string[];
     backgroundImage: string | null;
-  };
+  }
+
+  export type ImageGeneratorSettings = {
+  dimension: DimensionSettings;
+  image: ImageSettings;
+  background: BackgroundSettings;
   overlay: {
     name: string;
     opacity: number;

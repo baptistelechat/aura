@@ -17,10 +17,7 @@ const ImageRotation = () => {
   const rotateY = useImageGeneratorStore((s) => s.settings.image.rotateY);
   const rotateZ = useImageGeneratorStore((s) => s.settings.image.rotateZ);
 
-  const setRotateX = useImageGeneratorStore((s) => s.setImageRotateX);
-  const setRotateY = useImageGeneratorStore((s) => s.setImageRotateY);
-  const setRotateZ = useImageGeneratorStore((s) => s.setImageRotateZ);
-
+  const setImage = useImageGeneratorStore((s) => s.setImage);
   const resetRotate = useImageGeneratorStore((s) => s.resetImageRotate);
 
   return (
@@ -37,7 +34,8 @@ const ImageRotation = () => {
       <Control
         title={"rotateX"}
         value={rotateX}
-        setValue={setRotateX}
+        setValue={setImage}
+        updateKey={"rotateX"}
         min={-90}
         max={90}
         step={5}
@@ -50,7 +48,8 @@ const ImageRotation = () => {
       <Control
         title={"rotateY"}
         value={rotateY}
-        setValue={setRotateY}
+        setValue={setImage}
+        updateKey={"rotateY"}
         min={-90}
         max={90}
         step={5}
@@ -63,7 +62,8 @@ const ImageRotation = () => {
       <Control
         title={"rotateZ"}
         value={rotateZ}
-        setValue={setRotateZ}
+        setValue={setImage}
+        updateKey={"rotateZ"}
         min={-180}
         max={180}
         step={5}

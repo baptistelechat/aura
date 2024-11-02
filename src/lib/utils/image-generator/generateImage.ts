@@ -48,7 +48,7 @@ export const generateImage = async ({
               setTimeout(async () => {
                 const result = await htmlToImage.toPng(previewRef.current!);
                 resolve(result);
-              }, 500);
+              }, 1000);
             } catch (error) {
               reject(error);
             }

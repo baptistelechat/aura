@@ -6,7 +6,7 @@ import Control from "@/components/Control";
 
 const ImageSize = () => {
   const scale = useImageGeneratorStore((s) => s.settings.image.scale);
-  const setScale = useImageGeneratorStore((s) => s.setImageScale);
+  const setImage = useImageGeneratorStore((s) => s.setImage);
   const resetScale = useImageGeneratorStore((s) => s.resetImageScale);
 
   return (
@@ -19,7 +19,8 @@ const ImageSize = () => {
       <Control
         title={"scale"}
         value={scale}
-        setValue={setScale}
+        setValue={setImage}
+        updateKey={"scale"}
         min={0}
         max={1}
         step={0.05}

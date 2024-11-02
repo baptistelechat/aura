@@ -18,7 +18,7 @@ const getBackgroundClass = (background: ILogoProps["background"]) => {
       return "bg-black";
     case "color-dark":
       return "bg-[#0E4598]";
-    case "color-light":
+      case "color-light":
       return "bg-[#1573FE]";
     case "transparent":
       return "bg-transparent";

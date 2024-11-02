@@ -4,24 +4,17 @@ import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "../types/gradientOrientation";
-import { ImageGeneratorSettings } from "../types/ImageGeneratorSettings";
+import {
+  BackgroundSettings,
+  DimensionSettings,
+  ImageGeneratorSettings,
+  ImageSettings,
+} from "../types/ImageGeneratorSettings";
 import { TabNames } from "../types/TabNames";
-import sharp from "sharp";
 
-type DimensionUpdate = {
-  format?: keyof sharp.FormatEnum;
-  category?: string;
-  width?: number;
-  height?: number;
-};
-
-type ImageUpdate = {
-  src?: string | null;
-  borderRadius?: number;
-  shadow?: number;
-  scale?: number;
-  visibility?: boolean;
-};
+type DimensionUpdate = Partial<DimensionSettings>;
+export type ImageUpdate = Partial<ImageSettings>;
+export type BackgroundUpdate = Partial<BackgroundSettings>;
 
 export type ImageGeneratorStoreType = {
   general: {
@@ -50,18 +43,11 @@ export type ImageGeneratorStoreType = {
   }) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
-  setWidth: (width: number) => void;
-  setHeight: (height: number) => void;
   // Image
   setImage: (update: ImageUpdate) => void;
-  setImageBorderRadius: (borderRadius: number) => void;
-  setImageShadow: (shadow: number) => void;
-  setImageScale: (scale: number) => void;
-  setImageRotateX: (rotateX: number) => void;
-  setImageRotateY: (rotateY: number) => void;
-  setImageRotateZ: (rotateZ: number) => void;
   setImageVisibility: (visibility: boolean) => void;
   // Background
+  setBackground: (update: BackgroundUpdate) => void;
   setBackgroundMode: (backgroundMode: "solid" | "gradient") => void;
   setBackgroundBlur: (blur: number) => void;
   setBackgroundNoise: (noise: number) => void;
@@ -105,6 +91,7 @@ export type ImageGeneratorStoreType = {
 
 const userAgent =
   typeof window !== "undefined" ? window.navigator.userAgent : "";
+
 const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
 
 export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
@@ -165,30 +152,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       }));
     },
 
-    setWidth: (width: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          dimension: {
-            ...state.settings.dimension,
-            width,
-          },
-        },
-      }));
-    },
-
-    setHeight: (height: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          dimension: {
-            ...state.settings.dimension,
-            height,
-          },
-        },
-      }));
-    },
-
     // Image
     setImage: (update: ImageUpdate) => {
       set((state) => ({
@@ -197,78 +160,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
           image: {
             ...state.settings.image,
             ...update,
-          },
-        },
-      }));
-    },
-    
-    setImageBorderRadius: (borderRadius: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            borderRadius,
-          },
-        },
-      }));
-    },
-
-    setImageShadow: (shadow: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            shadow,
-          },
-        },
-      }));
-    },
-
-    setImageScale: (scale: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            scale,
-          },
-        },
-      }));
-    },
-
-    setImageRotateX: (rotateX: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            rotateX,
-          },
-        },
-      }));
-    },
-
-    setImageRotateY: (rotateY: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            rotateY,
-          },
-        },
-      }));
-    },
-
-    setImageRotateZ: (rotateZ: number) => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            rotateZ,
           },
         },
       }));
@@ -287,6 +178,18 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     },
 
     // Background
+    setBackground: (update: BackgroundUpdate) => {
+      set((state) => ({
+        settings: {
+          ...state.settings,
+          background: {
+            ...state.settings.background,
+            ...update,
+          },
+        },
+      }));
+    },
+
     setBackgroundMode: (backgroundMode: "solid" | "gradient") => {
       set((state) => ({
         settings: {
