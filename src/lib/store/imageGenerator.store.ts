@@ -53,17 +53,7 @@ export type ImageGeneratorStoreType = {
   // Watermark
   setWatermark: (update: WatermarkUpdate) => void;
   // Reset
-  resetSettings: () => void;
-  resetImageBorderRadius: () => void;
-  resetImageShadow: () => void;
-  resetImageScale: () => void;
-  resetImageRotate: () => void;
   resetBackground: () => void;
-  resetBackgroundBlur: () => void;
-  resetBackgroundNoise: () => void;
-  resetBackgroundColor: () => void;
-  resetOverlay: () => void;
-  resetWatermark: () => void;
 };
 
 const userAgent =
@@ -194,62 +184,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     },
 
     // Reset
-    resetSettings: () => {
-      set({
-        settings: defaultImageGeneratorSettings,
-      });
-    },
-
-    resetImageBorderRadius: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            borderRadius: defaultImageGeneratorSettings.image.borderRadius,
-          },
-        },
-      }));
-    },
-
-    resetImageShadow: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            shadow: defaultImageGeneratorSettings.image.shadow,
-          },
-        },
-      }));
-    },
-
-    resetImageScale: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            scale: defaultImageGeneratorSettings.image.scale,
-          },
-        },
-      }));
-    },
-
-    resetImageRotate: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          image: {
-            ...state.settings.image,
-            rotateX: defaultImageGeneratorSettings.image.rotateX,
-            rotateY: defaultImageGeneratorSettings.image.rotateY,
-            rotateZ: defaultImageGeneratorSettings.image.rotateZ,
-          },
-        },
-      }));
-    },
-
     resetBackground: () => {
       set((state) => ({
         settings: {
@@ -258,65 +192,6 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
             ...defaultImageGeneratorSettings.background,
             backgroundMode: state.settings.background.backgroundMode,
             magicColor: state.settings.background.magicColor,
-          },
-        },
-      }));
-    },
-
-    resetBackgroundBlur: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            blur: defaultImageGeneratorSettings.background.blur,
-          },
-        },
-      }));
-    },
-
-    resetBackgroundNoise: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          background: {
-            ...state.settings.background,
-            noise: defaultImageGeneratorSettings.background.noise,
-          },
-        },
-      }));
-    },
-
-    resetBackgroundColor: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          backgroundColor:
-            defaultImageGeneratorSettings.background.backgroundColor,
-        },
-      }));
-    },
-
-    resetOverlay: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          overlay: {
-            name: defaultImageGeneratorSettings.overlay.name,
-            opacity: defaultImageGeneratorSettings.overlay.opacity,
-          },
-        },
-      }));
-    },
-
-    resetWatermark: () => {
-      set((state) => ({
-        settings: {
-          ...state.settings,
-          watermark: {
-            position: defaultImageGeneratorSettings.watermark.position,
-            background: defaultImageGeneratorSettings.watermark.background,
-            foreground: defaultImageGeneratorSettings.watermark.foreground,
           },
         },
       }));

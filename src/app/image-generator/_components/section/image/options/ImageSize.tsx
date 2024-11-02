@@ -7,14 +7,14 @@ import Control from "@/components/Control";
 const ImageSize = () => {
   const scale = useImageGeneratorStore((s) => s.settings.image.scale);
   const setImage = useImageGeneratorStore((s) => s.setImage);
-  const resetScale = useImageGeneratorStore((s) => s.resetImageScale);
+  const defaultValue = defaultImageGeneratorSettings.image.scale;
 
   return (
     <CustomAccordionItem
       title={"Size"}
       icon={<Scaling className="size-4" />}
-      disabled={scale === defaultImageGeneratorSettings.image.scale}
-      reset={resetScale}
+      disabled={scale === defaultValue}
+      reset={()=> setImage({scale: defaultValue})}
     >
       <Control
         title={"scale"}

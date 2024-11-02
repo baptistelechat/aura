@@ -35,20 +35,17 @@ const OverlayShadow = () => {
 
   const setOverlay = useImageGeneratorStore((s) => s.setOverlay);
 
-  const resetOverlay = useImageGeneratorStore((s) => s.resetOverlay);
-
   const shadows = useMemo(() => generateShadowImages(11, 111), []);
-  const defaultOverlaySettings = defaultImageGeneratorSettings.overlay;
+  const defaultValue = defaultImageGeneratorSettings.overlay;
 
   return (
     <CustomAccordionItem
       title={"Overlay Shadow"}
       icon={<Ghost className="size-4" />}
-      disabled={
-        name === defaultOverlaySettings.name &&
-        opacity === defaultOverlaySettings.opacity
+      disabled={name === defaultValue.name && opacity === defaultValue.opacity}
+      reset={() =>
+        setOverlay({ name: defaultValue.name, opacity: defaultValue.opacity })
       }
-      reset={resetOverlay}
     >
       <div className="flex w-full flex-col gap-4">
         <Control

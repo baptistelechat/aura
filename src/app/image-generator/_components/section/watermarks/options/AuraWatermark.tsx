@@ -14,19 +14,24 @@ const AuraWatermark = () => {
     (s) => s.settings.watermark.foreground
   );
 
-  const resetWatermark = useImageGeneratorStore((s) => s.resetWatermark);
-  const defaultWatermarkSettings = defaultImageGeneratorSettings.watermark
+  const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
+
+  const defaultValue = defaultImageGeneratorSettings.watermark
 
   return (
     <CustomAccordionItem
       title={"Aura"}
       icon={<Tag className="size-4" />}
       disabled={
-        position === defaultWatermarkSettings.position &&
-        background === defaultWatermarkSettings.background &&
-        foreground === defaultWatermarkSettings.foreground
+        position === defaultValue.position &&
+        background === defaultValue.background &&
+        foreground === defaultValue.foreground
       }
-      reset={resetWatermark}
+      reset={()=> setWatermark({
+        position : defaultValue.position,
+        background : defaultValue.background,
+        foreground : defaultValue.foreground,
+      })}
     >
       <div className="flex w-full gap-4">
         <WatermarkPositionPicker />

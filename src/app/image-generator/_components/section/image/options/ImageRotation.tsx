@@ -18,18 +18,24 @@ const ImageRotation = () => {
   const rotateZ = useImageGeneratorStore((s) => s.settings.image.rotateZ);
 
   const setImage = useImageGeneratorStore((s) => s.setImage);
-  const resetRotate = useImageGeneratorStore((s) => s.resetImageRotate);
+  const defaultValue = defaultImageGeneratorSettings.image;
 
   return (
     <CustomAccordionItem
       title={"Rotation"}
       icon={<Rotate3D className="size-4" />}
       disabled={
-        rotateX === defaultImageGeneratorSettings.image.rotateX &&
-        rotateY === defaultImageGeneratorSettings.image.rotateY &&
-        rotateZ === defaultImageGeneratorSettings.image.rotateZ
+        rotateX === defaultValue.rotateX &&
+        rotateY === defaultValue.rotateY &&
+        rotateZ === defaultValue.rotateZ
       }
-      reset={resetRotate}
+      reset={() =>
+        setImage({
+          rotateX: defaultValue.rotateX,
+          rotateY: defaultValue.rotateY,
+          rotateZ: defaultValue.rotateZ,
+        })
+      }
     >
       <Control
         title={"rotateX"}

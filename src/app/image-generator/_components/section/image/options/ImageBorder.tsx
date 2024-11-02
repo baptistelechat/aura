@@ -9,18 +9,18 @@ const ImageBorder = () => {
     (s) => s.settings.image.borderRadius
   );
   const setImage = useImageGeneratorStore((s) => s.setImage);
-  const resetBorderRadius = useImageGeneratorStore(
-    (s) => s.resetImageBorderRadius
-  );
+  const defaultValue = defaultImageGeneratorSettings.image.borderRadius;
 
   return (
     <CustomAccordionItem
       title={"Border"}
       icon={<BoxSelect className="size-4" />}
-      disabled={
-        borderRadius === defaultImageGeneratorSettings.image.borderRadius
+      disabled={borderRadius === defaultValue}
+      reset={() =>
+        setImage({
+          borderRadius: defaultValue,
+        })
       }
-      reset={resetBorderRadius}
     >
       <Control
         title={"border-radius"}
