@@ -15,20 +15,23 @@ import { useEffect } from "react";
 const ImageGenerator = () => {
   useCustomHotKey(hotkeys);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isSafari = useImageGeneratorStore((s) => s.general.isSafari);
 
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const previewRefs = useImageGeneratorStore((s) => s.previewRefs);
 
   useEffect(() => {
-    updatePreviewSize();
-    window.addEventListener("resize", () => updatePreviewSize());
-    return () =>
-      window.removeEventListener("resize", () => updatePreviewSize());
+    if (!isSafari) {
+      updatePreviewSize();
+      window.addEventListener("resize", () => updatePreviewSize());
+      return () =>
+        window.removeEventListener("resize", () => updatePreviewSize());
+    }
   }, [width, height, previewRefs]);
 
   useEffect(() => {
-    if (isDesktop) {
+    if (isDesktop && !isSafari) {
       const interval = setInterval(() => {
         if (!validateWatermark()) {
           clearInterval(interval);
@@ -41,13 +44,13 @@ const ImageGenerator = () => {
     }
   }, [isDesktop]);
 
-  if (!isDesktop) {
+  if (!isDesktop || isSafari) {
     return (
       <div className="relative flex size-full gap-8 p-8">
         <div className="flex size-full flex-col items-center justify-center gap-4">
           <MonitorSmartphone className="size-40" />
           <p className="text-center text-3xl font-bold">
-            For the best experience, please use Aura on a desktop browser.
+            For the best experience, please use Aura on a desktop browser
           </p>
           <p className="text-center text-lg text-muted-foreground">
             Mobile and small devices are not supported, and some browsers are
@@ -69,7 +72,10 @@ const ImageGenerator = () => {
                   width={40}
                   height={40}
                 />
-                <p className="text-sm font-medium" style={{ color: browser.color }}>
+                <p
+                  className="text-sm font-medium"
+                  style={{ color: browser.color }}
+                >
                   {browser.name}
                 </p>
               </div>

@@ -19,6 +19,7 @@ export type WatermarkUpdate = Partial<WatermarkSettings>;
 export type ImageGeneratorStoreType = {
   general: {
     hotkeySet: "default" | "mac";
+    isSafari: boolean;
     tab: TabNames;
     isDownloading: boolean;
   };
@@ -61,10 +62,16 @@ const userAgent =
 
 const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
 
+  const isSafari =
+    userAgent.includes("Safari") &&
+    !userAgent.includes("Chrome") &&
+    !userAgent.includes("Chromium");
+
 export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
   (set) => ({
     general: {
       hotkeySet,
+      isSafari,
       tab: "image",
       isDownloading: false,
     },
