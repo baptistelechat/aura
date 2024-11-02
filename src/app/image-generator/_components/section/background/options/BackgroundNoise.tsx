@@ -6,20 +6,21 @@ import Control from "@/components/Control";
 
 const BackgroundNoise = () => {
   const noise = useImageGeneratorStore((s) => s.settings.background.noise);
-  const setNoise = useImageGeneratorStore((s) => s.setBackgroundNoise);
-  const resetNoise = useImageGeneratorStore((s) => s.resetBackgroundNoise);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
+  const defaultValue = defaultImageGeneratorSettings.background.noise
 
   return (
     <CustomAccordionItem
       title={"Noise"}
       icon={<Grip className="size-4" />}
-      disabled={noise === defaultImageGeneratorSettings.background.noise}
-      reset={resetNoise}
+      disabled={noise === defaultValue}
+      reset={()=> setBackground({noise : defaultValue})}
     >
       <Control
         title={"opacity"}
         value={noise}
-        setValue={setNoise}
+        setValue={setBackground}
+        updateKey={"noise"}
         min={0}
         max={1}
         step={0.05}

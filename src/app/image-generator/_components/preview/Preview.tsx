@@ -114,7 +114,7 @@ const Preview = () => {
           {image.src ? (
             <div
               className="cursor-pointer transition-all duration-300 hover:brightness-75"
-              style={{ perspective: "1000px" }}
+              style={{ perspective: "1500px" }}
             >
               <img
                 {...getRootProps()}

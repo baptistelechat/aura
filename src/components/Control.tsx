@@ -1,15 +1,17 @@
+import { BackgroundUpdate, ImageUpdate, OverlayUpdate } from "@/lib/store/imageGenerator.store";
+import { cn } from "@/lib/utils";
 import { Minus, Plus, Scale } from "lucide-react";
 import { ReactElement } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Slider } from "./ui/slider";
-import { cn } from "@/lib/utils";
 
 interface IControlProps {
   title: string;
   value: number;
-  setValue: (value: number) => void;
+  setValue: (update: Partial<ImageUpdate & BackgroundUpdate> & OverlayUpdate) => void;
+  updateKey: keyof (ImageUpdate & BackgroundUpdate & OverlayUpdate); 
   min?: number;
   max?: number;
   step?: number;
@@ -24,6 +26,7 @@ const Control = ({
   title,
   value,
   setValue,
+  updateKey,
   min = 0,
   max = 100,
   step = 1,
@@ -43,7 +46,11 @@ const Control = ({
           <Input
             type="number"
             value={(value * coef).toFixed(0)}
-            onChange={(e) => setValue(Number(e.target.value) / coef)}
+            onChange={(e) =>
+              setValue({
+                [updateKey]: Number(e.target.value) / coef,
+              })
+            }
             className="h-8 w-16 pr-2"
             min={(min * coef).toFixed(0)}
             max={(max * coef).toFixed(0)}
@@ -52,7 +59,7 @@ const Control = ({
         </div>
         <Slider
           value={[value]}
-          onValueChange={(newValue) => setValue(newValue[0])}
+          onValueChange={(newValue) => setValue({ [updateKey]: newValue[0] })}
           min={min}
           max={max}
           step={step}
@@ -62,7 +69,7 @@ const Control = ({
             disabled={value === min}
             variant="outline"
             size="icon"
-            onClick={() => setValue(min)}
+            onClick={() => setValue({ [updateKey]: min })}
           >
             {minIcon ?? <Minus className="size-5" />}
           </Button>
@@ -70,7 +77,7 @@ const Control = ({
             disabled={value === (min + max) / 2}
             variant="outline"
             size="icon"
-            onClick={() => setValue((min + max) / 2)}
+            onClick={() => setValue({ [updateKey]: (min + max) / 2 })}
           >
             {middleIcon ?? <Scale className="size-5" />}
           </Button>
@@ -78,7 +85,7 @@ const Control = ({
             disabled={value === max}
             variant="outline"
             size="icon"
-            onClick={() => setValue(max)}
+            onClick={() => setValue({ [updateKey]: max })}
           >
             {maxIcon ?? <Plus className="size-5" />}
           </Button>

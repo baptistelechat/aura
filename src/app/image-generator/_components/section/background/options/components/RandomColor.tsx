@@ -25,30 +25,20 @@ interface IRandomColorProps {
 }
 
 const RandomColor = ({ variant, icon }: IRandomColorProps) => {
-  const orientation = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.orientation
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
   const magicColor = useImageGeneratorStore(
     (s) => s.settings.background.magicColor
   );
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
-  );
-  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
-  const setOrientation = useImageGeneratorStore(
-    (s) => s.setGradientOrientation
-  );
-  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const getRandomMagicColor = () => {
     const randomMagicColor =
       magicColor[Math.floor(Math.random() * magicColor.length)];
     return {
       name: "",
-      hex:randomMagicColor,
+      hex: randomMagicColor,
     };
   };
 
@@ -58,15 +48,9 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
       | "radial";
 
     const validOrientations = gradientOrientations[gradientType].filter(
-      (o) => o.angle !== null && o.angle !== orientation
+      (o) => o.angle !== null && o.angle !== gradient.orientation
     );
     const randomIndex = Math.floor(Math.random() * validOrientations.length);
-
-    setOrientation(
-      validOrientations[randomIndex].angle as
-        | LinearGradientOrientation
-        | RadialGradientOrientation
-    );
 
     const randomFrom =
       variant === "custom-gradient"
@@ -74,20 +58,13 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
         : variant === "tailwind-gradient"
         ? getRandomTailwindColor()
         : getRandomMagicColor();
+
     const randomTo =
       variant === "custom-gradient"
         ? getRandomColor()
         : variant === "tailwind-gradient"
         ? getRandomTailwindColor()
         : getRandomMagicColor();
-
-    setBackgroundColor(
-      defaultImageGeneratorSettings.background.backgroundColor
-    );
-    setTailwindColor("");
-
-    setFrom(randomFrom);
-    setTo(randomTo);
 
     const shouldSetVia = Math.random() > 0.25;
 
@@ -98,24 +75,52 @@ const RandomColor = ({ variant, icon }: IRandomColorProps) => {
           : variant === "tailwind-gradient"
           ? getRandomTailwindColor()
           : getRandomMagicColor();
-      setUseVia(true);
-      setVia({
-        name: randomVia.name,
-        hex: randomVia.hex,
+
+      setBackground({
+        backgroundColor:
+          defaultImageGeneratorSettings.background.backgroundColor,
+        backgroundImage: null,
+        tailwindColor: "",
+        gradient: {
+          ...gradient,
+          useVia: true,
+          orientation: validOrientations[randomIndex].angle as
+            | LinearGradientOrientation
+            | RadialGradientOrientation,
+          from: randomFrom,
+          via: randomVia,
+          to: randomTo,
+        },
       });
     } else {
-      setUseVia(false);
-      setVia({
-        name: "",
-        hex: "",
+      setBackground({
+        backgroundColor:
+          defaultImageGeneratorSettings.background.backgroundColor,
+        backgroundImage: null,
+        tailwindColor: "",
+        gradient: {
+          ...gradient,
+          useVia: false,
+          orientation: validOrientations[randomIndex].angle as
+            | LinearGradientOrientation
+            | RadialGradientOrientation,
+          from: randomFrom,
+          via: {
+            name: "",
+            hex: "",
+          },
+          to: randomTo,
+        },
       });
     }
   };
 
   const getCustomRandomColor = () => {
     const randomColor = getRandomColor();
-    setBackgroundColor(randomColor.hex);
-    setTailwindColor("");
+    setBackground({
+      backgroundColor: randomColor.hex,
+      tailwindColor: "",
+    });
   };
 
   return (

@@ -1,3 +1,4 @@
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { toast } from "sonner";
 
@@ -7,14 +8,14 @@ export const uploadImage = (
 ) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const setImage = imageGeneratorStore.setImage;
-  const setBackgroundImage = imageGeneratorStore.setBackgroundImage;
+  const setBackground = imageGeneratorStore.setBackground;
 
   if (file) {
     if (!file.type.startsWith("image/")) {
       toast.error("Invalid file type. Please upload an image.");
       return;
     }
-    
+
     const reader = new FileReader();
 
     toast.promise(
@@ -27,7 +28,11 @@ export const uploadImage = (
             resolve();
           } else if (mode === "background") {
             if (src) {
-              setBackgroundImage(src);
+              setBackground({
+                backgroundColor:
+                  defaultImageGeneratorSettings.background.backgroundColor,
+                backgroundImage: src,
+              });
               resolve();
             } else {
               reject(new Error("Failed to load background image."));

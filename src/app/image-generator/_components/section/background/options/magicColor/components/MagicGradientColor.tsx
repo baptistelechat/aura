@@ -3,36 +3,29 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { useEffect } from "react";
 import GradientOrientationPicker from "../../components/GradientOrientationPicker";
 import RandomColor from "../../components/RandomColor";
 import MagicColorPicker from "./MagicColorPicker";
 
 const MagicGradientColor = () => {
-  const useVia = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.useVia
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const from = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.from
-  );
-  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
-  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
+ 
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const handleCheckboxChange = () => {
-    if (via.hex === "") {
-      setVia({
-        name: defaultImageGeneratorSettings.background.gradient.via.name,
-        hex: defaultImageGeneratorSettings.background.gradient.via.hex,
-      });
-    }
-    setUseVia(!useVia);
+    setBackground({
+      gradient: {
+        ...gradient,
+        via:
+          gradient.via.hex === ""
+            ? defaultImageGeneratorSettings.background.gradient.via
+            : gradient.via,
+        useVia: !gradient.useVia,
+      },
+    });
   };
-
-  useEffect(() => {
-    setUseVia(false);
-  }, []);
 
   return (
     <>
@@ -42,22 +35,22 @@ const MagicGradientColor = () => {
         <GradientOrientationPicker variant={"radial"} />
       </div>
       <Label>
-        From - {from.hex !== "" ? from.hex.toUpperCase() : "Transparent"}
+        From - {gradient.from.hex !== "" ? gradient.from.hex.toUpperCase() : "Transparent"}
       </Label>
       <MagicColorPicker action={"gradient-from"} />
       <div className="flex items-center gap-2">
         <Checkbox
           id="magic-color-via"
-          checked={useVia}
+          checked={gradient.useVia}
           onCheckedChange={() => handleCheckboxChange()}
         />
         <Label id="custom-color-via">
           Via (Optional) -{" "}
-          {via.hex !== "" ? via.hex.toUpperCase() : "Transparent"}
+          {gradient.via.hex !== "" ? gradient.via.hex.toUpperCase() : "Transparent"}
         </Label>
       </div>
       <MagicColorPicker action={"gradient-via"} />
-      <Label>To - {to.hex !== "" ? to.hex.toUpperCase() : "Transparent"}</Label>
+      <Label>To - {gradient.to.hex !== "" ? gradient.to.hex.toUpperCase() : "Transparent"}</Label>
       <MagicColorPicker action={"gradient-to"} />
     </>
   );

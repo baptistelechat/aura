@@ -77,10 +77,10 @@ const Logo = ({
       <Image
         src={
           foreground === "light"
-            ? "/Logo-light.svg"
+            ? "/images/logo/Logo-light.svg"
             : foreground === "dark"
-            ? "/Logo-dark.svg"
-            : "/Logo.svg"
+            ? "/images/logo/Logo-dark.svg"
+            : "/images/logo/Logo.svg"
         }
         alt="Logo"
         width={sizeMapping[size]}

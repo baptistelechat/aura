@@ -7,26 +7,29 @@ import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize";
 import { validateWatermark } from "@/lib/utils/image-generator/validateWatermark";
-import { MonitorSmartphone } from "lucide-react";
 import { useEffect } from "react";
+import UnsupportedDevice from "./_components/UnsupportedDevice";
 
 const ImageGenerator = () => {
   useCustomHotKey(hotkeys);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isSafari = useImageGeneratorStore((s) => s.general.isSafari);
 
   const width = useImageGeneratorStore((s) => s.settings.dimension.width);
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const previewRefs = useImageGeneratorStore((s) => s.previewRefs);
 
   useEffect(() => {
-    updatePreviewSize();
-    window.addEventListener("resize", () => updatePreviewSize());
-    return () =>
-      window.removeEventListener("resize", () => updatePreviewSize());
+    if (!isSafari) {
+      updatePreviewSize();
+      window.addEventListener("resize", () => updatePreviewSize());
+      return () =>
+        window.removeEventListener("resize", () => updatePreviewSize());
+    }
   }, [width, height, previewRefs]);
 
   useEffect(() => {
-    if (isDesktop) {
+    if (isDesktop && !isSafari) {
       const interval = setInterval(() => {
         if (!validateWatermark()) {
           clearInterval(interval);
@@ -39,18 +42,17 @@ const ImageGenerator = () => {
     }
   }, [isDesktop]);
 
+  if (!isDesktop || isSafari) {
+    return (
+      <UnsupportedDevice/>
+    );
+  }
+
   return (
     <div className="relative flex size-full gap-8 p-8">
-      <div className="hidden w-full gap-4 md:flex">
+      <div className="flex w-full gap-4">
         <Sidebar />
         <Preview />
-      </div>
-      <div className="flex size-full flex-col items-center justify-center gap-8 md:hidden">
-        <MonitorSmartphone className="size-40" />
-        <p className="text-center text-3xl font-bold">
-          Aura is not available on mobile or small devices. Try using it on a
-          desktop browser
-        </p>
       </div>
     </div>
   );

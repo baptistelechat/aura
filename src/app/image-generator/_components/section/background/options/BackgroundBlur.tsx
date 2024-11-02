@@ -6,20 +6,21 @@ import Control from "@/components/Control";
 
 const BackgroundBlur = () => {
   const blur = useImageGeneratorStore((s) => s.settings.background.blur);
-  const setBlur = useImageGeneratorStore((s) => s.setBackgroundBlur);
-  const resetBlur = useImageGeneratorStore((s) => s.resetBackgroundBlur);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
+  const defaultValue = defaultImageGeneratorSettings.background.blur
 
   return (
     <CustomAccordionItem
       title={"Blur"}
       icon={<CircleDotDashed className="size-4" />}
-      disabled={blur === defaultImageGeneratorSettings.background.blur}
-      reset={resetBlur}
+      disabled={blur === defaultValue}
+      reset={()=> setBackground({blur: defaultValue})}
     >
       <Control
         title={"blur"}
         value={blur}
-        setValue={setBlur}
+        setValue={setBackground}
+        updateKey={"blur"}
         min={0}
         max={64}
         step={1}

@@ -19,13 +19,11 @@ interface IGradientOrientationPickerProps {
 const GradientOrientationPicker = ({
   variant,
 }: IGradientOrientationPickerProps) => {
-  const orientation = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.orientation
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const setOrientation = useImageGeneratorStore(
-    (s) => s.setGradientOrientation
-  );
-
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
+  
   return (
     <div className="flex w-full flex-col gap-4">
       <Label>{variant.charAt(0).toUpperCase() + variant.slice(1)}</Label>
@@ -38,15 +36,18 @@ const GradientOrientationPicker = ({
                 <TooltipTrigger asChild>
                   <Button
                     key={angle ?? "shuffle"}
-                    disabled={orientation === angle || angle === null}
+                    disabled={gradient.orientation === angle || angle === null}
                     variant="outline"
                     size="icon"
                     onClick={() =>
-                      setOrientation(
-                        angle as
-                          | LinearGradientOrientation
-                          | RadialGradientOrientation
-                      )
+                      setBackground({
+                        gradient: {
+                          ...gradient,
+                          orientation: angle as
+                            | LinearGradientOrientation
+                            | RadialGradientOrientation,
+                        },
+                      })
                     }
                   >
                     {icon}

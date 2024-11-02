@@ -20,45 +20,40 @@ const MagicColorPicker = ({ action }: IMagicColorProps) => {
   const magicColor = useImageGeneratorStore(
     (s) => s.settings.background.magicColor
   );
-
-  const from = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.from
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
-  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
 
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
+  const setBackground = useImageGeneratorStore(
+    (s) => s.setBackground
   );
-  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
-  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
 
   const currentColor =
     {
       solid: backgroundColor,
-      "gradient-from": from.hex,
-      "gradient-via": via.hex,
-      "gradient-to": to.hex,
+      "gradient-from": gradient.from.hex,
+      "gradient-via": gradient.via.hex,
+      "gradient-to": gradient.to.hex,
     }[action] || "";
-
-  const setGradientColor = {
-    "gradient-from": setFrom,
-    "gradient-via": setVia,
-    "gradient-to": setTo,
-  };
 
   const handleColorClick = (hex: string) => () => {
     if (action === "solid") {
-      setBackgroundColor(hex);
-      setTailwindColor("");
+      setBackground({
+        backgroundColor: hex,
+        tailwindColor: "",
+      })
     } else {
-      if (action === "gradient-via") {
-        setUseVia(true);
-      }
-      setGradientColor[action]?.({ name: "", hex });
+      const newColor = { name: "", hex };
+
+      setBackground({
+        gradient: {
+          ...gradient,
+          useVia: action === "gradient-via" ? true : gradient.useVia,
+          from: action === "gradient-from" ? newColor : gradient.from,
+          via: action === "gradient-via" ? newColor : gradient.via,
+          to: action === "gradient-to" ? newColor : gradient.to,
+        },
+      })
     }
   };
 

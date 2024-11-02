@@ -30,6 +30,7 @@ const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
   const preview = useImageGeneratorStore((s) => s.previewRefs.previewRef);
 
+  const hotkeySet = useImageGeneratorStore((s) => s.general.hotkeySet);
   const setTab = useImageGeneratorStore((s) => s.setTab);
 
   const hotkey = getHotkeyById(
@@ -89,7 +90,10 @@ const Sidebar = () => {
 
       <p className="mb-1 flex w-full items-center gap-1 text-left text-sm italic text-muted-foreground/80">
         <Lightbulb className="size-4" />
-        {hotkey.name} : {hotkey.key.toUpperCase()}
+        {hotkey.name} : {" "}
+        {hotkeySet === "mac"
+          ? hotkey.key.replace("meta", "⌘").replace("alt", "⌥").toUpperCase()
+          : hotkey.key.toUpperCase()}
       </p>
 
       <div className="space-y-2">

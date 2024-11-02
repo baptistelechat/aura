@@ -1,4 +1,5 @@
 "use client";
+import Control from "@/components/Control";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
 import { Separator } from "@/components/ui/separator";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
@@ -7,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { Ghost, Moon, Sun, SunMoon } from "lucide-react";
 import Image from "next/image";
 import { useMemo } from "react";
-import Control from "@/components/Control";
 
 type Shadow = {
   id: number;
@@ -33,29 +33,26 @@ const OverlayShadow = () => {
   const name = useImageGeneratorStore((s) => s.settings.overlay.name);
   const opacity = useImageGeneratorStore((s) => s.settings.overlay.opacity);
 
-  const setName = useImageGeneratorStore((s) => s.setOverlayName);
-  const setOpacity = useImageGeneratorStore((s) => s.setOverlayOpacity);
-
-  const resetOverlay = useImageGeneratorStore((s) => s.resetOverlay);
+  const setOverlay = useImageGeneratorStore((s) => s.setOverlay);
 
   const shadows = useMemo(() => generateShadowImages(11, 111), []);
-  const defaultOverlaySettings = defaultImageGeneratorSettings.overlay;
+  const defaultValue = defaultImageGeneratorSettings.overlay;
 
   return (
     <CustomAccordionItem
       title={"Overlay Shadow"}
       icon={<Ghost className="size-4" />}
-      disabled={
-        name === defaultOverlaySettings.name &&
-        opacity === defaultOverlaySettings.opacity
+      disabled={name === defaultValue.name && opacity === defaultValue.opacity}
+      reset={() =>
+        setOverlay({ name: defaultValue.name, opacity: defaultValue.opacity })
       }
-      reset={resetOverlay}
     >
       <div className="flex w-full flex-col gap-4">
         <Control
           title={"opacity"}
           value={opacity}
-          setValue={setOpacity}
+          setValue={setOverlay}
+          updateKey={"opacity"}
           min={0}
           max={1}
           step={0.05}
@@ -70,15 +67,17 @@ const OverlayShadow = () => {
               <div
                 className={cn(
                   "relative cursor-pointer rounded",
-                  `/textures/overlays-shadow/thumbnails/${shadow.name}` ===
+                  `/images/textures/overlays-shadow/thumbnails/${shadow.name}` ===
                     name && "outline outline-2 outline-offset-0 outline-primary"
                 )}
                 onClick={() =>
-                  setName(`/textures/overlays-shadow/thumbnails/${shadow.name}`)
+                  setOverlay({
+                    name: `/images/textures/overlays-shadow/thumbnails/${shadow.name}`,
+                  })
                 }
               >
                 <Image
-                  src={`/textures/overlays-shadow/thumbnails/${shadow.name}`}
+                  src={`/images/textures/overlays-shadow/thumbnails/${shadow.name}`}
                   alt={shadow.alt}
                   width={100}
                   height={100}

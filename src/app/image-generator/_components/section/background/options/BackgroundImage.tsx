@@ -1,25 +1,23 @@
 "use client";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
+import DropZone from "@/components/DropZone";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageIcon } from "lucide-react";
 import { useRef } from "react";
-import DropZone from "@/components/DropZone";
 
 const BackgroundImage = () => {
   const backgroundImage = useImageGeneratorStore(
     (s) => s.settings.background.backgroundImage
   );
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
-  );
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const handleResetBackground = () => {
-    setBackgroundColor(
-      defaultImageGeneratorSettings.background.backgroundColor
-    );
+    setBackground({
+      backgroundColor: defaultImageGeneratorSettings.background.backgroundColor,
+      backgroundImage: null,
+    });
 
     if (inputRef.current) {
       inputRef.current.value = "";

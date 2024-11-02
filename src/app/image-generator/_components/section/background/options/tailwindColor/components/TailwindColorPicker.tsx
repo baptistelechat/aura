@@ -17,66 +17,59 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
   const tailwindColor = useImageGeneratorStore(
     (s) => s.settings.background.tailwindColor
   );
-  const from = useImageGeneratorStore(
-    (s) => s.settings.background.gradient.from
+  const gradient = useImageGeneratorStore(
+    (s) => s.settings.background.gradient
   );
-  const via = useImageGeneratorStore((s) => s.settings.background.gradient.via);
-  const to = useImageGeneratorStore((s) => s.settings.background.gradient.to);
 
-  const setTailwindColor = useImageGeneratorStore((s) => s.setTailwindColor);
-  const setBackgroundColor = useImageGeneratorStore(
-    (s) => s.setBackgroundColor
-  );
-  const setUseVia = useImageGeneratorStore((s) => s.setUseVia);
-  const setFrom = useImageGeneratorStore((s) => s.setGradientFrom);
-  const setVia = useImageGeneratorStore((s) => s.setGradientVia);
-  const setTo = useImageGeneratorStore((s) => s.setGradientTo);
+  const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const currentColor =
     {
       solid: tailwindColor,
-      "gradient-from": from.name,
-      "gradient-via": via.name,
-      "gradient-to": to.name,
+      "gradient-from": gradient.from.name,
+      "gradient-via": gradient.via.name,
+      "gradient-to": gradient.to.name,
     }[action] || "";
-
-  const setGradientColor = {
-    "gradient-from": setFrom,
-    "gradient-via": setVia,
-    "gradient-to": setTo,
-  };
 
   const handleColorClick = (colorName: string, hex: string) => () => {
     const isCurrentColor = currentColor === colorName;
 
     const resetGradient = () => {
-      setFrom(defaultImageGeneratorSettings.background.gradient.from);
-      setVia(defaultImageGeneratorSettings.background.gradient.via);
-      setTo(defaultImageGeneratorSettings.background.gradient.to);
+      setBackground({
+        gradient: defaultImageGeneratorSettings.background.gradient,
+      });
     };
 
     const updateColors = (name: string, hexValue: string) => {
-      setTailwindColor(name);
-      setBackgroundColor(hexValue);
+      setBackground({
+        backgroundColor: hexValue,
+        tailwindColor: name,
+        backgroundImage: null,
+      });
     };
 
     const resetColors = () => {
-      setTailwindColor("");
-      setBackgroundColor(
-        defaultImageGeneratorSettings.background.backgroundColor
-      );
+      setBackground({
+        backgroundColor:
+          defaultImageGeneratorSettings.background.backgroundColor,
+        backgroundImage: null,
+        tailwindColor: "",
+      });
     };
 
     if (action === "solid") {
       resetGradient();
       isCurrentColor ? resetColors() : updateColors(colorName, hex);
     } else {
-      let updatedFrom = from;
-      let updatedVia = via;
-      let updatedTo = to;
+      let updatedFrom = gradient.from;
+      let updatedVia = gradient.via;
+      let updatedTo = gradient.to;
 
       if (isCurrentColor) {
-        setGradientColor[action]?.({ name: "", hex: "" });
+        setBackground({
+          gradient: {
+            ...gradient,
+          }});
 
         if (action === "gradient-from") updatedFrom = { name: "", hex: "" };
         if (action === "gradient-via") updatedVia = { name: "", hex: "" };
@@ -94,16 +87,22 @@ const TailwindColorPicker = ({ action }: ITailwindColorPickerProps) => {
           updateColors(color, colorHex);
         }
       } else {
-        setTailwindColor("");
-        setGradientColor[action]?.({ name: colorName, hex });
+        const newColor = { name: colorName, hex };
 
-        if (action === "gradient-via") {
-          setUseVia(true);
-        }
+        setBackground({
+          tailwindColor: "",
+          gradient: {
+            ...gradient,
+            useVia : action === "gradient-via" ? true : gradient.useVia,
+            from : action === "gradient-from" ? newColor : gradient.from,
+            via : action === "gradient-via" ? newColor : gradient.via,
+            to : action === "gradient-to" ? newColor : gradient.to,
+          },
+        });
 
-        if (action === "gradient-from") updatedFrom = { name: colorName, hex };
-        if (action === "gradient-via") updatedVia = { name: colorName, hex };
-        if (action === "gradient-to") updatedTo = { name: colorName, hex };
+        if (action === "gradient-from") updatedFrom = newColor;
+        if (action === "gradient-via") updatedVia = newColor;
+        if (action === "gradient-to") updatedTo = newColor;
 
         const color = updatedFrom.name || updatedVia.name || updatedTo.name;
         const colorHex = updatedFrom.hex || updatedVia.hex || updatedTo.hex;

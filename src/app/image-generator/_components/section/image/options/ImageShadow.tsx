@@ -6,20 +6,21 @@ import Control from "@/components/Control";
 
 const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
-  const setShadow = useImageGeneratorStore((s) => s.setImageShadow);
-  const resetShadow = useImageGeneratorStore((s) => s.resetImageShadow);
+  const setImage = useImageGeneratorStore((s) => s.setImage);
+  const defaultValue = defaultImageGeneratorSettings.image.shadow;
 
   return (
     <CustomAccordionItem
       title={"Shadow"}
       icon={<LampDesk className="size-4" />}
-      disabled={shadow === defaultImageGeneratorSettings.image.shadow}
-      reset={resetShadow}
+      disabled={shadow === defaultValue}
+      reset={()=> setImage({shadow: defaultValue})}
     >
       <Control
         title={"opacity"}
         value={shadow}
-        setValue={setShadow}
+        setValue={setImage}
+        updateKey={"shadow"}
         min={0}
         max={1}
         step={0.05}
