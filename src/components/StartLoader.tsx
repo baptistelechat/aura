@@ -32,7 +32,7 @@ const StartLoader = () => {
   return (
     <div className="absolute left-0 top-0 z-50 flex size-full items-center justify-center bg-gradient-to-bl from-[#0E4598] to-[#1573FE] p-4">
       <div className="flex size-full rounded-xl bg-background">
-        <div className="flex h-full w-1/2 flex-col items-center justify-center gap-4">
+        <div className="flex size-full flex-col items-center justify-center gap-4 md:w-1/2">
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
               src="/images/logo/Logo.svg"
@@ -49,7 +49,7 @@ const StartLoader = () => {
             Create, Share, Inspire
           </p>
         </div>
-        <div className="flex h-full w-1/2 flex-col items-center justify-center gap-4">
+        <div className="hidden h-full w-1/2 flex-col items-center justify-center gap-4 md:flex">
           <motion.div
             className="relative size-full"
             variants={LoaderVariants}
