@@ -21,7 +21,7 @@ const DropZone = ({ mode }: IDropZoneProps) => {
     <div
       {...getRootProps()}
       className={cn(
-        "cursor-pointer border transition-all duration-200 flex items-center justify-center ",
+        "cursor-pointer border transition-all duration-200 flex items-center justify-center",
         isDragActive
           ? "border-primary text-primary bg-blue-100"
           : `text-black ${

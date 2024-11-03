@@ -153,16 +153,14 @@ const Preview = () => {
 
         {/* Overlay Shadow */}
         {overlay.name && overlay.name.includes("overlays-shadow") && (
-          <div className="">
-            <img
-              src={`${overlay.name}`}
-              alt="Overlay Shadow"
-              className="absolute inset-0 z-10 size-full object-cover"
-              style={{
-                opacity: overlay.opacity,
-              }}
-            />
-          </div>
+          <img
+            src={`${overlay.name}`}
+            alt="Overlay Shadow"
+            className="pointer-events-none absolute inset-0 z-10 size-full object-cover"
+            style={{
+              opacity: overlay.opacity,
+            }}
+          />
         )}
 
         {/* Watermark */}
