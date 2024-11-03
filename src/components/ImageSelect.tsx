@@ -9,7 +9,7 @@ import { Button } from "./ui/button";
 interface IImageSelectProps {
   path: string;
   totalImages: number;
-  currentImageName: string;
+  currentImageName: string | null;
   alt: string;
   mode: "overlay" | "background";
 }
@@ -91,7 +91,7 @@ const ImageSelect = ({
                 alt={image.alt}
                 width={100}
                 height={100}
-                quality={30}
+                // quality={30}
                 className="rounded transition-all duration-300 ease-in-out dark:invert"
                 loading="lazy"
               />

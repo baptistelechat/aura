@@ -26,7 +26,7 @@ const DropZone = ({ mode }: IDropZoneProps) => {
           ? "border-primary text-primary bg-blue-100"
           : `text-black ${
               mode === "background"
-                ? "border-input bg-transparent"
+                ? "border-input bg-transparent mt-2"
                 : " border-slate-300 bg-slate-200"
             }`,
         mode === "background"

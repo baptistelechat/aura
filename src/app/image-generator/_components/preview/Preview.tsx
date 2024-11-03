@@ -152,7 +152,7 @@ const Preview = () => {
         </div>
 
         {/* Overlay Shadow */}
-        {overlay.name && overlay.name.includes("overlays-shadow") && (
+        {overlay.name && overlay.name.includes("shadow") && (
           <img
             src={`${overlay.name}`}
             alt="Overlay Shadow"

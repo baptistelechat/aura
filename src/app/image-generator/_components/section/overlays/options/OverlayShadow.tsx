@@ -38,7 +38,7 @@ const OverlayShadow = () => {
         />
         <Separator />
         <ImageSelect
-          path={"/images/textures/overlays-shadow"}
+          path={"/images/overlays/shadow"}
           totalImages={100}
           currentImageName={overlay}
           alt={"Overlay Shadow"}
