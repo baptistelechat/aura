@@ -1,6 +1,7 @@
 import {
   Blend,
   Eye,
+  FileImage,
   ImageIcon,
   PaintbrushVertical,
   Shapes,
@@ -17,11 +18,15 @@ export const tabOptions: {
 }[] = [
   {
     name: "image",
-    icon: <ImageIcon className="size-4" />,
+    icon: <FileImage className="size-4" />,
   },
   {
-    name: "background",
+    name: "background-color",
     icon: <PaintbrushVertical className="size-4" />,
+  },
+  {
+    name: "background-image",
+    icon: <ImageIcon className="size-4" />,
   },
   {
     name: "background-effects",

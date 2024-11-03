@@ -1,6 +1,7 @@
 export type TabNames =
   | "image"
-  | "background"
+  | "background-color"
+  | "background-image"
   | "background-effects"
   | "overlays"
   | "annotations"

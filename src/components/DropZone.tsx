@@ -30,7 +30,7 @@ const DropZone = ({ mode }: IDropZoneProps) => {
                 : " border-slate-300 bg-slate-200"
             }`,
         mode === "background"
-          ? "py-3 w-full rounded-md"
+          ? "py-5 w-full rounded-md"
           : "px-8 py-4 size-1/2 drop-shadow-2xl rounded-xl"
       )}
       onMouseEnter={() => setIsHover(true)}
