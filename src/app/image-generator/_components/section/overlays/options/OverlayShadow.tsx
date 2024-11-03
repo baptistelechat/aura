@@ -1,13 +1,14 @@
 "use client";
 import Control from "@/components/Control";
 import CustomAccordionItem from "@/components/CustomAccordionItem";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
-import { Ghost, Moon, Sun, SunMoon } from "lucide-react";
+import { Ghost, Moon, Plus, RotateCcw, Sun, SunMoon } from "lucide-react";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 type Shadow = {
   id: number;
@@ -38,6 +39,12 @@ const OverlayShadow = () => {
   const shadows = useMemo(() => generateShadowImages(11, 111), []);
   const defaultValue = defaultImageGeneratorSettings.overlay;
 
+  const [imagesToShow, setImagesToShow] = useState(12);
+
+  const loadMoreImages = () => {
+    setImagesToShow((prev) => Math.min(prev + 12, shadows.length));
+  };
+
   return (
     <CustomAccordionItem
       title={"Overlay Shadow"}
@@ -62,7 +69,7 @@ const OverlayShadow = () => {
         />
         <Separator />
         <div className="grid grid-cols-3 gap-2">
-          {shadows.map((shadow) => (
+          {shadows.slice(0, imagesToShow).map((shadow) => (
             <div key={shadow.id}>
               <div
                 className={cn(
@@ -83,13 +90,23 @@ const OverlayShadow = () => {
                   height={100}
                   quality={30}
                   className="rounded transition-all duration-300 ease-in-out dark:invert"
-                  // layout="responsive"
                   loading="lazy"
                 />
               </div>
             </div>
           ))}
         </div>
+        {imagesToShow < shadows.length ? (
+          <Button variant={"outline"} onClick={loadMoreImages}>
+            <Plus className="mr-2 size-4" />
+            Show More
+          </Button>
+        ) : (
+          <Button variant={"outline"} onClick={()=> setImagesToShow(12)}>
+            <RotateCcw className="mr-2 size-4" />
+            Reset
+          </Button>
+        )}
       </div>
     </CustomAccordionItem>
   );
