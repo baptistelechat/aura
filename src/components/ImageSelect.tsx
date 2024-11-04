@@ -1,7 +1,7 @@
 "use client";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
-import { Plus, RotateCcw } from "lucide-react";
+import { Library, Plus, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { Button } from "./ui/button";
@@ -92,24 +92,41 @@ const ImageSelect = ({
                 width={100}
                 height={100}
                 // quality={30}
-                className="rounded transition-all duration-300 ease-in-out dark:invert"
+                className={cn(
+                  "rounded transition-all duration-300 ease-in-out",
+                  path.includes("shadow") && "dark:invert"
+                )}
                 loading="lazy"
               />
             </div>
           </div>
         ))}
       </div>
-      {imagesToShow < images.length ? (
-        <Button variant={"outline"} onClick={loadMoreImages}>
+      <p className="w-full text-center text-sm text-muted-foreground">
+        ({imagesToShow} of {totalImages})
+      </p>
+      <div className="flex gap-2">
+        <Button
+          variant={"outline"}
+          onClick={loadMoreImages}
+          disabled={imagesToShow >= images.length}
+        >
           <Plus className="mr-2 size-4" />
           Show More
         </Button>
-      ) : (
-        <Button variant={"outline"} onClick={() => setImagesToShow(12)}>
-          <RotateCcw className="mr-2 size-4" />
-          Reset
+        <Button variant={"outline"} onClick={loadMoreImages}>
+          <Library className="mr-2 size-4" />
+          View all
         </Button>
-      )}
+        <Button
+          variant={"outline"}
+          size={"icon"}
+          onClick={() => setImagesToShow(12)}
+          disabled={imagesToShow <= 12}
+        >
+          <RotateCcw className="size-4" />
+        </Button>
+      </div>
     </div>
   );
 };

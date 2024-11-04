@@ -24,13 +24,13 @@ const DropZone = ({ mode }: IDropZoneProps) => {
         "cursor-pointer border transition-all duration-200 flex items-center justify-center",
         isDragActive
           ? "border-primary text-primary bg-blue-100"
-          : `text-black ${
+          : `${
               mode === "background"
-                ? "border-input bg-transparent mt-2"
-                : " border-slate-300 bg-slate-200"
+                ? "border-input bg-transparent"
+                : " border-slate-300 bg-slate-200 text-black"
             }`,
         mode === "background"
-          ? "py-5 w-full rounded-md"
+          ? "py-5 w-full rounded-md mt-2"
           : "px-8 py-4 size-1/2 drop-shadow-2xl rounded-xl"
       )}
       onMouseEnter={() => setIsHover(true)}

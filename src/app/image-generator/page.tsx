@@ -5,8 +5,10 @@ import { hotkeys } from "@/lib/constant/hotkeys";
 import { useCustomHotKey } from "@/lib/hooks/useCustomHotKey";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
 import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize";
 import { validateWatermark } from "@/lib/utils/image-generator/validateWatermark";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import UnsupportedDevice from "./_components/UnsupportedDevice";
 import CustomDimensions from "./_components/sidebar/components/CustomDimensions";
@@ -51,10 +53,15 @@ const ImageGenerator = () => {
     <div className="relative flex size-full gap-8 p-8">
       <div className="flex w-full gap-4">
         <Sidebar />
-        <div className="flex size-full flex-col items-center justify-center gap-4">
+        <motion.div
+          variants={PreviewVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex size-full flex-col items-center justify-center gap-4"
+        >
           <Preview />
           <CustomDimensions />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
