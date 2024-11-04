@@ -12,7 +12,7 @@ const generateNoise = (canvas: HTMLCanvasElement) => {
     imageData.data[i] = value;
     imageData.data[i + 1] = value;
     imageData.data[i + 2] = value;
-    imageData.data[i + 3] = 50;
+    imageData.data[i + 3] = 100;
   }
 
   ctx!.putImageData(imageData, 0, 0);
@@ -24,14 +24,17 @@ const NoiseBackground = () => {
   const noise = useImageGeneratorStore((s) => s.settings.background.noise);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const dimensions = useImageGeneratorStore((s) => s.settings.dimension);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas && isDesktop) {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      console.log([canvas.offsetWidth, canvas.offsetHeight]);
+      canvas.width = dimensions.width;
+      canvas.height = dimensions.height;
       generateNoise(canvas);
     }
-  }, [isDesktop]);
+  }, [isDesktop]); 
 
   return (
     <canvas
