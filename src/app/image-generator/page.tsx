@@ -9,6 +9,7 @@ import { updatePreviewSize } from "@/lib/utils/image-generator/updatePreviewSize
 import { validateWatermark } from "@/lib/utils/image-generator/validateWatermark";
 import { useEffect } from "react";
 import UnsupportedDevice from "./_components/UnsupportedDevice";
+import CustomDimensions from "./_components/sidebar/components/CustomDimensions";
 
 const ImageGenerator = () => {
   useCustomHotKey(hotkeys);
@@ -43,16 +44,17 @@ const ImageGenerator = () => {
   }, [isDesktop]);
 
   if (!isDesktop || isSafari) {
-    return (
-      <UnsupportedDevice/>
-    );
+    return <UnsupportedDevice />;
   }
 
   return (
     <div className="relative flex size-full gap-8 p-8">
       <div className="flex w-full gap-4">
         <Sidebar />
-        <Preview />
+        <div className="flex size-full flex-col items-center justify-center gap-4">
+          <Preview />
+          <CustomDimensions />
+        </div>
       </div>
     </div>
   );
