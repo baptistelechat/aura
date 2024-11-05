@@ -18,11 +18,13 @@ import {
   Linkedin,
   Ruler,
   Twitter,
+  UserPen,
   Video,
   Youtube,
 } from "lucide-react";
 
 const Icon = (category: string) => {
+  if (category === "Custom") return <UserPen className="size-4" />;
   if (category === "Default") return <Ruler className="size-4" />;
   if (category === "Instagram") return <Instagram className="size-4" />;
   if (category === "Twitter (X)") return <Twitter className="size-4" />;
@@ -41,19 +43,35 @@ const DimensionSelect = () => {
   const height = useImageGeneratorStore((s) => s.settings.dimension.height);
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
 
+  const handleValueChange = (value: string) => {
+    const category = value.split("_")[0];
+    const [width, height] = value.split("_")[1].split("x").map(Number);
+    setDimensions({ category, width, height });
+  };
+
   return (
     <Select
       value={`${category}_${width}x${height}`}
       onValueChange={(value) => {
-        const category = value.split("_")[0];
-        const [width, height] = value.split("_")[1].split("x").map(Number);
-        setDimensions({ category, width, height });
+        handleValueChange(value);
       }}
     >
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select a size" />
       </SelectTrigger>
       <SelectContent>
+        <SelectGroup>
+          <SelectLabel className="flex items-center gap-2">
+            {Icon("Custom")}
+            Custom
+          </SelectLabel>
+          <SelectItem value={`Custom_${width}x${height}`}>
+            <div className="flex items-center gap-2">
+              {`${width}x${height}`}
+              <Label>Custom</Label>
+            </div>
+          </SelectItem>
+        </SelectGroup>
         {Object.entries(dimensions).map(([category, dims]) => (
           <SelectGroup key={category}>
             <SelectLabel className="flex items-center gap-2">
@@ -66,7 +84,9 @@ const DimensionSelect = () => {
                 value={`${category}_${dimension.width}x${dimension.height}`}
               >
                 <div className="flex items-center gap-2">
-                  {`${dimension.width}x${dimension.height} (${dimension.ratio})`}
+                  {`${dimension.width}x${dimension.height} ${
+                    dimension.ratio === "" ? "" : `(${dimension.ratio})`
+                  }`}
                   <Label>{dimension.title}</Label>
                 </div>
               </SelectItem>

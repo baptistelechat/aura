@@ -6,9 +6,7 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
-import { PreviewVariants } from "@/lib/utils/framer-motion/variants";
 import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
-import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
@@ -77,13 +75,10 @@ const Preview = () => {
       : background.backgroundColor;
 
   return (
-    <motion.div
+    <div
       id="preview-container"
       ref={containerRef}
       className="flex size-full grow items-center justify-center overflow-hidden"
-      variants={PreviewVariants}
-      initial="hidden"
-      animate="visible"
     >
       <div
         id="preview"
@@ -152,17 +147,15 @@ const Preview = () => {
         </div>
 
         {/* Overlay Shadow */}
-        {overlay.name && overlay.name.includes("overlays-shadow") && (
-          <div className="">
-            <img
-              src={`${overlay.name}`}
-              alt="Overlay Shadow"
-              className="absolute inset-0 z-10 size-full object-cover"
-              style={{
-                opacity: overlay.opacity,
-              }}
-            />
-          </div>
+        {overlay.name && overlay.name.includes("shadow") && (
+          <img
+            src={`${overlay.name}`}
+            alt="Overlay Shadow"
+            className="pointer-events-none absolute inset-0 z-10 size-full object-cover"
+            style={{
+              opacity: overlay.opacity,
+            }}
+          />
         )}
 
         {/* Watermark */}
@@ -178,7 +171,7 @@ const Preview = () => {
           />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

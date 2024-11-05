@@ -14,8 +14,8 @@ import { SidebarVariants } from "@/lib/utils/framer-motion/variants";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { motion } from "framer-motion";
 import { Lightbulb } from "lucide-react";
+import BackgroundColor from "../section/background-color/BackgroundColor";
 import BackgroundEffects from "../section/background-effects/BackgroundEffects";
-import Background from "../section/background/Background";
 import Image from "../section/image/Image";
 import Overlays from "../section/overlays/Overlays";
 import Visibility from "../section/Visibility";
@@ -25,6 +25,7 @@ import DimensionSelect from "./components/DimensionSelect";
 import DownloadButton from "./components/DownloadButton";
 import FormatSelect from "./components/FormatSelect";
 import ImageInput from "./components/ImageInput";
+import BackgroundImage from "../section/background-image/BackgroundImage";
 
 const Sidebar = () => {
   const tab = useImageGeneratorStore((s) => s.general.tab);
@@ -35,7 +36,8 @@ const Sidebar = () => {
 
   const hotkey = getHotkeyById(
     `switchTo${
-      tab.charAt(0).toUpperCase() + tab.slice(1).replace("-e", "E")
+      tab.charAt(0).toUpperCase() +
+      tab.slice(1).replace("-e", "E").replace("-i", "I").replace("-c", "C")
     }Tab`
   );
 
@@ -81,7 +83,8 @@ const Sidebar = () => {
       </Select>
 
       {tab === "image" && <Image />}
-      {tab === "background" && <Background />}
+      {tab === "background-color" && <BackgroundColor />}
+      {tab === "background-image" && <BackgroundImage />}
       {tab === "background-effects" && <BackgroundEffects />}
       {tab === "overlays" && <Overlays />}
       {/* { tab === "annotations" && <Annotations /> } */}
@@ -90,7 +93,7 @@ const Sidebar = () => {
 
       <p className="mb-1 flex w-full items-center gap-1 text-left text-sm italic text-muted-foreground/80">
         <Lightbulb className="size-4" />
-        {hotkey.name} : {" "}
+        {hotkey.name} :{" "}
         {hotkeySet === "mac"
           ? hotkey.key.replace("meta", "⌘").replace("alt", "⌥").toUpperCase()
           : hotkey.key.toUpperCase()}

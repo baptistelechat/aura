@@ -182,13 +182,13 @@ export const dimensions: GroupedDimensions = {
     },
   ],
   TikTok: [
-        {
+    {
       width: 1080,
       height: 1920,
       ratio: "9:16",
       title: "Portrait",
     },
-        {
+    {
       width: 100,
       height: 100,
       ratio: "1:1",
@@ -220,7 +220,7 @@ export const dimensions: GroupedDimensions = {
       ratio: "9:16",
       title: "Story",
     },
-      {
+    {
       width: 180,
       height: 180,
       ratio: "1:1",

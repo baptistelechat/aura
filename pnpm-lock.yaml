@@ -11,6 +11,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0(react@18.3.1))
+      '@lucide/lab':
+        specifier: ^0.1.2
+        version: 0.1.2
       '@radix-ui/react-accordion':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -349,6 +352,9 @@ packages:
 
   '@lokesh.dhakar/quantize@1.4.0':
     resolution: {integrity: sha512-+//cqVWKis//t0YH62EDtwaFSPG/CDtYNg4CZmzNmG2d5W17Iu3fuDAdpQXCDHUDrrU9q0veze4A7tPZXlR/mg==}
+
+  '@lucide/lab@0.1.2':
+    resolution: {integrity: sha512-VprF2BJa7ZuTGOhUd5cf8tHJXyL63wdxcGieAiVVoR9hO0YmPsnZO0AGqDiX2/br+/MC6n8BoJcmPilltOXIJA==}
 
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
@@ -2889,6 +2895,8 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@lokesh.dhakar/quantize@1.4.0': {}
+
+  '@lucide/lab@0.1.2': {}
 
   '@next/env@14.2.5': {}
 
