@@ -25,9 +25,16 @@ const ImageGenerator = () => {
   useEffect(() => {
     if (!isSafari) {
       updatePreviewSize();
-      window.addEventListener("resize", () => updatePreviewSize());
-      return () =>
-        window.removeEventListener("resize", () => updatePreviewSize());
+
+      const handleResize = () => {
+        updatePreviewSize();
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
     }
   }, [width, height, previewRefs]);
 
@@ -57,7 +64,7 @@ const ImageGenerator = () => {
           variants={PreviewVariants}
           initial="hidden"
           animate="visible"
-          className="flex size-full flex-col items-center justify-center gap-4"
+          className="flex w-full flex-col items-center justify-center gap-4 overflow-hidden"
         >
           <Preview />
           <CustomDimensions />
