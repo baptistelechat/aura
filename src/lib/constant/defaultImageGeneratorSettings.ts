@@ -4,6 +4,8 @@ export const defaultColor = "#e2e8f0";
 
 export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   dimension: {
+    format: "png",
+    category: "Default",
     width: 1920,
     height: 1080,
   },
@@ -12,6 +14,9 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     borderRadius: 24,
     shadow: 0.5,
     scale: 0.5,
+    rotateX: 0,
+    rotateY: 0,
+    rotateZ: 0,
     visibility: false,
   },
   background: {

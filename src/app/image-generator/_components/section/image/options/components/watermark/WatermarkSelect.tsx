@@ -46,8 +46,7 @@ const WatermarkSelect = () => {
     (s) => s.settings.watermark.foreground
   );
 
-  const setBackground = useImageGeneratorStore((s) => s.setWatermarkBackground);
-  const setForeground = useImageGeneratorStore((s) => s.setWatermarkForeground);
+  const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
 
   const groupedWatermarks = watermarks.reduce((groups, watermark) => {
     (groups[watermark.background] = groups[watermark.background] || []).push(
@@ -63,17 +62,15 @@ const WatermarkSelect = () => {
         value={`${background}/${foreground}`}
         onValueChange={(value) => {
           const [background, foreground] = value.split("/");
-          setBackground(
-            background as
+          setWatermark({
+            background: background as
               | "light"
               | "dark"
               | "color-light"
               | "color-dark"
-              | "transparent"
-          );
-          setForeground(
-            foreground as "light" | "dark" | "color-light" | "color-dark"
-          );
+              | "transparent",
+            foreground : foreground as "light" | "dark" | "color-light" | "color-dark",
+          });
         }}
       >
         <SelectTrigger className="w-full">

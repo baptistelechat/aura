@@ -1,32 +1,38 @@
+import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { toast } from "sonner"; // Import de toast
+import { toast } from "sonner";
 
 export const uploadImage = (
-  event: React.ChangeEvent<HTMLInputElement>,
+  file: File | undefined,
   mode: "image" | "background"
 ) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
-  const setImageSrc = imageGeneratorStore.setImageSrc;
-  const setBackgroundImage = imageGeneratorStore.setBackgroundImage;
-  const setImageVisibility = imageGeneratorStore.setImageVisibility;
-
-  const file = event.target.files?.[0];
+  const setImage = imageGeneratorStore.setImage;
+  const setBackground = imageGeneratorStore.setBackground;
 
   if (file) {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Invalid file type. Please upload an image.");
+      return;
+    }
+
     const reader = new FileReader();
 
     toast.promise(
       new Promise<void>((resolve, reject) => {
         reader.onload = (e) => {
-          const imageSrc = e.target?.result as string;
+          const src = e.target?.result as string;
 
           if (mode === "image") {
-            setImageSrc(imageSrc);
-            setImageVisibility(true);
+            setImage({ src, visibility: true });
             resolve();
           } else if (mode === "background") {
-            if (imageSrc) {
-              setBackgroundImage(imageSrc);
+            if (src) {
+              setBackground({
+                backgroundColor:
+                  defaultImageGeneratorSettings.background.backgroundColor,
+                backgroundImage: src,
+              });
               resolve();
             } else {
               reject(new Error("Failed to load background image."));

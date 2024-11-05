@@ -1,6 +1,6 @@
-import CustomAccordion from "@/components/CustomAccordion"
-import BackgroundBlur from "../background/options/BackgroundBlur"
-import BackgroundNoise from "../background/options/BackgroundNoise"
+import CustomAccordion from "@/components/CustomAccordion";
+import BackgroundBlur from "../background-color/options/BackgroundBlur";
+import BackgroundNoise from "../background-color/options/BackgroundNoise";
 
 const BackgroundEffects = () => {
   return (
@@ -8,7 +8,7 @@ const BackgroundEffects = () => {
       <BackgroundBlur />
       <BackgroundNoise />
     </CustomAccordion>
-  )
-}
+  );
+};
 
-export default BackgroundEffects
+export default BackgroundEffects;

@@ -86,10 +86,11 @@ const WhatsNews = () => {
                 <div className="mt-4 space-y-4">
                   {changelogData.map((entry, index) => (
                     <div key={index} className="flex w-full gap-2">
-                      <div className="flex w-1/4 flex-col text-lg font-bold text-primary">
+                      <div className="flex w-32 flex-col text-lg font-bold text-primary">
                         <p>{entry.date.month}</p>
                         <p>
-                          {entry.date.day}, {entry.date.year}
+                          {String(entry.date.day).padStart(2, "0")},
+                          {entry.date.year}
                         </p>
                       </div>
                       <div className="w-full border-l border-primary pl-2">

@@ -25,6 +25,7 @@ import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import {
   Blend,
   Eye,
+  FileImage,
   ImageIcon,
   Keyboard,
   Layout,
@@ -55,7 +56,8 @@ const HotkeyHelper = () => {
     "save",
     "navigation",
     "image",
-    "background",
+    "background-color",
+    "background-image",
     "background-effects",
     "overlays",
     "annotations",
@@ -67,10 +69,14 @@ const HotkeyHelper = () => {
     general: { title: "General", icon: <Layout className="size-4" /> },
     save: { title: "Save Image", icon: <Save className="size-4" /> },
     navigation: { title: "Navigation", icon: <Milestone className="size-4" /> },
-    image: { title: "Image", icon: <ImageIcon className="size-4" /> },
-    background: {
-      title: "Background",
+    image: { title: "Image", icon: <FileImage className="size-4" /> },
+    "background-color": {
+      title: "Background Color",
       icon: <PaintbrushVertical className="size-4" />,
+    },
+    "background-image": {
+      title: "Background Image",
+      icon: <ImageIcon className="size-4" />,
     },
     "background-effects": {
       title: "Background Effects",
