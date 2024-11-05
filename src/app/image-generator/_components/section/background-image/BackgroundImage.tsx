@@ -33,7 +33,6 @@ const BackgroundImage = () => {
               path={image.path}
               totalImages={image.totalImages}
               currentImageName={backgroundImage}
-              alt={image.title}
               mode={"background"}
             />
           </div>

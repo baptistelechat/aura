@@ -10,27 +10,23 @@ interface IImageSelectProps {
   path: string;
   totalImages: number;
   currentImageName: string | null;
-  alt: string;
   mode: "overlay" | "background";
 }
 
 type Image = {
   id: number;
   name: string;
-  alt: string;
 };
 
 const generateShadowImages = (
   start: number,
   end: number,
-  alt: string
 ): Image[] => {
   const images = [];
   for (let i = start; i <= end; i++) {
     images.push({
       id: i,
       name: `${i}.webp`,
-      alt: `${alt.toLowerCase().replace(" ", "_")}_${i}`,
     });
   }
   return images.sort((a, b) => a.id - b.id);
@@ -40,14 +36,13 @@ const ImageSelect = ({
   path,
   totalImages,
   currentImageName,
-  alt,
   mode,
 }: IImageSelectProps) => {
   const setBackground = useImageGeneratorStore((s) => s.setBackground);
   const setOverlay = useImageGeneratorStore((s) => s.setOverlay);
 
   const [imagesToShow, setImagesToShow] = useState(12);
-  const images = useMemo(() => generateShadowImages(1, totalImages, alt), []);
+  const images = useMemo(() => generateShadowImages(1, totalImages), []);
 
   const handleClick = (
     path: string,
