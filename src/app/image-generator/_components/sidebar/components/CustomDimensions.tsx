@@ -6,7 +6,7 @@ const CustomDimensions = () => {
   const setDimensions = useImageGeneratorStore((s) => s.setDimensions);
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center justify-center gap-2 pb-1">
       <Input
         type="number"
         value={dimensions.width}
