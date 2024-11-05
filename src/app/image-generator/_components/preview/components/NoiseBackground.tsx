@@ -29,12 +29,11 @@ const NoiseBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas && isDesktop) {
-      console.log([canvas.offsetWidth, canvas.offsetHeight]);
       canvas.width = dimensions.width;
       canvas.height = dimensions.height;
       generateNoise(canvas);
     }
-  }, [isDesktop]); 
+  }, [isDesktop]);
 
   return (
     <canvas

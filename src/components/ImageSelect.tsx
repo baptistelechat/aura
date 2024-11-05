@@ -74,32 +74,21 @@ const ImageSelect = ({
   };
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col place-items-center gap-4">
       <div className="grid grid-cols-3 gap-2">
         {images.slice(0, imagesToShow).map((image) => (
-          <div key={image.id}>
-            <div
-              className={cn(
-                "relative cursor-pointer rounded",
-                `${path}/originals/${image.name}` === currentImageName &&
-                  "outline outline-2 outline-offset-0 outline-primary"
-              )}
-              onClick={() => handleClick(path, image.name, mode)}
-            >
-              <Image
-                src={`${path}/thumbnails/${image.name}`}
-                alt={image.alt}
-                width={100}
-                height={100}
-                // quality={30}
-                className={cn(
-                  "rounded transition-all duration-300 ease-in-out",
-                  path.includes("shadow") && "dark:invert"
-                )}
-                loading="lazy"
-              />
-            </div>
-          </div>
+          <div
+            key={image.id}
+            className={cn(
+              "relative cursor-pointer rounded size-24 bg-cover bg-center",
+              `${path}/originals/${image.name}` === currentImageName &&
+                "outline outline-2 outline-offset-0 outline-primary"
+            )}
+            style={{
+              backgroundImage: `url(${path}/thumbnails/${image.name})`,
+            }}
+            onClick={() => handleClick(path, image.name, mode)}
+          />
         ))}
       </div>
       <p className="w-full text-center text-sm text-muted-foreground">
