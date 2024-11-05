@@ -16,9 +16,11 @@ const OverlayShadow = () => {
 
   return (
     <CustomAccordionItem
-      title={"Overlay Shadow"}
+      title={"Shadow"}
       icon={<Ghost className="size-4" />}
-      disabled={overlay === defaultValue.name && opacity === defaultValue.opacity}
+      disabled={
+        overlay === defaultValue.name && opacity === defaultValue.opacity
+      }
       reset={() =>
         setOverlay({ name: defaultValue.name, opacity: defaultValue.opacity })
       }
@@ -38,10 +40,10 @@ const OverlayShadow = () => {
         />
         <Separator />
         <ImageSelect
+          title={"Shadow"}
           path={"/images/overlays/shadow"}
           totalImages={100}
           currentImageName={overlay}
-          alt={"Overlay Shadow"}
           mode={"overlay"}
         />
       </div>

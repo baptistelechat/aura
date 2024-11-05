@@ -30,6 +30,7 @@ const BackgroundImage = () => {
         >
           <div className="flex w-full flex-col gap-4">
             <ImageSelect
+              title={image.title}
               path={image.path}
               totalImages={image.totalImages}
               currentImageName={backgroundImage}
