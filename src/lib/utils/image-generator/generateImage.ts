@@ -11,10 +11,16 @@ interface IGenerateImage {
   method?: "button" | "shortcut";
 }
 
-export const generateImage = async ({
-  action,
-  method,
-}: IGenerateImage) => {
+const mimeType = (format: string) => {
+  if (format === "png") return "image/png";
+  if (format === "jpg") return "image/jpeg";
+  if (format === "webp") return "image/webp";
+  if (format === "tiff") return "image/tiff";
+  if (format === "gif") return "image/gif";
+  return "image/png";
+};
+
+export const generateImage = async ({ action, method }: IGenerateImage) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
 
@@ -42,34 +48,19 @@ export const generateImage = async ({
         const format = imageGeneratorStore.settings.dimension.format;
 
         try {
-          // Generate the image in PNG format
           const dataUrl = await new Promise<string>(async (resolve, reject) => {
             try {
               setTimeout(async () => {
-                const result = await htmlToImage.toPng(previewRef.current!);
+                const canvas = await htmlToImage.toCanvas(previewRef.current!);
+                const result = canvas.toDataURL(mimeType(format));
                 resolve(result);
               }, 1000);
             } catch (error) {
               reject(error);
             }
           });
-          const imageData = dataUrl.split(",")[1]; // Extracts base64 data from the image
 
-          // Call the API route to convert the image format
-          const response = await fetch("/api/convert-image", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              image: imageData,
-              format,
-            }),
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to convert image.");
-          }
-
-          const convertedBlob = await response.blob();
+          const convertedBlob = await fetch(dataUrl).then((res) => res.blob());
 
           // Action - Download or Copy to Clipboard
           if (action === "download") {
@@ -82,7 +73,7 @@ export const generateImage = async ({
           } else if (action === "clipboard") {
             if (navigator.clipboard && ClipboardItem) {
               const clipboardItem = new ClipboardItem({
-                [`image/${format}`]: convertedBlob,
+                [`image/png`]: convertedBlob,
               });
               await navigator.clipboard.write([clipboardItem]);
               umamiGenerateImage({ action, method });
