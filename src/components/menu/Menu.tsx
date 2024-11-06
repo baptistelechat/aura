@@ -12,11 +12,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { ReactElement, useEffect, useState } from "react";
 import Logo from "../Logo";
 import WhatsNews from "./components/WhatsNews";
-import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { isSafari } from "@/lib/utils/getBrowser";
 
 const Menu = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const isSafari = useImageGeneratorStore((s) => s.general.isSafari);
+  const isSafariBrowser = isSafari();
 
   const { theme, systemTheme } = useTheme();
   const pathname = usePathname();
@@ -95,7 +95,7 @@ const Menu = () => {
       <div className="flex w-1/3 items-center justify-end gap-2">
         <WhatsNews />
         <Feedback />
-        {!isSafari && <HotkeyHelper />}
+        {!isSafariBrowser && <HotkeyHelper />}
         <ThemeToggle />
       </div>
     </nav>
