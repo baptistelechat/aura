@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { defaultImageGeneratorSettings } from "../constant/defaultImageGeneratorSettings";
+import { Browser } from "../types/Browser";
 import {
   BackgroundSettings,
   DimensionSettings,
@@ -9,6 +10,7 @@ import {
   WatermarkSettings,
 } from "../types/ImageGeneratorSettings";
 import { TabNames } from "../types/TabNames";
+import { getBrowser } from "../utils/getBrowser";
 
 type DimensionUpdate = Partial<DimensionSettings>;
 export type ImageUpdate = Partial<ImageSettings>;
@@ -19,7 +21,7 @@ export type WatermarkUpdate = Partial<WatermarkSettings>;
 export type ImageGeneratorStoreType = {
   general: {
     hotkeySet: "default" | "mac";
-    isSafari: boolean;
+    browser: Browser;
     tab: TabNames;
     isDownloading: boolean;
   };
@@ -62,16 +64,11 @@ const userAgent =
 
 const hotkeySet = userAgent.includes("Mac") ? "mac" : "default";
 
-  const isSafari =
-    userAgent.includes("Safari") &&
-    !userAgent.includes("Chrome") &&
-    !userAgent.includes("Chromium");
-
 export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
   (set) => ({
     general: {
       hotkeySet,
-      isSafari,
+      browser: getBrowser(),
       tab: "image",
       isDownloading: false,
     },
