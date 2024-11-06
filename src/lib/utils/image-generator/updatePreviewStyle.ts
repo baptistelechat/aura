@@ -10,8 +10,10 @@ export const updatePreviewStyle = () => {
   const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
-    const width = imageGeneratorStore.settings.dimension.width;
-    const height = imageGeneratorStore.settings.dimension.height;
+    const aspectRatio = window.devicePixelRatio;
+
+    const width = imageGeneratorStore.settings.dimension.width / aspectRatio;
+    const height = imageGeneratorStore.settings.dimension.height / aspectRatio;
 
     const imageVisibility = imageGeneratorStore.settings.image.visibility;
     const imageScale = imageGeneratorStore.settings.image.scale;
