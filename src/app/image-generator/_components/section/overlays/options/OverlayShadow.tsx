@@ -1,7 +1,7 @@
 "use client";
-import Control from "@/components/Control";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
-import ImageSelect from "@/components/ImageSelect";
+import Control from "@/components/image-generator/Control";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
+import ImageSelect from "@/components/image-generator/ImageSelect";
 import { Separator } from "@/components/ui/separator";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";

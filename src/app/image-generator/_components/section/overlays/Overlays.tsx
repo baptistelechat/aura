@@ -1,4 +1,4 @@
-import CustomAccordion from "@/components/CustomAccordion";
+import CustomAccordion from "@/components/image-generator/CustomAccordion";
 import OverlayShadow from "./options/OverlayShadow";
 
 const Overlays = () => {

@@ -36,7 +36,7 @@ import {
   Sparkle,
   Tags,
 } from "lucide-react";
-import CustomAccordionItem from "../CustomAccordionItem";
+import CustomAccordionItem from "../image-generator/CustomAccordionItem";
 import Shortcut from "./Shortcut";
 
 const HotkeyHelper = () => {

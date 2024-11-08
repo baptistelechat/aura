@@ -1,8 +1,8 @@
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { LampDesk, Moon, Sun, SunMoon } from "lucide-react";
-import Control from "@/components/Control";
+import Control from "@/components/image-generator/Control";
 
 const ImageShadow = () => {
   const shadow = useImageGeneratorStore((s) => s.settings.image.shadow);
@@ -14,7 +14,7 @@ const ImageShadow = () => {
       title={"Shadow"}
       icon={<LampDesk className="size-4" />}
       disabled={shadow === defaultValue}
-      reset={()=> setImage({shadow: defaultValue})}
+      reset={() => setImage({ shadow: defaultValue })}
     >
       <Control
         title={"opacity"}

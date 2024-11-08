@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { Accordion } from "./ui/accordion";
-import { ScrollArea } from "./ui/scroll-area";
+import { Accordion } from "../ui/accordion";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface ICustomAccordionProps {
   type: "multiple" | "single";

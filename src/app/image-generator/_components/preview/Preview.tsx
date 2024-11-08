@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import DropZone from "@/components/DropZone";
+import DropZone from "@/components/image-generator/DropZone";
 import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
@@ -117,6 +117,7 @@ const Preview = () => {
                 src={image.src}
                 alt="Selected"
                 style={{
+                  display: "block",
                   borderRadius: `${image.borderRadius}px`,
                   filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
                     image.shadow
