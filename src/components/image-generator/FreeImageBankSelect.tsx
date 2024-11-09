@@ -32,6 +32,7 @@ const FreeImageBankSelect = ({
   mode,
   variant = "default",
 }: IFreeImageBankSelectProps) => {
+  const setTab = useImageGeneratorStore((s) => s.setTab);
   const setImage = useImageGeneratorStore((s) => s.setImage);
   const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
@@ -47,6 +48,7 @@ const FreeImageBankSelect = ({
 
     if (mode === "image") {
       setImage({ src: base64Image });
+      setTab("image");
       return;
     }
   };

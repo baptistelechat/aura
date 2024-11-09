@@ -1,6 +1,7 @@
 "use client";
+import FreeImageBank from "@/components/image-generator/FreeImageBank";
 import Shortcut from "@/components/keyboard/Shortcut";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -8,10 +9,12 @@ import {
 } from "@/components/ui/tooltip";
 import { defaultColor } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { loadImage } from "@/lib/utils/hotkey/action/loadImage";
 import { getHotkeyById } from "@/lib/utils/hotkey/getHotkeyById";
 import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import ColorThief from "colorthief";
 import { ColorTranslator } from "colortranslator";
+import { ImagePlus } from "lucide-react";
 import { useEffect } from "react";
 
 const ImageInput = () => {
@@ -60,25 +63,36 @@ const ImageInput = () => {
   }, [imageSrc]);
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Input
-          id="imageUploadInput"
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            uploadImage(e.target.files?.[0], "image");
-          }}
-          className="w-full hover:cursor-pointer"
-        />
-      </TooltipTrigger>
-      <TooltipContent className="mb-2">
-        <div className="flex flex-col items-center gap-2 font-normal">
-          <p>{loadImageHotkey.name}</p>
-          <Shortcut hotkey={loadImageHotkey.key} />
-        </div>
-      </TooltipContent>
-    </Tooltip>
+    <div className="flex w-full gap-2">
+      <input
+        id="imageUploadInput"
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          uploadImage(e.target.files?.[0], "image");
+        }}
+        className="hidden"
+      />
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant={"outline"}
+            className="flex w-1/3 items-center justify-center gap-1"
+            onClick={loadImage}
+          >
+            <ImagePlus className="size-4" />
+            Local
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent className="mb-2">
+          <div className="flex flex-col items-center gap-2 font-normal">
+            <p>{loadImageHotkey.name}</p>
+            <Shortcut hotkey={loadImageHotkey.key} />
+          </div>
+        </TooltipContent>
+      </Tooltip>
+      <FreeImageBank mode="image" />
+    </div>
   );
 };
 
