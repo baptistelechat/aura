@@ -23,12 +23,12 @@ const generateShadowImages = (
   const images = [];
   for (let i = start; i <= end; i++) {
     images.push({
-      id: i,
+      id: String(i),
       thumbnail: `${path}/thumbnails/${i}.webp`,
       original: `${path}/originals/${i}.webp`,
     });
   }
-  return images.sort((a, b) => a.id - b.id);
+  return images.sort((a, b) => Number(a.id) - Number(b.id));
 };
 
 const ImageSelect = ({

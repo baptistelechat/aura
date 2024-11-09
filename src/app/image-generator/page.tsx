@@ -53,14 +53,6 @@ const ImageGenerator = () => {
     }
   }, [isDesktop]);
 
-  // useEffect(() => {
-  //   fetch("/api/images/unsplash?query=abstract")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // }, []);
-
   if (!isDesktop || isSafariBrowser) {
     return <UnsupportedDevice />;
   }
