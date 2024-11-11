@@ -48,9 +48,15 @@ export type BackgroundSettings = {
   magicColor: string[];
   backgroundImage: string | null;
   freeImageBank: {
-    unsplash:ImageCollection,
-    pixabay : ImageCollection
-  }
+    unsplash: {
+      searchValue: string;
+      images: ImageCollection;
+    };
+    pixabay: {
+      searchValue: string;
+      images: ImageCollection;
+    };
+  };
 };
 
 export type OverlaySettings = {

@@ -44,8 +44,14 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     magicColor: [],
     backgroundImage: null,
     freeImageBank: {
-      unsplash: [],
-      pixabay: [],
+      unsplash: {
+        searchValue: "",
+        images: [],
+      },
+      pixabay: {
+        searchValue: "",
+        images: [],
+      },
     },
   },
   overlay: {

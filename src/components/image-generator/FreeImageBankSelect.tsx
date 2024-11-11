@@ -13,6 +13,7 @@ import { Search } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 import Loader, { LoaderEnum } from "../Loader";
 import { Input } from "../ui/input";
 
@@ -33,12 +34,27 @@ interface IFreeImageBankSelectProps {
   variant?: "default" | "icon";
 }
 
+const MAX_SEARCH_VALUE_LENGTH = 100;
+const MIN_SEARCH_VALUE_LENGTH = 3;
+
+const searchSchema = z.object({
+  searchValue: z
+    .string()
+    .max(MAX_SEARCH_VALUE_LENGTH, {
+      message: "Search value must be less than 100 characters",
+    })
+    .min(MIN_SEARCH_VALUE_LENGTH, {
+      message: "Search value must be at least 3 characters",
+    }),
+});
+
 const FreeImageBankSelect = ({
   imageBank,
   mode,
   variant = "default",
 }: IFreeImageBankSelectProps) => {
   const [searchValue, setSearchValue] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageCollection>();
 
@@ -67,12 +83,30 @@ const FreeImageBankSelect = ({
     }
   };
 
+  const validateSearchValue = (searchValue: string) => {
+    try {
+      searchSchema.parse({ searchValue });
+      setErrorMessage("");
+      return true;
+    } catch (error: any) {
+      const errorMessage = error.errors[0].message;
+      toast.error(errorMessage);
+      setErrorMessage(errorMessage);
+      return false;
+    }
+  }
+
   const handleSearch = (
     searchValue: string,
     imageBank: "unsplash" | "pixabay",
     mode: "background" | "image"
   ) => {
     // console.log("Searching for images:", searchValue);
+    
+    if(!validateSearchValue(searchValue)) {
+      return
+    }
+    
     setIsLoading(true);
 
     if (imageBank === "unsplash") {
@@ -97,7 +131,7 @@ const FreeImageBankSelect = ({
             setBackground({
               freeImageBank: {
                 ...freeImageBank,
-                unsplash: images,
+                unsplash: { searchValue, images },
               },
             });
           }
@@ -127,7 +161,7 @@ const FreeImageBankSelect = ({
             setBackground({
               freeImageBank: {
                 ...freeImageBank,
-                pixabay: images,
+                pixabay: { searchValue, images },
               },
             });
           }
@@ -139,10 +173,14 @@ const FreeImageBankSelect = ({
   useEffect(() => {
     if (mode === "background" && freeImageBank) {
       if (imageBank === "unsplash") {
-        setImages(freeImageBank.unsplash);
+        const data = freeImageBank.unsplash;
+        setSearchValue(data.searchValue);
+        setImages(data.images);
       }
       if (imageBank === "pixabay") {
-        setImages(freeImageBank.pixabay);
+        const data = freeImageBank.pixabay;
+        setSearchValue(data.searchValue);
+        setImages(data.images);
       }
     }
   }, []);
@@ -176,7 +214,10 @@ const FreeImageBankSelect = ({
             <Search className="size-4" />
           </Button>
         </div>
-        {images ? (
+        {errorMessage && (
+          <p className="text-left text-sm text-red-500">{errorMessage}</p>
+        )}
+        {images && images.length > 0 ? (
           <div className="grid grid-cols-4 place-items-center gap-2">
             {images.map((image) => (
               <div key={image.id} className="flex items-center gap-2">
