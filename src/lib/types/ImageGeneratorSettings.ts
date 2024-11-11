@@ -3,6 +3,7 @@ import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "./gradientOrientation";
+import { ImageCollection } from "./ImageCollection";
 
 export type DimensionSettings = {
   format: keyof sharp.FormatEnum;
@@ -46,6 +47,16 @@ export type BackgroundSettings = {
   };
   magicColor: string[];
   backgroundImage: string | null;
+  freeImageBank: {
+    unsplash: {
+      searchValue: string;
+      images: ImageCollection;
+    };
+    pixabay: {
+      searchValue: string;
+      images: ImageCollection;
+    };
+  };
 };
 
 export type OverlaySettings = {

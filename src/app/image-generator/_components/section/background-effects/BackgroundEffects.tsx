@@ -1,4 +1,4 @@
-import CustomAccordion from "@/components/CustomAccordion";
+import CustomAccordion from "@/components/image-generator/CustomAccordion";
 import BackgroundBlur from "../background-color/options/BackgroundBlur";
 import BackgroundNoise from "../background-color/options/BackgroundNoise";
 

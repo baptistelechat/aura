@@ -60,7 +60,7 @@ const UmamiBanner = () => {
           <SheetDescription>
             <div className="mb-2 flex items-center gap-2">
               <Image
-                src={"/images/umami.png"}
+                src={"/images/assets/umami.png"}
                 alt="Umami Logo"
                 width={50}
                 height={50}

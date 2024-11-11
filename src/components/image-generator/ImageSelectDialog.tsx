@@ -11,7 +11,7 @@ import { ImageCollection } from "@/lib/types/ImageCollection";
 import { cn } from "@/lib/utils";
 import { handleImageClick } from "@/lib/utils/image-generator/handleImageClick";
 import { Ghost } from "lucide-react";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface IImageSelectDialog {
   open: boolean;

@@ -5,7 +5,7 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Paintbrush } from "lucide-react";
 import CustomColorPicker from "./components/CustomColorPicker";
 import CustomGradientColor from "./components/CustomGradientColor";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
 import { handleBackgroundModeChange } from "@/lib/utils/image-generator/handleBackgroundModeChange";
 
 const CustomColor = () => {
@@ -26,14 +26,11 @@ const CustomColor = () => {
       title={"Custom Color"}
       icon={<Paintbrush className="size-4" />}
       disabled={
-        backgroundColor ===
-          defaultBackgroundSettings.backgroundColor &&
+        backgroundColor === defaultBackgroundSettings.backgroundColor &&
         gradient.orientation ===
           defaultBackgroundSettings.gradient.orientation &&
-        gradient.from ===
-          defaultBackgroundSettings.gradient.from &&
-        gradient.via ===
-          defaultBackgroundSettings.gradient.via &&
+        gradient.from === defaultBackgroundSettings.gradient.from &&
+        gradient.via === defaultBackgroundSettings.gradient.via &&
         gradient.to === defaultBackgroundSettings.gradient.to
       }
       reset={resetBackground}

@@ -1,7 +1,8 @@
-import CustomAccordion from "@/components/CustomAccordion";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
-import DropZone from "@/components/DropZone";
-import ImageSelect from "@/components/ImageSelect";
+import CustomAccordion from "@/components/image-generator/CustomAccordion";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
+import DropZone from "@/components/image-generator/DropZone";
+import FreeImageBank from "@/components/image-generator/freeImageBank/FreeImageBank";
+import ImageSelect from "@/components/image-generator/ImageSelect";
 import { backgroundImages } from "@/lib/constant/backgroundImages";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
@@ -16,6 +17,7 @@ const BackgroundImage = () => {
   return (
     <CustomAccordion type="single">
       <DropZone mode="background" />
+      <FreeImageBank mode="background" />
       {backgroundImages.map((image) => (
         <CustomAccordionItem
           key={image.title.toLowerCase()}

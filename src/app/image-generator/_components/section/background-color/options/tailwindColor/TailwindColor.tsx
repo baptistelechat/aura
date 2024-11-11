@@ -5,7 +5,7 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Palette } from "lucide-react";
 import TailwindColorPicker from "./components/TailwindColorPicker";
 import TailwindGradientColor from "./components/TailwindGradientColor";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
 import { handleBackgroundModeChange } from "@/lib/utils/image-generator/handleBackgroundModeChange";
 
 const TailwindColor = () => {

@@ -1,5 +1,5 @@
-import Control from "@/components/Control";
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import Control from "@/components/image-generator/Control";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { BoxSelect, Circle, Square, Squircle } from "lucide-react";

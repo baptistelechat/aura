@@ -1,4 +1,4 @@
-import CustomAccordion from "@/components/CustomAccordion";
+import CustomAccordion from "@/components/image-generator/CustomAccordion";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";

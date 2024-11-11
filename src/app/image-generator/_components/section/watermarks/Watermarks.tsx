@@ -1,12 +1,12 @@
-import CustomAccordion from "@/components/CustomAccordion"
-import AuraWatermark from "./options/AuraWatermark"
+import CustomAccordion from "@/components/image-generator/CustomAccordion";
+import AuraWatermark from "./options/AuraWatermark";
 
 const Watermarks = () => {
   return (
     <CustomAccordion type="multiple">
-      <AuraWatermark/>
+      <AuraWatermark />
     </CustomAccordion>
-  )
-}
+  );
+};
 
-export default Watermarks
+export default Watermarks;

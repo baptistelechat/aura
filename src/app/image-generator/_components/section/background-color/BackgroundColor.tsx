@@ -1,4 +1,4 @@
-import CustomAccordion from "@/components/CustomAccordion";
+import CustomAccordion from "@/components/image-generator/CustomAccordion";
 import CustomColor from "./options/customColor/CustomColor";
 import MagicColor from "./options/magicColor/MagicColor";
 import TailwindColor from "./options/tailwindColor/TailwindColor";
