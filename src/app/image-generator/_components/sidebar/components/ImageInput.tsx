@@ -1,5 +1,5 @@
 "use client";
-import FreeImageBank from "@/components/image-generator/FreeImageBank";
+import FreeImageBank from "@/components/image-generator/freeImageBank/FreeImageBank";
 import Shortcut from "@/components/keyboard/Shortcut";
 import { Button } from "@/components/ui/button";
 import {

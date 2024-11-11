@@ -14,18 +14,19 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import Loader, { LoaderEnum } from "../Loader";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import Loader, { LoaderEnum } from "../../../Loader";
+import { Input } from "../../../ui/input";
+import FreeImageBankColor from "./FreeImageBankColor";
+import FreeImageBankOrientation from "./FreeImageBankOrientation";
+import { Separator } from "@/components/ui/separator";
+
+type Orientation = "all" | "landscape" | "portrait";
 
 interface IFreeImageBankSelectProps {
   imageBank: "unsplash" | "pixabay";
   mode: "image" | "background";
   variant?: "default" | "icon";
 }
-
-type Orientation = "all" | "landscape" | "portrait";
 
 const MAX_SEARCH_VALUE_LENGTH = 100;
 const MIN_SEARCH_VALUE_LENGTH = 3;
@@ -57,10 +58,11 @@ const FreeImageBankSelect = ({
   mode,
   variant = "default",
 }: IFreeImageBankSelectProps) => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState<string>("");
   const [orientation, setOrientation] = useState<Orientation>("all");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [color, setColor] = useState<string>("all_colors");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [images, setImages] = useState<ImageCollection>();
 
   const freeImageBank = useImageGeneratorStore(
@@ -104,6 +106,7 @@ const FreeImageBankSelect = ({
   const handleSearch = (
     searchValue: string,
     orientation: Orientation,
+    color:string,
     imageBank: "unsplash" | "pixabay",
     mode: "background" | "image"
   ) => {
@@ -116,7 +119,9 @@ const FreeImageBankSelect = ({
     setIsLoading(true);
 
     if (imageBank === "unsplash") {
-      fetch(`/api/images/unsplash?query=${searchValue}&per_page=16&orientation=${orientation}`)
+      fetch(
+        `/api/images/unsplash?query=${searchValue}&per_page=16&orientation=${orientation}&color=${color}`
+      )
         .then((res) => res.json())
         .then((data) => {
           const response = data as UnsplashApiResponse;
@@ -146,7 +151,9 @@ const FreeImageBankSelect = ({
     }
 
     if (imageBank === "pixabay") {
-      fetch(`/api/images/pixabay?query=${searchValue}&per_page=16&orientation=${orientation}`)
+      fetch(
+        `/api/images/pixabay?query=${searchValue}&per_page=16&orientation=${orientation}&color=${color}`
+      )
         .then((res) => res.json())
         .then((data) => {
           const response = data as PixabayApiResponse;
@@ -216,7 +223,9 @@ const FreeImageBankSelect = ({
           />
           <Button
             size="icon"
-            onClick={() => handleSearch(searchValue, orientation, imageBank, mode)}
+            onClick={() =>
+              handleSearch(searchValue, orientation,color, imageBank, mode)
+            }
           >
             <Search className="size-4" />
           </Button>
@@ -224,24 +233,16 @@ const FreeImageBankSelect = ({
         {errorMessage && (
           <p className="text-left text-sm text-red-500">{errorMessage}</p>
         )}
-        <RadioGroup
-          defaultValue={orientation}
-          onValueChange={(value) => setOrientation(value as Orientation)}
-          className="flex gap-3"
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="all" />
-            <Label>All</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="landscape" />
-            <Label>Landscape</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="portrait" />
-            <Label>Portrait</Label>
-          </div>
-        </RadioGroup>
+        <FreeImageBankOrientation
+          orientation={orientation}
+          setOrientation={setOrientation}
+        />
+        <FreeImageBankColor
+          imageBank={imageBank}
+          color={color}
+          setColor={setColor}
+        />
+        <Separator/>
         {images && images.length > 0 ? (
           <div className="grid grid-cols-4 place-items-center gap-2">
             {images.map((image) => (
@@ -260,7 +261,7 @@ const FreeImageBankSelect = ({
             ))}
           </div>
         ) : (
-          <div className="flex h-56 items-center justify-center">
+          <div className="flex h-60 items-center justify-center">
             {isLoading ? (
               <Loader loader={LoaderEnum.REULEAUX} color="#2563eb" />
             ) : (

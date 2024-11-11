@@ -1,7 +1,7 @@
 import CustomAccordion from "@/components/image-generator/CustomAccordion";
 import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
 import DropZone from "@/components/image-generator/DropZone";
-import FreeImageBank from "@/components/image-generator/FreeImageBank";
+import FreeImageBank from "@/components/image-generator/freeImageBank/FreeImageBank";
 import ImageSelect from "@/components/image-generator/ImageSelect";
 import { backgroundImages } from "@/lib/constant/backgroundImages";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";

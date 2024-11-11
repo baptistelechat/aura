@@ -6,12 +6,13 @@ export async function GET(req: NextRequest) {
   const page = searchParams.get("page") || "1";
   const perPage = searchParams.get("per_page") || "10";
   const orientation = searchParams.get("orientation") || "all";
+  const color = searchParams.get("color") || "all_colors";
 
   try {
     const response = await fetch(
       `https://api.unsplash.com/search/photos?query=${query}&page=${page}&per_page=${perPage}${
         orientation !== "all" ? `&orientation=${orientation}` : ""
-      }&content_filter=high`,
+      }${color !== "all_colors" ? `&color=${color}` : ""}&content_filter=high`,
       {
         headers: {
           Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,

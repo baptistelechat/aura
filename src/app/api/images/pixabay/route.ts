@@ -19,10 +19,13 @@ export async function GET(req: NextRequest) {
       .get("orientation")
       ?.replace("landscape", "horizontal")
       .replace("portrait", "vertical") || "all";
+  const color = searchParams.get("color") || "all_colors";
 
   try {
     const response = await fetch(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&page=${page}&per_page=${perPage}&orientation=${orientation}&safesearch=true`
+      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&page=${page}&per_page=${perPage}&orientation=${orientation}${
+        color !== "all_colors" ? `&colors=${color}` : ""
+      }&safesearch=true`
     );
 
     if (!response.ok) {
