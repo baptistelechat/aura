@@ -5,6 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageCollection } from "@/lib/types/ImageCollection";
 import { PixabayApiResponse } from "@/lib/types/PixabayApiResponse";
@@ -18,7 +19,6 @@ import Loader, { LoaderEnum } from "../../../Loader";
 import { Input } from "../../../ui/input";
 import FreeImageBankColor from "./FreeImageBankColor";
 import FreeImageBankOrientation from "./FreeImageBankOrientation";
-import { Separator } from "@/components/ui/separator";
 
 type Orientation = "all" | "landscape" | "portrait";
 
@@ -106,7 +106,7 @@ const FreeImageBankSelect = ({
   const handleSearch = (
     searchValue: string,
     orientation: Orientation,
-    color:string,
+    color: string,
     imageBank: "unsplash" | "pixabay",
     mode: "background" | "image"
   ) => {
@@ -220,11 +220,16 @@ const FreeImageBankSelect = ({
             placeholder="Search for images"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch(searchValue, orientation, color, imageBank, mode);
+              }
+            }}
           />
           <Button
             size="icon"
             onClick={() =>
-              handleSearch(searchValue, orientation,color, imageBank, mode)
+              handleSearch(searchValue, orientation, color, imageBank, mode)
             }
           >
             <Search className="size-4" />
@@ -242,7 +247,7 @@ const FreeImageBankSelect = ({
           color={color}
           setColor={setColor}
         />
-        <Separator/>
+        <Separator />
         {images && images.length > 0 ? (
           <div className="grid grid-cols-4 place-items-center gap-2">
             {images.map((image) => (
