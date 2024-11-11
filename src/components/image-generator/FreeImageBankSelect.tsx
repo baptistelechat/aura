@@ -16,23 +16,16 @@ import { toast } from "sonner";
 import { z } from "zod";
 import Loader, { LoaderEnum } from "../Loader";
 import { Input } from "../ui/input";
-
-const fetchImageAsBase64 = async (url: string) => {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-};
+import { Label } from "../ui/label";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 interface IFreeImageBankSelectProps {
   imageBank: "unsplash" | "pixabay";
   mode: "image" | "background";
   variant?: "default" | "icon";
 }
+
+type Orientation = "all" | "landscape" | "portrait";
 
 const MAX_SEARCH_VALUE_LENGTH = 100;
 const MIN_SEARCH_VALUE_LENGTH = 3;
@@ -48,12 +41,24 @@ const searchSchema = z.object({
     }),
 });
 
+const fetchImageAsBase64 = async (url: string) => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
+
 const FreeImageBankSelect = ({
   imageBank,
   mode,
   variant = "default",
 }: IFreeImageBankSelectProps) => {
   const [searchValue, setSearchValue] = useState("");
+  const [orientation, setOrientation] = useState<Orientation>("all");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageCollection>();
@@ -94,23 +99,24 @@ const FreeImageBankSelect = ({
       setErrorMessage(errorMessage);
       return false;
     }
-  }
+  };
 
   const handleSearch = (
     searchValue: string,
+    orientation: Orientation,
     imageBank: "unsplash" | "pixabay",
     mode: "background" | "image"
   ) => {
     // console.log("Searching for images:", searchValue);
-    
-    if(!validateSearchValue(searchValue)) {
-      return
+
+    if (!validateSearchValue(searchValue)) {
+      return;
     }
-    
+
     setIsLoading(true);
 
     if (imageBank === "unsplash") {
-      fetch(`/api/images/unsplash?query=${searchValue}&per_page=16`)
+      fetch(`/api/images/unsplash?query=${searchValue}&per_page=16&orientation=${orientation}`)
         .then((res) => res.json())
         .then((data) => {
           const response = data as UnsplashApiResponse;
@@ -140,7 +146,7 @@ const FreeImageBankSelect = ({
     }
 
     if (imageBank === "pixabay") {
-      fetch(`/api/images/pixabay?query=${searchValue}&per_page=16`)
+      fetch(`/api/images/pixabay?query=${searchValue}&per_page=16&orientation=${orientation}`)
         .then((res) => res.json())
         .then((data) => {
           const response = data as PixabayApiResponse;
@@ -210,7 +216,7 @@ const FreeImageBankSelect = ({
           />
           <Button
             size="icon"
-            onClick={() => handleSearch(searchValue, imageBank, mode)}
+            onClick={() => handleSearch(searchValue, orientation, imageBank, mode)}
           >
             <Search className="size-4" />
           </Button>
@@ -218,6 +224,24 @@ const FreeImageBankSelect = ({
         {errorMessage && (
           <p className="text-left text-sm text-red-500">{errorMessage}</p>
         )}
+        <RadioGroup
+          defaultValue={orientation}
+          onValueChange={(value) => setOrientation(value as Orientation)}
+          className="flex gap-3"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="all" />
+            <Label>All</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="landscape" />
+            <Label>Landscape</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="portrait" />
+            <Label>Portrait</Label>
+          </div>
+        </RadioGroup>
         {images && images.length > 0 ? (
           <div className="grid grid-cols-4 place-items-center gap-2">
             {images.map((image) => (
@@ -236,7 +260,7 @@ const FreeImageBankSelect = ({
             ))}
           </div>
         ) : (
-          <div className="flex h-44 items-center justify-center">
+          <div className="flex h-56 items-center justify-center">
             {isLoading ? (
               <Loader loader={LoaderEnum.REULEAUX} color="#2563eb" />
             ) : (

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const API_KEY = process.env.PIXABAY_ACCESS_KEY;
@@ -14,10 +14,15 @@ export async function GET(req: NextRequest) {
   const query = searchParams.get("query") || "nature";
   const page = searchParams.get("page") || "1";
   const perPage = searchParams.get("per_page") || "10";
+  const orientation =
+    searchParams
+      .get("orientation")
+      ?.replace("landscape", "horizontal")
+      .replace("portrait", "vertical") || "all";
 
   try {
     const response = await fetch(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&page=${page}&per_page=${perPage}`
+      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&page=${page}&per_page=${perPage}&orientation=${orientation}&safesearch=true`
     );
 
     if (!response.ok) {
