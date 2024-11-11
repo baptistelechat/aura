@@ -196,6 +196,7 @@ const FreeImageBankSelect = ({
             alt={imageBank}
             width={variant === "icon" ? 25 : 95}
             height={variant === "icon" ? 25 : 80}
+            className="dark:invert"
           />
         </Button>
       </PopoverTrigger>
