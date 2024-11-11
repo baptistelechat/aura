@@ -1,4 +1,4 @@
-export const mockUnsplash = {
+export const unsplash = {
     "status": "success",
     "images": [
         {

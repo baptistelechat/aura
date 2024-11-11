@@ -7,10 +7,12 @@ import {
 } from "@/components/ui/popover";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageCollection } from "@/lib/types/ImageCollection";
+import { PixabayApiResponse } from "@/lib/types/PixabayApiResponse";
 import { UnsplashApiResponse } from "@/lib/types/UnsplashApiResponse";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 import Loader, { LoaderEnum } from "../Loader";
 import { Input } from "../ui/input";
 
@@ -61,24 +63,56 @@ const FreeImageBankSelect = ({
     }
   };
 
-  const handleSearch = (searchValue: string) => {
-    console.log("Searching for images:", searchValue);
+  const handleSearch = (
+    imageBank: "unsplash" | "pixabay",
+    searchValue: string
+  ) => {
+    // console.log("Searching for images:", searchValue);
     setIsLoading(true);
 
-    fetch(`/api/images/unsplash?query=${searchValue}&per_page=12`)
-      .then((res) => res.json())
-      .then((data) => {
-        const response = data as UnsplashApiResponse;
-        const images: ImageCollection = [
-          ...response.images.map((image) => ({
-            id: image.id,
-            thumbnail: image.urls.thumb,
-            original: image.urls.raw,
-          })),
-        ];
-        setImages(images);
-        setIsLoading(false);
-      });
+    if (imageBank === "unsplash") {
+      fetch(`/api/images/unsplash?query=${searchValue}&per_page=16`)
+        .then((res) => res.json())
+        .then((data) => {
+          const response = data as UnsplashApiResponse;
+          if (response.status === "error") {
+            toast.error(response.message);
+            return;
+          }
+          const images: ImageCollection = [
+            ...response.images.map((image) => ({
+              id: image.id,
+              thumbnail: image.urls.thumb,
+              original: image.urls.raw,
+            })),
+          ];
+          setImages(images);
+          setIsLoading(false);
+          return;
+        });
+    }
+
+    if (imageBank === "pixabay") {
+      fetch(`/api/images/pixabay?query=${searchValue}&per_page=16`)
+        .then((res) => res.json())
+        .then((data) => {
+          const response = data as PixabayApiResponse;
+          if (response.status === "error") {
+            toast.error(response.message);
+            return;
+          }
+          const images: ImageCollection = [
+            ...response.images.map((image) => ({
+              id: String(image.id),
+              thumbnail: image.previewURL,
+              original: image.largeImageURL,
+            })),
+          ];
+          setImages(images);
+          setIsLoading(false);
+          return;
+        });
+    }
   };
 
   return (
@@ -103,7 +137,10 @@ const FreeImageBankSelect = ({
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <Button size="icon" onClick={() => handleSearch(searchValue)}>
+          <Button
+            size="icon"
+            onClick={() => handleSearch(imageBank, searchValue)}
+          >
             <Search className="size-4" />
           </Button>
         </div>
