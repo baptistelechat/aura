@@ -5,6 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { ImageCollection } from "@/lib/types/ImageCollection";
@@ -120,7 +121,7 @@ const FreeImageBankSelect = ({
 
     if (imageBank === "unsplash") {
       fetch(
-        `/api/images/unsplash?query=${searchValue}&per_page=16&orientation=${orientation}&color=${color}`
+        `/api/images/unsplash?query=${searchValue}&per_page=18&orientation=${orientation}&color=${color}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -134,6 +135,7 @@ const FreeImageBankSelect = ({
               id: image.id,
               thumbnail: image.urls.thumb,
               original: image.urls.raw,
+              author: image.user.name,
             })),
           ];
           setImages(images);
@@ -152,7 +154,7 @@ const FreeImageBankSelect = ({
 
     if (imageBank === "pixabay") {
       fetch(
-        `/api/images/pixabay?query=${searchValue}&per_page=16&orientation=${orientation}&color=${color}`
+        `/api/images/pixabay?query=${searchValue}&per_page=18&orientation=${orientation}&color=${color}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -166,6 +168,7 @@ const FreeImageBankSelect = ({
               id: String(image.id),
               thumbnail: image.previewURL,
               original: image.largeImageURL,
+              author: image.user,
             })),
           ];
           setImages(images);
@@ -249,24 +252,27 @@ const FreeImageBankSelect = ({
         />
         <Separator />
         {images && images.length > 0 ? (
-          <div className="grid grid-cols-4 place-items-center gap-2">
-            {images.map((image) => (
-              <div key={image.id} className="flex items-center gap-2">
-                <div
-                  key={image.id}
-                  className={
-                    "relative size-14 cursor-pointer rounded bg-cover bg-center"
-                  }
-                  style={{
-                    backgroundImage: `url(${image.thumbnail})`,
-                  }}
-                  onClick={() => handleImageClick(image.original, mode)}
-                />
-              </div>
-            ))}
-          </div>
+          <ScrollArea className="h-[256px]">
+            <div className="grid grid-cols-3 place-items-center gap-2">
+              {images.map((image) => (
+                <div key={image.id} className="flex items-center gap-2">
+                  <div
+                    className="group relative size-20 cursor-pointer overflow-hidden rounded bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${image.thumbnail})`,
+                    }}
+                    onClick={() => handleImageClick(image.original, mode)}
+                  >
+                    <p className="absolute bottom-0 left-0 w-full break-words bg-primary/50 p-1 text-center text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      {image.author}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
         ) : (
-          <div className="flex h-60 items-center justify-center">
+          <div className="flex h-64 items-center justify-center">
             {isLoading ? (
               <Loader loader={LoaderEnum.REULEAUX} color="#2563eb" />
             ) : (
