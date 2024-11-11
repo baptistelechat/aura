@@ -5,6 +5,37 @@ export const changelogData: Changelog[] = [
   {
     date: {
       month: "November",
+      day: 12,
+      year: 2024,
+    },
+    content: (
+      <div className="flex flex-col gap-2">
+        <p className="font-semibold">Free Image Bank</p>
+        <p className="text-sm text-muted-foreground">
+          Aura now supports 2 royalty-free image banks : Unsplash and Pixabay. This feature helps you find the perfect image for your project. You can now search for images by keyword and filter results by orientation or color theme.
+        </p>
+        <Image
+          src={"/images/changelog/2024 11 12/freeImageBank-2.png"}
+          alt={"Free Image Bank"}
+          layout="responsive"
+          width={1920}
+          height={1080}
+          className="rounded-lg border transition-all duration-300 ease-in-out"
+        />
+        <Image
+          src={"/images/changelog/2024 11 12/freeImageBank-1.png"}
+          alt={"Free Image Bank"}
+          layout="responsive"
+          width={1920}
+          height={1080}
+          className="rounded-lg border transition-all duration-300 ease-in-out"
+        />
+      </div>
+    ),
+  },
+  {
+    date: {
+      month: "November",
       day: 6,
       year: 2024,
     },
@@ -12,13 +43,13 @@ export const changelogData: Changelog[] = [
       <div className="flex flex-col gap-2">
         <p className="font-semibold">Background Image, Rotation and more</p>
         <p className="text-sm text-muted-foreground">
-          Aura includes over 13k predefined backgrounds to boost your
-          creativity ! To keep up with all the latest standards, this update
-          includes the addition of new export dimensions for social networks.
-          More flexibility ? You can choose to define a custom format. And
+          Aura includes over 13k predefined backgrounds to boost your creativity
+          ! To keep up with all the latest standards, this update includes the
+          addition of new export dimensions for social networks. More
+          flexibility ? You can choose to define a custom format. And
           that&apos;s not all ! You can export to more image formats: JPG, PNG,
-          WEBP,... Finally, bring your images to life by giving your
-          renderings a 3D effect!
+          WEBP,... Finally, bring your images to life by giving your renderings
+          a 3D effect!
         </p>
         <Image
           src={"/images/changelog/2024 11 06/backgroundImage.png"}
