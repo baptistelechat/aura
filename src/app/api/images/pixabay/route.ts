@@ -28,10 +28,18 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await response.json();
-    return NextResponse.json(
+
+    const nextResponse = NextResponse.json(
       { status: "success", images: data.hits },
       { status: 200 }
     );
+
+    nextResponse.headers.set(
+      "Cache-Control",
+      "s-maxage=86400, stale-while-revalidate=59"
+    );
+
+    return nextResponse;
   } catch (error) {
     console.error("Error fetching images:", error);
     return NextResponse.json(
