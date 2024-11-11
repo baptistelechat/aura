@@ -1,20 +1,20 @@
-import CustomAccordionItem from "@/components/CustomAccordionItem";
+import CustomAccordionItem from "@/components/image-generator/CustomAccordionItem";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Circle, CircleDashed, CircleDotDashed } from "lucide-react";
-import Control from "@/components/Control";
+import Control from "@/components/image-generator/Control";
 
 const BackgroundBlur = () => {
   const blur = useImageGeneratorStore((s) => s.settings.background.blur);
   const setBackground = useImageGeneratorStore((s) => s.setBackground);
-  const defaultValue = defaultImageGeneratorSettings.background.blur
+  const defaultValue = defaultImageGeneratorSettings.background.blur;
 
   return (
     <CustomAccordionItem
       title={"Blur"}
       icon={<CircleDotDashed className="size-4" />}
       disabled={blur === defaultValue}
-      reset={()=> setBackground({blur: defaultValue})}
+      reset={() => setBackground({ blur: defaultValue })}
     >
       <Control
         title={"blur"}

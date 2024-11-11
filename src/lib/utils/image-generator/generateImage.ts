@@ -1,6 +1,7 @@
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import * as htmlToImage from "html-to-image";
 import { toast } from "sonner";
+import { isFirefox } from "../getBrowser";
 import { umamiGenerateImage } from "../umami/umamiGenerateImage";
 import { updatePreviewSize } from "./updatePreviewSize";
 import { updatePreviewStyle } from "./updatePreviewStyle";
@@ -11,7 +12,10 @@ interface IGenerateImage {
   method?: "button" | "shortcut";
 }
 
-const mimeType = (format: string) => {
+const mimeType = (format: string, isFirefox:boolean) => {
+  if (isFirefox && (format === "tiff" || format === "gif")) {
+    return "image/png"; // Force PNG for unsupported formats in Firefox
+  }
   if (format === "png") return "image/png";
   if (format === "jpg") return "image/jpeg";
   if (format === "webp") return "image/webp";
@@ -21,6 +25,8 @@ const mimeType = (format: string) => {
 };
 
 export const generateImage = async ({ action, method }: IGenerateImage) => {
+  const isFirefoxBrowser = isFirefox();
+
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
 
@@ -52,7 +58,7 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
             try {
               setTimeout(async () => {
                 const canvas = await htmlToImage.toCanvas(previewRef.current!);
-                const result = canvas.toDataURL(mimeType(format));
+                const result = canvas.toDataURL(mimeType(format, isFirefoxBrowser));
                 resolve(result);
               }, 1000);
             } catch (error) {
@@ -69,6 +75,9 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
             link.download = `social-image.${format}`;
             link.click();
             umamiGenerateImage({ action, method });
+            if (isFirefoxBrowser && (format === "tiff" || format === "gif")) {
+              toast.warning("Firefox does not support TIFF and GIF formats. PNG is used instead.");
+            }
             resolve("Image successfully downloaded!");
           } else if (action === "clipboard") {
             if (navigator.clipboard && ClipboardItem) {

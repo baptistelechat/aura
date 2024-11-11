@@ -5,7 +5,7 @@ import { handleImageClick } from "@/lib/utils/image-generator/handleImageClick";
 import { Library, Plus, RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import ImageSelectDialog from "./ImageSelectDialog";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export interface IImageSelectProps {
   title: string;
@@ -23,12 +23,12 @@ const generateShadowImages = (
   const images = [];
   for (let i = start; i <= end; i++) {
     images.push({
-      id: i,
+      id: String(i),
       thumbnail: `${path}/thumbnails/${i}.webp`,
       original: `${path}/originals/${i}.webp`,
     });
   }
-  return images.sort((a, b) => a.id - b.id);
+  return images.sort((a, b) => Number(a.id) - Number(b.id));
 };
 
 const ImageSelect = ({
@@ -57,7 +57,7 @@ const ImageSelect = ({
               "relative cursor-pointer rounded w-24 h-16 bg-cover bg-center",
               `${image.original}` === currentImageName &&
                 "outline outline-2 outline-offset-0 outline-primary",
-                image.original.includes("shadow") && "dark:invert"
+              image.original.includes("shadow") && "dark:invert"
             )}
             style={{
               backgroundImage: `url(${image.thumbnail})`,
