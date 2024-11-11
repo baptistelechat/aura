@@ -11,7 +11,7 @@ import { PixabayApiResponse } from "@/lib/types/PixabayApiResponse";
 import { UnsplashApiResponse } from "@/lib/types/UnsplashApiResponse";
 import { Search } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Loader, { LoaderEnum } from "../Loader";
 import { Input } from "../ui/input";
@@ -42,6 +42,10 @@ const FreeImageBankSelect = ({
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageCollection>();
 
+  const freeImageBank = useImageGeneratorStore(
+    (s) => s.settings.background.freeImageBank
+  );
+
   const setTab = useImageGeneratorStore((s) => s.setTab);
   const setImage = useImageGeneratorStore((s) => s.setImage);
   const setBackground = useImageGeneratorStore((s) => s.setBackground);
@@ -64,8 +68,9 @@ const FreeImageBankSelect = ({
   };
 
   const handleSearch = (
+    searchValue: string,
     imageBank: "unsplash" | "pixabay",
-    searchValue: string
+    mode: "background" | "image"
   ) => {
     // console.log("Searching for images:", searchValue);
     setIsLoading(true);
@@ -88,6 +93,14 @@ const FreeImageBankSelect = ({
           ];
           setImages(images);
           setIsLoading(false);
+          if (mode === "background") {
+            setBackground({
+              freeImageBank: {
+                ...freeImageBank,
+                unsplash: images,
+              },
+            });
+          }
           return;
         });
     }
@@ -110,10 +123,29 @@ const FreeImageBankSelect = ({
           ];
           setImages(images);
           setIsLoading(false);
+          if (mode === "background") {
+            setBackground({
+              freeImageBank: {
+                ...freeImageBank,
+                pixabay: images,
+              },
+            });
+          }
           return;
         });
     }
   };
+
+  useEffect(() => {
+    if (mode === "background" && freeImageBank) {
+      if (imageBank === "unsplash") {
+        setImages(freeImageBank.unsplash);
+      }
+      if (imageBank === "pixabay") {
+        setImages(freeImageBank.pixabay);
+      }
+    }
+  }, []);
 
   return (
     <Popover>
@@ -139,7 +171,7 @@ const FreeImageBankSelect = ({
           />
           <Button
             size="icon"
-            onClick={() => handleSearch(imageBank, searchValue)}
+            onClick={() => handleSearch(searchValue, imageBank, mode)}
           >
             <Search className="size-4" />
           </Button>
