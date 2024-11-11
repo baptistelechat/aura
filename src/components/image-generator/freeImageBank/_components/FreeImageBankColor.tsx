@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Palette } from "lucide-react";
 
 interface IFreeImageBankColorProps {
   imageBank: "unsplash" | "pixabay";
@@ -56,20 +57,47 @@ const FreeImageBankColor = ({
         <SelectValue placeholder="Optional : Filter results by color" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all_colors">All colors</SelectItem>
+        <SelectItem value="all_colors">
+          <div className="flex items-center gap-2">
+            <Palette className="size-4" />
+            All colors
+          </div>
+        </SelectItem>
         <SelectGroup>
           <SelectLabel>Filter results by color</SelectLabel>
           {imageBank === "unsplash"
             ? unsplashColors.map((color) => (
                 <SelectItem key={color} value={color}>
-                  {color.charAt(0).toUpperCase() +
-                    color.slice(1).replaceAll("_", " ")}
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="size-4 rounded-full border border-muted-foreground"
+                      style={{
+                        backgroundColor:
+                          color === "black_and_white" ? "lightgrey" : color,
+                      }}
+                    ></div>
+                    {color.charAt(0).toUpperCase() +
+                      color.slice(1).replaceAll("_", " ")}
+                  </div>
                 </SelectItem>
               ))
             : pixabayColors.map((color) => (
                 <SelectItem key={color} value={color}>
-                  {color.charAt(0).toUpperCase() +
-                    color.slice(1).replaceAll("_", " ")}
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="size-4 rounded-full border border-muted-foreground"
+                      style={{
+                        backgroundColor:
+                          color === "grayscale"
+                            ? "lightgrey"
+                            : color === "lilac"
+                            ? "rebeccaPurple"
+                            : color,
+                      }}
+                    ></div>
+                    {color.charAt(0).toUpperCase() +
+                      color.slice(1).replaceAll("_", " ")}
+                  </div>
                 </SelectItem>
               ))}
         </SelectGroup>
