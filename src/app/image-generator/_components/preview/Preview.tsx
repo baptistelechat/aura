@@ -122,14 +122,11 @@ const Preview = () => {
                   filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
                     image.shadow
                   })) ${isDragActive ? "brightness(0.75)" : ""}`,
-                  maxHeight: `${
-                    Number(previewRef.current?.style.height.replace("px", "")) *
-                    image.scale
-                  }px`,
-                  maxWidth: `${
-                    Number(previewRef.current?.style.width.replace("px", "")) *
-                    image.scale
-                  }px`,
+                  width: "100%",
+                  height: "100%",
+                  scale:image.scale,
+                  maxWidth: previewRef.current?.style.width,
+                  maxHeight: previewRef.current?.style.height,
                   transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
                   backfaceVisibility: "hidden",
                   transformStyle: "preserve-3d",

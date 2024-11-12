@@ -12,11 +12,14 @@ export const updatePreviewStyle = () => {
   if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
     const aspectRatio = window.devicePixelRatio;
 
-    const width = imageGeneratorStore.settings.dimension.width / aspectRatio;
-    const height = imageGeneratorStore.settings.dimension.height / aspectRatio;
+    const width = imageGeneratorStore.settings.dimension.width;
+    const height = imageGeneratorStore.settings.dimension.height;
+
+    const previewWidth = width / aspectRatio;
+    const previewHeight = height / aspectRatio;
 
     const imageVisibility = imageGeneratorStore.settings.image.visibility;
-    const imageScale = imageGeneratorStore.settings.image.scale;
+    // const imageScale = imageGeneratorStore.settings.image.scale;
 
     if (!imageVisibility) {
       imageGeneratorStore.setImageVisibility(true);
@@ -40,16 +43,16 @@ export const updatePreviewStyle = () => {
       }
     }
 
-    previewRef.current.style.width = `${width}px`;
-    previewRef.current.style.height = `${height}px`;
+    previewRef.current.style.width = `${previewWidth}px`;
+    previewRef.current.style.height = `${previewHeight}px`;
 
     if (imageRef?.current) {
-      imageRef.current.style.maxWidth = `${width * imageScale}px`;
-      imageRef.current.style.maxHeight = `${height * imageScale}px`;
+      imageRef.current.style.maxWidth = `${previewWidth}px`;
+      imageRef.current.style.maxHeight = `${previewHeight}px`;
     }
 
     if (watermarkRef?.current) {
-      watermarkRef.current.style.scale = `${(height * 0.05) / 60}`;
+      watermarkRef.current.style.scale = `${(previewHeight * 0.05) / 60}`;
     }
   }
 };
