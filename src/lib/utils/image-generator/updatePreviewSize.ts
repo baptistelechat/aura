@@ -4,12 +4,11 @@ export const updatePreviewSize = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
-  const imageRef = imageGeneratorStore.previewRefs.imageRef;
-  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
+  // const imageRef = imageGeneratorStore.previewRefs.imageRef;
+  // const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
-
   // const imageScale = imageGeneratorStore.settings.image.scale;
 
   if (containerRef?.current && previewRef?.current) {
@@ -19,26 +18,24 @@ export const updatePreviewSize = () => {
     const imageAspectRatio = width / height;
     const containerAspectRatio = containerWidth / containerHeight;
 
-    let previewWidth, previewHeight;
+    let scale;
 
     if (containerAspectRatio > imageAspectRatio) {
-      previewHeight = containerHeight;
-      previewWidth = previewHeight * imageAspectRatio;
+      // If container is wider (ratio is larger), adjust height
+      scale = containerHeight / height; // Scale based on height
     } else {
-      previewWidth = containerWidth;
-      previewHeight = previewWidth / imageAspectRatio;
+      // If container is narrower (ratio is smaller), adjust width
+      scale = containerWidth / width; // Scale based on width
     }
 
-    previewRef.current.style.width = `${previewWidth}px`;
-    previewRef.current.style.height = `${previewHeight}px`;
+    previewRef.current.style.transform = `scale(${scale})`;
 
-    if (imageRef?.current) {
-      imageRef.current.style.maxWidth = `${previewWidth}px`;
-      imageRef.current.style.maxHeight = `${previewHeight}px`;
-    }
+    // if (imageRef?.current) {
+    //   imageRef.current.style.transform = `scale(${imageScale})`;
+    // }
 
-    if (watermarkRef?.current) {
-      watermarkRef.current.style.scale = `${(previewHeight * 0.05) / 60}`;
-    }
+    // if (watermarkRef?.current) {
+    //   watermarkRef.current.style.scale = `${(scale * 0.05) / 60}`;
+    // }
   }
 };

@@ -12,8 +12,9 @@ import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
-  const background = useImageGeneratorStore((s) => s.settings.background);
+  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const image = useImageGeneratorStore((s) => s.settings.image);
+  const background = useImageGeneratorStore((s) => s.settings.background);
 
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
@@ -47,6 +48,13 @@ const Preview = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (previewRef.current) {
+      previewRef.current.style.width = `${dimension.width}px`;
+      previewRef.current.style.height = `${dimension.height}px`;
+    }
+  }, [dimension.width, dimension.height]);
+
   const watermarkAngle =
     watermark.position === "top-left"
       ? "top-4 left-4 origin-top-left"
@@ -78,12 +86,18 @@ const Preview = () => {
     <div
       id="preview-container"
       ref={containerRef}
-      className="flex size-full grow items-center justify-center overflow-hidden"
+      className="relative size-full"
     >
       <div
         id="preview"
         ref={previewRef}
-        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-700 ease-in-out"
+        className="absolute flex origin-top-left items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-700 ease-in-out	"
+        style={{
+          width: `${dimension.width}px`,
+          height: `${dimension.height}px`,
+          left: 0,
+          top: 0,
+        }}
       >
         {/* Background layer */}
         <div
@@ -124,12 +138,13 @@ const Preview = () => {
                   })) ${isDragActive ? "brightness(0.75)" : ""}`,
                   width: "100%",
                   height: "100%",
-                  scale:image.scale,
-                  maxWidth: previewRef.current?.style.width,
-                  maxHeight: previewRef.current?.style.height,
+                  scale: image.scale,
+                  maxWidth: dimension.width,
+                  maxHeight: dimension.height,
                   transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
                   backfaceVisibility: "hidden",
                   transformStyle: "preserve-3d",
+                  objectFit: "cover",
                 }}
                 className={cn(
                   "transition-all duration-300 ease-in-out",
