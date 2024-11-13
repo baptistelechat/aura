@@ -28,7 +28,13 @@ export const updatePreviewSize = () => {
       scale = containerWidth / width; // Scale based on width
     }
 
-    previewRef.current.style.transform = `scale(${scale})`;
+    const scaledWidth = width * scale;
+    const scaledHeight = height * scale;
+
+    const translateX = (containerWidth - scaledWidth) / 2;
+    const translateY = (containerHeight - scaledHeight) / 2;
+
+    previewRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 
     // if (imageRef?.current) {
     //   imageRef.current.style.transform = `scale(${imageScale})`;

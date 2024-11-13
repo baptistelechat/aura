@@ -91,12 +91,10 @@ const Preview = () => {
       <div
         id="preview"
         ref={previewRef}
-        className="absolute flex origin-top-left items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-700 ease-in-out	"
+        className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all	duration-700 ease-in-out"
         style={{
           width: `${dimension.width}px`,
           height: `${dimension.height}px`,
-          left: 0,
-          top: 0,
         }}
       >
         {/* Background layer */}
