@@ -91,7 +91,7 @@ const Preview = () => {
       <div
         id="preview"
         ref={previewRef}
-        className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all	duration-700 ease-in-out"
+        className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden rounded-3xl border border-slate-200 transition-all	duration-700 ease-in-out"
         style={{
           width: `${dimension.width}px`,
           height: `${dimension.height}px`,
@@ -130,10 +130,14 @@ const Preview = () => {
                 alt="Selected"
                 style={{
                   display: "block",
-                  borderRadius: `${image.borderRadius}px`,
-                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
-                    image.shadow
-                  })) ${isDragActive ? "brightness(0.75)" : ""}`,
+                  borderRadius: `${image.borderRadius}%`,
+                  filter: `drop-shadow(0 ${
+                    20 * (dimension.height / 500) * (1 + image.shadow)
+                  }px ${
+                    20 * (dimension.height / 500) * (1 + image.shadow)
+                  }px rgb(0 0 0 / ${image.shadow})) ${
+                    isDragActive ? "brightness(0.75)" : ""
+                  }`,
                   width: "100%",
                   height: "100%",
                   scale: image.scale,

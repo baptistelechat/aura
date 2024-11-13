@@ -4,12 +4,10 @@ export const updatePreviewSize = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
-  // const imageRef = imageGeneratorStore.previewRefs.imageRef;
   const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
-  // const imageScale = imageGeneratorStore.settings.image.scale;
 
   if (containerRef?.current && previewRef?.current) {
     const containerWidth = containerRef.current.offsetWidth;
@@ -35,10 +33,6 @@ export const updatePreviewSize = () => {
     const translateY = (containerHeight - scaledHeight) / 2;
 
     previewRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-
-    // if (imageRef?.current) {
-    //   imageRef.current.style.transform = `scale(${imageScale})`;
-    // }
 
     if (watermarkRef?.current) {
       const watermarkHeight = height * 0.05;

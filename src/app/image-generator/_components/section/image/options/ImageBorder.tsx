@@ -28,8 +28,8 @@ const ImageBorder = () => {
         setValue={setImage}
         updateKey={"borderRadius"}
         min={0}
-        max={48}
-        step={1}
+        max={12.5}
+        step={0.25}
         minIcon={<Square className="size-5" />}
         middleIcon={<Squircle className="size-5" />}
         maxIcon={<Circle className="size-5" />}
