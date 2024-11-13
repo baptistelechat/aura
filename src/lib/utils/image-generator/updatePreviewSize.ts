@@ -5,7 +5,7 @@ export const updatePreviewSize = () => {
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
   // const imageRef = imageGeneratorStore.previewRefs.imageRef;
-  // const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
+  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
@@ -40,8 +40,11 @@ export const updatePreviewSize = () => {
     //   imageRef.current.style.transform = `scale(${imageScale})`;
     // }
 
-    // if (watermarkRef?.current) {
-    //   watermarkRef.current.style.scale = `${(scale * 0.05) / 60}`;
-    // }
+    if (watermarkRef?.current) {
+      const watermarkHeight = height * 0.05;
+      const watermarkScale = watermarkHeight / 54;
+
+      watermarkRef.current.style.scale = String(watermarkScale);
+    }
   }
 };

@@ -7,13 +7,13 @@ export const updatePreviewStyle = () => {
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
   const backgroundRef = imageGeneratorStore.previewRefs.backgroundRef;
   // const imageRef = imageGeneratorStore.previewRefs.imageRef;
-  // const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
+  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
     // const aspectRatio = window.devicePixelRatio;
 
     // const width = imageGeneratorStore.settings.dimension.width;
-    // const height = imageGeneratorStore.settings.dimension.height;
+    const height = imageGeneratorStore.settings.dimension.height;
 
     // const previewWidth = width / aspectRatio;
     // const previewHeight = height / aspectRatio;
@@ -49,8 +49,11 @@ export const updatePreviewStyle = () => {
     //   imageRef.current.style.maxHeight = `${previewHeight}px`;
     // }
 
-    // if (watermarkRef?.current) {
-    //   watermarkRef.current.style.scale = `${(previewHeight * 0.05) / 60}`;
-    // }
+    if (watermarkRef?.current) {
+      const watermarkHeight = height * 0.05;
+      const watermarkScale = watermarkHeight / 54;
+
+      watermarkRef.current.style.scale = String(watermarkScale);
+    }
   }
 };
