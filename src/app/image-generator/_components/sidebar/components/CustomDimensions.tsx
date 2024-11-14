@@ -45,8 +45,11 @@ const CustomDimensions = () => {
 
   useEffect(() => {
     setLocalWidth(dimensions.width);
+  }, [dimensions.width]);
+
+  useEffect(() => {
     setLocalHeight(dimensions.height);
-  }, [dimensions]);
+  }, [dimensions.height]);
 
   return (
     <div className="flex items-center justify-center gap-2 pb-1">
