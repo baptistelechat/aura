@@ -1,3 +1,4 @@
+import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import { ImageDown, ImagePlus } from "lucide-react";
@@ -9,6 +10,7 @@ interface IDropZoneProps {
 }
 
 const DropZone = ({ mode }: IDropZoneProps) => {
+  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const [isHover, setIsHover] = useState(false);
 
   const onDrop = useCallback((files: File[]) => {
@@ -43,6 +45,7 @@ const DropZone = ({ mode }: IDropZoneProps) => {
             "flex items-center justify-center",
             mode === "background" ? "flex-row gap-2" : "flex-col gap-4"
           )}
+          style={{ scale: mode === "image" ? dimension.height / 500 : 1 }}
         >
           <ImagePlus className={mode === "background" ? "size-5" : "size-12"} />
           <p
@@ -60,8 +63,11 @@ const DropZone = ({ mode }: IDropZoneProps) => {
             "flex items-center justify-center",
             mode === "background" ? "flex-row gap-2" : "flex-col gap-4"
           )}
+          style={{ scale: mode === "image" ? dimension.height / 500 : 1 }}
         >
-          <ImageDown className={mode === "background" ? "size-5" : "size-12"} />
+          <ImageDown
+            className={mode === "background" ? "size-5" : "size-12"}
+          />
           <p
             className={cn(
               "font-medium text-center",
