@@ -14,6 +14,9 @@ export type DimensionSettings = {
 
 export type ImageSettings = {
   src: string | null;
+  width: number;
+  height: number;
+  coef:number;
   borderRadius: number;
   shadow: number;
   scale: number;

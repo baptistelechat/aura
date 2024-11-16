@@ -10,6 +10,7 @@ import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
 import { useCallback, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
+import ResizeHandles from "./components/ResizeHandles";
 
 const Preview = () => {
   const dimension = useImageGeneratorStore((s) => s.settings.dimension);
@@ -108,14 +109,23 @@ const Preview = () => {
         <NoiseBackground />
 
         {/* Content layer */}
-        <div className="relative z-10 flex size-full items-center justify-center">
+        <div className="z-10 flex size-full items-center justify-center">
           {image.src ? (
             <div
-              className="cursor-pointer transition-all duration-300 hover:brightness-75"
-              style={{ perspective: "1500px" }}
+              {...getRootProps()}
+              className="relative cursor-pointer transition-all duration-300 hover:brightness-75"
+              style={{
+                perspective: "1500px",
+                width: `${image.width * image.coef * image.scale}px`,
+                height: `auto`,
+                maxWidth: `${
+                  dimension.width >= dimension.height
+                    ? dimension.height
+                    : dimension.width
+                }px`,
+              }}
             >
               <img
-                {...getRootProps()}
                 ref={imageRef}
                 src={image.src}
                 alt="Selected"
@@ -133,9 +143,6 @@ const Preview = () => {
                   }`,
                   width: "100%",
                   height: "100%",
-                  scale: image.scale,
-                  maxWidth: dimension.width,
-                  maxHeight: dimension.height,
                   transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
                   backfaceVisibility: "hidden",
                   transformStyle: "preserve-3d",
@@ -147,6 +154,7 @@ const Preview = () => {
                   !image.src && "bg-primary/20 p-8"
                 )}
               />
+              <ResizeHandles />
             </div>
           ) : (
             <DropZone mode="image" />

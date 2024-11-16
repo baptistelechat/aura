@@ -7,6 +7,7 @@ export const uploadImage = (
   mode: "image" | "background"
 ) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
+  const dimension = imageGeneratorStore.settings.dimension;
   const setImage = imageGeneratorStore.setImage;
   const setBackground = imageGeneratorStore.setBackground;
 
@@ -23,21 +24,39 @@ export const uploadImage = (
         reader.onload = (e) => {
           const src = e.target?.result as string;
 
-          if (mode === "image") {
-            setImage({ src, visibility: true });
-            resolve();
-          } else if (mode === "background") {
-            if (src) {
+          const img = new Image();
+          img.onload = () => {
+            const imageWidth = img.naturalWidth;
+            const imageHeight = img.naturalHeight;
+
+            const coef =
+              imageWidth > imageHeight
+                ? dimension.width / imageWidth
+                : dimension.height / imageHeight;
+
+            if (mode === "image") {
+              setImage({
+                src,
+                visibility: true,
+                width: imageWidth,
+                height: imageHeight,
+                coef
+              });
+            } else if (mode === "background") {
               setBackground({
                 backgroundColor:
                   defaultImageGeneratorSettings.background.backgroundColor,
                 backgroundImage: src,
               });
-              resolve();
-            } else {
-              reject(new Error("Failed to load background image."));
             }
-          }
+            resolve();
+          };
+
+          img.onerror = (error) => {
+            reject(error);
+          };
+
+          img.src = src;
         };
 
         reader.onerror = (error) => {
