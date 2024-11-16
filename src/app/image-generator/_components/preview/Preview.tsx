@@ -55,15 +55,6 @@ const Preview = () => {
     }
   }, [dimension.width, dimension.height]);
 
-  const watermarkAngle =
-    watermark.position === "top-left"
-      ? "top-4 left-4 origin-top-left"
-      : watermark.position === "top-right"
-      ? "top-4 right-4 origin-top-right"
-      : watermark.position === "bottom-left"
-      ? "bottom-4 left-4 origin-bottom-left"
-      : "bottom-4 right-4 origin-bottom-right";
-
   const backgroundStyle =
     gradient.from.hex !==
       defaultImageGeneratorSettings.background.gradient.from.hex ||
@@ -130,7 +121,9 @@ const Preview = () => {
                 alt="Selected"
                 style={{
                   display: "block",
-                  borderRadius: `${image.borderRadius* (dimension.height / 500)}px`,
+                  borderRadius: `${
+                    image.borderRadius * (dimension.height / 500)
+                  }px`,
                   filter: `drop-shadow(0 ${
                     20 * (dimension.height / 500) * (1 + image.shadow)
                   }px ${
@@ -177,7 +170,21 @@ const Preview = () => {
         <div
           id="watermark-container"
           ref={watermarkRef}
-          className={cn("absolute z-20", watermarkAngle)}
+          className={cn("absolute z-20", watermark.position)}
+          style={{
+            top: watermark.position.includes("top")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+            right: watermark.position.includes("right")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+            bottom: watermark.position.includes("bottom")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+            left: watermark.position.includes("left")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+          }}
         >
           <Logo
             size="watermark"

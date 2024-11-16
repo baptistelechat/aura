@@ -65,7 +65,7 @@ export type OverlaySettings = {
 };
 
 export type WatermarkSettings = {
-  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  position: "origin-top-left" | "origin-top-right" | "origin-bottom-left" | "origin-bottom-right";
   background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
   foreground: "color-light" | "color-dark" | "light" | "dark";
 };

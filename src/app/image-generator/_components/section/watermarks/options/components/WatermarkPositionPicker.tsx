@@ -14,10 +14,10 @@ import {
 } from "lucide-react";
 
 const position = [
-  { name: "top-left", icon: <ArrowUpLeft className="size-4" /> },
-  { name: "top-right", icon: <ArrowUpRight className="size-4" /> },
-  { name: "bottom-left", icon: <ArrowDownLeft className="size-4" /> },
-  { name: "bottom-right", icon: <ArrowDownRight className="size-4" /> },
+  { name: "origin-top-left", icon: <ArrowUpLeft className="size-4" /> },
+  { name: "origin-top-right", icon: <ArrowUpRight className="size-4" /> },
+  { name: "origin-bottom-left", icon: <ArrowDownLeft className="size-4" /> },
+  { name: "origin-bottom-right", icon: <ArrowDownRight className="size-4" /> },
 ];
 
 const WatermarkPositionPicker = () => {
@@ -47,10 +47,10 @@ const WatermarkPositionPicker = () => {
                       setWatermark(
                         {
                           position : name as
-                          | "top-left"
-                          | "top-right"
-                          | "bottom-left"
-                          | "bottom-right"
+                          | "origin-top-left"
+                          | "origin-top-right"
+                          | "origin-bottom-left"
+                          | "origin-bottom-right"
                         }
                       )
                     }
