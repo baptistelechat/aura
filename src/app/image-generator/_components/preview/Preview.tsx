@@ -130,7 +130,7 @@ const Preview = () => {
                 alt="Selected"
                 style={{
                   display: "block",
-                  borderRadius: `${image.borderRadius}%`,
+                  borderRadius: `${image.borderRadius* (dimension.height / 500)}px`,
                   filter: `drop-shadow(0 ${
                     20 * (dimension.height / 500) * (1 + image.shadow)
                   }px ${

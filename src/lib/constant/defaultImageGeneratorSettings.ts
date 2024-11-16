@@ -11,7 +11,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
   },
   image: {
     src: null,
-    borderRadius: 6.25,
+    borderRadius: 24,
     shadow: 0.5,
     scale: 0.5,
     rotateX: 0,
