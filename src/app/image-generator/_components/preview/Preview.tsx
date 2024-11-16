@@ -12,8 +12,9 @@ import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
 
 const Preview = () => {
-  const background = useImageGeneratorStore((s) => s.settings.background);
+  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const image = useImageGeneratorStore((s) => s.settings.image);
+  const background = useImageGeneratorStore((s) => s.settings.background);
 
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
@@ -47,14 +48,12 @@ const Preview = () => {
     });
   }, []);
 
-  const watermarkAngle =
-    watermark.position === "top-left"
-      ? "top-4 left-4 origin-top-left"
-      : watermark.position === "top-right"
-      ? "top-4 right-4 origin-top-right"
-      : watermark.position === "bottom-left"
-      ? "bottom-4 left-4 origin-bottom-left"
-      : "bottom-4 right-4 origin-bottom-right";
+  useEffect(() => {
+    if (previewRef.current) {
+      previewRef.current.style.width = `${dimension.width}px`;
+      previewRef.current.style.height = `${dimension.height}px`;
+    }
+  }, [dimension.width, dimension.height]);
 
   const backgroundStyle =
     gradient.from.hex !==
@@ -78,12 +77,16 @@ const Preview = () => {
     <div
       id="preview-container"
       ref={containerRef}
-      className="flex size-full grow items-center justify-center overflow-hidden"
+      className="relative size-full"
     >
       <div
         id="preview"
         ref={previewRef}
-        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-700 ease-in-out"
+        className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden rounded-3xl border border-slate-200 transition-all	duration-700 ease-in-out"
+        style={{
+          width: `${dimension.width}px`,
+          height: `${dimension.height}px`,
+        }}
       >
         {/* Background layer */}
         <div
@@ -118,21 +121,25 @@ const Preview = () => {
                 alt="Selected"
                 style={{
                   display: "block",
-                  borderRadius: `${image.borderRadius}px`,
-                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
-                    image.shadow
-                  })) ${isDragActive ? "brightness(0.75)" : ""}`,
-                  maxHeight: `${
-                    Number(previewRef.current?.style.height.replace("px", "")) *
-                    image.scale
+                  borderRadius: `${
+                    image.borderRadius * (dimension.height / 500)
                   }px`,
-                  maxWidth: `${
-                    Number(previewRef.current?.style.width.replace("px", "")) *
-                    image.scale
-                  }px`,
+                  filter: `drop-shadow(0 ${
+                    20 * (dimension.height / 500) * (1 + image.shadow)
+                  }px ${
+                    20 * (dimension.height / 500) * (1 + image.shadow)
+                  }px rgb(0 0 0 / ${image.shadow})) ${
+                    isDragActive ? "brightness(0.75)" : ""
+                  }`,
+                  width: "100%",
+                  height: "100%",
+                  scale: image.scale,
+                  maxWidth: dimension.width,
+                  maxHeight: dimension.height,
                   transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
                   backfaceVisibility: "hidden",
                   transformStyle: "preserve-3d",
+                  objectFit: "cover",
                 }}
                 className={cn(
                   "transition-all duration-300 ease-in-out",
@@ -163,7 +170,21 @@ const Preview = () => {
         <div
           id="watermark-container"
           ref={watermarkRef}
-          className={cn("absolute z-20", watermarkAngle)}
+          className={cn("absolute z-20", watermark.position)}
+          style={{
+            top: watermark.position.includes("top")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+            right: watermark.position.includes("right")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+            bottom: watermark.position.includes("bottom")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+            left: watermark.position.includes("left")
+              ? `${12 * (dimension.height / 500)}px`
+              : "",
+          }}
         >
           <Logo
             size="watermark"

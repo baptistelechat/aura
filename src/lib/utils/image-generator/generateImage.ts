@@ -12,7 +12,7 @@ interface IGenerateImage {
   method?: "button" | "shortcut";
 }
 
-const mimeType = (format: string, isFirefox:boolean) => {
+const mimeType = (format: string, isFirefox: boolean) => {
   if (isFirefox && (format === "tiff" || format === "gif")) {
     return "image/png"; // Force PNG for unsupported formats in Firefox
   }
@@ -37,15 +37,9 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
   if (previewRef?.current) {
     imageGeneratorStore.setIsDownloading(true);
 
-    const previewWidth = imageGeneratorStore.settings.dimension.width;
-    const previewHeight = imageGeneratorStore.settings.dimension.height;
+    const previousTransform = previewRef.current.style.transform;
 
-    const previousWidth = Number(
-      previewRef.current.style.width.replace("px", "")
-    );
-    const previousHeight = Number(
-      previewRef.current.style.height.replace("px", "")
-    );
+    previewRef.current.style.transform = "scale(1)";
 
     updatePreviewStyle();
 
@@ -58,7 +52,9 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
             try {
               setTimeout(async () => {
                 const canvas = await htmlToImage.toCanvas(previewRef.current!);
-                const result = canvas.toDataURL(mimeType(format, isFirefoxBrowser));
+                const result = canvas.toDataURL(
+                  mimeType(format, isFirefoxBrowser)
+                );
                 resolve(result);
               }, 1000);
             } catch (error) {
@@ -76,7 +72,9 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
             link.click();
             umamiGenerateImage({ action, method });
             if (isFirefoxBrowser && (format === "tiff" || format === "gif")) {
-              toast.warning("Firefox does not support TIFF and GIF formats. PNG is used instead.");
+              toast.warning(
+                "Firefox does not support TIFF and GIF formats. PNG is used instead."
+              );
             }
             resolve("Image successfully downloaded!");
           } else if (action === "clipboard") {
@@ -111,15 +109,8 @@ export const generateImage = async ({ action, method }: IGenerateImage) => {
         description: error.message,
       });
     } finally {
-      imageGeneratorStore.setDimensions({
-        width: previousWidth,
-        height: previousHeight,
-      });
+      previewRef.current.style.transform = previousTransform;
       updatePreviewStyle();
-      imageGeneratorStore.setDimensions({
-        width: previewWidth,
-        height: previewHeight,
-      });
       updatePreviewSize();
       imageGeneratorStore.setIsDownloading(false);
     }

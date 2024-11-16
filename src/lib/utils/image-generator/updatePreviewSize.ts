@@ -4,13 +4,10 @@ export const updatePreviewSize = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
-  const imageRef = imageGeneratorStore.previewRefs.imageRef;
   const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
-
-  const imageScale = imageGeneratorStore.settings.image.scale;
 
   if (containerRef?.current && previewRef?.current) {
     const containerWidth = containerRef.current.offsetWidth;
@@ -19,26 +16,29 @@ export const updatePreviewSize = () => {
     const imageAspectRatio = width / height;
     const containerAspectRatio = containerWidth / containerHeight;
 
-    let previewWidth, previewHeight;
+    let scale;
 
     if (containerAspectRatio > imageAspectRatio) {
-      previewHeight = containerHeight;
-      previewWidth = previewHeight * imageAspectRatio;
+      // If container is wider (ratio is larger), adjust height
+      scale = containerHeight / height; // Scale based on height
     } else {
-      previewWidth = containerWidth;
-      previewHeight = previewWidth / imageAspectRatio;
+      // If container is narrower (ratio is smaller), adjust width
+      scale = containerWidth / width; // Scale based on width
     }
 
-    previewRef.current.style.width = `${previewWidth}px`;
-    previewRef.current.style.height = `${previewHeight}px`;
+    const scaledWidth = width * scale;
+    const scaledHeight = height * scale;
 
-    if (imageRef?.current) {
-      imageRef.current.style.maxWidth = `${previewWidth * imageScale}px`;
-      imageRef.current.style.maxHeight = `${previewHeight * imageScale}px`;
-    }
+    const translateX = (containerWidth - scaledWidth) / 2;
+    const translateY = (containerHeight - scaledHeight) / 2;
+
+    previewRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 
     if (watermarkRef?.current) {
-      watermarkRef.current.style.scale = `${(previewHeight * 0.05) / 60}`;
+      const watermarkHeight = height * 0.05;
+      const watermarkScale = watermarkHeight / 54;
+
+      watermarkRef.current.style.scale = String(watermarkScale);
     }
   }
 };
