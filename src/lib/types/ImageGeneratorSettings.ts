@@ -16,7 +16,7 @@ export type ImageSettings = {
   src: string | null;
   width: number;
   height: number;
-  coef:number;
+  coef: number;
   borderRadius: number;
   shadow: number;
   scale: number;
@@ -68,7 +68,11 @@ export type OverlaySettings = {
 };
 
 export type WatermarkSettings = {
-  position: "origin-top-left" | "origin-top-right" | "origin-bottom-left" | "origin-bottom-right";
+  position:
+    | "origin-top-left"
+    | "origin-top-right"
+    | "origin-bottom-left"
+    | "origin-bottom-right";
   background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
   foreground: "color-light" | "color-dark" | "light" | "dark";
 };
