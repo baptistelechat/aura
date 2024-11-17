@@ -1,7 +1,11 @@
-import React, { useRef } from "react";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import React, { Dispatch, SetStateAction, useRef } from "react";
 
-const ResizeHandles = () => {
+interface IResizeHandlesProps {
+  setIsHover: Dispatch<SetStateAction<boolean>>;
+}
+
+const ResizeHandles = ({ setIsHover }: IResizeHandlesProps) => {
   const image = useImageGeneratorStore((s) => s.settings.image);
   const setImage = useImageGeneratorStore((s) => s.setImage);
   const isResizing = useRef(false);
@@ -17,10 +21,12 @@ const ResizeHandles = () => {
       isResizing.current = true;
       initialMousePos.current = { x: event.clientX, y: event.clientY };
       initialScale.current = image.scale;
-
+      
       // Ajoute les listeners pour suivre la souris
       window.addEventListener("mousemove", handleResize(direction));
       window.addEventListener("mouseup", handleResizeEnd);
+      
+      setIsHover(true);
     };
 
   const handleResize = (direction: string) => (event: MouseEvent) => {
@@ -70,13 +76,16 @@ const ResizeHandles = () => {
     setImage({ scale: newScale });
   };
 
-
   const handleResizeEnd = () => {
     isResizing.current = false;
 
     // Retire les listeners
     window.removeEventListener("mousemove", handleResize("bottom-right"));
     window.removeEventListener("mouseup", handleResizeEnd);
+
+    setTimeout(() => {
+      setIsHover(false);
+    }, 500);
   };
 
   return (

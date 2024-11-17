@@ -7,12 +7,14 @@ import { transparentBackgroundStyle } from "@/lib/constant/transparentBackground
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
 import ResizeHandles from "./components/ResizeHandles";
 
 const Preview = () => {
+  const [isHoveringResizeHandle, setIsHoveringResizeHandle] = useState(false);
+
   const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const image = useImageGeneratorStore((s) => s.settings.image);
   const background = useImageGeneratorStore((s) => s.settings.background);
@@ -37,7 +39,12 @@ const Preview = () => {
     uploadImage(files[0], "image");
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  console.log(isHoveringResizeHandle);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    disabled: isHoveringResizeHandle,
+  });
 
   useEffect(() => {
     setPreviewRefs({
@@ -113,7 +120,7 @@ const Preview = () => {
           {image.src ? (
             <div
               {...getRootProps()}
-              className="relative cursor-pointer transition-all duration-300 hover:brightness-75"
+              className={cn("relative cursor-pointer transition-all duration-300",!isHoveringResizeHandle &&"hover:brightness-75")}
               style={{
                 perspective: "1500px",
                 width: `${image.width * image.coef * image.scale}px`,
@@ -154,7 +161,7 @@ const Preview = () => {
                   !image.src && "bg-primary/20 p-8"
                 )}
               />
-              <ResizeHandles />
+              <ResizeHandles setIsHover={setIsHoveringResizeHandle} />
             </div>
           ) : (
             <DropZone mode="image" />
