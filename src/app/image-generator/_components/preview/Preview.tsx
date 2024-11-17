@@ -39,8 +39,6 @@ const Preview = () => {
     uploadImage(files[0], "image");
   }, []);
 
-  console.log(isHoveringResizeHandle);
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     disabled: isHoveringResizeHandle,
