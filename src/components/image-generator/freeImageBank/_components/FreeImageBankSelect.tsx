@@ -75,17 +75,17 @@ const FreeImageBankSelect = ({
   const setBackground = useImageGeneratorStore((s) => s.setBackground);
 
   const handleImageClick = async (
-    path: string,
+    data: { path: string; width: number; height: number },
     mode: "background" | "image"
   ) => {
-    const base64Image = await fetchImageAsBase64(path);
+    const base64Image = await fetchImageAsBase64(data.path);
     if (mode === "background") {
       setBackground({ backgroundImage: base64Image });
       return;
     }
 
     if (mode === "image") {
-      setImage({ src: base64Image });
+      setImage({ src: base64Image, width: data.width, height: data.height });
       setTab("image");
       return;
     }
@@ -136,6 +136,8 @@ const FreeImageBankSelect = ({
               thumbnail: image.urls.thumb,
               original: image.urls.raw,
               author: image.user.name,
+              width: image.width,
+              height: image.height,
             })),
           ];
           setImages(images);
@@ -169,6 +171,8 @@ const FreeImageBankSelect = ({
               thumbnail: image.previewURL,
               original: image.largeImageURL,
               author: image.user,
+              width: image.imageWidth,
+              height: image.imageHeight,
             })),
           ];
           setImages(images);
@@ -261,7 +265,16 @@ const FreeImageBankSelect = ({
                     style={{
                       backgroundImage: `url(${image.thumbnail})`,
                     }}
-                    onClick={() => handleImageClick(image.original, mode)}
+                    onClick={() =>
+                      handleImageClick(
+                        {
+                          path: image.original,
+                          width: image.width,
+                          height: image.height,
+                        },
+                        mode
+                      )
+                    }
                   >
                     <p className="absolute bottom-0 left-0 w-full break-words bg-primary/50 p-1 text-center text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                       {image.author}
