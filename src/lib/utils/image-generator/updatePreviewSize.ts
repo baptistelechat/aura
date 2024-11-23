@@ -43,12 +43,5 @@ export const updatePreviewSize = () => {
 
       watermarkRef.current.style.scale = String(watermarkScale);
     }
-
-    const coef =
-      image.width > image.height ? width / image.width : height / image.height;
-
-    setImage({
-      coef,
-    });
   }
 };

@@ -29,18 +29,12 @@ export const uploadImage = (
             const imageWidth = img.naturalWidth;
             const imageHeight = img.naturalHeight;
 
-            const coef =
-              imageWidth > imageHeight
-                ? dimension.width / imageWidth
-                : dimension.height / imageHeight;
-
             if (mode === "image") {
               setImage({
                 src,
                 visibility: true,
                 width: imageWidth,
                 height: imageHeight,
-                coef
               });
             } else if (mode === "background") {
               setBackground({

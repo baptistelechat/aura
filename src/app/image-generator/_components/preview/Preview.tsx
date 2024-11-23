@@ -88,7 +88,7 @@ const Preview = () => {
       <div
         id="preview"
         ref={previewRef}
-        className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden rounded-3xl border border-slate-200 transition-all duration-500 ease-in-out"
+        className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden border border-slate-200 transition-all duration-500 ease-in-out"
         style={{
           width: `${dimension.width}px`,
           height: `${dimension.height}px`,
@@ -118,15 +118,29 @@ const Preview = () => {
           {image.src ? (
             <div
               {...getRootProps()}
-              className={cn("relative cursor-pointer",!isHoveringResizeHandle &&"hover:brightness-75")}
+              className={cn(
+                "relative cursor-pointer",
+                !isHoveringResizeHandle && "hover:brightness-75"
+              )}
               style={{
                 perspective: "1500px",
-                width: `${image.width * image.coef * image.scale}px`,
-                height: `auto`,
-                maxWidth: `${
-                  dimension.width >= dimension.height
-                    ? dimension.height
-                    : dimension.width
+                width: `${
+                  image.width *
+                  Math.min(
+                    1,
+                    dimension.width / image.width,
+                    dimension.height / image.height
+                  ) *
+                  image.scale
+                }px`,
+                height: `${
+                  image.height *
+                  Math.min(
+                    1,
+                    dimension.width / image.width,
+                    dimension.height / image.height
+                  ) *
+                  image.scale
                 }px`,
               }}
             >
