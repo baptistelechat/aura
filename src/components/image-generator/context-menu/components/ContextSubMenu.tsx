@@ -28,7 +28,6 @@ const ContextSubMenu = ({
 }: IContextSubMenuProps) => (
   <ContextMenuSub>
     <ContextMenuSubTrigger>
-      {" "}
       <span className="flex items-center gap-1.5">
         {logo}
         {label}
