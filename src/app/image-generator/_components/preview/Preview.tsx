@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import DropZone from "@/components/image-generator/DropZone";
+import ImageContextMenu from "@/components/image-generator/contextMenu/ImageContextMenu";
 import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
@@ -116,65 +117,67 @@ const Preview = () => {
         {/* Content layer */}
         <div className="z-10 flex size-full items-center justify-center">
           {image.src ? (
-            <div
-              {...getRootProps()}
-              className={cn(
-                "relative cursor-pointer",
-                !isHoveringResizeHandle && "hover:brightness-75"
-              )}
-              style={{
-                perspective: "1500px",
-                width: `${
-                  image.width *
-                  Math.min(
-                    1,
-                    dimension.width / image.width,
-                    dimension.height / image.height
-                  ) *
-                  image.scale
-                }px`,
-                height: `${
-                  image.height *
-                  Math.min(
-                    1,
-                    dimension.width / image.width,
-                    dimension.height / image.height
-                  ) *
-                  image.scale
-                }px`,
-              }}
-            >
-              <img
-                ref={imageRef}
-                src={image.src}
-                alt="Selected"
-                style={{
-                  display: "block",
-                  borderRadius: `${
-                    image.borderRadius * (dimension.height / 500)
-                  }px`,
-                  filter: `drop-shadow(0 ${
-                    20 * (dimension.height / 500) * (1 + image.shadow)
-                  }px ${
-                    20 * (dimension.height / 500) * (1 + image.shadow)
-                  }px rgb(0 0 0 / ${image.shadow})) ${
-                    isDragActive ? "brightness(0.75)" : ""
-                  }`,
-                  width: "100%",
-                  height: "100%",
-                  transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
-                  backfaceVisibility: "hidden",
-                  transformStyle: "preserve-3d",
-                  objectFit: "cover",
-                }}
+            <ImageContextMenu>
+              <div
+                {...getRootProps()}
                 className={cn(
-                  "transition-all duration-300 ease-in-out",
-                  !image.visibility ? "hidden" : "",
-                  !image.src && "bg-primary/20 p-8"
+                  "relative cursor-pointer transition-all duration-100 ease-in-out",
+                  !isHoveringResizeHandle && "hover:brightness-75"
                 )}
-              />
-              <ResizeHandles setIsHover={setIsHoveringResizeHandle} />
-            </div>
+                style={{
+                  perspective: "1500px",
+                  width: `${
+                    image.width *
+                    Math.min(
+                      1,
+                      dimension.width / image.width,
+                      dimension.height / image.height
+                    ) *
+                    image.scale
+                  }px`,
+                  height: `${
+                    image.height *
+                    Math.min(
+                      1,
+                      dimension.width / image.width,
+                      dimension.height / image.height
+                    ) *
+                    image.scale
+                  }px`,
+                }}
+              >
+                <img
+                  ref={imageRef}
+                  src={image.src}
+                  alt="Selected"
+                  style={{
+                    display: "block",
+                    borderRadius: `${
+                      image.borderRadius * (dimension.height / 500)
+                    }px`,
+                    filter: `drop-shadow(0 ${
+                      20 * (dimension.height / 500) * (1 + image.shadow)
+                    }px ${
+                      20 * (dimension.height / 500) * (1 + image.shadow)
+                    }px rgb(0 0 0 / ${image.shadow})) ${
+                      isDragActive ? "brightness(0.75)" : ""
+                    }`,
+                    width: "100%",
+                    height: "100%",
+                    transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
+                    backfaceVisibility: "hidden",
+                    transformStyle: "preserve-3d",
+                    objectFit: "cover",
+                  }}
+                  className={cn(
+                    "transition-all duration-300 ease-in-out",
+                    !image.visibility ? "hidden" : "",
+                    !image.src && "bg-primary/20 p-8"
+                  )}
+                />
+                <ResizeHandles setIsHover={setIsHoveringResizeHandle} />
+              </div>
+            </ImageContextMenu>
           ) : (
             <DropZone mode="image" />
           )}

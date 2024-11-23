@@ -9,9 +9,6 @@ export const updatePreviewSize = () => {
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
 
-  const image = imageGeneratorStore.settings.image;
-  const setImage = imageGeneratorStore.setImage;
-
   if (containerRef?.current && previewRef?.current) {
     const containerWidth = containerRef.current.offsetWidth;
     const containerHeight = containerRef.current.offsetHeight;

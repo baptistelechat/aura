@@ -7,7 +7,6 @@ export const uploadImage = (
   mode: "image" | "background"
 ) => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
-  const dimension = imageGeneratorStore.settings.dimension;
   const setImage = imageGeneratorStore.setImage;
   const setBackground = imageGeneratorStore.setBackground;
 
