@@ -8,12 +8,15 @@ import { setRandomCustomBackground } from "@/lib/utils/image-generator/setBackgr
 import { setRandomGradientBackground } from "@/lib/utils/image-generator/setBackgroundColor/setRandomGradientBackground";
 import { setRandomMagicBackground } from "@/lib/utils/image-generator/setBackgroundColor/setRandomMagicBackground";
 import { setTransparentBackground } from "@/lib/utils/image-generator/setBackgroundColor/setTransparentBackground";
-import { Dices, Eraser, PaintbrushVertical, WandSparkles } from "lucide-react";
+import { Dices, Eraser, PaintbrushVertical, SlidersHorizontal, WandSparkles } from "lucide-react";
 
 const BackgroundColorContextMenu = () => {
   const magicColor = useImageGeneratorStore(
     (s) => s.settings.background.magicColor
   );
+  
+  const tab = useImageGeneratorStore((s) => s.general.tab);
+  const setTab = useImageGeneratorStore((s) => s.setTab);
 
   return (
     <>
@@ -60,6 +63,16 @@ const BackgroundColorContextMenu = () => {
         <span className="flex items-center gap-1.5">
           <Eraser className="size-4" />
           Transparent background
+        </span>
+      </ContextMenuItem>
+      <ContextMenuSeparator />
+      <ContextMenuItem
+        onClick={() => setTab("background-color")}
+        disabled={tab === "background-color"}
+      >
+        <span className="flex items-center gap-1.5">
+          <SlidersHorizontal className="size-4" />
+          All settings
         </span>
       </ContextMenuItem>
     </>

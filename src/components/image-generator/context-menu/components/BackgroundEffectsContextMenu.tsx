@@ -1,15 +1,19 @@
 import {
+  ContextMenuItem,
   ContextMenuLabel,
   ContextMenuSeparator
 } from "@/components/ui/context-menu";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { CircleDotDashed, Grip, Sparkles } from "lucide-react";
+import { CircleDotDashed, Grip, SlidersHorizontal, Sparkles } from "lucide-react";
 import ContextSubMenu from "./ContextSubMenu";
 
 const BackgroundEffectsContextMenu = () => {
     const background = useImageGeneratorStore((s) => s.settings.background);
   const setBackground = useImageGeneratorStore((s) => s.setBackground);
+  
+  const tab = useImageGeneratorStore((s) => s.general.tab);
+  const setTab = useImageGeneratorStore((s) => s.setTab);
 
   const defaultValue = defaultImageGeneratorSettings.background;
   const maxBlur = 64;
@@ -51,6 +55,16 @@ const BackgroundEffectsContextMenu = () => {
         ]}
         onClick={(noise) => setBackground({ noise })}
       />
+      <ContextMenuSeparator />
+      <ContextMenuItem
+        onClick={() => setTab("background-effects")}
+        disabled={tab === "background-effects"}
+      >
+        <span className="flex items-center gap-1.5">
+          <SlidersHorizontal className="size-4" />
+          All settings
+        </span>
+      </ContextMenuItem>
     </>
   );
 }

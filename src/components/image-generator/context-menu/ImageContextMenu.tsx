@@ -1,6 +1,7 @@
 import {
   ContextMenu,
   ContextMenuContent,
+  ContextMenuItem,
   ContextMenuLabel,
   ContextMenuSeparator,
   ContextMenuSub,
@@ -16,6 +17,7 @@ import {
   LampDesk,
   Rotate3D,
   Scaling,
+  SlidersHorizontal,
 } from "lucide-react";
 import { ReactNode } from "react";
 import ContextSubMenu from "./components/ContextSubMenu";
@@ -27,6 +29,9 @@ interface IImageContextMenuProps {
 const ImageContextMenu = ({ children }: IImageContextMenuProps) => {
   const image = useImageGeneratorStore((s) => s.settings.image);
   const setImage = useImageGeneratorStore((s) => s.setImage);
+
+  const tab = useImageGeneratorStore((s) => s.general.tab);
+  const setTab = useImageGeneratorStore((s) => s.setTab);
 
   const defaultValue = defaultImageGeneratorSettings.image;
 
@@ -133,6 +138,16 @@ const ImageContextMenu = ({ children }: IImageContextMenuProps) => {
             />
           </ContextMenuSubContent>
         </ContextMenuSub>
+        <ContextMenuSeparator />
+        <ContextMenuItem
+          onClick={() => setTab("image")}
+          disabled={tab === "image"}
+        >
+          <span className="flex items-center gap-1.5">
+            <SlidersHorizontal className="size-4" />
+            All settings
+          </span>
+        </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   );
