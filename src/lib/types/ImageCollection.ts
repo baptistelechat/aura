@@ -3,6 +3,8 @@ type Image = {
   thumbnail: string;
   original: string;
   author?: string
+  width: number;
+  height: number;
 };
 
 export type ImageCollection = Image[];

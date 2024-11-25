@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import BackgroundContextMenu from "@/components/image-generator/context-menu/BackgroundContextMenu";
+import ImageContextMenu from "@/components/image-generator/context-menu/ImageContextMenu";
 import DropZone from "@/components/image-generator/DropZone";
 import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
@@ -7,13 +9,17 @@ import { transparentBackgroundStyle } from "@/lib/constant/transparentBackground
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
 import { uploadImage } from "@/lib/utils/image-generator/uploadImage";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
+import ResizeHandles from "./components/ResizeHandles";
 
 const Preview = () => {
-  const background = useImageGeneratorStore((s) => s.settings.background);
+  const [isHoveringResizeHandle, setIsHoveringResizeHandle] = useState(false);
+
+  const dimension = useImageGeneratorStore((s) => s.settings.dimension);
   const image = useImageGeneratorStore((s) => s.settings.image);
+  const background = useImageGeneratorStore((s) => s.settings.background);
 
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
@@ -35,7 +41,10 @@ const Preview = () => {
     uploadImage(files[0], "image");
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    disabled: isHoveringResizeHandle,
+  });
 
   useEffect(() => {
     setPreviewRefs({
@@ -47,14 +56,12 @@ const Preview = () => {
     });
   }, []);
 
-  const watermarkAngle =
-    watermark.position === "top-left"
-      ? "top-4 left-4 origin-top-left"
-      : watermark.position === "top-right"
-      ? "top-4 right-4 origin-top-right"
-      : watermark.position === "bottom-left"
-      ? "bottom-4 left-4 origin-bottom-left"
-      : "bottom-4 right-4 origin-bottom-right";
+  useEffect(() => {
+    if (previewRef.current) {
+      previewRef.current.style.width = `${dimension.width}px`;
+      previewRef.current.style.height = `${dimension.height}px`;
+    }
+  }, [dimension.width, dimension.height]);
 
   const backgroundStyle =
     gradient.from.hex !==
@@ -78,100 +85,147 @@ const Preview = () => {
     <div
       id="preview-container"
       ref={containerRef}
-      className="flex size-full grow items-center justify-center overflow-hidden"
+      className="relative size-full"
     >
-      <div
-        id="preview"
-        ref={previewRef}
-        className="relative flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 transition-all duration-700 ease-in-out"
-      >
-        {/* Background layer */}
+      <BackgroundContextMenu>
         <div
-          ref={backgroundRef}
-          className="absolute inset-0 z-0"
+          id="preview"
+          ref={previewRef}
+          className="absolute left-0 top-0 flex origin-top-left items-center justify-center overflow-hidden border border-slate-200 transition-all duration-500 ease-in-out"
           style={{
-            background: backgroundStyle,
-            filter: `blur(${background.blur}px)`,
-            ...(background.backgroundImage && {
-              background: `url(${background.backgroundImage}) center center / cover`,
-            }),
-            ...(background.backgroundColor === "" && {
-              backgroundImage: transparentBackgroundStyle,
-              backgroundSize: "20px 20px",
-              backgroundPosition: "0 0, 10px 10px",
-            }),
+            width: `${dimension.width}px`,
+            height: `${dimension.height}px`,
           }}
-        />
-        <NoiseBackground />
-
-        {/* Content layer */}
-        <div className="relative z-10 flex size-full items-center justify-center">
-          {image.src ? (
-            <div
-              className="cursor-pointer transition-all duration-300 hover:brightness-75"
-              style={{ perspective: "1500px" }}
-            >
-              <img
-                {...getRootProps()}
-                ref={imageRef}
-                src={image.src}
-                alt="Selected"
-                style={{
-                  display: "block",
-                  borderRadius: `${image.borderRadius}px`,
-                  filter: `drop-shadow(0 25px 25px rgb(0 0 0 / ${
-                    image.shadow
-                  })) ${isDragActive ? "brightness(0.75)" : ""}`,
-                  maxHeight: `${
-                    Number(previewRef.current?.style.height.replace("px", "")) *
-                    image.scale
-                  }px`,
-                  maxWidth: `${
-                    Number(previewRef.current?.style.width.replace("px", "")) *
-                    image.scale
-                  }px`,
-                  transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
-                  backfaceVisibility: "hidden",
-                  transformStyle: "preserve-3d",
-                }}
-                className={cn(
-                  "transition-all duration-300 ease-in-out",
-                  !image.visibility ? "hidden" : "",
-                  !image.src && "bg-primary/20 p-8"
-                )}
-              />
-            </div>
-          ) : (
-            <DropZone mode="image" />
-          )}
-          <input {...getInputProps()} accept="image/*" />
-        </div>
-
-        {/* Overlay Shadow */}
-        {overlay.name && overlay.name.includes("shadow") && (
-          <img
-            src={`${overlay.name}`}
-            alt="Overlay Shadow"
-            className="pointer-events-none absolute inset-0 z-10 size-full object-cover"
+        >
+          {/* Background layer */}
+          <div
+            ref={backgroundRef}
+            className="absolute inset-0 z-0"
             style={{
-              opacity: overlay.opacity,
+              background: backgroundStyle,
+              filter: `blur(${background.blur}px)`,
+              ...(background.backgroundImage && {
+                background: `url(${background.backgroundImage}) center center / cover`,
+              }),
+              ...(background.backgroundColor === "" && {
+                backgroundImage: transparentBackgroundStyle,
+                backgroundSize: "20px 20px",
+                backgroundPosition: "0 0, 10px 10px",
+              }),
             }}
           />
-        )}
+          <NoiseBackground />
 
-        {/* Watermark */}
-        <div
-          id="watermark-container"
-          ref={watermarkRef}
-          className={cn("absolute z-20", watermarkAngle)}
-        >
-          <Logo
-            size="watermark"
-            background={watermark.background}
-            foreground={watermark.foreground}
-          />
+          {/* Content layer */}
+          <div className="z-10 flex size-full items-center justify-center">
+            {image.src ? (
+              <ImageContextMenu>
+                <div
+                  {...getRootProps()}
+                  className={cn(
+                    "relative cursor-pointer transition-all duration-100 ease-in-out",
+                    !isHoveringResizeHandle && "hover:brightness-75"
+                  )}
+                  style={{
+                    perspective: "1500px",
+                    width: `${
+                      image.width *
+                      Math.min(
+                        1,
+                        dimension.width / image.width,
+                        dimension.height / image.height
+                      ) *
+                      image.scale
+                    }px`,
+                    height: `${
+                      image.height *
+                      Math.min(
+                        1,
+                        dimension.width / image.width,
+                        dimension.height / image.height
+                      ) *
+                      image.scale
+                    }px`,
+                  }}
+                >
+                  <img
+                    ref={imageRef}
+                    src={image.src}
+                    alt="Selected"
+                    style={{
+                      display: "block",
+                      borderRadius: `${
+                        image.borderRadius * (dimension.height / 500)
+                      }px`,
+                      filter: `drop-shadow(0 ${
+                        20 * (dimension.height / 500) * (1 + image.shadow)
+                      }px ${
+                        20 * (dimension.height / 500) * (1 + image.shadow)
+                      }px rgb(0 0 0 / ${image.shadow})) ${
+                        isDragActive ? "brightness(0.75)" : ""
+                      }`,
+                      width: "100%",
+                      height: "100%",
+                      transform: `rotateX(${image.rotateX}deg) rotateY(${image.rotateY}deg) rotateZ(${image.rotateZ}deg)`,
+                      backfaceVisibility: "hidden",
+                      transformStyle: "preserve-3d",
+                      objectFit: "cover",
+                    }}
+                    className={cn(
+                      "transition-all duration-300 ease-in-out",
+                      !image.visibility ? "hidden" : "",
+                      !image.src && "bg-primary/20 p-8"
+                    )}
+                  />
+                  <ResizeHandles setIsHover={setIsHoveringResizeHandle} />
+                </div>
+              </ImageContextMenu>
+            ) : (
+              <DropZone mode="image" />
+            )}
+            <input {...getInputProps()} accept="image/*" />
+          </div>
+
+          {/* Overlay Shadow */}
+          {overlay.name && overlay.name.includes("shadow") && (
+            <img
+              src={`${overlay.name}`}
+              alt="Overlay Shadow"
+              className="pointer-events-none absolute inset-0 z-10 size-full object-cover"
+              style={{
+                opacity: overlay.opacity,
+              }}
+            />
+          )}
+
+          {/* Watermark */}
+          <div
+            id="watermark-container"
+            ref={watermarkRef}
+            className={cn("absolute z-20", watermark.position)}
+            style={{
+              top: watermark.position.includes("top")
+                ? `${12 * (dimension.height / 500)}px`
+                : "",
+              right: watermark.position.includes("right")
+                ? `${12 * (dimension.height / 500)}px`
+                : "",
+              bottom: watermark.position.includes("bottom")
+                ? `${12 * (dimension.height / 500)}px`
+                : "",
+              left: watermark.position.includes("left")
+                ? `${12 * (dimension.height / 500)}px`
+                : "",
+            }}
+          >
+            <Logo
+              size="watermark"
+              background={watermark.background}
+              foreground={watermark.foreground}
+            />
+          </div>
         </div>
-      </div>
+      </BackgroundContextMenu>
     </div>
   );
 };

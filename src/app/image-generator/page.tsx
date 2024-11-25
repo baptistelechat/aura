@@ -58,7 +58,7 @@ const ImageGenerator = () => {
   }
 
   return (
-    <div className="relative flex size-full gap-8 p-8">
+    <div className="flex size-full gap-8 p-8">
       <div className="flex w-full gap-4">
         <Sidebar />
         <motion.div

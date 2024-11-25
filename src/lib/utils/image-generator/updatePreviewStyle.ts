@@ -6,30 +6,22 @@ export const updatePreviewStyle = () => {
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
   const backgroundRef = imageGeneratorStore.previewRefs.backgroundRef;
-  const imageRef = imageGeneratorStore.previewRefs.imageRef;
   const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
 
   if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
-    const aspectRatio = window.devicePixelRatio;
 
-    const width = imageGeneratorStore.settings.dimension.width / aspectRatio;
-    const height = imageGeneratorStore.settings.dimension.height / aspectRatio;
-
+    const height = imageGeneratorStore.settings.dimension.height;
     const imageVisibility = imageGeneratorStore.settings.image.visibility;
-    const imageScale = imageGeneratorStore.settings.image.scale;
 
     if (!imageVisibility) {
       imageGeneratorStore.setImageVisibility(true);
     }
 
-    containerRef.current.classList.toggle("size-full");
-    containerRef.current.classList.toggle("overflow-hidden");
     containerRef.current.classList.toggle("blur-xl");
 
     previewRef.current.classList.toggle("border");
-    previewRef.current.classList.toggle("border-slate-200");
+    previewRef.current.classList.toggle("border-slate-200");  
     previewRef.current.classList.toggle("transition-all");
-    previewRef.current.classList.toggle("rounded-xl");
 
     if (imageGeneratorStore.settings.background.backgroundColor === "") {
       if (backgroundRef.current.style.backgroundImage === "") {
@@ -40,16 +32,11 @@ export const updatePreviewStyle = () => {
       }
     }
 
-    previewRef.current.style.width = `${width}px`;
-    previewRef.current.style.height = `${height}px`;
-
-    if (imageRef?.current) {
-      imageRef.current.style.maxWidth = `${width * imageScale}px`;
-      imageRef.current.style.maxHeight = `${height * imageScale}px`;
-    }
-
     if (watermarkRef?.current) {
-      watermarkRef.current.style.scale = `${(height * 0.05) / 60}`;
+      const watermarkHeight = height * 0.05;
+      const watermarkScale = watermarkHeight / 54;
+
+      watermarkRef.current.style.scale = String(watermarkScale);
     }
   }
 };

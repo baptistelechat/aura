@@ -26,6 +26,8 @@ const generateShadowImages = (
       id: String(i),
       thumbnail: `${path}/thumbnails/${i}.webp`,
       original: `${path}/originals/${i}.webp`,
+      width: 0,
+      height: 0,
     });
   }
   return images.sort((a, b) => Number(a.id) - Number(b.id));
