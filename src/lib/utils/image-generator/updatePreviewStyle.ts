@@ -20,9 +20,8 @@ export const updatePreviewStyle = () => {
     containerRef.current.classList.toggle("blur-xl");
 
     previewRef.current.classList.toggle("border");
-    previewRef.current.classList.toggle("border-slate-200");
+    previewRef.current.classList.toggle("border-slate-200");  
     previewRef.current.classList.toggle("transition-all");
-    previewRef.current.classList.toggle("rounded-3xl");
 
     if (imageGeneratorStore.settings.background.backgroundColor === "") {
       if (backgroundRef.current.style.backgroundImage === "") {

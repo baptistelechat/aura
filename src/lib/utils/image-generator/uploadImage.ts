@@ -23,21 +23,33 @@ export const uploadImage = (
         reader.onload = (e) => {
           const src = e.target?.result as string;
 
-          if (mode === "image") {
-            setImage({ src, visibility: true });
-            resolve();
-          } else if (mode === "background") {
-            if (src) {
+          const img = new Image();
+          img.onload = () => {
+            const imageWidth = img.naturalWidth;
+            const imageHeight = img.naturalHeight;
+
+            if (mode === "image") {
+              setImage({
+                src,
+                visibility: true,
+                width: imageWidth,
+                height: imageHeight,
+              });
+            } else if (mode === "background") {
               setBackground({
                 backgroundColor:
                   defaultImageGeneratorSettings.background.backgroundColor,
                 backgroundImage: src,
               });
-              resolve();
-            } else {
-              reject(new Error("Failed to load background image."));
             }
-          }
+            resolve();
+          };
+
+          img.onerror = (error) => {
+            reject(error);
+          };
+
+          img.src = src;
         };
 
         reader.onerror = (error) => {

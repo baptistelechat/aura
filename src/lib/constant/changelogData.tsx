@@ -5,6 +5,40 @@ export const changelogData: Changelog[] = [
   {
     date: {
       month: "November",
+      day: 26,
+      year: 2024,
+    },
+    content: (
+      <div className="flex flex-col gap-2">
+        <p className="font-semibold">Resize image from preview and context menu</p>
+        <p className="text-sm text-muted-foreground">
+          You can now resize images directly from the preview. Simply hover the corner and border of image and choose the desired size.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          You can also changes settings from the context menu. Simply right click on the image or the background and choose an preset option.
+        </p>
+        <Image
+          src={"/images/changelog/2024 11 26/context-menu-1.png"}
+          alt={"Context Menu 1"}
+          layout="responsive"
+          width={1109}
+          height={621}
+          className="rounded-lg border transition-all duration-300 ease-in-out"
+        />
+        <Image
+          src={"/images/changelog/2024 11 26/context-menu-2.png"}
+          alt={"Context Menu 2"}
+          layout="responsive"
+          width={1106}
+          height={622}
+          className="rounded-lg border transition-all duration-300 ease-in-out"
+        />
+      </div>
+    ),
+  },
+  {
+    date: {
+      month: "November",
       day: 12,
       year: 2024,
     },
