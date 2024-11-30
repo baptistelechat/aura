@@ -202,26 +202,26 @@ const Preview = () => {
           <div
             id="watermark-container"
             ref={watermarkRef}
-            className={cn("absolute z-20", watermark.position)}
+            className={cn("absolute z-20", watermark.aura.position)}
             style={{
-              top: watermark.position.includes("top")
+              top: watermark.aura.position.includes("top")
                 ? `${12 * (dimension.height / 500)}px`
                 : "",
-              right: watermark.position.includes("right")
+              right: watermark.aura.position.includes("right")
                 ? `${12 * (dimension.height / 500)}px`
                 : "",
-              bottom: watermark.position.includes("bottom")
+              bottom: watermark.aura.position.includes("bottom")
                 ? `${12 * (dimension.height / 500)}px`
                 : "",
-              left: watermark.position.includes("left")
+              left: watermark.aura.position.includes("left")
                 ? `${12 * (dimension.height / 500)}px`
                 : "",
             }}
           >
             <Logo
               size="watermark"
-              background={watermark.background}
-              foreground={watermark.foreground}
+              background={watermark.aura.background}
+              foreground={watermark.aura.foreground}
             />
           </div>
         </div>

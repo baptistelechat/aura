@@ -3,20 +3,22 @@ import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGenera
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Tag } from "lucide-react";
 import WatermarkPositionPicker from "./components/WatermarkPositionPicker";
-import WatermarkSelect from "./components/WatermarkSelect";
+import AuraWatermarkSelect from "./components/AuraWatermarkSelect";
 
 const AuraWatermark = () => {
-  const position = useImageGeneratorStore((s) => s.settings.watermark.position);
+  const position = useImageGeneratorStore(
+    (s) => s.settings.watermark.aura.position
+  );
   const background = useImageGeneratorStore(
-    (s) => s.settings.watermark.background
+    (s) => s.settings.watermark.aura.background
   );
   const foreground = useImageGeneratorStore(
-    (s) => s.settings.watermark.foreground
+    (s) => s.settings.watermark.aura.foreground
   );
 
   const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
 
-  const defaultValue = defaultImageGeneratorSettings.watermark;
+  const defaultValue = defaultImageGeneratorSettings.watermark.aura;
 
   return (
     <CustomAccordionItem
@@ -29,15 +31,17 @@ const AuraWatermark = () => {
       }
       reset={() =>
         setWatermark({
-          position: defaultValue.position,
-          background: defaultValue.background,
-          foreground: defaultValue.foreground,
+          aura: {
+            position: defaultValue.position,
+            background: defaultValue.background,
+            foreground: defaultValue.foreground,
+          },
         })
       }
     >
       <div className="flex w-full gap-4">
         <WatermarkPositionPicker />
-        <WatermarkSelect />
+        <AuraWatermarkSelect />
       </div>
     </CustomAccordionItem>
   );

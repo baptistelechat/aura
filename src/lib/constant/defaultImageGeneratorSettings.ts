@@ -61,8 +61,10 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     opacity: 0.5,
   },
   watermark: {
-    position: "origin-bottom-right",
-    background: "light",
-    foreground: "color-dark",
+    aura: {
+      position: "origin-bottom-right",
+      background: "light",
+      foreground: "color-dark",
+    },
   },
 };

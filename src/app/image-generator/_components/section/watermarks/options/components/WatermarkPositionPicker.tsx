@@ -21,13 +21,11 @@ const position = [
 ];
 
 const WatermarkPositionPicker = () => {
-  const watermarkPosition = useImageGeneratorStore(
-    (s) => s.settings.watermark.position
+  const auraWatermark = useImageGeneratorStore(
+    (s) => s.settings.watermark.aura
   );
-
-  const setWatermark = useImageGeneratorStore(
-    (s) => s.setWatermark
-  );
+  
+  const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
 
   return (
     <div className="flex w-fit flex-col gap-4">
@@ -40,19 +38,20 @@ const WatermarkPositionPicker = () => {
               <Tooltip key={name}>
                 <TooltipTrigger asChild>
                   <Button
-                    disabled={name === watermarkPosition}
+                    disabled={name === auraWatermark.position}
                     variant="outline"
                     size="icon"
                     onClick={() =>
-                      setWatermark(
-                        {
-                          position : name as
-                          | "origin-top-left"
-                          | "origin-top-right"
-                          | "origin-bottom-left"
-                          | "origin-bottom-right"
-                        }
-                      )
+                      setWatermark({
+                        aura: {
+                          ...auraWatermark,
+                          position: name as
+                            | "origin-top-left"
+                            | "origin-top-right"
+                            | "origin-bottom-left"
+                            | "origin-bottom-right",
+                        },
+                      })
                     }
                   >
                     {icon}

@@ -38,12 +38,9 @@ const watermarkColor = {
   transparent: "bg-transparent",
 };
 
-const WatermarkSelect = () => {
-  const background = useImageGeneratorStore(
-    (s) => s.settings.watermark.background
-  );
-  const foreground = useImageGeneratorStore(
-    (s) => s.settings.watermark.foreground
+const AuraWatermarkSelect = () => {
+  const auraWatermark = useImageGeneratorStore(
+    (s) => s.settings.watermark.aura
   );
 
   const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
@@ -59,17 +56,20 @@ const WatermarkSelect = () => {
     <div className="flex w-full flex-col gap-4">
       <Label>Style</Label>
       <Select
-        value={`${background}/${foreground}`}
+        value={`${auraWatermark.background}/${auraWatermark.foreground}`}
         onValueChange={(value) => {
           const [background, foreground] = value.split("/");
           setWatermark({
-            background: background as
-              | "light"
-              | "dark"
-              | "color-light"
-              | "color-dark"
-              | "transparent",
-            foreground : foreground as "light" | "dark" | "color-light" | "color-dark",
+            aura : {
+              ...auraWatermark,
+              background: background as
+                | "light"
+                | "dark"
+                | "color-light"
+                | "color-dark"
+                | "transparent",
+              foreground : foreground as "light" | "dark" | "color-light" | "color-dark",
+            }
           });
         }}
       >
@@ -128,4 +128,4 @@ const WatermarkSelect = () => {
   );
 };
 
-export default WatermarkSelect;
+export default AuraWatermarkSelect;
