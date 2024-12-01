@@ -35,14 +35,16 @@ export type ImageGeneratorStoreType = {
     previewRef: React.RefObject<HTMLDivElement> | null;
     backgroundRef: React.RefObject<HTMLDivElement> | null;
     imageRef: React.RefObject<HTMLImageElement> | null;
-    watermarkRef: React.RefObject<HTMLDivElement> | null;
+    auraWatermarkRef: React.RefObject<HTMLDivElement> | null;
+    socialWatermarkRef: React.RefObject<HTMLDivElement> | null;
   };
   setPreviewRefs: (refs: {
     containerRef: React.RefObject<HTMLDivElement>;
     previewRef: React.RefObject<HTMLDivElement>;
     backgroundRef: React.RefObject<HTMLDivElement>;
     imageRef: React.RefObject<HTMLImageElement>;
-    watermarkRef: React.RefObject<HTMLDivElement>;
+    auraWatermarkRef: React.RefObject<HTMLDivElement>;
+    socialWatermarkRef: React.RefObject<HTMLDivElement> | null;
   }) => void;
   // Dimension
   setDimensions: (update: DimensionUpdate) => void;
@@ -69,7 +71,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     general: {
       hotkeySet,
       browser: getBrowser(),
-      tab: "image",
+      tab: "watermarks",
       isDownloading: false,
     },
     settings: defaultImageGeneratorSettings,
@@ -98,7 +100,8 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
       previewRef: null,
       backgroundRef: null,
       imageRef: null,
-      watermarkRef: null,
+      auraWatermarkRef: null,
+      socialWatermarkRef: null,
     },
 
     setPreviewRefs: (previewRefs) => {

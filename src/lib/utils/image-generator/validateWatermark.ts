@@ -40,7 +40,7 @@ const isElementHidden = (element: HTMLElement | null) => {
 
 export const validateWatermark = () => {
   const watermarkContainer = document.querySelector(
-    "#watermark-container"
+    "#auraWatermarkContainer"
   ) as HTMLDivElement;
   const watermarkLogo = watermarkContainer?.children[0] as HTMLDivElement;
   const watermarkElements = watermarkContainer?.children[0]?.children;

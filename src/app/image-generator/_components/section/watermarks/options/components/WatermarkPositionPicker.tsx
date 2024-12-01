@@ -6,6 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { WatermarkPosition } from "@/lib/types/ImageGeneratorSettings";
 import {
   ArrowDownLeft,
   ArrowDownRight,
@@ -13,19 +14,43 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
-const position = [
+interface IWatermarkPositionPickerProps {
+  variant: "aura" | "social";
+}
+
+interface Position {
+  name: WatermarkPosition;
+  icon: JSX.Element;
+}
+
+const position: Position[] = [
   { name: "origin-top-left", icon: <ArrowUpLeft className="size-4" /> },
   { name: "origin-top-right", icon: <ArrowUpRight className="size-4" /> },
   { name: "origin-bottom-left", icon: <ArrowDownLeft className="size-4" /> },
   { name: "origin-bottom-right", icon: <ArrowDownRight className="size-4" /> },
 ];
 
-const WatermarkPositionPicker = () => {
+const WatermarkPositionPicker = ({
+  variant,
+}: IWatermarkPositionPickerProps) => {
   const auraWatermark = useImageGeneratorStore(
     (s) => s.settings.watermark.aura
   );
-  
+
+  const socialWatermark = useImageGeneratorStore(
+    (s) => s.settings.watermark.social
+  );
+
   const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
+
+  const handleButtonClick = (name: WatermarkPosition) => {
+    setWatermark({
+      [variant]: {
+        ...(variant === "aura" ? auraWatermark : socialWatermark),
+        position: name as WatermarkPosition,
+      },
+    });
+  };
 
   return (
     <div className="flex w-fit flex-col gap-4">
@@ -38,21 +63,13 @@ const WatermarkPositionPicker = () => {
               <Tooltip key={name}>
                 <TooltipTrigger asChild>
                   <Button
-                    disabled={name === auraWatermark.position}
+                    disabled={
+                      name === auraWatermark.position ||
+                      name === socialWatermark.position
+                    }
                     variant="outline"
                     size="icon"
-                    onClick={() =>
-                      setWatermark({
-                        aura: {
-                          ...auraWatermark,
-                          position: name as
-                            | "origin-top-left"
-                            | "origin-top-right"
-                            | "origin-bottom-left"
-                            | "origin-bottom-right",
-                        },
-                      })
-                    }
+                    onClick={() => handleButtonClick(name)}
                   >
                     {icon}
                   </Button>

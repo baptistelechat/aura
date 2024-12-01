@@ -4,7 +4,8 @@ export const updatePreviewSize = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
-  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
+  const auraWatermarkRef = imageGeneratorStore.previewRefs.auraWatermarkRef;
+  const socialWatermarkRef = imageGeneratorStore.previewRefs.socialWatermarkRef;
 
   const width = imageGeneratorStore.settings.dimension.width;
   const height = imageGeneratorStore.settings.dimension.height;
@@ -34,11 +35,15 @@ export const updatePreviewSize = () => {
 
     previewRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 
-    if (watermarkRef?.current) {
-      const watermarkHeight = height * 0.05;
-      const watermarkScale = watermarkHeight / 54;
+    const watermarkHeight = height * 0.05;
+    const watermarkScale = watermarkHeight / 54;
 
-      watermarkRef.current.style.scale = String(watermarkScale);
+    if (auraWatermarkRef?.current) {
+      auraWatermarkRef.current.style.scale = String(watermarkScale);
+    }
+
+    if(socialWatermarkRef?.current) {
+      socialWatermarkRef.current.style.scale = String(watermarkScale);
     }
   }
 };

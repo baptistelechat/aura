@@ -5,7 +5,7 @@ import { Tag } from "lucide-react";
 import WatermarkPositionPicker from "./components/WatermarkPositionPicker";
 import AuraWatermarkSelect from "./components/AuraWatermarkSelect";
 
-const AuraWatermark = () => {
+const AuraWatermarkControl = () => {
   const position = useImageGeneratorStore(
     (s) => s.settings.watermark.aura.position
   );
@@ -40,11 +40,11 @@ const AuraWatermark = () => {
       }
     >
       <div className="flex w-full gap-4">
-        <WatermarkPositionPicker />
+        <WatermarkPositionPicker variant="aura" />
         <AuraWatermarkSelect />
       </div>
     </CustomAccordionItem>
   );
 };
 
-export default AuraWatermark;
+export default AuraWatermarkControl;

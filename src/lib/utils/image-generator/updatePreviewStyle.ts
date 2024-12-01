@@ -3,10 +3,12 @@ import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 
 export const updatePreviewStyle = () => {
   const imageGeneratorStore = useImageGeneratorStore.getState();
+  
   const containerRef = imageGeneratorStore.previewRefs.containerRef;
   const previewRef = imageGeneratorStore.previewRefs.previewRef;
   const backgroundRef = imageGeneratorStore.previewRefs.backgroundRef;
-  const watermarkRef = imageGeneratorStore.previewRefs.watermarkRef;
+  const auraWatermarkRef = imageGeneratorStore.previewRefs.auraWatermarkRef;
+  const socialWatermarkRef = imageGeneratorStore.previewRefs.socialWatermarkRef;
 
   if (previewRef?.current && containerRef?.current && backgroundRef?.current) {
 
@@ -32,11 +34,17 @@ export const updatePreviewStyle = () => {
       }
     }
 
-    if (watermarkRef?.current) {
-      const watermarkHeight = height * 0.05;
-      const watermarkScale = watermarkHeight / 54;
+    const watermarkHeight = height * 0.05;
+    const watermarkScale = watermarkHeight / 54;
+    
+    if (auraWatermarkRef?.current) {
+      console.log("aura");
+      auraWatermarkRef.current.style.scale = String(watermarkScale);
+    }
 
-      watermarkRef.current.style.scale = String(watermarkScale);
+    if (socialWatermarkRef?.current) {
+      console.log("social");
+      socialWatermarkRef.current.style.scale = String(watermarkScale);
     }
   }
 };

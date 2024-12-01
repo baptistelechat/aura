@@ -66,7 +66,7 @@ export type OverlaySettings = {
   opacity: number;
 };
 
-type WatermarkPosition =
+export type WatermarkPosition =
   | "origin-top-left"
   | "origin-top-right"
   | "origin-bottom-left"
@@ -77,6 +77,9 @@ export type WatermarkSettings = {
     position:WatermarkPosition;
     background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
     foreground: "color-light" | "color-dark" | "light" | "dark";
+  },
+  social: {
+    position:WatermarkPosition;
   }
 };
 

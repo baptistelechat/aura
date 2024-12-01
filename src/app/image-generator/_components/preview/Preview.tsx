@@ -3,7 +3,6 @@
 import BackgroundContextMenu from "@/components/image-generator/context-menu/BackgroundContextMenu";
 import ImageContextMenu from "@/components/image-generator/context-menu/ImageContextMenu";
 import DropZone from "@/components/image-generator/DropZone";
-import Logo from "@/components/Logo";
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { transparentBackgroundStyle } from "@/lib/constant/transparentBackgroundStyle";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
@@ -13,6 +12,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import NoiseBackground from "./components/NoiseBackground";
 import ResizeHandles from "./components/ResizeHandles";
+import AuraWatermark from "./components/AuraWatermark";
+import SocialWatermark from "./components/SocialWatermark";
 
 const Preview = () => {
   const [isHoveringResizeHandle, setIsHoveringResizeHandle] = useState(false);
@@ -24,18 +25,17 @@ const Preview = () => {
   const gradient = useImageGeneratorStore(
     (s) => s.settings.background.gradient
   );
-
+  
   const overlay = useImageGeneratorStore((s) => s.settings.overlay);
-
-  const watermark = useImageGeneratorStore((s) => s.settings.watermark);
-
+  
   const setPreviewRefs = useImageGeneratorStore((s) => s.setPreviewRefs);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const backgroundRef = useRef<HTMLImageElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const watermarkRef = useRef<HTMLDivElement>(null);
+  const auraWatermarkRef = useRef<HTMLDivElement>(null);
+  const socialWatermarkRef = useRef<HTMLDivElement>(null);
 
   const onDrop = useCallback((files: File[]) => {
     uploadImage(files[0], "image");
@@ -52,7 +52,8 @@ const Preview = () => {
       previewRef,
       backgroundRef,
       imageRef,
-      watermarkRef,
+      auraWatermarkRef,
+      socialWatermarkRef
     });
   }, []);
 
@@ -199,31 +200,8 @@ const Preview = () => {
           )}
 
           {/* Watermark */}
-          <div
-            id="watermark-container"
-            ref={watermarkRef}
-            className={cn("absolute z-20", watermark.aura.position)}
-            style={{
-              top: watermark.aura.position.includes("top")
-                ? `${12 * (dimension.height / 500)}px`
-                : "",
-              right: watermark.aura.position.includes("right")
-                ? `${12 * (dimension.height / 500)}px`
-                : "",
-              bottom: watermark.aura.position.includes("bottom")
-                ? `${12 * (dimension.height / 500)}px`
-                : "",
-              left: watermark.aura.position.includes("left")
-                ? `${12 * (dimension.height / 500)}px`
-                : "",
-            }}
-          >
-            <Logo
-              size="watermark"
-              background={watermark.aura.background}
-              foreground={watermark.aura.foreground}
-            />
-          </div>
+          <AuraWatermark  ref={auraWatermarkRef}/>
+          <SocialWatermark ref={socialWatermarkRef}/>
         </div>
       </BackgroundContextMenu>
     </div>
