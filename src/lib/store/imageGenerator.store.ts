@@ -71,7 +71,7 @@ export const useImageGeneratorStore = create<ImageGeneratorStoreType>(
     general: {
       hotkeySet,
       browser: getBrowser(),
-      tab: "watermarks",
+      tab: "image",
       isDownloading: false,
     },
     settings: defaultImageGeneratorSettings,

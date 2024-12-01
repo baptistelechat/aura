@@ -51,6 +51,7 @@ export const setRandomGradientBackground = (
         : getRandomMagicColor();
 
     setBackground({
+      backgroundMode: "gradient",
       backgroundColor: defaultImageGeneratorSettings.background.backgroundColor,
       backgroundImage: null,
       tailwindColor: "",
@@ -67,6 +68,7 @@ export const setRandomGradientBackground = (
     });
   } else {
     setBackground({
+      backgroundMode: "gradient",
       backgroundColor: defaultImageGeneratorSettings.background.backgroundColor,
       backgroundImage: null,
       tailwindColor: "",

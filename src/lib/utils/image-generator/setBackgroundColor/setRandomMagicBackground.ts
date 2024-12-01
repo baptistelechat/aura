@@ -11,6 +11,7 @@ export const setRandomMagicBackground = () => {
   const randomColor = getRandomMagicColor();
   setBackground({
     ...defaultBackgroundSettings,
+    backgroundMode: "solid",
     backgroundColor: randomColor.hex,
     magicColor,
   });

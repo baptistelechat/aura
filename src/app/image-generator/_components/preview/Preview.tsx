@@ -154,7 +154,7 @@ const Preview = () => {
                     src={image.src}
                     alt="Selected"
                     style={{
-                      display: "block",
+                      display: !image.visibility ? "none" : "block",
                       borderRadius: `${
                         image.borderRadius * (dimension.height / 500)
                       }px`,
@@ -174,7 +174,6 @@ const Preview = () => {
                     }}
                     className={cn(
                       "transition-all duration-300 ease-in-out",
-                      !image.visibility ? "hidden" : "",
                       !image.src && "bg-primary/20 p-8"
                     )}
                   />
