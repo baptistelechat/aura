@@ -4,9 +4,9 @@ import {
   LinearGradientOrientation,
   RadialGradientOrientation,
 } from "@/lib/types/gradientOrientation";
-import { getRandomColor } from "../../colors/getRandomColor";
-import { getRandomTailwindColor } from "../../colors/getRandomTailwindColor";
-import { getRandomMagicColor } from "../../colors/getRandomMagicColor";
+import { getRandomColor } from "../../colors/background-color/getRandomColor";
+import { getRandomMagicColor } from "../../colors/background-color/getRandomMagicColor";
+import { getRandomTailwindColor } from "../../colors/background-color/getRandomTailwindColor";
 
 export const setRandomGradientBackground = (
   variant: "custom" | "custom-gradient" | "tailwind-gradient" | "magic-gradient"

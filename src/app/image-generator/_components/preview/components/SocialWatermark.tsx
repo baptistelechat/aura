@@ -1,11 +1,12 @@
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
+import { getWatermarkTextClass } from "@/lib/utils/colors/watermarks/getWatermarkTextClass";
 import { forwardRef } from "react";
 
 const SocialWatermark = forwardRef<HTMLDivElement, unknown>((_, ref) => {
   const dimension = useImageGeneratorStore((s) => s.settings.dimension);
-  const position = useImageGeneratorStore(
-    (s) => s.settings.watermark.social.position
+  const socialWatermark = useImageGeneratorStore(
+    (s) => s.settings.watermark.social
   );
 
   const watermarkPosition = 12 * (dimension.height / 500);
@@ -14,18 +15,19 @@ const SocialWatermark = forwardRef<HTMLDivElement, unknown>((_, ref) => {
     <div
       id="socialWatermarkContainer"
       ref={ref}
-      className={cn("absolute z-20", position)}
+      className={cn("absolute z-20", socialWatermark.position)}
       style={{
-        top: position.includes("top") ? `${watermarkPosition}px` : "",
-        right: position.includes("right") ? `${watermarkPosition}px` : "",
-        bottom: position.includes("bottom") ? `${watermarkPosition}px` : "",
-        left: position.includes("left") ? `${watermarkPosition}px` : "",
+        top: socialWatermark.position.includes("top") ? `${watermarkPosition}px` : "",
+        right: socialWatermark.position.includes("right") ? `${watermarkPosition}px` : "",
+        bottom: socialWatermark.position.includes("bottom") ? `${watermarkPosition}px` : "",
+        left: socialWatermark.position.includes("left") ? `${watermarkPosition}px` : "",
       }}
     >
       <div
         className={cn(
           "flex flex-col gap-1",
-          position.includes("left") ? "items-start" : "items-end"
+          socialWatermark.position.includes("left") ? "items-start" : "items-end",
+          getWatermarkTextClass(socialWatermark.foreground)
         )}
       >
         <p className="font-semibold">Baptiste LECHAT</p>

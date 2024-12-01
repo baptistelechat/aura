@@ -6,14 +6,8 @@ import WatermarkPositionPicker from "./components/WatermarkPositionPicker";
 import AuraWatermarkSelect from "./components/AuraWatermarkSelect";
 
 const AuraWatermarkControl = () => {
-  const position = useImageGeneratorStore(
-    (s) => s.settings.watermark.aura.position
-  );
-  const background = useImageGeneratorStore(
-    (s) => s.settings.watermark.aura.background
-  );
-  const foreground = useImageGeneratorStore(
-    (s) => s.settings.watermark.aura.foreground
+  const auraWatermark = useImageGeneratorStore(
+    (s) => s.settings.watermark.aura
   );
 
   const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
@@ -25,9 +19,9 @@ const AuraWatermarkControl = () => {
       title={"Aura"}
       icon={<Tag className="size-4" />}
       disabled={
-        position === defaultValue.position &&
-        background === defaultValue.background &&
-        foreground === defaultValue.foreground
+        auraWatermark.position === defaultValue.position &&
+        auraWatermark.background === defaultValue.background &&
+        auraWatermark.foreground === defaultValue.foreground
       }
       reset={() =>
         setWatermark({

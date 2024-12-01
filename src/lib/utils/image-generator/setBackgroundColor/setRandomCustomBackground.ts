@@ -1,6 +1,6 @@
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { getRandomColor } from "../../colors/getRandomColor";
+import { getRandomColor } from "../../colors/background-color/getRandomColor";
 
 export const setRandomCustomBackground = () => {
   const setBackground = useImageGeneratorStore.getState().setBackground;
@@ -13,6 +13,6 @@ export const setRandomCustomBackground = () => {
     ...defaultBackgroundSettings,
     backgroundMode: "solid",
     backgroundColor: randomColor.hex,
-    magicColor
+    magicColor,
   });
 };

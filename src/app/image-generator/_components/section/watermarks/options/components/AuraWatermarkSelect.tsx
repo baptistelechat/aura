@@ -9,12 +9,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { WatermarkBackgroundColor, WatermarkForegroundColor } from "@/lib/types/ImageGeneratorSettings";
 import { cn } from "@/lib/utils";
 import { CircleOff } from "lucide-react";
 
 const watermarks: {
-  background: "light" | "dark" | "color-light" | "color-dark" | "transparent";
-  foreground: "light" | "dark" | "color-light" | "color-dark";
+  background: WatermarkBackgroundColor;
+  foreground: WatermarkForegroundColor;
 }[] = [
   { background: "light", foreground: "dark" },
   { background: "light", foreground: "color-dark" },
@@ -62,13 +63,8 @@ const AuraWatermarkSelect = () => {
           setWatermark({
             aura : {
               ...auraWatermark,
-              background: background as
-                | "light"
-                | "dark"
-                | "color-light"
-                | "color-dark"
-                | "transparent",
-              foreground : foreground as "light" | "dark" | "color-light" | "color-dark",
+              background: background as WatermarkBackgroundColor,
+              foreground : foreground as WatermarkForegroundColor,
             }
           });
         }}

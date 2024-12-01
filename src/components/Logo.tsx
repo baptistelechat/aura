@@ -1,4 +1,7 @@
+import { WatermarkBackgroundColor, WatermarkForegroundColor } from "@/lib/types/ImageGeneratorSettings";
 import { cn } from "@/lib/utils";
+import { getWatermarkBackgroundClass } from "@/lib/utils/colors/watermarks/getWatermarkBackgroundClass";
+import { getWatermarkTextClass } from "@/lib/utils/colors/watermarks/getWatermarkTextClass";
 import { gugi } from "@/lib/utils/fonts";
 import Image from "next/image";
 
@@ -10,42 +13,10 @@ const textMapping = {
   watermark: 24, //text-2xl
 };
 
-const getBackgroundClass = (background: ILogoProps["background"]) => {
-  switch (background) {
-    case "light":
-      return "bg-white";
-    case "dark":
-      return "bg-black";
-    case "color-dark":
-      return "bg-[#0E4598]";
-    case "color-light":
-      return "bg-[#1573FE]";
-    case "transparent":
-      return "bg-transparent";
-    default:
-      return "bg-transparent";
-  }
-};
-
-export const getTextClass = (foreground: ILogoProps["foreground"]) => {
-  switch (foreground) {
-    case "light":
-      return "text-white";
-    case "dark":
-      return "text-black";
-    case "color-dark":
-      return "text-[#0E4598]";
-    case "color-light":
-      return "text-[#1573FE]";
-    default:
-      return "";
-  }
-};
-
 interface ILogoProps {
   size?: "sm" | "md" | "lg" | "watermark";
-  foreground?: "light" | "dark" | "color-light" | "color-dark";
-  background?: "light" | "dark" | "color-light" | "color-dark" | "transparent";
+  background?: WatermarkBackgroundColor;
+  foreground?: WatermarkForegroundColor;
   orientation?: "horizontal" | "vertical";
 }
 
@@ -53,20 +24,20 @@ const Logo = ({
   foreground = "color-dark",
   size = "md",
   orientation = "horizontal",
-  background,
+  background = "transparent",
 }: ILogoProps) => {
   return (
     <div
       className={cn(
         "flex items-center gap-2 rounded-full",
         size === "watermark" && "px-8 py-3",
-        getBackgroundClass(background),
+        getWatermarkBackgroundClass(background),
         orientation === "vertical" ? "flex-col" : "flex-row"
       )}
     >
       {size === "watermark" && (
         <p
-          className={cn(getTextClass(foreground), gugi.className)}
+          className={cn(getWatermarkTextClass(foreground), gugi.className)}
           style={{
             fontSize: textMapping[size] + "px",
           }}
@@ -87,7 +58,7 @@ const Logo = ({
         height={sizeMapping[size]}
       />
       <h1
-        className={cn(getTextClass(foreground), gugi.className)}
+        className={cn(getWatermarkTextClass(foreground), gugi.className)}
         style={{
           fontSize: textMapping[size] + "px",
         }}

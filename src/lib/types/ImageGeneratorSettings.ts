@@ -72,14 +72,18 @@ export type WatermarkPosition =
   | "origin-bottom-left"
   | "origin-bottom-right";
 
+  export type WatermarkBackgroundColor = "light" | "dark" | "color-light" | "color-dark" | "transparent";
+export type WatermarkForegroundColor = "light" | "dark" | "color-light" | "color-dark";
+
 export type WatermarkSettings = {
   aura : {
     position:WatermarkPosition;
-    background: "color-light" | "color-dark" | "light" | "dark" | "transparent";
-    foreground: "color-light" | "color-dark" | "light" | "dark";
+    background: WatermarkBackgroundColor;
+    foreground: WatermarkForegroundColor;
   },
   social: {
     position:WatermarkPosition;
+    foreground: WatermarkForegroundColor;
   }
 };
 

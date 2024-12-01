@@ -1,6 +1,6 @@
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
-import { getRandomMagicColor } from "../../colors/getRandomMagicColor";
+import { getRandomMagicColor } from "../../colors/background-color/getRandomMagicColor";
 
 export const setRandomMagicBackground = () => {
   const setBackground = useImageGeneratorStore.getState().setBackground;

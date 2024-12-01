@@ -2,11 +2,12 @@ import CustomAccordionItem from "@/components/image-generator/CustomAccordionIte
 import { defaultImageGeneratorSettings } from "@/lib/constant/defaultImageGeneratorSettings";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { Hash } from "lucide-react";
+import SocialWatermarkSelect from "./components/SocialWatermarkSelect";
 import WatermarkPositionPicker from "./components/WatermarkPositionPicker";
 
 const SocialWatermarkControl = () => {
-  const position = useImageGeneratorStore(
-    (s) => s.settings.watermark.social.position
+  const socialWatermark = useImageGeneratorStore(
+    (s) => s.settings.watermark.social
   );
 
   const setWatermark = useImageGeneratorStore((s) => s.setWatermark);
@@ -18,18 +19,21 @@ const SocialWatermarkControl = () => {
       title={"Social"}
       icon={<Hash className="size-4" />}
       disabled={
-        position === defaultValue.position
+        socialWatermark.position === defaultValue.position &&
+        socialWatermark.foreground === defaultValue.foreground
       }
       reset={() =>
         setWatermark({
           social: {
             position: defaultValue.position,
+            foreground: defaultValue.foreground,
           },
         })
       }
     >
       <div className="flex w-full gap-4">
         <WatermarkPositionPicker variant="social" />
+        <SocialWatermarkSelect />
       </div>
     </CustomAccordionItem>
   );
