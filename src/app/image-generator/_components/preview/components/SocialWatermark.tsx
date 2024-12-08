@@ -1,6 +1,8 @@
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
 import { cn } from "@/lib/utils";
+import { getSocialIconWatermarkColor } from "@/lib/utils/colors/watermarks/getSocialIconWatermarkColor";
 import { getWatermarkTextClass } from "@/lib/utils/colors/watermarks/getWatermarkTextClass";
+import Image from "next/image";
 import { forwardRef } from "react";
 
 const SocialWatermark = forwardRef<HTMLDivElement, unknown>((_, ref) => {
@@ -15,18 +17,43 @@ const SocialWatermark = forwardRef<HTMLDivElement, unknown>((_, ref) => {
     <div
       id="socialWatermarkContainer"
       ref={ref}
-      className={cn("absolute z-20", socialWatermark.position)}
+      className={cn(
+        "absolute z-20 flex gap-3 items-center",
+        socialWatermark.position.includes("left")
+          ? "flex-row"
+          : "flex-row-reverse",
+        socialWatermark.position
+      )}
       style={{
-        top: socialWatermark.position.includes("top") ? `${watermarkPosition}px` : "",
-        right: socialWatermark.position.includes("right") ? `${watermarkPosition}px` : "",
-        bottom: socialWatermark.position.includes("bottom") ? `${watermarkPosition}px` : "",
-        left: socialWatermark.position.includes("left") ? `${watermarkPosition}px` : "",
+        top: socialWatermark.position.includes("top")
+          ? `${watermarkPosition}px`
+          : "",
+        right: socialWatermark.position.includes("right")
+          ? `${watermarkPosition}px`
+          : "",
+        bottom: socialWatermark.position.includes("bottom")
+          ? `${watermarkPosition}px`
+          : "",
+        left: socialWatermark.position.includes("left")
+          ? `${watermarkPosition}px`
+          : "",
       }}
     >
+      <Image
+        src={`/images/assets/social/${socialWatermark.icon}.svg`}
+        alt="Social watermark"
+        width={50}
+        height={50}
+        style={{
+          filter: getSocialIconWatermarkColor(),
+        }}
+      />
       <div
         className={cn(
           "flex flex-col gap-1",
-          socialWatermark.position.includes("left") ? "items-start" : "items-end",
+          socialWatermark.position.includes("left")
+            ? "items-start"
+            : "items-end",
           getWatermarkTextClass(socialWatermark.foreground)
         )}
       >

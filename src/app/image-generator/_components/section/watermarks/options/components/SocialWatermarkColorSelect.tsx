@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useImageGeneratorStore } from "@/lib/store/imageGenerator.store";
+import { WatermarkForegroundColor } from "@/lib/types/ImageGeneratorSettings";
 import { cn } from "@/lib/utils";
 
 const watermarks = ["light", "dark", "color-light", "color-dark"];
@@ -20,7 +21,7 @@ const watermarkColor = {
   transparent: "bg-transparent",
 };
 
-const SocialWatermarkSelect = () => {
+const SocialWatermarkColorSelect = () => {
   const socialWatermark = useImageGeneratorStore(
     (s) => s.settings.watermark.social
   );
@@ -55,13 +56,7 @@ const SocialWatermarkSelect = () => {
                 <div
                   className={cn(
                     "h-6 w-28 rounded border border-input",
-                    watermarkColor[
-                      watermark as
-                        | "light"
-                        | "dark"
-                        | "color-light"
-                        | "color-dark"
-                    ]
+                    watermarkColor[watermark as WatermarkForegroundColor]
                   )}
                 />
               </SelectItem>
@@ -73,4 +68,4 @@ const SocialWatermarkSelect = () => {
   );
 };
 
-export default SocialWatermarkSelect;
+export default SocialWatermarkColorSelect;

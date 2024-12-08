@@ -69,6 +69,7 @@ export const defaultImageGeneratorSettings: ImageGeneratorSettings = {
     social: {
       position: "origin-bottom-left",
       foreground: "color-dark",
+      icon: "x",
     }
   },
 };

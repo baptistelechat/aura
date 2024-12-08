@@ -72,19 +72,32 @@ export type WatermarkPosition =
   | "origin-bottom-left"
   | "origin-bottom-right";
 
-  export type WatermarkBackgroundColor = "light" | "dark" | "color-light" | "color-dark" | "transparent";
-export type WatermarkForegroundColor = "light" | "dark" | "color-light" | "color-dark";
+export type WatermarkBackgroundColor =
+  | "light"
+  | "dark"
+  | "color-light"
+  | "color-dark"
+  | "transparent";
+export type WatermarkForegroundColor =
+  | "light"
+  | "dark"
+  | "color-light"
+  | "color-dark";
+
+const socialIcons = ["facebook", "github", "instagram", "linkedin", "pinterest", "snapchat", "x"] as const;
+export type WatermarkIcon = (typeof socialIcons)[number];
 
 export type WatermarkSettings = {
-  aura : {
-    position:WatermarkPosition;
+  aura: {
+    position: WatermarkPosition;
     background: WatermarkBackgroundColor;
     foreground: WatermarkForegroundColor;
-  },
+  };
   social: {
-    position:WatermarkPosition;
+    position: WatermarkPosition;
     foreground: WatermarkForegroundColor;
-  }
+    icon: WatermarkIcon;
+  };
 };
 
 export type ImageGeneratorSettings = {
